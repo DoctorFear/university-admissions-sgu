@@ -1,0 +1,972 @@
+--- Sheet: ds thi sinh ---
+ tt     CCCD      Cấp            ĐT Mã môn         Loại giải  Điểm cộng cho môn đạt giải  Điểm cộng cho THXT ko có môn đạt giải  Có C/C
+  1  TS_2385 Quốc gia Học sinh giỏi     N1          Giải Nhì                        2.00                                   0.75     NaN
+  2 TS_30521 Quốc gia Học sinh giỏi     SU           Giải Ba                        1.50                                   0.50     NaN
+  3  TS_2259 Quốc gia Học sinh giỏi     N1 Giải Khuyến khích                        1.00                                   0.00     NaN
+  4 TS_42236 Quốc gia Học sinh giỏi     SU Giải Khuyến khích                        1.00                                   0.00     NaN
+  5 TS_41214 Quốc gia Học sinh giỏi     SU Giải Khuyến khích                        1.00                                   0.00     NaN
+  6 TS_39184 Quốc gia Học sinh giỏi   KHAC           Giải Ba                        0.00                                   0.50     NaN
+  7 TS_17122 Quốc gia Học sinh giỏi     TO Giải Khuyến khích                        1.00                                   0.00     NaN
+  8 TS_32453 Quốc gia Học sinh giỏi     DI           Giải Ba                        1.50                                   0.50     NaN
+  9 TS_11403 Quốc gia Học sinh giỏi     DI Giải khuyến khích                        1.00                                   0.00     NaN
+ 10  TS_3007 Quốc gia Học sinh giỏi     SU Giải khuyến khích                        1.00                                   0.00     NaN
+ 11 TS_34361 Quốc gia Học sinh giỏi     VA Giải khuyến khích                        1.00                                   0.00     NaN
+ 12 TS_13413 Quốc gia Học sinh giỏi     VA Giải khuyến khích                        1.00                                   0.00     NaN
+ 13  TS_0818 Quốc gia Học sinh giỏi     DI           Giải Ba                        1.50                                   0.50     NaN
+ 14 TS_44492 Quốc gia Học sinh giỏi     VA Giải Khuyến khích                        1.00                                   0.00     NaN
+ 15 TS_35704 Quốc gia Học sinh giỏi   KHAC           Giải Ba                        0.00                                   0.50     NaN
+ 16 TS_35997     Tỉnh Học sinh giỏi     VA         Giải Nhất                        1.00                                   0.25     NaN
+ 17 TS_41720     Tỉnh Học sinh giỏi     N1          Giải Nhì                        0.75                                   0.00     NaN
+ 18 TS_29707     Tỉnh Học sinh giỏi     N1         Giải Nhất                        1.00                                   0.25     NaN
+ 19 TS_43596     Tỉnh Học sinh giỏi     VA          Giải Nhì                        0.75                                   0.00     NaN
+ 20 TS_30896     Tỉnh Học sinh giỏi     N1           Giải Ba                        0.50                                   0.00     NaN
+ 21 TS_34631     Tỉnh Học sinh giỏi     VA           Giải Ba                        0.50                                   0.00     NaN
+ 22 TS_42755     Tỉnh Học sinh giỏi     VA         Giải Nhất                        1.00                                   0.25     NaN
+ 23 TS_40151     Tỉnh Học sinh giỏi     DI         Giải Nhất                        1.00                                   0.25     NaN
+ 24 TS_19652     Tỉnh Học sinh giỏi     N1           Giải Ba                        0.50                                   0.00     NaN
+ 25 TS_11738     Tỉnh Học sinh giỏi     SU           Giải Ba                        0.50                                   0.00     NaN
+ 26 TS_17760     Tỉnh Học sinh giỏi     VA           Giải Ba                        0.50                                   0.00     NaN
+ 27 TS_42977     Tỉnh Học sinh giỏi     VA           Giải Ba                        0.50                                   0.00     NaN
+ 28  TS_8110     Tỉnh Học sinh giỏi     N1          Giải Nhì                        0.75                                   0.00     NaN
+ 29 TS_38593     Tỉnh Học sinh giỏi     SI          Giải Nhì                        0.75                                   0.00     NaN
+ 30  TS_7723     Tỉnh Học sinh giỏi     VA           Giải Ba                        0.50                                   0.00     NaN
+ 31  TS_0339     Tỉnh Học sinh giỏi     VA           Giải Ba                        0.50                                   0.00     NaN
+ 32 TS_34308     Tỉnh Học sinh giỏi     SU           Giải Ba                        0.50                                   0.00     NaN
+ 33 TS_32829     Tỉnh Học sinh giỏi     DI         Giải Nhất                        1.00                                   0.25     NaN
+ 34 TS_47201     Tỉnh Học sinh giỏi     SI           Giải Ba                        0.50                                   0.00     NaN
+ 35 TS_12189     Tỉnh Học sinh giỏi     VA         Giải Nhất                        1.00                                   0.25     NaN
+ 36 TS_38057     Tỉnh Học sinh giỏi     VA         Giải Nhất                        1.00                                   0.25     NaN
+ 37 TS_31915     Tỉnh Học sinh giỏi     SU           Giải Ba                        0.50                                   0.00     NaN
+ 38  TS_7866     Tỉnh Học sinh giỏi     SU          Giải Nhì                        0.75                                   0.00     NaN
+ 39 TS_29445     Tỉnh Học sinh giỏi     VA          Giải Nhì                        0.75                                   0.00     NaN
+ 40 TS_38606     Tỉnh Học sinh giỏi     SI           Giải Ba                        0.50                                   0.00     NaN
+ 41 TS_13299     Tỉnh Học sinh giỏi     DI           Giải Ba                        0.50                                   0.00     NaN
+ 42 TS_24080     Tỉnh Học sinh giỏi     VA          Giải Nhì                        0.75                                   0.00     NaN
+ 43 TS_46840     Tỉnh Học sinh giỏi     DI         Giải Nhất                        1.00                                   0.25     NaN
+ 44  TS_6858     Tỉnh Học sinh giỏi     TO         Giải Nhất                        1.00                                   0.25     NaN
+ 45 TS_21130     Tỉnh Học sinh giỏi     VA           Giải Ba                        0.50                                   0.00     NaN
+ 46 TS_42251     Tỉnh Học sinh giỏi     N1          Giải Nhì                        0.75                                   0.00     NaN
+ 47 TS_19955     Tỉnh Học sinh giỏi     N1           Giải Ba                        0.50                                   0.00     NaN
+ 48 TS_39720     Tỉnh Học sinh giỏi     SU         Giải Nhất                        1.00                                   0.25     NaN
+ 49 TS_14923     Tỉnh Học sinh giỏi     DI           Giải Ba                        0.50                                   0.00     NaN
+ 50 TS_37001     Tỉnh Học sinh giỏi     LI         Giải nhất                        1.00                                   0.25     NaN
+ 51 TS_22845     Tỉnh Học sinh giỏi     TI          Giải Nhì                        0.75                                   0.00     NaN
+ 52 TS_15047     Tỉnh Học sinh giỏi     TO           Giải Ba                        0.50                                   0.00     NaN
+ 53 TS_18854     Tỉnh Học sinh giỏi     VA           Giải Ba                        0.50                                   0.00     NaN
+ 54 TS_18264     Tỉnh Học sinh giỏi     N1          Giải Nhì                        0.75                                   0.00     NaN
+ 55 TS_24517     Tỉnh Học sinh giỏi     N1           Giải Ba                        0.50                                   0.00     NaN
+ 56 TS_24948     Tỉnh Học sinh giỏi     TO           Giải Ba                        0.50                                   0.00     NaN
+ 57 TS_40028     Tỉnh Học sinh giỏi     VA          Giải Nhì                        0.75                                   0.00     NaN
+ 58 TS_36353     Tỉnh Học sinh giỏi     DI          Giải Nhì                        0.75                                   0.00     NaN
+ 59 TS_19749     Tỉnh Học sinh giỏi     SU           Giải Ba                        0.50                                   0.00     NaN
+ 60 TS_37993     Tỉnh Học sinh giỏi     TO          Giải Nhì                        0.75                                   0.00     NaN
+ 61  TS_5952     Tỉnh Học sinh giỏi     VA          Giải Nhì                        0.75                                   0.00     NaN
+ 62  TS_2462     Tỉnh Học sinh giỏi     VA           Giải Ba                        0.50                                   0.00     NaN
+ 63 TS_33789     Tỉnh Học sinh giỏi     SU          Giải Nhì                        0.75                                   0.00     NaN
+ 64 TS_14311     Tỉnh Học sinh giỏi     SU         Giải Nhất                        1.00                                   0.25     NaN
+ 65 TS_24144     Tỉnh Học sinh giỏi     VA         Giải Nhất                        1.00                                   0.25     NaN
+ 66 TS_35066     Tỉnh Học sinh giỏi     LI           Giải Ba                        0.50                                   0.00     NaN
+ 67 TS_21624     Tỉnh Học sinh giỏi     SU           Giải Ba                        0.50                                   0.00     NaN
+ 68 TS_22323     Tỉnh Học sinh giỏi     VA         Giải Nhất                        1.00                                   0.25     NaN
+ 69  TS_9974     Tỉnh Học sinh giỏi     TO           Giải Ba                        0.50                                   0.00     NaN
+ 70 TS_15110     Tỉnh Học sinh giỏi     VA         Giải Nhất                        1.00                                   0.25     NaN
+ 71  TS_3910     Tỉnh Học sinh giỏi     HO           Giải Ba                        0.50                                   0.00     NaN
+ 72 TS_46237     Tỉnh Học sinh giỏi     N1           Giải Ba                        0.50                                   0.00     NaN
+ 73 TS_16011     Tỉnh Học sinh giỏi     VA          Giải Nhì                        0.75                                   0.00     NaN
+ 74 TS_21844     Tỉnh Học sinh giỏi     VA           Giải Ba                        0.50                                   0.00     NaN
+ 75  TS_4596     Tỉnh Học sinh giỏi     SI           Giải Ba                        0.50                                   0.00     NaN
+ 76 TS_22173     Tỉnh Học sinh giỏi     N1          Giải Nhì                        0.75                                   0.00     NaN
+ 77 TS_34064     Tỉnh Học sinh giỏi     DI          Giải Nhì                        0.75                                   0.00     NaN
+ 78 TS_13644     Tỉnh Học sinh giỏi     DI           Giải Ba                        0.50                                   0.00     NaN
+ 79 TS_26997     Tỉnh Học sinh giỏi     DI          Giải nhì                        0.75                                   0.00     NaN
+ 80 TS_14773     Tỉnh Học sinh giỏi     SU           Giải Ba                        0.50                                   0.00     NaN
+ 81 TS_34296     Tỉnh Học sinh giỏi     VA         Giải Nhất                        1.00                                   0.25     NaN
+ 82  TS_5007     Tỉnh Học sinh giỏi     VA           Giải Ba                        0.50                                   0.00     NaN
+ 83  TS_7883     Tỉnh Học sinh giỏi     SU          Giải Nhì                        0.75                                   0.00     NaN
+ 84 TS_26743     Tỉnh Học sinh giỏi     SI           Giải Ba                        0.50                                   0.00     NaN
+ 85 TS_34179     Tỉnh Học sinh giỏi     SI          Giải Nhì                        0.75                                   0.00     NaN
+ 86 TS_24391     Tỉnh Học sinh giỏi     SU          Giải Nhì                        0.75                                   0.00     NaN
+ 87 TS_39032     Tỉnh Học sinh giỏi     VA           Giải Ba                        0.50                                   0.00     NaN
+ 88 TS_40749     Tỉnh Học sinh giỏi     N1           Giải Ba                        0.50                                   0.00     NaN
+ 89 TS_24552     Tỉnh Học sinh giỏi     TO           Giải Ba                        0.50                                   0.00     NaN
+ 90 TS_24201     Tỉnh Học sinh giỏi     N1          Giải Nhì                        0.75                                   0.00     NaN
+ 91 TS_11418     Tỉnh Học sinh giỏi     SU          Giải Nhì                        0.75                                   0.00     NaN
+ 92  TS_0682     Tỉnh Học sinh giỏi     VA         Giải Nhất                        1.00                                   0.25     NaN
+ 93 TS_26760     Tỉnh Học sinh giỏi     N1           Giải Ba                        0.50                                   0.00     NaN
+ 94 TS_41063     Tỉnh Học sinh giỏi     N1          Giải Nhì                        0.75                                   0.00     NaN
+ 95 TS_12119     Tỉnh Học sinh giỏi     VA           Giải Ba                        0.50                                   0.00     NaN
+ 96 TS_20347     Tỉnh Học sinh giỏi     TO           Giải Ba                        0.50                                   0.00     NaN
+ 97  TS_1322     Tỉnh Học sinh giỏi     TO          Giải Nhì                        0.75                                   0.00     NaN
+ 98 TS_42214     Tỉnh Học sinh giỏi     VA           Giải Ba                        0.50                                   0.00     NaN
+ 99 TS_26542     Tỉnh Học sinh giỏi     VA          Giải Nhì                        0.75                                   0.00     NaN
+100  TS_1972     Tỉnh Học sinh giỏi     DI           Giải Ba                        0.50                                   0.00     NaN
+101 TS_44167     Tỉnh Học sinh giỏi     TO           Giải Ba                        0.50                                   0.00     NaN
+102 TS_23942     Tỉnh Học sinh giỏi     HO           Giải Ba                        0.50                                   0.00     NaN
+103 TS_11215     Tỉnh Học sinh giỏi     N1         Giải Nhất                        1.00                                   0.25     NaN
+104 TS_20913     Tỉnh Học sinh giỏi     N1           Giải Ba                        0.50                                   0.00     NaN
+105 TS_20132     Tỉnh Học sinh giỏi     TO           Giải Ba                        0.50                                   0.00     NaN
+106 TS_20921     Tỉnh Học sinh giỏi     SI           Giải Ba                        0.50                                   0.00     NaN
+107 TS_13375     Tỉnh Học sinh giỏi     N1          Giải Nhì                        0.75                                   0.00     NaN
+108 TS_19405     Tỉnh Học sinh giỏi     DI          Giải Nhì                        0.75                                   0.00     NaN
+109 TS_27078     Tỉnh Học sinh giỏi     TO           Giải Ba                        0.50                                   0.00     NaN
+110  TS_1958     Tỉnh Học sinh giỏi     DI          Giải Nhì                        0.75                                   0.00     NaN
+111 TS_41719     Tỉnh Học sinh giỏi     TO           Giải Ba                        0.50                                   0.00     NaN
+112 TS_25948     Tỉnh Học sinh giỏi     N1          Giải Nhì                        0.75                                   0.00     NaN
+113 TS_41738     Tỉnh Học sinh giỏi     VA          Giải Nhì                        0.75                                   0.00     NaN
+114 TS_20175     Tỉnh Học sinh giỏi     N1           Giải Ba                        0.50                                   0.00     NaN
+115 TS_46773     Tỉnh Học sinh giỏi     VA           Giải Ba                        0.50                                   0.00     NaN
+116  TS_0812     Tỉnh Học sinh giỏi     HO           Giải Ba                        0.50                                   0.00     NaN
+117 TS_13834     Tỉnh Học sinh giỏi     SU           Giải Ba                        0.50                                   0.00     NaN
+118 TS_16439     Tỉnh Học sinh giỏi     N1           Giải Ba                        0.50                                   0.00     NaN
+119 TS_46142     Tỉnh Học sinh giỏi   KTPL           Giải Ba                        0.50                                   0.00     NaN
+120 TS_44590     Tỉnh Học sinh giỏi   KTPL          Giải Nhì                        0.75                                   0.00     NaN
+121 TS_36680     Tỉnh Học sinh giỏi   KHAC           Giải Ba                        0.00                                   0.00     NaN
+122 TS_40778     Tỉnh Học sinh giỏi     DI          Giải Nhì                        0.75                                   0.00     NaN
+123 TS_19750     Tỉnh Học sinh giỏi     VA           Giải Ba                        0.50                                   0.00     NaN
+124 TS_43674     Tỉnh Học sinh giỏi     DI          Giải Nhì                        0.75                                   0.00     NaN
+125 TS_21742     Tỉnh Học sinh giỏi     LI           Giải Ba                        0.50                                   0.00     NaN
+126  TS_9463     Tỉnh Học sinh giỏi     SU          Giải Nhì                        0.75                                   0.00     NaN
+127 TS_32671     Tỉnh Học sinh giỏi     N1           Giải Ba                        0.50                                   0.00     NaN
+128 TS_23851     Tỉnh Học sinh giỏi     DI          Giải Nhì                        0.75                                   0.00     NaN
+129 TS_14081     Tỉnh Học sinh giỏi     SU          Giải Nhì                        0.75                                   0.00     NaN
+130 TS_32448     Tỉnh Học sinh giỏi     VA         Giải Nhất                        1.00                                   0.25     NaN
+131 TS_46239     Tỉnh Học sinh giỏi     DI           Giải Ba                        0.50                                   0.00     NaN
+132 TS_41991     Tỉnh Học sinh giỏi     DI          Giải Nhì                        0.75                                   0.00     NaN
+133 TS_21260     Tỉnh Học sinh giỏi     DI           Giải Ba                        0.50                                   0.00     NaN
+134 TS_47854     Tỉnh Học sinh giỏi     N1           Giải Ba                        0.50                                   0.00     NaN
+135  TS_6044     Tỉnh Học sinh giỏi     N1           Giải Ba                        0.50                                   0.00     NaN
+136 TS_41732     Tỉnh Học sinh giỏi     HO           Giải Ba                        0.50                                   0.00     NaN
+137 TS_38569     Tỉnh Học sinh giỏi     TI          Giải Nhì                        0.75                                   0.00     NaN
+138 TS_36425     Tỉnh Học sinh giỏi     SU           Giải Ba                        0.50                                   0.00     NaN
+139  TS_8048     Tỉnh Học sinh giỏi     VA          Giải Nhì                        0.75                                   0.00     NaN
+140  TS_7718     Tỉnh Học sinh giỏi     VA           Giải Ba                        0.50                                   0.00     NaN
+141 TS_41924     Tỉnh Học sinh giỏi     DI           Giải Ba                        0.50                                   0.00     NaN
+142 TS_28669     Tỉnh Học sinh giỏi     VA           Giải Ba                        0.50                                   0.00     NaN
+143 TS_22803     Tỉnh Học sinh giỏi     SU          Giải Nhì                        0.75                                   0.00     NaN
+144 TS_43863     Tỉnh Học sinh giỏi   KTPL          Giải Nhì                        0.75                                   0.00     NaN
+145 TS_14903     Tỉnh Học sinh giỏi     HO           Giải Ba                        0.50                                   0.00     NaN
+146  TS_1339     Tỉnh Học sinh giỏi     SU          Giải Nhì                        0.75                                   0.00     NaN
+147 TS_39722     Tỉnh Học sinh giỏi     SU           Giải Ba                        0.50                                   0.00     NaN
+148  TS_6455     Tỉnh Học sinh giỏi     VA           Giải Ba                        0.50                                   0.00     NaN
+149  TS_0264     Tỉnh Học sinh giỏi     VA           Giải Ba                        0.50                                   0.00     NaN
+150 TS_10278     Tỉnh Học sinh giỏi     VA           Giải Ba                        0.50                                   0.00     NaN
+151 TS_17256     Tỉnh Học sinh giỏi     SU          Giải Nhì                        0.75                                   0.00     NaN
+152 TS_33253     Tỉnh Học sinh giỏi     VA           Giải Ba                        0.50                                   0.00     NaN
+153 TS_26909     Tỉnh Học sinh giỏi     DI         Giải Nhất                        1.00                                   0.25     NaN
+154 TS_10758     Tỉnh Học sinh giỏi     VA         Giải Nhất                        1.00                                   0.25     NaN
+155 TS_15959     Tỉnh Học sinh giỏi     DI         Giải Nhất                        1.00                                   0.25     NaN
+156 TS_19800     Tỉnh Học sinh giỏi     N1           Giải Ba                        0.50                                   0.00     NaN
+157  TS_9263     Tỉnh Học sinh giỏi     VA          Giải Nhì                        0.75                                   0.00     NaN
+158  TS_6209     Tỉnh Học sinh giỏi     N1          Giải Nhì                        0.75                                   0.00     NaN
+159 TS_10902     Tỉnh Học sinh giỏi     DI         Giải Nhất                        1.00                                   0.25     NaN
+160 TS_21530     Tỉnh Học sinh giỏi     SU           Giải Ba                        0.50                                   0.00     NaN
+161 TS_39878     Tỉnh Học sinh giỏi     N1           Giải Ba                        0.50                                   0.00     NaN
+162 TS_25162     Tỉnh Học sinh giỏi     HO           Giải Ba                        0.50                                   0.00     NaN
+163 TS_18424     Tỉnh Học sinh giỏi     VA          Giải Nhì                        0.75                                   0.00     NaN
+164  TS_0207     Tỉnh Học sinh giỏi     SU           Giải Ba                        0.50                                   0.00     NaN
+165 TS_29809     Tỉnh Học sinh giỏi     VA          Giải Nhì                        0.75                                   0.00     NaN
+166 TS_39320     Tỉnh Học sinh giỏi     SU          Giải Nhì                        0.75                                   0.00     NaN
+167 TS_39426     Tỉnh Học sinh giỏi     DI         Giải Nhất                        1.00                                   0.25     NaN
+168 TS_38654     Tỉnh Học sinh giỏi     HO           Giải Ba                        0.50                                   0.00     NaN
+169 TS_28438     Tỉnh Học sinh giỏi     LI           Giải Ba                        0.50                                   0.00     NaN
+170  TS_5843     Tỉnh Học sinh giỏi     N1           Giải Ba                        0.50                                   0.00     NaN
+171 TS_12997     Tỉnh Học sinh giỏi     SU           Giải Ba                        0.50                                   0.00     NaN
+172 TS_43653     Tỉnh Học sinh giỏi     VA          Giải Nhì                        0.75                                   0.00     NaN
+173 TS_28887     Tỉnh Học sinh giỏi     DI          Giải Nhì                        0.75                                   0.00     NaN
+174 TS_36416     Tỉnh Học sinh giỏi     DI           Giải Ba                        0.50                                   0.00     NaN
+175 TS_22548     Tỉnh Học sinh giỏi     LI          Giải Nhì                        0.75                                   0.00     NaN
+176  TS_7127     Tỉnh Học sinh giỏi     VA           Giải Ba                        0.50                                   0.00     NaN
+177 TS_21085     Tỉnh Học sinh giỏi     SI           Giải Ba                        0.50                                   0.00     NaN
+178  TS_2739     Tỉnh Học sinh giỏi     TO           Giải Ba                        0.50                                   0.00     NaN
+179 TS_19073     Tỉnh Học sinh giỏi     SI           Giải Ba                        0.50                                   0.00     NaN
+180 TS_15963     Tỉnh Học sinh giỏi     VA           Giải Ba                        0.50                                   0.00     NaN
+181 TS_23169     Tỉnh Học sinh giỏi     N1           Giải Ba                        0.50                                   0.00     NaN
+182 TS_37037     Tỉnh Học sinh giỏi     VA          Giải Nhì                        0.75                                   0.00     NaN
+183 TS_11883     Tỉnh Học sinh giỏi     TI         Giải Nhất                        1.00                                   0.25     NaN
+184 TS_31463     Tỉnh Học sinh giỏi     SU           Giải Ba                        0.50                                   0.00     NaN
+185 TS_36686     Tỉnh Học sinh giỏi     VA           Giải Ba                        0.50                                   0.00     NaN
+186 TS_29779     Tỉnh Học sinh giỏi     VA           Giải Ba                        0.50                                   0.00     NaN
+187 TS_31824     Tỉnh Học sinh giỏi     N1          Giải Nhì                        0.75                                   0.00     NaN
+188 TS_34132     Tỉnh Học sinh giỏi     N1           Giải Ba                        0.50                                   0.00     NaN
+189 TS_21785     Tỉnh Học sinh giỏi     HO           Giải Ba                        0.50                                   0.00     NaN
+190 TS_29943     Tỉnh Học sinh giỏi   KHAC         Giải Nhất                        0.00                                   0.25     NaN
+191  TS_6804     Tỉnh Học sinh giỏi     LI           Giải Ba                        0.50                                   0.00     NaN
+192 TS_34195     Tỉnh Học sinh giỏi     N1         Giải Nhất                        1.00                                   0.25     NaN
+193 TS_39364     Tỉnh Học sinh giỏi     VA          Giải Nhì                        0.75                                   0.00     NaN
+194 TS_12388     Tỉnh Học sinh giỏi   KHAC         Giải nhất                        0.00                                   0.25     NaN
+195 TS_42615     Tỉnh Học sinh giỏi     VA          Giải Nhì                        0.75                                   0.00     NaN
+196 TS_21410     Tỉnh Học sinh giỏi     SU           Giải Ba                        0.50                                   0.00     NaN
+197 TS_45332     Tỉnh Học sinh giỏi     N1           Giải Ba                        0.50                                   0.00     NaN
+198 TS_29025     Tỉnh Học sinh giỏi     VA         Giải Nhất                        1.00                                   0.25     NaN
+199 TS_31212     Tỉnh Học sinh giỏi     TO          Giải Nhì                        0.75                                   0.00     NaN
+200 TS_29348     Tỉnh Học sinh giỏi     VA           Giải Ba                        0.50                                   0.00     NaN
+201 TS_11051     Tỉnh Học sinh giỏi     TO           Giải Ba                        0.50                                   0.00     NaN
+202 TS_15990     Tỉnh Học sinh giỏi     DI         Giải Nhất                        1.00                                   0.25     NaN
+203 TS_39420     Tỉnh Học sinh giỏi     DI          Giải Nhì                        0.75                                   0.00     NaN
+204 TS_19734     Tỉnh Học sinh giỏi     DI          Giải Nhì                        0.75                                   0.00     NaN
+205 TS_42576     Tỉnh Học sinh giỏi     SU           Giải Ba                        0.50                                   0.00     NaN
+206 TS_30675     Tỉnh Học sinh giỏi     SU          Giải Nhì                        0.75                                   0.00     NaN
+207 TS_13097     Tỉnh Học sinh giỏi     TO          Giải Nhì                        0.75                                   0.00     NaN
+208 TS_12939     Tỉnh Học sinh giỏi     N1           Giải Ba                        0.50                                   0.00     NaN
+209 TS_20645     Tỉnh Học sinh giỏi     N1           Giải Ba                        0.50                                   0.00     NaN
+210 TS_39436     Tỉnh Học sinh giỏi     N1          Giải Nhì                        0.75                                   0.00     NaN
+211  TS_0016     Tỉnh Học sinh giỏi     N1           Giải Ba                        0.50                                   0.00     NaN
+212 TS_24306     Tỉnh Học sinh giỏi     SU           Giải Ba                        0.50                                   0.00     NaN
+213 TS_13569     Tỉnh Học sinh giỏi     VA           Giải Ba                        0.50                                   0.00     NaN
+214 TS_25328     Tỉnh Học sinh giỏi     N1          Giải Nhì                        0.75                                   0.00     NaN
+215  TS_6278     Tỉnh Học sinh giỏi     N1           Giải Ba                        0.50                                   0.00     NaN
+216 TS_37096     Tỉnh Học sinh giỏi     SU          Giải Nhì                        0.75                                   0.00     NaN
+217 TS_39752     Tỉnh Học sinh giỏi     VA           Giải Ba                        0.50                                   0.00     NaN
+218 TS_41433     Tỉnh Học sinh giỏi     DI           Giải Ba                        0.50                                   0.00     NaN
+219 TS_27703     Tỉnh Học sinh giỏi     VA           Giải Ba                        0.50                                   0.00     NaN
+220 TS_45299     Tỉnh Học sinh giỏi     SU         Giải Nhất                        1.00                                   0.25     NaN
+221 TS_19790     Tỉnh Học sinh giỏi     HO           Giải Ba                        0.50                                   0.00     NaN
+222 TS_13869     Tỉnh Học sinh giỏi     VA           Giải Ba                        0.50                                   0.00     NaN
+223 TS_38803     Tỉnh Học sinh giỏi     VA           Giải Ba                        0.50                                   0.00     NaN
+224 TS_44975     Tỉnh Học sinh giỏi     LI          Giải Nhì                        0.75                                   0.00     NaN
+225 TS_31512     Tỉnh Học sinh giỏi     N1           Giải Ba                        0.50                                   0.00     NaN
+226  TS_6089     Tỉnh Học sinh giỏi     SU          Giải Nhì                        0.75                                   0.00     NaN
+227 TS_31838     Tỉnh Học sinh giỏi     SU         Giải Nhất                        1.00                                   0.25     NaN
+228  TS_5414     Tỉnh Học sinh giỏi     TO           Giải Ba                        0.50                                   0.00     NaN
+229 TS_22381     Tỉnh Học sinh giỏi     DI          Giải Nhì                        0.75                                   0.00     NaN
+230 TS_41678     Tỉnh Học sinh giỏi     VA          Giải Nhì                        0.75                                   0.00     NaN
+231  TS_1163     Tỉnh Học sinh giỏi     VA          Giải Nhì                        0.75                                   0.00     NaN
+232 TS_30171     Tỉnh Học sinh giỏi     VA          Giải Nhì                        0.75                                   0.00     NaN
+233 TS_34267     Tỉnh Học sinh giỏi     DI           Giải Ba                        0.50                                   0.00     NaN
+234 TS_21101     Tỉnh Học sinh giỏi     SU          Giải Nhì                        0.75                                   0.00     NaN
+235 TS_18194     Tỉnh Học sinh giỏi     HO           Giải Ba                        0.50                                   0.00     NaN
+236 TS_14223     Tỉnh Học sinh giỏi     N1           Giải Ba                        0.50                                   0.00     NaN
+237 TS_15630     Tỉnh Học sinh giỏi     VA          Giải Nhì                        0.75                                   0.00     NaN
+238 TS_20974     Tỉnh Học sinh giỏi     DI          Giải Nhì                        0.75                                   0.00     NaN
+239 TS_19242     Tỉnh Học sinh giỏi     SU          Giải Nhì                        0.75                                   0.00     NaN
+240  TS_1328     Tỉnh Học sinh giỏi     N1           Giải Ba                        0.50                                   0.00     NaN
+241 TS_16616     Tỉnh Học sinh giỏi     SI         Giải Nhất                        1.00                                   0.25     NaN
+242 TS_35846     Tỉnh Học sinh giỏi     VA           Giải Ba                        0.50                                   0.00     NaN
+243 TS_25589     Tỉnh Học sinh giỏi     SU         Giải Nhất                        1.00                                   0.25     NaN
+244 TS_41594     Tỉnh Học sinh giỏi     SU          Giải Nhì                        0.75                                   0.00     NaN
+245 TS_16883     Tỉnh Học sinh giỏi     VA           Giải Ba                        0.50                                   0.00     NaN
+246 TS_44304     Tỉnh Học sinh giỏi     SU          Giải Nhì                        0.75                                   0.00     NaN
+247 TS_27425     Tỉnh Học sinh giỏi     SI          Giải Nhì                        0.75                                   0.00     NaN
+248 TS_47887     Tỉnh Học sinh giỏi     VA           Giải Ba                        0.50                                   0.00     NaN
+249 TS_44655     Tỉnh Học sinh giỏi     SU          Giải Nhì                        0.75                                   0.00     NaN
+250  TS_1326     Tỉnh Học sinh giỏi     DI          Giải Nhì                        0.75                                   0.00     NaN
+251 TS_45839     Tỉnh Học sinh giỏi     SU          Giải Nhì                        0.75                                   0.00     NaN
+252 TS_41340     Tỉnh Học sinh giỏi     VA           Giải Ba                        0.50                                   0.00     NaN
+253  TS_5617     Tỉnh Học sinh giỏi     VA          Giải Nhì                        0.75                                   0.00     NaN
+254 TS_39369     Tỉnh Học sinh giỏi     VA           Giải Ba                        0.50                                   0.00     NaN
+255  TS_7154     Tỉnh Học sinh giỏi     VA           Giải Ba                        0.50                                   0.00     NaN
+256 TS_16390     Tỉnh Học sinh giỏi     VA          Giải Nhì                        0.75                                   0.00     NaN
+257 TS_17221     Tỉnh Học sinh giỏi     TO           Giải Ba                        0.50                                   0.00     NaN
+258 TS_30066     Tỉnh Học sinh giỏi     N1           Giải Ba                        0.50                                   0.00     NaN
+259 TS_22043     Tỉnh Học sinh giỏi     VA          Giải Nhì                        0.75                                   0.00     NaN
+260  TS_4173     Tỉnh Học sinh giỏi     VA           Giải Ba                        0.50                                   0.00     NaN
+261 TS_34931     Tỉnh Học sinh giỏi     SI           Giải Ba                        0.50                                   0.00     NaN
+262 TS_39367     Tỉnh Học sinh giỏi     SU           Giải Ba                        0.50                                   0.00     NaN
+263 TS_41622     Tỉnh Học sinh giỏi     SU          Giải Nhì                        0.75                                   0.00     NaN
+264 TS_31253     Tỉnh Học sinh giỏi     DI           Giải Ba                        0.50                                   0.00     NaN
+265  TS_7133     Tỉnh Học sinh giỏi     SU          Giải Nhì                        0.75                                   0.00     NaN
+266  TS_9447     Tỉnh Học sinh giỏi     N1           Giải Ba                        0.50                                   0.00     NaN
+267  TS_2115     Tỉnh Học sinh giỏi     N1           Giải Ba                        0.50                                   0.00     NaN
+268 TS_12368     Tỉnh Học sinh giỏi     SU           Giải ba                        0.50                                   0.00     NaN
+269 TS_19952     Tỉnh Học sinh giỏi     VA           Giải Ba                        0.50                                   0.00     NaN
+270 TS_21859     Tỉnh Học sinh giỏi     VA          Giải Nhì                        0.75                                   0.00     NaN
+271 TS_33796     Tỉnh Học sinh giỏi     SU           Giải Ba                        0.50                                   0.00     NaN
+272 TS_11835     Tỉnh Học sinh giỏi     DI           Giải Ba                        0.50                                   0.00     NaN
+273 TS_22724     Tỉnh Học sinh giỏi     VA          Giải Nhì                        0.75                                   0.00     NaN
+
+--- Sheet: ds nguyen vong ---
+ TT     CCCD         Loại giải                  Môn đạt giải      Cấp Thứ tự NV                             Tên ngành  Điểm cộng cho môn đạt giải  Điểm cộng cho THXT ko có môn đạt giải    Unnamed: 9
+  1  TS_2385          Giải Nhì                     Tiếng Anh Quốc gia       NV1                     Sư phạm Tiếng Anh                        2.00                                   0.75           NaN
+  2 TS_30521           Giải Ba                       Lịch sử Quốc gia       NV1                       Sư phạm Lịch sử                        1.50                                   0.50           NaN
+  3 TS_30521           Giải Ba                       Lịch sử Quốc gia       NV2              Sư phạm Lịch sử - Địa lý                        1.50                                   0.50           NaN
+  4 TS_30521           Giải Ba                       Lịch sử Quốc gia       NV3                       Sư phạm Ngữ văn                        1.50                                   0.50           NaN
+  5  TS_2259 Giải Khuyến khích                     Tiếng Anh Quốc gia       NV1                     Sư phạm Tiếng Anh                        1.00                                   0.00           NaN
+  6  TS_2259 Giải Khuyến khích                     Tiếng Anh Quốc gia       NV2                      Ngôn ngữ Anh CLC                        1.00                                   0.00           NaN
+  7  TS_2259 Giải Khuyến khích                     Tiếng Anh Quốc gia       NV3                          Ngôn ngữ Anh                        1.00                                   0.00           NaN
+  8 TS_42236 Giải Khuyến khích                       Lịch sử Quốc gia       NV1                       Sư phạm Lịch sử                        1.00                                   0.00           NaN
+  9 TS_42236 Giải Khuyến khích                       Lịch sử Quốc gia       NV2                       Sư phạm Ngữ văn                        1.00                                   0.00           NaN
+ 10 TS_42236 Giải Khuyến khích                       Lịch sử Quốc gia       NV3                Sư phạm Lịch sử-Địa lý                        1.00                                   0.00           NaN
+ 11 TS_42236 Giải Khuyến khích                       Lịch sử Quốc gia       NV4                        Sư phạm Địa lý                        1.00                                   0.00           NaN
+ 12 TS_41214 Giải Khuyến khích                       Lịch sử Quốc gia       NV1              Sư phạm Lịch sử - Địa lý                        1.00                                   0.00           NaN
+ 13 TS_41214 Giải Khuyến khích                       Lịch sử Quốc gia       NV2                       Sư phạm Lịch sử                        1.00                                   0.00           NaN
+ 14 TS_39184           Giải Ba    Khoa học xã hội và hành vi Quốc gia       NV1                     Sư phạm Tiếng Anh                        0.00                                   0.50           NaN
+ 15 TS_39184           Giải Ba    Khoa học xã hội và hành vi Quốc gia       NV2                          Ngôn ngữ Anh                        0.00                                   0.50           NaN
+ 16 TS_17122 Giải Khuyến khích                      Toán học Quốc gia       NV1                      Sư phạm Toán học                        1.00                                   0.00           NaN
+ 17 TS_17122 Giải Khuyến khích                      Toán học Quốc gia       NV2                         Toán Ứng dụng                        1.00                                   0.00           NaN
+ 18 TS_32453           Giải Ba                        Địa lí Quốc gia       NV1              Sư phạm Lịch sử - Địa lí                        1.50                                   0.50           NaN
+ 19 TS_11403 Giải khuyến khích                        Địa lí Quốc gia       NV1                        Sư phạm Địa lí                        1.00                                   0.00           NaN
+ 20 TS_11403 Giải khuyến khích                        Địa lí Quốc gia       NV2                       Sư phạm Lịch sử                        1.00                                   0.00           NaN
+ 21 TS_11403 Giải khuyến khích                        Địa lí Quốc gia       NV3                       Sư phạm Ngữ văn                        1.00                                   0.00           NaN
+ 22 TS_11403 Giải khuyến khích                        Địa lí Quốc gia       NV4              Sư phạm Lịch sử - Địa lí                        1.00                                   0.00           NaN
+ 23  TS_3007 Giải khuyến khích                       Lịch sử Quốc gia       NV1                       Sư phạm Lịch sử                        1.00                                   0.00           NaN
+ 24 TS_34361 Giải khuyến khích                       Ngữ văn Quốc gia       NV1                            Tâm lí học                        1.00                                   0.00           NaN
+ 25 TS_13413 Giải khuyến khích                       Ngữ văn Quốc gia       NV1                       Sư phạm Ngữ văn                        1.00                                   0.00           NaN
+ 26 TS_13413 Giải khuyến khích                       Ngữ văn Quốc gia       NV2                            Tâm lí học                        1.00                                   0.00           NaN
+ 27 TS_13413 Giải khuyến khích                       Ngữ văn Quốc gia       NV3                                  Luật                        1.00                                   0.00           NaN
+ 28  TS_0818           Giải Ba                        Địa lí Quốc gia       NV1                        Sư phạm Địa lí                        1.50                                   0.50           NaN
+ 29  TS_0818           Giải Ba                        Địa lí Quốc gia       NV2                       Sư phạm Ngữ văn                        1.50                                   0.50           NaN
+ 30  TS_0818           Giải Ba                        Địa lí Quốc gia       NV3                       Sư phạm Lịch sử                        1.50                                   0.50           NaN
+ 31  TS_0818           Giải Ba                        Địa lí Quốc gia       NV4                            Địa lí học                        1.50                                   0.50           NaN
+ 32 TS_44492 Giải Khuyến khích                       Ngữ văn Quốc gia       NV1                       Sư phạm Ngữ văn                        1.00                                   0.00           NaN
+ 33 TS_35704           Giải Ba    Khoa học xã hội và hành vi Quốc gia       NV1                                  Luật                        0.00                                   0.50           NaN
+ 34 TS_35997         Giải Nhất                       Ngữ văn     Tỉnh       NV1                       Sư phạm Ngữ văn                        1.00                                   0.25           NaN
+ 35 TS_41720          Giải Nhì                     Tiếng Anh     Tỉnh       NV1                     Sư phạm Tiếng Anh                        0.75                                   0.00           NaN
+ 36 TS_29707         Giải Nhất                     Tiếng Anh     Tỉnh       NV1                     Sư phạm Tiếng Anh                        1.00                                   0.25           NaN
+ 37 TS_43596          Giải Nhì                       Ngữ văn     Tỉnh       NV1                       Sư phạm Ngữ văn                        0.75                                   0.00           NaN
+ 38 TS_43596          Giải Nhì                       Ngữ văn     Tỉnh       NV2                       Sư phạm Lịch sử                        0.75                                   0.00           NaN
+ 39 TS_30896           Giải Ba                     Tiếng Anh     Tỉnh       NV1                     Sư phạm Tiếng Anh                        0.50                                   0.00           NaN
+ 40 TS_30896           Giải Ba                     Tiếng Anh     Tỉnh       NV2                          Ngôn ngữ Anh                        0.50                                   0.00           NaN
+ 41 TS_34631           Giải Ba                       Ngữ văn     Tỉnh       NV1                       Sư phạm Ngữ văn                        0.50                                   0.00           NaN
+ 42 TS_34631           Giải Ba                       Ngữ văn     Tỉnh       NV2                          GD Chính trị                        0.50                                   0.00           NaN
+ 43 TS_34631           Giải Ba                       Ngữ văn     Tỉnh       NV3                                  Luật                        0.50                                   0.00           NaN
+ 44 TS_34631           Giải Ba                       Ngữ văn     Tỉnh       NV4                            Quản lí GD                        0.50                                   0.00           NaN
+ 45 TS_42755         Giải Nhất                       Ngữ văn     Tỉnh       NV1                       Sư phạm Ngữ văn                        1.00                                   0.25           NaN
+ 46 TS_42755         Giải Nhất                       Ngữ văn     Tỉnh       NV2                            Tâm lý học                        1.00                                   0.25           NaN
+ 47 TS_40151         Giải Nhất                        Địa lí     Tỉnh       NV1                        Sư phạm Địa lí                        1.00                                   0.25           NaN
+ 48 TS_40151         Giải Nhất                        Địa lí     Tỉnh       NV2              Sư phạm Lịch sử - Địa lí                        1.00                                   0.25           NaN
+ 49 TS_40151         Giải Nhất                        Địa lí     Tỉnh       NV3                            Địa lí học                        1.00                                   0.25           NaN
+ 50 TS_19652           Giải Ba                     Tiếng Anh     Tỉnh       NV1                     Sư phạm Tiếng Anh                        0.50                                   0.00           NaN
+ 51 TS_19652           Giải Ba                     Tiếng Anh     Tỉnh       NV2                    Ngôn ngữ Anh (CLC)                        0.50                                   0.00           NaN
+ 52 TS_19652           Giải Ba                     Tiếng Anh     Tỉnh       NV3                     Giáo dục Tiểu học                        0.50                                   0.00           NaN
+ 53 TS_19652           Giải Ba                     Tiếng Anh     Tỉnh       NV4                          Ngôn ngữ Anh                        0.50                                   0.00           NaN
+ 54 TS_11738           Giải Ba                       Lịch sử     Tỉnh       NV1                       Sư phạm Ngữ văn                        0.50                                   0.00           NaN
+ 55 TS_17760           Giải Ba                       Ngữ văn     Tỉnh       NV1                       Sư phạm Ngữ văn                        0.50                                   0.00           NaN
+ 56 TS_17760           Giải Ba                       Ngữ văn     Tỉnh       NV2                        Sư phạm Địa lí                        0.50                                   0.00           NaN
+ 57 TS_17760           Giải Ba                       Ngữ văn     Tỉnh       NV3                       Sư phạm Lịch sử                        0.50                                   0.00           NaN
+ 58 TS_17760           Giải Ba                       Ngữ văn     Tỉnh       NV4                            Địa lí học                        0.50                                   0.00           NaN
+ 59 TS_42977           Giải Ba                       Ngữ văn     Tỉnh       NV1                       Sư phạm Ngữ văn                        0.50                                   0.00           NaN
+ 60 TS_42977           Giải Ba                       Ngữ văn     Tỉnh       NV2                       Sư phạm Lịch sử                        0.50                                   0.00           NaN
+ 61  TS_8110          Giải Nhì                     Tiếng Anh     Tỉnh       NV1                     Sư phạm Tiếng Anh                        0.75                                   0.00           NaN
+ 62 TS_38593          Giải Nhì                      Sinh học     Tỉnh       NV1                      Sư phạm Sinh học                        0.75                                   0.00           NaN
+ 63 TS_38593          Giải Nhì                      Sinh học     Tỉnh       NV2                        Sư phạm Vật lí                        0.75                                   0.00           NaN
+ 64  TS_7723           Giải Ba                       Ngữ văn     Tỉnh       NV1                       Sư phạm Ngữ văn                        0.50                                   0.00           NaN
+ 65  TS_0339           Giải Ba                       Ngữ văn     Tỉnh       NV1                     Giáo dục Tiểu học                        0.50                                   0.00           NaN
+ 66  TS_0339           Giải Ba                       Ngữ văn     Tỉnh       NV2                       Sư phạm Ngữ văn                        0.50                                   0.00           NaN
+ 67 TS_34308           Giải Ba                       Lịch sử     Tỉnh       NV1                       Sư phạm Ngữ văn                        0.50                                   0.00           NaN
+ 68 TS_34308           Giải Ba                       Lịch sử     Tỉnh       NV2                       Sư phạm Lịch sử                        0.50                                   0.00           NaN
+ 69 TS_34308           Giải Ba                       Lịch sử     Tỉnh       NV3              Sư phạm Lịch sử - Địa lí                        0.50                                   0.00           NaN
+ 70 TS_34308           Giải Ba                       Lịch sử     Tỉnh       NV4                               Lịch sử                        0.50                                   0.00           NaN
+ 71 TS_32829         Giải Nhất                        Địa lí     Tỉnh       NV1                     Sư phạm Tiếng Anh                        1.00                                   0.25           NaN
+ 72 TS_32829         Giải Nhất                        Địa lí     Tỉnh       NV2                       Sư phạm Ngữ văn                        1.00                                   0.25           NaN
+ 73 TS_32829         Giải Nhất                        Địa lí     Tỉnh       NV3                        Sư phạm Địa lí                        1.00                                   0.25           NaN
+ 74 TS_47201           Giải Ba                      Sinh học     Tỉnh       NV1                          Sư phạm KHTN                        0.50                                   0.00           NaN
+ 75 TS_47201           Giải Ba                      Sinh học     Tỉnh       NV2                      Sư phạm Sinh học                        0.50                                   0.00           NaN
+ 76 TS_12189         Giải Nhất                       Ngữ văn     Tỉnh       NV1                               Du lịch                        1.00                                   0.25           NaN
+ 77 TS_12189         Giải Nhất                       Ngữ văn     Tỉnh       NV2                          Ngôn ngữ Anh                        1.00                                   0.25           NaN
+ 78 TS_38057         Giải Nhất                       Ngữ văn     Tỉnh       NV1                       Sư phạm Ngữ văn                        1.00                                   0.25           NaN
+ 79 TS_38057         Giải Nhất                       Ngữ văn     Tỉnh       NV2                                  Luật                        1.00                                   0.25           NaN
+ 80 TS_38057         Giải Nhất                       Ngữ văn     Tỉnh       NV3                     Giáo dục Tiểu học                        1.00                                   0.25           NaN
+ 81 TS_38057         Giải Nhất                       Ngữ văn     Tỉnh       NV4                       Sư phạm Lịch sử                        1.00                                   0.25           NaN
+ 82 TS_31915           Giải Ba                       Lịch sử     Tỉnh       NV1                       Sư phạm Lịch sử                        0.50                                   0.00           NaN
+ 83 TS_31915           Giải Ba                       Lịch sử     Tỉnh       NV2              Sư phạm Lịch sử - Địa lí                        0.50                                   0.00           NaN
+ 84  TS_7866          Giải Nhì                       Lịch sử     Tỉnh       NV1                       Sư phạm Lịch sử                        0.75                                   0.00           NaN
+ 85  TS_7866          Giải Nhì                       Lịch sử     Tỉnh       NV2              Sư phạm Lịch sử - Địa lí                        0.75                                   0.00           NaN
+ 86  TS_7866          Giải Nhì                       Lịch sử     Tỉnh       NV3                       Sư phạm Ngữ văn                        0.75                                   0.00           NaN
+ 87  TS_7866          Giải Nhì                       Lịch sử     Tỉnh       NV4                               Lịch sử                        0.75                                   0.00           NaN
+ 88 TS_29445          Giải Nhì                       Ngữ văn     Tỉnh       NV1                       Sư phạm Ngữ văn                        0.75                                   0.00           NaN
+ 89 TS_29445          Giải Nhì                       Ngữ văn     Tỉnh       NV2              Sư phạm Lịch sử - Địa lí                        0.75                                   0.00           NaN
+ 90 TS_38606           Giải Ba                      Sinh học     Tỉnh       NV1                     Sư phạm Sinh học                         0.50                                   0.00           NaN
+ 91 TS_13299           Giải Ba                        Địa lí     Tỉnh       NV1                            Địa lí học                        0.50                                   0.00           NaN
+ 92 TS_13299           Giải Ba                        Địa lí     Tỉnh       NV2                               Lịch sử                        0.50                                   0.00           NaN
+ 93 TS_24080          Giải Nhì                       Ngữ văn     Tỉnh       NV1                       Sư phạm Ngữ văn                        0.75                                   0.00           NaN
+ 94 TS_24080          Giải Nhì                       Ngữ văn     Tỉnh       NV2                      Quản lý Giáo dục                        0.75                                   0.00           NaN
+ 95 TS_46840         Giải Nhất                        Địa lí     Tỉnh       NV1                        Sư phạm Địa lí                        1.00                                   0.25           NaN
+ 96  TS_6858         Giải Nhất                      Toán học     Tỉnh       NV1                      Sư phạm Toán học                        1.00                                   0.25           NaN
+ 97  TS_6858         Giải Nhất                      Toán học     Tỉnh       NV2                     Toán học Ứng dụng                        1.00                                   0.25           NaN
+ 98  TS_6858         Giải Nhất                      Toán học     Tỉnh       NV3                      Khoa học dữ liệu                        1.00                                   0.25           NaN
+ 99 TS_21130           Giải Ba                       Ngữ văn     Tỉnh       NV1                       Sư phạm Ngữ văn                        0.50                                   0.00           NaN
+100 TS_21130           Giải Ba                       Ngữ văn     Tỉnh       NV2                       Sư phạm Lịch sử                        0.50                                   0.00           NaN
+101 TS_21130           Giải Ba                       Ngữ văn     Tỉnh       NV3                        Sư phạm Địa lí                        0.50                                   0.00           NaN
+102 TS_42251          Giải Nhì                     Tiếng Anh     Tỉnh       NV1                     Sư phạm Tiếng Anh                        0.75                                   0.00           NaN
+103 TS_19955           Giải Ba                     Tiếng Anh     Tỉnh       NV1                     Sư phạm Tiếng Anh                        0.50                                   0.00           NaN
+104 TS_39720         Giải Nhất                       Lịch sử     Tỉnh       NV1                       Sư phạm Ngữ văn                        1.00                                   0.25           NaN
+105 TS_39720         Giải Nhất                       Lịch sử     Tỉnh       NV2                       Sư phạm Lịch sử                        1.00                                   0.25           NaN
+106 TS_39720         Giải Nhất                       Lịch sử     Tỉnh       NV3              Sư phạm Lịch sử - Địa lí                        1.00                                   0.25           NaN
+107 TS_14923           Giải Ba                        Địa lí     Tỉnh       NV1                        Sư phạm Địa lí                        0.50                                   0.00           NaN
+108 TS_14923           Giải Ba                        Địa lí     Tỉnh       NV2                            Địa lí học                        0.50                                   0.00           NaN
+109 TS_37001         Giải nhất                        Vật lý     Tỉnh       NV1                        Sư phạm Vật lí                        1.00                                   0.25           NaN
+110 TS_22845          Giải Nhì                       Tin học     Tỉnh       NV1                   Công nghệ thông tin                        0.75                                   0.00           NaN
+111 TS_22845          Giải Nhì                       Tin học     Tỉnh       NV2                      Trí tuệ nhân tạo                        0.75                                   0.00           NaN
+112 TS_15047           Giải Ba                     Toán học      Tỉnh       NV1                      Sư phạm Toán học                        0.50                                   0.00           NaN
+113 TS_18854           Giải Ba                       Ngữ văn     Tỉnh       NV1                       Sư phạm Ngữ văn                        0.50                                   0.00           NaN
+114 TS_18854           Giải Ba                       Ngữ văn     Tỉnh       NV2                            Tâm lý học                        0.50                                   0.00           NaN
+115 TS_18854           Giải Ba                       Ngữ văn     Tỉnh       NV3                          Việt Nam học                        0.50                                   0.00           NaN
+116 TS_18854           Giải Ba                       Ngữ văn     Tỉnh       NV4                               Du lịch                        0.50                                   0.00           NaN
+117 TS_18854           Giải Ba                       Ngữ văn     Tỉnh       NV5                    Thông tin Thư viện                        0.50                                   0.00           NaN
+118 TS_18264          Giải Nhì                     Tiếng Anh     Tỉnh       NV1                     Sư phạm Tiếng Anh                        0.75                                   0.00           NaN
+119 TS_24517           Giải Ba                     Tiếng Anh     Tỉnh       NV1                     Sư phạm Tiếng Anh                        0.50                                   0.00           NaN
+120 TS_24517           Giải Ba                     Tiếng Anh     Tỉnh       NV2                          Ngôn ngữ Anh                        0.50                                   0.00           NaN
+121 TS_24948           Giải Ba                      Toán học     Tỉnh       NV1                      Sư phạm Toán học                        0.50                                   0.00           NaN
+122 TS_40028          Giải Nhì                       Ngữ văn     Tỉnh       NV1                       Sư phạm Ngữ văn                        0.75                                   0.00           NaN
+123 TS_40028          Giải Nhì                       Ngữ văn     Tỉnh       NV2                     Giáo dục Tiểu học                        0.75                                   0.00           NaN
+124 TS_40028          Giải Nhì                       Ngữ văn     Tỉnh       NV3                               Du lịch                        0.75                                   0.00           NaN
+125 TS_40028          Giải Nhì                       Ngữ văn     Tỉnh       NV4                            Tâm lý học                        0.75                                   0.00           NaN
+126 TS_40028          Giải Nhì                       Ngữ văn     Tỉnh       NV5                          Việt Nam học                        0.75                                   0.00           NaN
+127 TS_36353          Giải Nhì                        Địa lí     Tỉnh       NV1                        Sư phạm Địa lí                        0.75                                   0.00           NaN
+128 TS_36353          Giải Nhì                        Địa lí     Tỉnh       NV2                            Địa lí học                        0.75                                   0.00           NaN
+129 TS_36353          Giải Nhì                        Địa lí     Tỉnh       NV3              Sư phạm Lịch sử - Địa lí                        0.75                                   0.00           NaN
+130 TS_19749           Giải Ba                       Lịch sử     Tỉnh       NV1                       Sư phạm Lịch sử                        0.50                                   0.00           NaN
+131 TS_19749           Giải Ba                       Lịch sử     Tỉnh       NV2                     Giáo dục Tiểu học                        0.50                                   0.00           NaN
+132 TS_19749           Giải Ba                       Lịch sử     Tỉnh       NV3                       Sư phạm Ngữ văn                        0.50                                   0.00           NaN
+133 TS_19749           Giải Ba                       Lịch sử     Tỉnh       NV4              Sư phạm Lịch sử - Địa lí                        0.50                                   0.00           NaN
+134 TS_37993          Giải Nhì                      Toán học     Tỉnh       NV1                      Sư phạm Toán học                        0.75                                   0.00           NaN
+135 TS_37993          Giải Nhì                      Toán học     Tỉnh       NV2                       Sư phạm Hóa học                        0.75                                   0.00           NaN
+136 TS_37993          Giải Nhì                      Toán học     Tỉnh       NV3                        Sư phạm Vật lí                        0.75                                   0.00           NaN
+137  TS_5952          Giải Nhì                       Ngữ văn     Tỉnh       NV1                       Sư phạm Ngữ văn                        0.75                                   0.00           NaN
+138  TS_2462           Giải Ba                       Ngữ văn     Tỉnh       NV1                            Tâm lý học                        0.50                                   0.00           NaN
+139  TS_2462           Giải Ba                       Ngữ văn     Tỉnh       NV2                          Ngôn ngữ Anh                        0.50                                   0.00           NaN
+140  TS_2462           Giải Ba                       Ngữ văn     Tỉnh       NV3                       Sư phạm Ngữ văn                        0.50                                   0.00           NaN
+141 TS_33789          Giải Nhì                       Lịch sử     Tỉnh       NV1                       Sư phạm Ngữ văn                        0.75                                   0.00           NaN
+142 TS_33789          Giải Nhì                       Lịch sử     Tỉnh       NV2                       Sư phạm Lịch sử                        0.75                                   0.00           NaN
+143 TS_33789          Giải Nhì                       Lịch sử     Tỉnh       NV3                        Sư phạm Địa lí                        0.75                                   0.00           NaN
+144 TS_33789          Giải Nhì                       Lịch sử     Tỉnh       NV4              Sư phạm Lịch sử - Địa lí                        0.75                                   0.00           NaN
+145 TS_14311         Giải Nhất                       Lịch sử     Tỉnh       NV1                       Sư phạm Ngữ văn                        1.00                                   0.25           NaN
+146 TS_14311         Giải Nhất                       Lịch sử     Tỉnh       NV2                       Sư phạm Lịch sử                        1.00                                   0.25           NaN
+147 TS_24144         Giải Nhất                       Ngữ văn     Tỉnh       NV1                    Giáo dục Chính trị                        1.00                                   0.25           NaN
+148 TS_24144         Giải Nhất                       Ngữ văn     Tỉnh       NV2                       Sư phạm Ngữ văn                        1.00                                   0.25           NaN
+149 TS_24144         Giải Nhất                       Ngữ văn     Tỉnh       NV3                               Lịch sử                        1.00                                   0.25           NaN
+150 TS_35066           Giải Ba                        Vật lý     Tỉnh       NV1                        Sư phạm Vật lí                        0.50                                   0.00           NaN
+151 TS_21624           Giải Ba                       Lịch sử     Tỉnh       NV1                               Lịch sử                        0.50                                   0.00           NaN
+152 TS_21624           Giải Ba                       Lịch sử     Tỉnh       NV2                       Sư phạm Lịch sử                        0.50                                   0.00           NaN
+153 TS_22323         Giải Nhất                       Ngữ văn     Tỉnh       NV1                       Sư phạm Ngữ văn                        1.00                                   0.25           NaN
+154 TS_22323         Giải Nhất                       Ngữ văn     Tỉnh       NV2                       Sư phạm Lịch sử                        1.00                                   0.25           NaN
+155 TS_22323         Giải Nhất                       Ngữ văn     Tỉnh       NV3                               Lịch sử                        1.00                                   0.25           NaN
+156 TS_22323         Giải Nhất                       Ngữ văn     Tỉnh       NV4                          GD Chính trị                        1.00                                   0.25           NaN
+157 TS_22323         Giải Nhất                       Ngữ văn     Tỉnh       NV5                                  Luật                        1.00                                   0.25           NaN
+158 TS_22323         Giải Nhất                       Ngữ văn     Tỉnh       NV6              Sư phạm Lịch sử - Địa lí                        1.00                                   0.25           NaN
+159  TS_9974           Giải Ba                      Toán học     Tỉnh       NV1                      Sư phạm Toán học                        0.50                                   0.00           NaN
+160 TS_15110         Giải Nhất                       Ngữ văn     Tỉnh       NV1                       Sư phạm Ngữ văn                        1.00                                   0.25           NaN
+161  TS_3910           Giải Ba                       Hóa học     Tỉnh       NV1                       Sư phạm Hóa học                        0.50                                   0.00           NaN
+162 TS_46237           Giải Ba                     Tiếng Anh     Tỉnh       NV1                     Sư phạm Tiếng Anh                        0.50                                   0.00           NaN
+163 TS_46237           Giải Ba                     Tiếng Anh     Tỉnh       NV2                    Kinh doanh quốc tế                        0.50                                   0.00           NaN
+164 TS_46237           Giải Ba                     Tiếng Anh     Tỉnh       NV3                          Ngôn ngữ Anh                        0.50                                   0.00           NaN
+165 TS_16011          Giải Nhì                       Ngữ văn     Tỉnh       NV1                       Sư phạm Ngữ văn                        0.75                                   0.00           NaN
+166 TS_16011          Giải Nhì                       Ngữ văn     Tỉnh       NV2                     Giáo dục Tiểu học                        0.75                                   0.00           NaN
+167 TS_21844           Giải Ba                       Ngữ văn     Tỉnh       NV1                     Giáo dục Tiểu học                        0.50                                   0.00           NaN
+168 TS_21844           Giải Ba                       Ngữ văn     Tỉnh       NV2                       Sư phạm Ngữ văn                        0.50                                   0.00           NaN
+169 TS_21844           Giải Ba                       Ngữ văn     Tỉnh       NV3                            Quản lí GD                        0.50                                   0.00           NaN
+170  TS_4596           Giải Ba                      Sinh học     Tỉnh       NV1                      Sư phạm Sinh học                        0.50                                   0.00           NaN
+171  TS_4596           Giải Ba                      Sinh học     Tỉnh       NV2             Sư phạm Khoa học Tự nhiên                        0.50                                   0.00           NaN
+172 TS_22173          Giải Nhì                     Tiếng Anh     Tỉnh       NV1                     Sư phạm Tiếng Anh                        0.75                                   0.00           NaN
+173 TS_34064          Giải Nhì                        Địa lí     Tỉnh       NV1                        Sư phạm Địa lí                        0.75                                   0.00           NaN
+174 TS_13644           Giải Ba                        Địa lí     Tỉnh       NV1                        Sư phạm Địa lí                        0.50                                   0.00           NaN
+175 TS_13644           Giải Ba                        Địa lí     Tỉnh       NV2                            Địa lí học                        0.50                                   0.00           NaN
+176 TS_13644           Giải Ba                        Địa lí     Tỉnh       NV3              Sư phạm Lịch sử - Địa lí                        0.50                                   0.00           NaN
+177 TS_26997          Giải nhì                        Địa lí     Tỉnh       NV1                        Sư phạm Địa lí                        0.75                                   0.00           NaN
+178 TS_26997          Giải nhì                        Địa lí     Tỉnh       NV2                       Sư phạm Lịch sử                        0.75                                   0.00           NaN
+179 TS_26997          Giải nhì                        Địa lí     Tỉnh       NV3              Sư phạm Lịch sử - Địa lí                        0.75                                   0.00           NaN
+180 TS_14773           Giải Ba                       Lịch sử     Tỉnh       NV1                       Sư phạm Lịch sử                        0.50                                   0.00           NaN
+181 TS_14773           Giải Ba                       Lịch sử     Tỉnh       NV2                        Sư phạm Địa lí                        0.50                                   0.00           NaN
+182 TS_34296         Giải Nhất                       Ngữ văn     Tỉnh       NV1                                  Luật                        1.00                                   0.25           NaN
+183 TS_34296         Giải Nhất                       Ngữ văn     Tỉnh       NV2                               Du lịch                        1.00                                   0.25           NaN
+184 TS_34296         Giải Nhất                       Ngữ văn     Tỉnh       NV3                   Tài chính Ngân hàng                        1.00                                   0.25           NaN
+185  TS_5007           Giải Ba                       Ngữ văn     Tỉnh       NV1                            Tâm lý học                        0.50                                   0.00           NaN
+186  TS_5007           Giải Ba                       Ngữ văn     Tỉnh       NV2                           Quốc tế học                        0.50                                   0.00           NaN
+187  TS_7883          Giải Nhì                       Lịch sử     Tỉnh       NV1                       Sư phạm Lịch sử                        0.75                                   0.00           NaN
+188  TS_7883          Giải Nhì                       Lịch sử     Tỉnh       NV2                        Sư phạm Địa lí                        0.75                                   0.00           NaN
+189  TS_7883          Giải Nhì                       Lịch sử     Tỉnh       NV3                Sư phạm Lịch sử-Địa lí                        0.75                                   0.00           NaN
+190  TS_7883          Giải Nhì                       Lịch sử     Tỉnh       NV4                        Sư phạmNgữ văn                        0.75                                   0.00           NaN
+191  TS_7883          Giải Nhì                       Lịch sử     Tỉnh       NV5                               Lịch sử                        0.75                                   0.00           NaN
+192 TS_26743           Giải Ba                      Sinh học     Tỉnh       NV1                          Sư phạm KHTN                        0.50                                   0.00           NaN
+193 TS_26743           Giải Ba                      Sinh học     Tỉnh       NV2                      Sư phạm Sinh học                        0.50                                   0.00           NaN
+194 TS_34179          Giải Nhì                      Sinh học     Tỉnh       NV1                          Sư phạm KHTN                        0.75                                   0.00           NaN
+195 TS_34179          Giải Nhì                      Sinh học     Tỉnh       NV2                   Khoa học môi trường                        0.75                                   0.00           NaN
+196 TS_24391          Giải Nhì                       Lịch sử     Tỉnh       NV1                       Sư phạm Ngữ văn                        0.75                                   0.00           NaN
+197 TS_24391          Giải Nhì                       Lịch sử     Tỉnh       NV2                       Sư phạm Lịch sử                        0.75                                   0.00           NaN
+198 TS_39032           Giải Ba                       Ngữ văn     Tỉnh       NV1                       Sư phạm Ngữ văn                        0.50                                   0.00           NaN
+199 TS_39032           Giải Ba                       Ngữ văn     Tỉnh       NV2                       Sư phạm Lịch sử                        0.50                                   0.00           NaN
+200 TS_39032           Giải Ba                       Ngữ văn     Tỉnh       NV3                        Sư phạm Địa lí                        0.50                                   0.00           NaN
+201 TS_39032           Giải Ba                       Ngữ văn     Tỉnh       NV4                     Giáo dục Tiểu học                        0.50                                   0.00           NaN
+202 TS_39032           Giải Ba                       Ngữ văn     Tỉnh       NV5                          GD Chính trị                        0.50                                   0.00           NaN
+203 TS_40749           Giải Ba                     Tiếng Anh     Tỉnh       NV1                     Sư phạm Tiếng Anh                        0.50                                   0.00           NaN
+204 TS_24552           Giải Ba                      Toán học     Tỉnh       NV1                      Sư phạm Toán học                        0.50                                   0.00           NaN
+205 TS_24552           Giải Ba                      Toán học     Tỉnh       NV2                         Toán Ứng dụng                        0.50                                   0.00           NaN
+206 TS_24552           Giải Ba                      Toán học     Tỉnh       NV3                      Trí tuệ nhân tạo                        0.50                                   0.00           NaN
+207 TS_24201          Giải Nhì                     Tiếng Anh     Tỉnh       NV1                     Sư phạm Tiếng Anh                        0.75                                   0.00           NaN
+208 TS_24201          Giải Nhì                     Tiếng Anh     Tỉnh       NV2                          Ngôn ngữ Anh                        0.75                                   0.00           NaN
+209 TS_11418          Giải Nhì                       Lịch sử     Tỉnh       NV1                       Sư phạm Ngữ văn                        0.75                                   0.00           NaN
+210  TS_0682         Giải Nhất                       Ngữ văn     Tỉnh       NV1                       Sư phạm Ngữ văn                        1.00                                   0.25           NaN
+211  TS_0682         Giải Nhất                       Ngữ văn     Tỉnh       NV2                     Sư phạm Tiếng Anh                        1.00                                   0.25           NaN
+212 TS_26760           Giải Ba                     Tiếng Anh     Tỉnh       NV1                     Sư phạm Tiếng Anh                        0.50                                   0.00           NaN
+213 TS_41063          Giải Nhì                     Tiếng Anh     Tỉnh       NV1                     Sư phạm Tiếng Anh                        0.75                                   0.00           NaN
+214 TS_41063          Giải Nhì                     Tiếng Anh     Tỉnh       NV2                          Ngôn ngữ Anh                        0.75                                   0.00           NaN
+215 TS_12119           Giải Ba                       Ngữ văn     Tỉnh       NV1                       Sư phạm Ngữ văn                        0.50                                   0.00           NaN
+216 TS_12119           Giải Ba                       Ngữ văn     Tỉnh       NV2                                  Luật                        0.50                                   0.00           NaN
+217 TS_12119           Giải Ba                       Ngữ văn     Tỉnh       NV3                     Giáo dục Tiểu học                        0.50                                   0.00           NaN
+218 TS_12119           Giải Ba                       Ngữ văn     Tỉnh       NV4                               Du lịch                        0.50                                   0.00           NaN
+219 TS_20347           Giải Ba                      Toán học     Tỉnh       NV1                      Sư phạm Toán học                        0.50                                   0.00           NaN
+220 TS_20347           Giải Ba                      Toán học     Tỉnh       NV2                     Toán học Ứng dụng                        0.50                                   0.00           NaN
+221  TS_1322          Giải Nhì                      Toán học     Tỉnh       NV1                      Sư phạm Toán học                        0.75                                   0.00           NaN
+222  TS_1322          Giải Nhì                      Toán học     Tỉnh       NV2                        Sư phạm Vật lí                        0.75                                   0.00           NaN
+223  TS_1322          Giải Nhì                      Toán học     Tỉnh       NV3                       Sư phạm Hóa học                        0.75                                   0.00           NaN
+224 TS_42214           Giải Ba                       Ngữ văn     Tỉnh       NV1                       Sư phạm Ngữ văn                        0.50                                   0.00           NaN
+225 TS_42214           Giải Ba                       Ngữ văn     Tỉnh       NV2                     Giáo dục Tiểu học                        0.50                                   0.00           NaN
+226 TS_42214           Giải Ba                       Ngữ văn     Tỉnh       NV3                                  Luật                        0.50                                   0.00           NaN
+227 TS_26542          Giải Nhì                       Ngữ văn     Tỉnh       NV1                       Sư phạm Ngữ văn                        0.75                                   0.00           NaN
+228  TS_1972           Giải Ba                        Địa lí     Tỉnh       NV1                        Sư phạm Địa lí                        0.50                                   0.00           NaN
+229  TS_1972           Giải Ba                        Địa lí     Tỉnh       NV2              Sư phạm Lịch sử - Địa lí                        0.50                                   0.00           NaN
+230  TS_1972           Giải Ba                        Địa lí     Tỉnh       NV3                       Sư phạm Ngữ văn                        0.50                                   0.00           NaN
+231 TS_44167           Giải Ba                      Toán học     Tỉnh       NV1                      Sư phạm Toán học                        0.50                                   0.00           NaN
+232 TS_23942           Giải Ba                       Hóa học     Tỉnh       NV1                      Kỹ thuật Điện tử                        0.50                                   0.00           NaN
+233 TS_23942           Giải Ba                       Hóa học     Tỉnh       NV2      Công nghệ kỹ thuật điện, điện tử                        0.50                                   0.00           NaN
+234 TS_11215         Giải Nhất                     Tiếng Anh     Tỉnh       NV1                     Sư phạm Tiếng Anh                        1.00                                   0.25           NaN
+235 TS_11215         Giải Nhất                     Tiếng Anh     Tỉnh       NV2                          Ngôn ngữ Anh                        1.00                                   0.25           NaN
+236 TS_20913           Giải Ba                     Tiếng Anh     Tỉnh       NV1                     Sư phạm Tiếng Anh                        0.50                                   0.00           NaN
+237 TS_20132           Giải Ba                      Toán học     Tỉnh       NV1                      Sư phạm Toán học                        0.50                                   0.00           NaN
+238 TS_20921           Giải Ba                      Sinh học     Tỉnh       NV1         Công nghệ kỹ thuật môi trường                        0.50                                   0.00           NaN
+239 TS_20921           Giải Ba                      Sinh học     Tỉnh       NV2                          Sư phạm Sinh                        0.50                                   0.00           NaN
+240 TS_20921           Giải Ba                      Sinh học     Tỉnh       NV3                   Khoa học môi trường                        0.50                                   0.00           NaN
+241 TS_13375          Giải Nhì                     Tiếng Anh     Tỉnh       NV1                     Sư phạm Tiếng Anh                        0.75                                   0.00           NaN
+242 TS_19405          Giải Nhì                        Địa lí     Tỉnh       NV1                        Sư phạm Địa lí                        0.75                                   0.00           NaN
+243 TS_19405          Giải Nhì                        Địa lí     Tỉnh       NV2              Sư phạm Lịch sử - Địa lí                        0.75                                   0.00           NaN
+244 TS_27078           Giải Ba                      Toán học     Tỉnh       NV1                         Toán Ứng dụng                        0.50                                   0.00           NaN
+245  TS_1958          Giải Nhì                        Địa lí     Tỉnh       NV1                        Sư phạm Địa lí                        0.75                                   0.00           NaN
+246  TS_1958          Giải Nhì                        Địa lí     Tỉnh       NV2                       Sư phạm Ngữ văn                        0.75                                   0.00           NaN
+247  TS_1958          Giải Nhì                        Địa lí     Tỉnh       NV3              Sư phạm Lịch sử - Địa lí                        0.75                                   0.00           NaN
+248 TS_41719           Giải Ba                      Toán học     Tỉnh       NV1                      Sư phạm Toán học                        0.50                                   0.00           NaN
+249 TS_41719           Giải Ba                      Toán học     Tỉnh       NV2                       Sư phạm Hóa học                        0.50                                   0.00           NaN
+250 TS_41719           Giải Ba                      Toán học     Tỉnh       NV3             Sư phạm Khoa học tự nhiên                        0.50                                   0.00           NaN
+251 TS_41719           Giải Ba                      Toán học     Tỉnh       NV4                     Giáo dục Tiểu học                        0.50                                   0.00           NaN
+252 TS_25948          Giải Nhì                     Tiếng Anh     Tỉnh       NV1                     Sư phạm Tiếng Anh                        0.75                                   0.00           NaN
+253 TS_25948          Giải Nhì                     Tiếng Anh     Tỉnh       NV2                          Ngôn ngữ Anh                        0.75                                   0.00           NaN
+254 TS_41738          Giải Nhì                       Ngữ văn     Tỉnh       NV1                       Sư phạm Ngữ văn                        0.75                                   0.00           NaN
+255 TS_41738          Giải Nhì                       Ngữ văn     Tỉnh       NV2                       Sư phạm Lịch sử                        0.75                                   0.00           NaN
+256 TS_41738          Giải Nhì                       Ngữ văn     Tỉnh       NV3                        Sư phạm Địa lí                        0.75                                   0.00           NaN
+257 TS_41738          Giải Nhì                       Ngữ văn     Tỉnh       NV4              Sư phạm Lịch sử - Địa lí                        0.75                                   0.00           NaN
+258 TS_20175           Giải Ba                     Tiếng Anh     Tỉnh       NV1                     Sư phạm Tiếng Anh                        0.50                                   0.00           NaN
+259 TS_46773           Giải Ba                       Ngữ văn     Tỉnh       NV1                       Sư phạm Ngữ văn                        0.50                                   0.00           NaN
+260  TS_0812           Giải Ba                       Hóa học     Tỉnh       NV1                       Sư phạm Hóa học                        0.50                                   0.00           NaN
+261 TS_13834           Giải Ba                       Lịch sử     Tỉnh       NV1                       Sư phạm Lịch sử                        0.50                                   0.00           NaN
+262 TS_13834           Giải Ba                       Lịch sử     Tỉnh       NV2              Sư phạm Lịch sử - Địa lí                        0.50                                   0.00           NaN
+263 TS_13834           Giải Ba                       Lịch sử     Tỉnh       NV3                               Lịch sử                        0.50                                   0.00           NaN
+264 TS_16439           Giải Ba                     Tiếng Anh     Tỉnh       NV1                     Sư phạm Tiếng Anh                        0.50                                   0.00           NaN
+265 TS_16439           Giải Ba                     Tiếng Anh     Tỉnh       NV2                          Ngôn ngữ Anh                        0.50                                   0.00           NaN
+266 TS_16439           Giải Ba                     Tiếng Anh     Tỉnh       NV3                    Kinh doanh quốc tế                        0.50                                   0.00           NaN
+267 TS_46142           Giải Ba Giáo dục kinh tế và pháp luật     Tỉnh       NV1                    Kinh doanh quốc tế                        0.50                                   0.00           NaN
+268 TS_46142           Giải Ba Giáo dục kinh tế và pháp luật     Tỉnh       NV2                   Quản trị kinh doanh                        0.50                                   0.00           NaN
+269 TS_46142           Giải Ba Giáo dục kinh tế và pháp luật     Tỉnh       NV3                 Tài chính - Ngân hàng                        0.50                                   0.00           NaN
+270 TS_46142           Giải Ba Giáo dục kinh tế và pháp luật     Tỉnh       NV4                           Kế Toán học                        0.50                                   0.00           NaN
+271 TS_44590          Giải Nhì Giáo dục kinh tế và pháp luật     Tỉnh       NV1                       Sư phạm Ngữ văn                        0.75                                   0.00           NaN
+272 TS_36680           Giải Ba                   Tiếng Trung     Tỉnh       NV1                            Tâm lí học                        0.00                                   0.00           NaN
+273 TS_36680           Giải Ba                   Tiếng Trung     Tỉnh       NV2 Công nghệ kĩ thuật điện tử viễn thông                        0.00                                   0.00           NaN
+274 TS_36680           Giải Ba                   Tiếng Trung     Tỉnh       NV3           Kĩ thuật điện tử viễn thông                        0.00                                   0.00           NaN
+275 TS_36680           Giải Ba                   Tiếng Trung     Tỉnh       NV4                    Kinh doanh quốc tế                        0.00                                   0.00           NaN
+276 TS_40778          Giải Nhì                        Địa lí     Tỉnh       NV1                       Sư phạm Ngữ văn                        0.75                                   0.00           NaN
+277 TS_40778          Giải Nhì                        Địa lí     Tỉnh       NV2                       Sư phạm Lịch sử                        0.75                                   0.00           NaN
+278 TS_40778          Giải Nhì                        Địa lí     Tỉnh       NV3                        Sư phạm Địa lí                        0.75                                   0.00           NaN
+279 TS_40778          Giải Nhì                        Địa lí     Tỉnh       NV4              Sư phạm Lịch sử - Địa lí                        0.75                                   0.00           NaN
+280 TS_40778          Giải Nhì                        Địa lí     Tỉnh       NV5                               Lịch sử                        0.75                                   0.00           NaN
+281 TS_40778          Giải Nhì                        Địa lí     Tỉnh       NV6                            Địa lí học                        0.75                                   0.00           NaN
+282 TS_19750           Giải Ba                       Ngữ văn     Tỉnh       NV1                       Sư phạm Ngữ văn                        0.50                                   0.00           NaN
+283 TS_19750           Giải Ba                       Ngữ văn     Tỉnh       NV2                        Sư phạm Địa lí                        0.50                                   0.00           NaN
+284 TS_19750           Giải Ba                       Ngữ văn     Tỉnh       NV3              Sư phạm Lịch sử - Địa lí                        0.50                                   0.00           NaN
+285 TS_43674          Giải Nhì                        Địa lí     Tỉnh       NV1                       Sư phạm Ngữ văn                        0.75                                   0.00           NaN
+286 TS_43674          Giải Nhì                        Địa lí     Tỉnh       NV2                        Sư phạm Địa lí                        0.75                                   0.00           NaN
+287 TS_43674          Giải Nhì                        Địa lí     Tỉnh       NV3                       Sư phạm Lịch sử                        0.75                                   0.00           NaN
+288 TS_43674          Giải Nhì                        Địa lí     Tỉnh       NV4                            Địa lí học                        0.75                                   0.00           NaN
+289 TS_43674          Giải Nhì                        Địa lí     Tỉnh       NV5                               Lịch sử                        0.75                                   0.00           NaN
+290 TS_21742           Giải Ba                        Vật lý     Tỉnh       NV1                        Sư phạm Vật lý                        0.50                                   0.00           NaN
+291 TS_21742           Giải Ba                        Vật lý     Tỉnh       NV2             Sư phạm Khoa học tự nhiên                        0.50                                   0.00           NaN
+292  TS_9463          Giải Nhì                       Lịch sử     Tỉnh       NV1                       Sư phạm Lịch sử                        0.75                                   0.00           NaN
+293  TS_9463          Giải Nhì                       Lịch sử     Tỉnh       NV2                               Lịch sử                        0.75                                   0.00           NaN
+294  TS_9463          Giải Nhì                       Lịch sử     Tỉnh       NV3                        Sư phạm Địa lí                        0.75                                   0.00           NaN
+295  TS_9463          Giải Nhì                       Lịch sử     Tỉnh       NV4              Sư phạm Lịch sử - Địa lí                        0.75                                   0.00           NaN
+296 TS_32671           Giải Ba                     Tiếng Anh     Tỉnh       NV1                     Sư phạm Tiếng Anh                        0.50                                   0.00           NaN
+297 TS_32671           Giải Ba                     Tiếng Anh     Tỉnh       NV2                          Ngôn ngữ Anh                        0.50                                   0.00           NaN
+298 TS_23851          Giải Nhì                        Địa lí     Tỉnh       NV1                        Sư phạm Địa lí                        0.75                                   0.00           NaN
+299 TS_23851          Giải Nhì                        Địa lí     Tỉnh       NV2                       Sư phạm Lịch sử                        0.75                                   0.00           NaN
+300 TS_23851          Giải Nhì                        Địa lí     Tỉnh       NV3              Sư phạm Lịch sử - Địa lí                        0.75                                   0.00           NaN
+301 TS_23851          Giải Nhì                        Địa lí     Tỉnh       NV4                            Địa lí học                        0.75                                   0.00           NaN
+302 TS_23851          Giải Nhì                        Địa lí     Tỉnh       NV5                               Lịch sử                        0.75                                   0.00           NaN
+303 TS_14081          Giải Nhì                       Lịch sử     Tỉnh       NV1                               Lịch sử                        0.75                                   0.00           NaN
+304 TS_32448         Giải Nhất                       Ngữ văn     Tỉnh       NV1                       Sư phạm Ngữ văn                        1.00                                   0.25           NaN
+305 TS_46239           Giải Ba                        Địa lí     Tỉnh       NV1                        Sư phạm Địa lí                        0.50                                   0.00           NaN
+306 TS_41991          Giải Nhì                        Địa lí     Tỉnh       NV1                        Sư phạm Địa lí                        0.75                                   0.00           NaN
+307 TS_41991          Giải Nhì                        Địa lí     Tỉnh       NV2                       Sư phạm Ngữ văn                        0.75                                   0.00           NaN
+308 TS_41991          Giải Nhì                        Địa lí     Tỉnh       NV3               Sư phạm Lịch sử- Địa lí                        0.75                                   0.00           NaN
+309 TS_41991          Giải Nhì                        Địa lí     Tỉnh       NV4                       Sư phạm Lịch sử                        0.75                                   0.00           NaN
+310 TS_21260           Giải Ba                        Địa lí     Tỉnh       NV1                        Sư phạm Địa lí                        0.50                                   0.00           NaN
+311 TS_21260           Giải Ba                        Địa lí     Tỉnh       NV2                       Sư phạm Lịch sử                        0.50                                   0.00           NaN
+312 TS_21260           Giải Ba                        Địa lí     Tỉnh       NV3                       Sư phạm Ngữ văn                        0.50                                   0.00           NaN
+313 TS_21260           Giải Ba                        Địa lí     Tỉnh       NV4                            Địa lí học                        0.50                                   0.00           NaN
+314 TS_47854           Giải Ba                     Tiếng Anh     Tỉnh       NV1                     Sư phạm Tiếng Anh                        0.50                                   0.00           NaN
+315 TS_47854           Giải Ba                     Tiếng Anh     Tỉnh       NV2                    Ngôn ngữ Anh (CLC)                        0.50                                   0.00           NaN
+316  TS_6044           Giải Ba                     Tiếng Anh     Tỉnh       NV1                     Sư phạm Tiếng Anh                        0.50                                   0.00           NaN
+317  TS_6044           Giải Ba                     Tiếng Anh     Tỉnh       NV2                          Ngôn ngữ Anh                        0.50                                   0.00           NaN
+318  TS_6044           Giải Ba                     Tiếng Anh     Tỉnh       NV3                    Ngôn ngữ Anh (CLC)                        0.50                                   0.00           NaN
+319 TS_41732           Giải Ba                       Hóa học     Tỉnh       NV1                       Sư phạm Hóa học                        0.50                                   0.00           NaN
+320 TS_41732           Giải Ba                       Hóa học     Tỉnh       NV2                      Sư phạm Toán học                        0.50                                   0.00           NaN
+321 TS_38569          Giải Nhì                       Tin học     Tỉnh       NV1                      Khoa học dữ liệu                        0.75                                   0.00           NaN
+322 TS_38569          Giải Nhì                       Tin học     Tỉnh       NV2                      Trí tuệ nhân tạo                        0.75                                   0.00           NaN
+323 TS_38569          Giải Nhì                       Tin học     Tỉnh       NV3                   Công nghệ thông tin                        0.75                                   0.00           NaN
+324 TS_36425           Giải Ba                       Lịch sử     Tỉnh       NV1                       Sư phạm Ngữ văn                        0.50                                   0.00           NaN
+325 TS_36425           Giải Ba                       Lịch sử     Tỉnh       NV2                       Sư phạm Lịch sử                        0.50                                   0.00           NaN
+326 TS_36425           Giải Ba                       Lịch sử     Tỉnh       NV3                               Lịch sử                        0.50                                   0.00           NaN
+327  TS_8048          Giải Nhì                       Ngữ văn     Tỉnh       NV1                       Sư phạm Ngữ văn                        0.75                                   0.00           NaN
+328  TS_7718           Giải Ba                       Ngữ văn     Tỉnh       NV1                     Giáo dục Tiểu học                        0.50                                   0.00           NaN
+329  TS_7718           Giải Ba                       Ngữ văn     Tỉnh       NV2                       Sư phạm Lịch sử                        0.50                                   0.00           NaN
+330  TS_7718           Giải Ba                       Ngữ văn     Tỉnh       NV3                       Sư phạm Ngữ văn                        0.50                                   0.00           NaN
+331  TS_7718           Giải Ba                       Ngữ văn     Tỉnh       NV4              Sư phạm Lịch sử - Địa lí                        0.50                                   0.00           NaN
+332 TS_41924           Giải Ba                        Địa lí     Tỉnh       NV1                        Sư phạm Địa lí                        0.50                                   0.00           NaN
+333 TS_41924           Giải Ba                        Địa lí     Tỉnh       NV2                       Sư phạm Lịch sử                        0.50                                   0.00           NaN
+334 TS_41924           Giải Ba                        Địa lí     Tỉnh       NV3                            Địa lí học                        0.50                                   0.00           NaN
+335 TS_41924           Giải Ba                        Địa lí     Tỉnh       NV4                               Lịch sử                        0.50                                   0.00           NaN
+336 TS_28669           Giải Ba                       Ngữ văn     Tỉnh       NV1                       Sư phạm Ngữ văn                        0.50                                   0.00           NaN
+337 TS_28669           Giải Ba                       Ngữ văn     Tỉnh       NV2                      Quản lí giáo dục                        0.50                                   0.00           NaN
+338 TS_22803          Giải Nhì                       Lịch sử     Tỉnh       NV1                       Sư phạm Ngữ văn                        0.75                                   0.00           NaN
+339 TS_22803          Giải Nhì                       Lịch sử     Tỉnh       NV2                       Sư phạm Lịch sử                        0.75                                   0.00           NaN
+340 TS_43863          Giải Nhì Giáo dục kinh tế và pháp luật     Tỉnh       NV1                                  Luật                        0.75                                   0.00           NaN
+341 TS_14903           Giải Ba                       Hóa học     Tỉnh       NV1                       Sư phạm Hóa học                        0.50                                   0.00           NaN
+342 TS_14903           Giải Ba                       Hóa học     Tỉnh       NV2             Sư phạm Khoa học tự nhiên                        0.50                                   0.00           NaN
+343  TS_1339          Giải Nhì                       Lịch sử     Tỉnh       NV1                       Sư phạm Lịch sử                        0.75                                   0.00           NaN
+344  TS_1339          Giải Nhì                       Lịch sử     Tỉnh       NV2              Sư phạm Lịch sử - Địa lí                        0.75                                   0.00           NaN
+345  TS_1339          Giải Nhì                       Lịch sử     Tỉnh       NV3                       Sư phạm Ngữ văn                        0.75                                   0.00           NaN
+346 TS_39722           Giải Ba                       Lịch sử     Tỉnh       NV1                       Sư phạm Lịch sử                        0.50                                   0.00           NaN
+347 TS_39722           Giải Ba                       Lịch sử     Tỉnh       NV2              Sư phạm Lịch sử - Địa lí                        0.50                                   0.00           NaN
+348 TS_39722           Giải Ba                       Lịch sử     Tỉnh       NV3                        Sư phạm Địa lí                        0.50                                   0.00           NaN
+349  TS_6455           Giải Ba                       Ngữ văn     Tỉnh       NV1                       Sư phạm Ngữ văn                        0.50                                   0.00           NaN
+350  TS_6455           Giải Ba                       Ngữ văn     Tỉnh       NV2                        Sư phạm Địa lí                        0.50                                   0.00           NaN
+351  TS_6455           Giải Ba                       Ngữ văn     Tỉnh       NV3                       Sư phạm Lịch sử                        0.50                                   0.00           NaN
+352  TS_0264           Giải Ba                       Ngữ văn     Tỉnh       NV1                       Sư phạm Ngữ văn                        0.50                                   0.00           NaN
+353  TS_0264           Giải Ba                       Ngữ văn     Tỉnh       NV2                      Sư phạm Toán học                        0.50                                   0.00           NaN
+354  TS_0264           Giải Ba                       Ngữ văn     Tỉnh       NV3                     Giáo dục Tiểu học                        0.50                                   0.00           NaN
+355 TS_10278           Giải Ba                       Ngữ văn     Tỉnh       NV1                       Sư phạm Ngữ văn                        0.50                                   0.00           NaN
+356 TS_10278           Giải Ba                       Ngữ văn     Tỉnh       NV2                     Giáo dục Tiểu học                        0.50                                   0.00           NaN
+357 TS_10278           Giải Ba                       Ngữ văn     Tỉnh       NV3                            Tâm lí học                        0.50                                   0.00           NaN
+358 TS_17256          Giải Nhì                       Lịch sử     Tỉnh       NV1                        Sư phạm Vật lý                        0.75                                   0.00           NaN
+359 TS_17256          Giải Nhì                       Lịch sử     Tỉnh       NV2                       Sư phạm Lịch sử                        0.75                                   0.00           NaN
+360 TS_33253           Giải Ba                       Ngữ văn     Tỉnh       NV1                     Sư phạm Tiếng Anh                        0.50                                   0.00           NaN
+361 TS_33253           Giải Ba                       Ngữ văn     Tỉnh       NV2                     Giáo dục Tiểu học                        0.50                                   0.00           NaN
+362 TS_33253           Giải Ba                       Ngữ văn     Tỉnh       NV3                       Sư phạm Ngữ văn                        0.50                                   0.00           NaN
+363 TS_33253           Giải Ba                       Ngữ văn     Tỉnh       NV4                    Kinh doanh Quốc tế                        0.50                                   0.00           NaN
+364 TS_26909         Giải Nhất                        Địa lí     Tỉnh       NV1                        Sư phạm Địa lí                        1.00                                   0.25           NaN
+365 TS_26909         Giải Nhất                        Địa lí     Tỉnh       NV2                       Sư phạm Ngữ văn                        1.00                                   0.25           NaN
+366 TS_26909         Giải Nhất                        Địa lí     Tỉnh       NV3              Sư phạm Lịch sử - Địa lí                        1.00                                   0.25           NaN
+367 TS_10758         Giải Nhất                       Ngữ văn     Tỉnh       NV1                     Giáo dục Tiểu học                        1.00                                   0.25           NaN
+368 TS_10758         Giải Nhất                       Ngữ văn     Tỉnh       NV2                       Sư phạm Ngữ văn                        1.00                                   0.25           NaN
+369 TS_10758         Giải Nhất                       Ngữ văn     Tỉnh       NV3                    Giáo dục chính trị                        1.00                                   0.25           NaN
+370 TS_10758         Giải Nhất                       Ngữ văn     Tỉnh       NV4                                  Luật                        1.00                                   0.25           NaN
+371 TS_10758         Giải Nhất                       Ngữ văn     Tỉnh       NV5                            Tâm lí học                        1.00                                   0.25           NaN
+372 TS_15959         Giải Nhất                        Địa lí     Tỉnh       NV1              Sư phạm Lịch sử - Địa lí                        1.00                                   0.25           NaN
+373 TS_15959         Giải Nhất                        Địa lí     Tỉnh       NV2                       Sư phạm Lịch sử                        1.00                                   0.25           NaN
+374 TS_15959         Giải Nhất                        Địa lí     Tỉnh       NV3                        Sư phạm Địa lí                        1.00                                   0.25           NaN
+375 TS_19800           Giải Ba                     Tiếng Anh     Tỉnh       NV1                     Sư phạm Tiếng Anh                        0.50                                   0.00           NaN
+376 TS_19800           Giải Ba                     Tiếng Anh     Tỉnh       NV2                     Giáo dục Tiểu học                        0.50                                   0.00           NaN
+377 TS_19800           Giải Ba                     Tiếng Anh     Tỉnh       NV3                          Ngôn ngữ Anh                        0.50                                   0.00           NaN
+378  TS_9263          Giải Nhì                       Ngữ văn     Tỉnh       NV1                          Ngôn ngữ Anh                        0.75                                   0.00           NaN
+379  TS_9263          Giải Nhì                       Ngữ văn     Tỉnh       NV2                       Sư phạm Ngữ văn                        0.75                                   0.00           NaN
+380  TS_9263          Giải Nhì                       Ngữ văn     Tỉnh       NV3                     Sư phạm Tiếng Anh                        0.75                                   0.00           NaN
+381  TS_6209          Giải Nhì                     Tiếng Anh     Tỉnh       NV1                     Sư phạm Tiếng Anh                        0.75                                   0.00           NaN
+382 TS_10902         Giải Nhất                        Địa lí     Tỉnh       NV1                        Sư phạm Địa lí                        1.00                                   0.25           NaN
+383 TS_10902         Giải Nhất                        Địa lí     Tỉnh       NV2              Sư phạm Lịch sử - Địa lí                        1.00                                   0.25           NaN
+384 TS_10902         Giải Nhất                        Địa lí     Tỉnh       NV3                            Địa lí học                        1.00                                   0.25           NaN
+385 TS_10902         Giải Nhất                        Địa lí     Tỉnh       NV4                     Giáo dục Tiểu học                        1.00                                   0.25           NaN
+386 TS_21530           Giải Ba                       Lịch sử     Tỉnh       NV1                       Sư phạm Lịch sử                        0.50                                   0.00           NaN
+387 TS_21530           Giải Ba                       Lịch sử     Tỉnh       NV2                        Sư phạm Địa lí                        0.50                                   0.00           NaN
+388 TS_21530           Giải Ba                       Lịch sử     Tỉnh       NV3              Sư phạm Lịch sử - Địa lí                        0.50                                   0.00           NaN
+389 TS_21530           Giải Ba                       Lịch sử     Tỉnh       NV4                               Lịch sử                        0.50                                   0.00           NaN
+390 TS_39878           Giải Ba                     Tiếng Anh     Tỉnh       NV1                     Sư phạm Tiếng Anh                        0.50                                   0.00           NaN
+391 TS_39878           Giải Ba                     Tiếng Anh     Tỉnh       NV2                    Ngôn ngữ Anh (CLC)                        0.50                                   0.00           NaN
+392 TS_25162           Giải Ba                       Hóa học     Tỉnh       NV1                      Sư phạm Toán học                        0.50                                   0.00           NaN
+393 TS_25162           Giải Ba                       Hóa học     Tỉnh       NV2                       Sư phạm Hóa học                        0.50                                   0.00           NaN
+394 TS_25162           Giải Ba                       Hóa học     Tỉnh       NV3                      Sư phạm Sinh học                        0.50                                   0.00           NaN
+395 TS_18424          Giải Nhì                       Ngữ văn     Tỉnh       NV1                           Quốc tế học                        0.75                                   0.00           NaN
+396 TS_18424          Giải Nhì                       Ngữ văn     Tỉnh       NV2                            Tâm lý học                        0.75                                   0.00           NaN
+397 TS_18424          Giải Nhì                       Ngữ văn     Tỉnh       NV3                          Việt Nam học                        0.75                                   0.00           NaN
+398  TS_0207           Giải Ba                       Lịch sử     Tỉnh       NV1                       Sư phạm Lịch sử                        0.50                                   0.00           NaN
+399  TS_0207           Giải Ba                       Lịch sử     Tỉnh       NV2                       Sư phạm Ngữ văn                        0.50                                   0.00           NaN
+400  TS_0207           Giải Ba                       Lịch sử     Tỉnh       NV3                        Sư phạm Địa lí                        0.50                                   0.00           NaN
+401  TS_0207           Giải Ba                       Lịch sử     Tỉnh       NV4              Sư phạm Lịch sử - Địa lí                        0.50                                   0.00           NaN
+402  TS_0207           Giải Ba                       Lịch sử     Tỉnh       NV5                               Lịch sử                        0.50                                   0.00           NaN
+403  TS_0207           Giải Ba                       Lịch sử     Tỉnh       NV6                            Địa lí học                        0.50                                   0.00           NaN
+404 TS_29809          Giải Nhì                       Ngữ văn     Tỉnh       NV1                       Sư phạm Ngữ văn                        0.75                                   0.00           NaN
+405 TS_29809          Giải Nhì                       Ngữ văn     Tỉnh       NV2                     Giáo dục Tiểu học                        0.75                                   0.00           NaN
+406 TS_39320          Giải Nhì                       Lịch sử     Tỉnh       NV1                       Sư phạm Lịch sử                        0.75                                   0.00           NaN
+407 TS_39426         Giải Nhất                        Địa lí     Tỉnh       NV1                        Sư phạm Địa lí                        1.00                                   0.25           NaN
+408 TS_39426         Giải Nhất                        Địa lí     Tỉnh       NV2              Sư phạm Lịch sử - Địa lí                        1.00                                   0.25           NaN
+409 TS_38654           Giải Ba                       Hóa học     Tỉnh       NV1                       Sư phạm Hóa học                        0.50                                   0.00           NaN
+410 TS_38654           Giải Ba                       Hóa học     Tỉnh       NV2             Sư phạm Khoa học tự nhiên                        0.50                                   0.00           NaN
+411 TS_28438           Giải Ba                        Vật lý     Tỉnh       NV1                        Sư phạm Vật lý                        0.50                                   0.00           NaN
+412 TS_28438           Giải Ba                        Vật lý     Tỉnh       NV2             Sư phạm Khoa học tự nhiên                        0.50                                   0.00           NaN
+413  TS_5843           Giải Ba                     Tiếng Anh     Tỉnh       NV1                     Sư phạm Tiếng Anh                        0.50                                   0.00           NaN
+414  TS_5843           Giải Ba                     Tiếng Anh     Tỉnh       NV2                    Kinh doanh quốc tế                        0.50                                   0.00           NaN
+415  TS_5843           Giải Ba                     Tiếng Anh     Tỉnh       NV3                    Ngôn ngữ Anh (CLC)                        0.50                                   0.00           NaN
+416 TS_12997           Giải Ba                       Lịch sử     Tỉnh       NV1                               Lịch sử                        0.50                                   0.00           NaN
+417 TS_12997           Giải Ba                       Lịch sử     Tỉnh       NV2                       Sư phạm Lịch sử                        0.50                                   0.00           NaN
+418 TS_43653          Giải Nhì                       Ngữ văn     Tỉnh       NV1                       Sư phạm Lịch sử                        0.75                                   0.00           NaN
+419 TS_43653          Giải Nhì                       Ngữ văn     Tỉnh       NV2                        Sư phạm Địa lí                        0.75                                   0.00           NaN
+420 TS_43653          Giải Nhì                       Ngữ văn     Tỉnh       NV3              Sư phạm Lịch sử - Địa lí                        0.75                                   0.00           NaN
+421 TS_28887          Giải Nhì                        Địa lí     Tỉnh       NV1                        Sư phạm Địa lí                        0.75                                   0.00           NaN
+422 TS_28887          Giải Nhì                        Địa lí     Tỉnh       NV2                       Sư phạm Lịch sử                        0.75                                   0.00           NaN
+423 TS_28887          Giải Nhì                        Địa lí     Tỉnh       NV3                            Địa lí học                        0.75                                   0.00           NaN
+424 TS_36416           Giải Ba                        Địa lí     Tỉnh       NV1                       Sư phạm Lịch sử                        0.50                                   0.00           NaN
+425 TS_36416           Giải Ba                        Địa lí     Tỉnh       NV2              Sư phạm Lịch sử - Địa lí                        0.50                                   0.00           NaN
+426 TS_22548          Giải Nhì                        Vật lý     Tỉnh       NV1                        Sư phạm Vật lý                        0.75                                   0.00           NaN
+427  TS_7127           Giải Ba                       Ngữ văn     Tỉnh       NV1                                  Luật                        0.50                                   0.00           NaN
+428  TS_7127           Giải Ba                       Ngữ văn     Tỉnh       NV2                           Quốc tế học                        0.50                                   0.00           NaN
+429  TS_7127           Giải Ba                       Ngữ văn     Tỉnh       NV3                       Sư phạm Ngữ văn                        0.50                                   0.00           NaN
+430 TS_21085           Giải Ba                      Sinh học     Tỉnh       NV1                      Sư phạm Sinh học                        0.50                                   0.00           NaN
+431  TS_2739           Giải Ba                      Toán học     Tỉnh       NV1                      Sư phạm Toán học                        0.50                                   0.00           NaN
+432  TS_2739           Giải Ba                      Toán học     Tỉnh       NV2                        Sư phạm Vật lí                        0.50                                   0.00           NaN
+433 TS_19073           Giải Ba                      Sinh học     Tỉnh       NV1                      Sư phạm Sinh học                        0.50                                   0.00           NaN
+434 TS_19073           Giải Ba                      Sinh học     Tỉnh       NV2             Sư phạm Khoa học tự nhiên                        0.50                                   0.00           NaN
+435 TS_15963           Giải Ba                       Ngữ văn     Tỉnh       NV1                       Sư phạm Ngữ văn                        0.50                                   0.00           NaN
+436 TS_23169           Giải Ba                     Tiếng Anh     Tỉnh       NV1                     Sư phạm Tiếng Anh                        0.50                                   0.00           NaN
+437 TS_23169           Giải Ba                     Tiếng Anh     Tỉnh       NV2                     Giáo dục Tiểu học                        0.50                                   0.00           NaN
+438 TS_23169           Giải Ba                     Tiếng Anh     Tỉnh       NV3                   Công nghệ thông tin                        0.50                                   0.00           NaN
+439 TS_37037          Giải Nhì                       Ngữ văn     Tỉnh       NV1                       Sư phạm Ngữ văn                        0.75                                   0.00           NaN
+440 TS_37037          Giải Nhì                       Ngữ văn     Tỉnh       NV2                            Tâm lí học                        0.75                                   0.00           NaN
+441 TS_11883         Giải Nhất                       Tin học     Tỉnh       NV1                      Sư phạm Toán học                        1.00                                   0.25           NaN
+442 TS_11883         Giải Nhất                       Tin học     Tỉnh       NV2                        Sư phạm Vật lí                        1.00                                   0.25           NaN
+443 TS_31463           Giải Ba                       Lịch sử     Tỉnh       NV1                               Lịch sử                        0.50                                   0.00           NaN
+444 TS_31463           Giải Ba                       Lịch sử     Tỉnh       NV2                       Sư phạm Lịch sử                        0.50                                   0.00           NaN
+445 TS_36686           Giải Ba                       Ngữ văn     Tỉnh       NV1                       Sư phạm Ngữ văn                        0.50                                   0.00           NaN
+446 TS_36686           Giải Ba                       Ngữ văn     Tỉnh       NV2                     Sư phạm Tiếng Anh                        0.50                                   0.00           NaN
+447 TS_36686           Giải Ba                       Ngữ văn     Tỉnh       NV3                          Ngôn ngữ Anh                        0.50                                   0.00           NaN
+448 TS_29779           Giải Ba                       Ngữ văn     Tỉnh       NV1                       Sư phạm Ngữ văn                        0.50                                   0.00           NaN
+449 TS_29779           Giải Ba                       Ngữ văn     Tỉnh       NV2                  Thông tin - Thư viện                        0.50                                   0.00           NaN
+450 TS_29779           Giải Ba                       Ngữ văn     Tỉnh       NV3                          Ngôn ngữ Anh                        0.50                                   0.00           NaN
+451 TS_29779           Giải Ba                       Ngữ văn     Tỉnh       NV4                            Tâm lí học                        0.50                                   0.00           NaN
+452 TS_29779           Giải Ba                       Ngữ văn     Tỉnh       NV5                          Việt Nam học                        0.50                                   0.00           NaN
+453 TS_31824          Giải Nhì                     Tiếng Anh     Tỉnh       NV1                     Sư phạm Tiếng Anh                        0.75                                   0.00           NaN
+454 TS_34132           Giải Ba                     Tiếng Anh     Tỉnh       NV1                          Ngôn ngữ Anh                        0.50                                   0.00           NaN
+455 TS_21785           Giải Ba                       Hóa học     Tỉnh       NV1                       Sư phạm Hóa học                        0.50                                   0.00           NaN
+456 TS_21785           Giải Ba                       Hóa học     Tỉnh       NV2             Sư phạm Khoa học Tự nhiên                        0.50                                   0.00           NaN
+457 TS_21785           Giải Ba                       Hóa học     Tỉnh       NV3                     Sư phạm Tiếng Anh                        0.50                                   0.00           NaN
+458 TS_21785           Giải Ba                       Hóa học     Tỉnh       NV4                          Ngôn ngữ Anh                        0.50                                   0.00           NaN
+459 TS_21785           Giải Ba                       Hóa học     Tỉnh       NV5                    Ngôn ngữ Anh (CLC)                        0.50                                   0.00           NaN
+460 TS_21785           Giải Ba                       Hóa học     Tỉnh       NV6                     Giáo dục Tiểu học                        0.50                                   0.00           NaN
+461 TS_29943         Giải Nhất             Phần mềm hệ thống     Tỉnh       NV1                      Sư phạm Toán học                        0.00                                   0.25           NaN
+462 TS_29943         Giải Nhất             Phần mềm hệ thống     Tỉnh       NV2                   Công nghệ thông tin                        0.00                                   0.25           NaN
+463 TS_29943         Giải Nhất             Phần mềm hệ thống     Tỉnh       NV3                     Kỹ thuật phần mềm                        0.00                                   0.25           NaN
+464  TS_6804           Giải Ba                        Vật lý     Tỉnh       NV1                        Sư phạm Vật lí                        0.50                                   0.00           NaN
+465 TS_34195         Giải Nhất                     Tiếng Anh     Tỉnh       NV1                     Sư phạm Tiếng Anh                        1.00                                   0.25           NaN
+466 TS_39364          Giải Nhì                       Ngữ văn     Tỉnh       NV1                       Sư phạm Ngữ văn                        0.75                                   0.00           NaN
+467 TS_12388         Giải nhất    Khoa học xã hội và hành vi     Tỉnh       NV1                       Sư phạm Âm nhạc                        0.00                                   0.25           NaN
+468 TS_12388         Giải nhất    Khoa học xã hội và hành vi     Tỉnh       NV2                    Giáo dục Chính trị                        0.00                                   0.25           NaN
+469 TS_12388         Giải nhất    Khoa học xã hội và hành vi     Tỉnh       NV3                            Tâm lí học                        0.00                                   0.25           NaN
+470 TS_12388         Giải nhất    Khoa học xã hội và hành vi     Tỉnh       NV4                      Quản lý giáo dục                        0.00                                   0.25           NaN
+471 TS_12388         Giải nhất    Khoa học xã hội và hành vi     Tỉnh       NV5                                  Luật                        0.00                                   0.25           NaN
+472 TS_42615          Giải Nhì                       Ngữ văn     Tỉnh       NV1                       Sư phạm Ngữ văn                        0.75                                   0.00           NaN
+473 TS_42615          Giải Nhì                       Ngữ văn     Tỉnh       NV2                     Giáo dục Tiểu học                        0.75                                   0.00           NaN
+474 TS_21410           Giải Ba                       Lịch sử     Tỉnh       NV1                       Sư phạm Ngữ văn                        0.50                                   0.00           NaN
+475 TS_21410           Giải Ba                       Lịch sử     Tỉnh       NV2                       Sư phạm Lịch sử                        0.50                                   0.00           NaN
+476 TS_45332           Giải Ba                     Tiếng Anh     Tỉnh       NV1                     Sư phạm Tiếng Anh                        0.50                                   0.00           NaN
+477 TS_45332           Giải Ba                     Tiếng Anh     Tỉnh       NV2                    Ngôn ngữ Anh (CLC)                        0.50                                   0.00           NaN
+478 TS_29025         Giải Nhất                       Ngữ văn     Tỉnh       NV1                     Giáo dục Tiểu học                        1.00                                   0.25           NaN
+479 TS_29025         Giải Nhất                       Ngữ văn     Tỉnh       NV2                      Quản lý giáo dục                        1.00                                   0.25           NaN
+480 TS_29025         Giải Nhất                       Ngữ văn     Tỉnh       NV3                     Sư phạm Tiếng Anh                        1.00                                   0.25           NaN
+481 TS_31212          Giải Nhì                      Toán học     Tỉnh       NV1                      Sư phạm Toán học                        0.75                                   0.00           NaN
+482 TS_31212          Giải Nhì                      Toán học     Tỉnh       NV2                         Toán Ứng dụng                        0.75                                   0.00           NaN
+483 TS_29348           Giải Ba                       Ngữ văn     Tỉnh       NV1                       Sư phạm Ngữ văn                        0.50                                   0.00           NaN
+484 TS_11051           Giải Ba                      Toán học     Tỉnh       NV1                      Sư phạm Toán học                        0.50                                   0.00           NaN
+485 TS_15990         Giải Nhất                        Địa lí     Tỉnh       NV1                            Địa lí học                        1.00                                   0.25           NaN
+486 TS_15990         Giải Nhất                        Địa lí     Tỉnh       NV2                       Sư phạm Ngữ văn                        1.00                                   0.25           NaN
+487 TS_15990         Giải Nhất                        Địa lí     Tỉnh       NV3                        Sư phạm Địa lí                        1.00                                   0.25           NaN
+488 TS_39420          Giải Nhì                        Địa lí     Tỉnh       NV1                       Sư phạm Ngữ văn                        0.75                                   0.00           NaN
+489 TS_39420          Giải Nhì                        Địa lí     Tỉnh       NV2                        Sư phạm Địa lí                        0.75                                   0.00           NaN
+490 TS_39420          Giải Nhì                        Địa lí     Tỉnh       NV3              Sư phạm Lịch sử - Địa lí                        0.75                                   0.00           NaN
+491 TS_19734          Giải Nhì                        Địa lí     Tỉnh       NV1                            Địa lí học                        0.75                                   0.00           NaN
+492 TS_19734          Giải Nhì                        Địa lí     Tỉnh       NV2                        Sư phạm Địa lí                        0.75                                   0.00           NaN
+493 TS_19734          Giải Nhì                        Địa lí     Tỉnh       NV3                       Sư phạm Ngữ văn                        0.75                                   0.00           NaN
+494 TS_42576           Giải Ba                       Lịch sử     Tỉnh       NV1                               Du lịch                        0.50                                   0.00           NaN
+495 TS_42576           Giải Ba                       Lịch sử     Tỉnh       NV2                          Việt Nam học                        0.50                                   0.00           NaN
+496 TS_42576           Giải Ba                       Lịch sử     Tỉnh       NV3                               Lịch sử                        0.50                                   0.00           NaN
+497 TS_30675          Giải Nhì                       Lịch sử     Tỉnh       NV1                       Sư phạm Lịch sử                        0.75                                   0.00           NaN
+498 TS_30675          Giải Nhì                       Lịch sử     Tỉnh       NV2              Sư phạm Lịch sử - Địa lí                        0.75                                   0.00           NaN
+499 TS_30675          Giải Nhì                       Lịch sử     Tỉnh       NV3                    Giáo dục chính trị                        0.75                                   0.00           NaN
+500 TS_30675          Giải Nhì                       Lịch sử     Tỉnh       NV4                        Sư phạm Địa lí                        0.75                                   0.00           NaN
+501 TS_30675          Giải Nhì                       Lịch sử     Tỉnh       NV5                       Sư phạm Ngữ văn                        0.75                                   0.00           NaN
+502 TS_13097          Giải Nhì                      Toán học     Tỉnh       NV1                      Sư phạm Toán học                        0.75                                   0.00           NaN
+503 TS_13097          Giải Nhì                      Toán học     Tỉnh       NV2       Sư phạm KHTN (Đào tạo GV THCS)                         0.75                                   0.00           NaN
+504 TS_13097          Giải Nhì                      Toán học     Tỉnh       NV3                     Giáo dục Tiểu học                        0.75                                   0.00           NaN
+505 TS_12939           Giải Ba                     Tiếng Anh     Tỉnh       NV1                     Sư phạm Tiếng Anh                        0.50                                   0.00           NaN
+506 TS_12939           Giải Ba                     Tiếng Anh     Tỉnh       NV2                          Ngôn ngữ Anh                        0.50                                   0.00           NaN
+507 TS_20645           Giải Ba                     Tiếng Anh     Tỉnh       NV1                    Ngôn ngữ Anh (CLC)                        0.50                                   0.00           NaN
+508 TS_20645           Giải Ba                     Tiếng Anh     Tỉnh       NV2                         Ngôn ngữ Anh                         0.50                                   0.00           NaN
+509 TS_20645           Giải Ba                     Tiếng Anh     Tỉnh       NV3                    Kinh doanh Quốc tế                        0.50                                   0.00           NaN
+510 TS_20645           Giải Ba                     Tiếng Anh     Tỉnh       NV4                   Quản trị kinh doanh                        0.50                                   0.00           NaN
+511 TS_20645           Giải Ba                     Tiếng Anh     Tỉnh       NV5             Quản trị kinh doanh (CLC)                        0.50                                   0.00           NaN
+512 TS_39436          Giải Nhì                     Tiếng Anh     Tỉnh       NV1                     Sư phạm Tiếng Anh                        0.75                                   0.00           NaN
+515  TS_0016           Giải Ba                     Tiếng Anh     Tỉnh       NV1                     Sư phạm Tiếng Anh                        0.50                                   0.00           NaN
+516  TS_0016           Giải Ba                     Tiếng Anh     Tỉnh       NV2                          Ngôn ngữ Anh                        0.50                                   0.00           NaN
+517  TS_0016           Giải Ba                     Tiếng Anh     Tỉnh       NV3                    Ngôn ngữ Anh (CLC)                        0.50                                   0.00           NaN
+518 TS_24306           Giải Ba                       Lịch sử     Tỉnh       NV1                       Sư phạm Lịch sử                        0.50                                   0.00           NaN
+519 TS_24306           Giải Ba                       Lịch sử     Tỉnh       NV2                        Sư phạm Địa lí                        0.50                                   0.00           NaN
+520 TS_24306           Giải Ba                       Lịch sử     Tỉnh       NV3              Sư phạm Lịch sử - Địa lí                        0.50                                   0.00           NaN
+521 TS_24306           Giải Ba                       Lịch sử     Tỉnh       NV4                               Du lịch                        0.50                                   0.00           NaN
+522 TS_24306           Giải Ba                       Lịch sử     Tỉnh       NV5                               Lịch sử                        0.50                                   0.00           NaN
+523 TS_24306           Giải Ba                       Lịch sử     Tỉnh       NV6                                Địa lí                        0.50                                   0.00           NaN
+524 TS_24306           Giải Ba                       Lịch sử     Tỉnh       NV7        Quản trị Nhà hàng & DV ăn uống                        0.50                                   0.00           NaN
+525 TS_13569           Giải Ba                       Ngữ văn     Tỉnh       NV1                           Quốc tế học                        0.50                                   0.00           NaN
+526 TS_13569           Giải Ba                       Ngữ văn     Tỉnh       NV2                       Sư phạm Ngữ văn                        0.50                                   0.00           NaN
+527 TS_13569           Giải Ba                       Ngữ văn     Tỉnh       NV3                               Du lịch                        0.50                                   0.00           NaN
+528 TS_13569           Giải Ba                       Ngữ văn     Tỉnh       NV4                            Tâm lý học                        0.50                                   0.00           NaN
+529 TS_13569           Giải Ba                       Ngữ văn     Tỉnh       NV5                       Sư phạm Lịch sử                        0.50                                   0.00           NaN
+530 TS_25328          Giải Nhì                     Tiếng Anh     Tỉnh       NV1                     Sư phạm Tiếng Anh                        0.75                                   0.00           NaN
+531  TS_6278           Giải Ba                     Tiếng Anh     Tỉnh       NV1                     Sư phạm Tiếng Anh                        0.50                                   0.00           NaN
+532  TS_6278           Giải Ba                     Tiếng Anh     Tỉnh       NV2                       Sư phạm Ngữ văn                        0.50                                   0.00           NaN
+533  TS_6278           Giải Ba                     Tiếng Anh     Tỉnh       NV3                     Giáo dục Tiểu học                        0.50                                   0.00           NaN
+534  TS_6278           Giải Ba                     Tiếng Anh     Tỉnh       NV4                    Giáo dục chính trị                        0.50                                   0.00           NaN
+535  TS_6278           Giải Ba                     Tiếng Anh     Tỉnh       NV5                          Ngôn ngữ Anh                        0.50                                   0.00           NaN
+536 TS_37096          Giải Nhì                       Lịch sử     Tỉnh       NV1                               Lịch sử                        0.75                                   0.00           NaN
+537 TS_37096          Giải Nhì                       Lịch sử     Tỉnh       NV2                       Sư phạm Ngữ văn                        0.75                                   0.00           NaN
+538 TS_39752           Giải Ba                       Ngữ văn     Tỉnh       NV1                       Sư phạm Ngữ văn                        0.50                                   0.00           NaN
+539 TS_39752           Giải Ba                       Ngữ văn     Tỉnh       NV2                       Sư phạm Lịch sử                        0.50                                   0.00           NaN
+540 TS_39752           Giải Ba                       Ngữ văn     Tỉnh       NV3                        Sư phạm Địa lí                        0.50                                   0.00           NaN
+541 TS_39752           Giải Ba                       Ngữ văn     Tỉnh       NV4              Sư phạm Lịch sử - Địa lí                        0.50                                   0.00           NaN
+542 TS_39752           Giải Ba                       Ngữ văn     Tỉnh       NV5                      Quản lí giáo dục                        0.50                                   0.00           NaN
+543 TS_41433           Giải Ba                        Địa lí     Tỉnh       NV1                                  Luật                        0.50                                   0.00           NaN
+544 TS_41433           Giải Ba                        Địa lí     Tỉnh       NV2                            Tâm lí học                        0.50                                   0.00           NaN
+545 TS_41433           Giải Ba                        Địa lí     Tỉnh       NV3                            Địa lí học                        0.50                                   0.00           NaN
+546 TS_27703           Giải Ba                       Ngữ văn     Tỉnh       NV1                      Quản lí giáo dục                        0.50                                   0.00           NaN
+547 TS_27703           Giải Ba                       Ngữ văn     Tỉnh       NV2                     Giáo dục Tiểu học                        0.50                                   0.00           NaN
+548 TS_27703           Giải Ba                       Ngữ văn     Tỉnh       NV3                 Tài chính - Ngân hàng                        0.50                                   0.00           NaN
+549 TS_27703           Giải Ba                       Ngữ văn     Tỉnh       NV4                               Kế toán                        0.50                                   0.00           NaN
+550 TS_45299         Giải Nhất                       Lịch sử     Tỉnh       NV1                       Sư phạm Lịch sử                        1.00                                   0.25           NaN
+551 TS_45299         Giải Nhất                       Lịch sử     Tỉnh       NV2                               Lịch sử                        1.00                                   0.25           NaN
+552 TS_19790           Giải Ba                       Hóa học     Tỉnh       NV1                       Sư phạm Hóa học                        0.50                                   0.00           NaN
+553 TS_13869           Giải Ba                       Ngữ văn     Tỉnh       NV1                       Sư phạm Ngữ văn                        0.50                                   0.00           NaN
+554 TS_38803           Giải Ba                       Ngữ văn     Tỉnh       NV1                            Tâm lí học                        0.50                                   0.00           NaN
+555 TS_38803           Giải Ba                       Ngữ văn     Tỉnh       NV2                      Quản lí giáo dục                        0.50                                   0.00           NaN
+556 TS_38803           Giải Ba                       Ngữ văn     Tỉnh       NV3                       Sư phạm Ngữ văn                        0.50                                   0.00           NaN
+557 TS_44975          Giải Nhì                        Vật lý     Tỉnh       NV1                        Sư phạm Vật lí                        0.75                                   0.00           NaN
+558 TS_44975          Giải Nhì                        Vật lý     Tỉnh       NV2             Sư phạm Khoa học Tự nhiên                        0.75                                   0.00           NaN
+559 TS_31512           Giải Ba                     Tiếng Anh     Tỉnh       NV1                     Sư phạm Tiếng Anh                        0.50                                   0.00           NaN
+560  TS_6089          Giải Nhì                       Lịch sử     Tỉnh       NV1              Sư phạm Lịch sử - Địa lí                        0.75                                   0.00           NaN
+561  TS_6089          Giải Nhì                       Lịch sử     Tỉnh       NV2                      Quản lí giáo dục                        0.75                                   0.00           NaN
+562  TS_6089          Giải Nhì                       Lịch sử     Tỉnh       NV3                               Lịch sử                        0.75                                   0.00           NaN
+563  TS_6089          Giải Nhì                       Lịch sử     Tỉnh       NV4                               Du lịch                        0.75                                   0.00           NaN
+564 TS_31838         Giải Nhất                       Lịch sử     Tỉnh       NV1                      Sư phạm Toán học                        1.00                                   0.25           NaN
+565  TS_5414           Giải Ba                      Toán học     Tỉnh       NV1                      Sư phạm Toán học                        0.50                                   0.00           NaN
+566  TS_5414           Giải Ba                      Toán học     Tỉnh       NV2                   Công nghệ thông tin                        0.50                                   0.00           NaN
+567  TS_5414           Giải Ba                      Toán học     Tỉnh       NV3                         Toán ứng dụng                        0.50                                   0.00           NaN
+568  TS_5414           Giải Ba                      Toán học     Tỉnh       NV4                     Kỹ thuật phần mềm                        0.50                                   0.00           NaN
+569 TS_22381          Giải Nhì                        Địa lí     Tỉnh       NV1                       Sư phạm Ngữ văn                        0.75                                   0.00           NaN
+570 TS_22381          Giải Nhì                        Địa lí     Tỉnh       NV2                       Sư phạm Lịch sử                        0.75                                   0.00           NaN
+571 TS_22381          Giải Nhì                        Địa lí     Tỉnh       NV3                        Sư phạm Địa lí                        0.75                                   0.00           NaN
+572 TS_22381          Giải Nhì                        Địa lí     Tỉnh       NV4              Sư phạm Lịch sử - Địa lí                        0.75                                   0.00           NaN
+573 TS_22381          Giải Nhì                        Địa lí     Tỉnh       NV5                            Địa lí học                        0.75                                   0.00           NaN
+574 TS_41678          Giải Nhì                       Ngữ văn     Tỉnh       NV1                     Giáo dục Tiểu học                        0.75                                   0.00           NaN
+575 TS_41678          Giải Nhì                       Ngữ văn     Tỉnh       NV2                           Quốc tế học                        0.75                                   0.00           NaN
+576 TS_41678          Giải Nhì                       Ngữ văn     Tỉnh       NV3                            Tâm lí học                        0.75                                   0.00           NaN
+577 TS_41678          Giải Nhì                       Ngữ văn     Tỉnh       NV4                       Sư phạm Ngữ văn                        0.75                                   0.00           NaN
+578  TS_1163          Giải Nhì                       Ngữ văn     Tỉnh       NV1                       Sư phạm Ngữ văn                        0.75                                   0.00           NaN
+579  TS_1163          Giải Nhì                       Ngữ văn     Tỉnh       NV2                     Giáo dục Tiểu học                        0.75                                   0.00           NaN
+580  TS_1163          Giải Nhì                       Ngữ văn     Tỉnh       NV3                    Quản trị văn phòng                        0.75                                   0.00           NaN
+581  TS_1163          Giải Nhì                       Ngữ văn     Tỉnh       NV4                                  Luật                        0.75                                   0.00           NaN
+582  TS_1163          Giải Nhì                       Ngữ văn     Tỉnh       NV5                               Kế toán                        0.75                                   0.00           NaN
+583  TS_1163          Giải Nhì                       Ngữ văn     Tỉnh       NV6                               Du lịch                        0.75                                   0.00           NaN
+584  TS_1163          Giải Nhì                       Ngữ văn     Tỉnh       NV7                   Quản trị kinh doanh                        0.75                                   0.00           NaN
+585 TS_30171          Giải Nhì                       Ngữ văn     Tỉnh       NV1                          Ngôn ngữ Anh                        0.75                                   0.00           NaN
+586 TS_30171          Giải Nhì                       Ngữ văn     Tỉnh       NV2                     Sư phạm Tiếng Anh                        0.75                                   0.00           NaN
+587 TS_30171          Giải Nhì                       Ngữ văn     Tỉnh       NV3                                  Luật                        0.75                                   0.00           NaN
+588 TS_30171          Giải Nhì                       Ngữ văn     Tỉnh       NV4                       Sư phạm Ngữ văn                        0.75                                   0.00           NaN
+589 TS_30171          Giải Nhì                       Ngữ văn     Tỉnh       NV5                        Sư phạm Địa lí                        0.75                                   0.00           NaN
+590 TS_34267           Giải Ba                        Địa lí     Tỉnh       NV1              Sư phạm Lịch sử - Địa lí                        0.50                                   0.00           NaN
+591 TS_34267           Giải Ba                        Địa lí     Tỉnh       NV2                        Sư phạm Địa lí                        0.50                                   0.00           NaN
+592 TS_34267           Giải Ba                        Địa lí     Tỉnh       NV3                            Địa lí học                        0.50                                   0.00           NaN
+593 TS_21101          Giải Nhì                       Lịch sử     Tỉnh       NV1                       Sư phạm Lịch sử                        0.75                                   0.00           NaN
+594 TS_21101          Giải Nhì                       Lịch sử     Tỉnh       NV2                        Sư phạm Địa lí                        0.75                                   0.00           NaN
+595 TS_18194           Giải Ba                       Hóa học     Tỉnh       NV1                      Sư phạm Toán học                        0.50                                   0.00           NaN
+596 TS_18194           Giải Ba                       Hóa học     Tỉnh       NV2                       Sư phạm Hóa học                        0.50                                   0.00           NaN
+597 TS_14223           Giải Ba                     Tiếng Anh     Tỉnh       NV1                     Sư phạm Tiếng Anh                        0.50                                   0.00           NaN
+598 TS_14223           Giải Ba                     Tiếng Anh     Tỉnh       NV2                    Ngôn ngữ Anh (CLC)                        0.50                                   0.00           NaN
+599 TS_15630          Giải Nhì                       Ngữ văn     Tỉnh       NV1                     Giáo dục Tiểu học                        0.75                                   0.00           NaN
+600 TS_15630          Giải Nhì                       Ngữ văn     Tỉnh       NV2                 Tài chính - Ngân hàng                        0.75                                   0.00           NaN
+601 TS_15630          Giải Nhì                       Ngữ văn     Tỉnh       NV3                   Quản trị kinh doanh                        0.75                                   0.00           NaN
+602 TS_20974          Giải Nhì                        Địa lí     Tỉnh       NV1                        Sư phạm Địa lí                        0.75                                   0.00           NaN
+603 TS_19242          Giải Nhì                       Lịch sử     Tỉnh       NV1                       Sư phạm Lịch sử                        0.75                                   0.00           NaN
+604 TS_19242          Giải Nhì                       Lịch sử     Tỉnh       NV2                        Sư phạm Địa lí                        0.75                                   0.00           NaN
+605 TS_19242          Giải Nhì                       Lịch sử     Tỉnh       NV3              Sư phạm Lịch sử - Địa lí                        0.75                                   0.00           NaN
+606  TS_1328           Giải Ba                     Tiếng Anh     Tỉnh       NV1                     Sư phạm Tiếng Anh                        0.50                                   0.00           NaN
+607  TS_1328           Giải Ba                     Tiếng Anh     Tỉnh       NV2                          Ngôn ngữ Anh                        0.50                                   0.00           NaN
+608  TS_1328           Giải Ba                     Tiếng Anh     Tỉnh       NV3                     Giáo dục Tiểu học                        0.50                                   0.00           NaN
+609  TS_1328           Giải Ba                     Tiếng Anh     Tỉnh       NV4                    Kinh doanh quốc tế                        0.50                                   0.00           NaN
+610 TS_16616         Giải Nhất                      Sinh học     Tỉnh       NV1             Sư phạm Khoa học tự nhiên                        1.00                                   0.25           NaN
+611 TS_16616         Giải Nhất                      Sinh học     Tỉnh       NV2                      Sư phạm Sinh học                        1.00                                   0.25           NaN
+612 TS_16616         Giải Nhất                      Sinh học     Tỉnh       NV3                     Giáo dục Tiểu học                        1.00                                   0.25           NaN
+613 TS_16616         Giải Nhất                      Sinh học     Tỉnh       NV4                       Sư phạm Hóa học                        1.00                                   0.25           NaN
+614 TS_35846           Giải Ba                       Ngữ văn     Tỉnh       NV1                       Sư phạm Ngữ văn                        0.50                                   0.00           NaN
+615 TS_35846           Giải Ba                       Ngữ văn     Tỉnh       NV2                     Giáo dục Tiểu học                        0.50                                   0.00           NaN
+616 TS_35846           Giải Ba                       Ngữ văn     Tỉnh       NV3                    Giáo dục chính trị                        0.50                                   0.00           NaN
+617 TS_35846           Giải Ba                       Ngữ văn     Tỉnh       NV4                                  Luật                        0.50                                   0.00           NaN
+618 TS_25589         Giải Nhất                       Lịch sử     Tỉnh       NV1                       Sư phạm Lịch sử                        1.00                                   0.25           NaN
+619 TS_25589         Giải Nhất                       Lịch sử     Tỉnh       NV2              Sư phạm Lịch sử - Địa lí                        1.00                                   0.25           NaN
+620 TS_25589         Giải Nhất                       Lịch sử     Tỉnh       NV3                               Lịch sử                        1.00                                   0.25           NaN
+621 TS_41594          Giải Nhì                       Lịch sử     Tỉnh       NV1                       Sư phạm Lịch sử                        0.75                                   0.00           NaN
+622 TS_41594          Giải Nhì                       Lịch sử     Tỉnh       NV2                               Lịch sử                        0.75                                   0.00           NaN
+623 TS_41594          Giải Nhì                       Lịch sử     Tỉnh       NV3              Sư phạm Lịch sử - Địa lí                        0.75                                   0.00           NaN
+624 TS_16883           Giải Ba                       Ngữ văn     Tỉnh       NV1                     Giáo dục Tiểu học                        0.50                                   0.00           NaN
+625 TS_16883           Giải Ba                       Ngữ văn     Tỉnh       NV2                           Quốc tế học                        0.50                                   0.00           NaN
+626 TS_16883           Giải Ba                       Ngữ văn     Tỉnh       NV3                      Quản lí giáo dục                        0.50                                   0.00           NaN
+627 TS_16883           Giải Ba                       Ngữ văn     Tỉnh       NV4                            Tâm lí học                        0.50                                   0.00           NaN
+628 TS_44304          Giải Nhì                       Lịch sử     Tỉnh       NV1                       Sư phạm Lịch sử                        0.75                                   0.00           NaN
+629 TS_44304          Giải Nhì                       Lịch sử     Tỉnh       NV2                               Lịch sử                        0.75                                   0.00           NaN
+630 TS_44304          Giải Nhì                       Lịch sử     Tỉnh       NV3                        Sư phạm Địa lí                        0.75                                   0.00           NaN
+631 TS_44304          Giải Nhì                       Lịch sử     Tỉnh       NV4              Sư phạm Lịch sử - Địa lí                        0.75                                   0.00           NaN
+632 TS_27425          Giải Nhì                      Sinh học     Tỉnh       NV1                      Sư phạm Sinh học                        0.75                                   0.00           NaN
+633 TS_27425          Giải Nhì                      Sinh học     Tỉnh       NV2             Sư phạm Khoa học tự nhiên                        0.75                                   0.00           NaN
+634 TS_47887           Giải Ba                       Ngữ văn     Tỉnh       NV1                     Sư phạm Tiếng Anh                        0.50                                   0.00           NaN
+635 TS_47887           Giải Ba                       Ngữ văn     Tỉnh       NV2                       Sư phạm Ngữ văn                        0.50                                   0.00           NaN
+636 TS_47887           Giải Ba                       Ngữ văn     Tỉnh       NV3                     Giáo dục Tiểu học                        0.50                                   0.00           NaN
+637 TS_44655          Giải Nhì                       Lịch Sử     Tỉnh       NV1                       Sư phạm Lịch sử                        0.75                                   0.00           NaN
+638 TS_44655          Giải Nhì                       Lịch Sử     Tỉnh       NV2                               Lịch sử                        0.75                                   0.00           NaN
+639  TS_1326          Giải Nhì                        Địa lí     Tỉnh       NV1              Sư phạm Lịch sử - Địa lí                        0.75                                   0.00           NaN
+640  TS_1326          Giải Nhì                        Địa lí     Tỉnh       NV2                        Sư phạm Địa lí                        0.75                                   0.00           NaN
+641  TS_1326          Giải Nhì                        Địa lí     Tỉnh       NV3                            Địa lí học                        0.75                                   0.00           NaN
+642 TS_45839          Giải Nhì                       Lịch sử     Tỉnh       NV1                       Sư phạm Lịch sử                        0.75                                   0.00           NaN
+643 TS_45839          Giải Nhì                       Lịch sử     Tỉnh       NV2              Sư phạm Lịch sử - Địa lí                        0.75                                   0.00           NaN
+644 TS_41340           Giải Ba                       Ngữ văn     Tỉnh       NV1                       Sư phạm Ngữ văn                        0.50                                   0.00           NaN
+645 TS_41340           Giải Ba                       Ngữ văn     Tỉnh       NV2                     Giáo dục Tiểu học                        0.50                                   0.00           NaN
+646  TS_5617          Giải Nhì                       Ngữ văn     Tỉnh       NV1                            Tâm lý học                        0.75                                   0.00           NaN
+647 TS_39369           Giải Ba                       Ngữ văn     Tỉnh       NV1                          Ngôn ngữ Anh                        0.50                                   0.00           NaN
+648 TS_39369           Giải Ba                       Ngữ văn     Tỉnh       NV2                     Sư phạm Tiếng Anh                        0.50                                   0.00           NaN
+649  TS_7154           Giải Ba                       Ngữ văn     Tỉnh       NV1                     Giáo dục Tiểu học                        0.50                                   0.00           NaN
+650  TS_7154           Giải Ba                       Ngữ văn     Tỉnh       NV2                     Sư phạm Tiếng Anh                        0.50                                   0.00           NaN
+651  TS_7154           Giải Ba                       Ngữ văn     Tỉnh       NV3                          Ngôn ngữ Anh                        0.50                                   0.00           NaN
+652  TS_7154           Giải Ba                       Ngữ văn     Tỉnh       NV4                            Tâm lí học                        0.50                                   0.00           NaN
+653  TS_7154           Giải Ba                       Ngữ văn     Tỉnh       NV5                   Quản trị kinh doanh                        0.50                                   0.00           NaN
+654 TS_16390          Giải Nhì                       Ngữ văn     Tỉnh       NV1                     Giáo dục Tiểu học                        0.75                                   0.00           NaN
+655 TS_16390          Giải Nhì                       Ngữ văn     Tỉnh       NV2                       Sư phạm Ngữ văn                        0.75                                   0.00           NaN
+656 TS_16390          Giải Nhì                       Ngữ văn     Tỉnh       NV3                       Sư phạm Lịch sử                        0.75                                   0.00           NaN
+657 TS_16390          Giải Nhì                       Ngữ văn     Tỉnh       NV4                        Sư phạm Địa lí                        0.75                                   0.00           NaN
+658 TS_16390          Giải Nhì                       Ngữ văn     Tỉnh       NV5              Sư phạm Lịch sử - Địa lí                        0.75                                   0.00           NaN
+659 TS_17221           Giải Ba                      Toán học     Tỉnh       NV1                         Toán Ứng dụng                        0.50                                   0.00           NaN
+660 TS_30066           Giải Ba                     Tiếng Anh     Tỉnh       NV1                     Sư phạm Tiếng Anh                        0.50                                   0.00           NaN
+661 TS_22043          Giải Nhì                       Ngữ văn     Tỉnh       NV1                     Giáo dục Tiểu học                        0.75                                   0.00           NaN
+662  TS_4173           Giải Ba                       Ngữ văn     Tỉnh       NV1                       Sư phạm Ngữ văn                        0.50                                   0.00           NaN
+663  TS_4173           Giải Ba                       Ngữ văn     Tỉnh       NV2                     Giáo dục Tiểu học                        0.50                                   0.00           NaN
+664  TS_4173           Giải Ba                       Ngữ văn     Tỉnh       NV3                            Quản lí GD                        0.50                                   0.00           NaN
+665  TS_4173           Giải Ba                       Ngữ văn     Tỉnh       NV4                           Quốc tế học                        0.50                                   0.00           NaN
+666  TS_4173           Giải Ba                       Ngữ văn     Tỉnh       NV5                          GD Chính trị                        0.50                                   0.00           NaN
+667  TS_4173           Giải Ba                       Ngữ văn     Tỉnh       NV6                                  Luật                        0.50                                   0.00           NaN
+668 TS_34931           Giải Ba                      Sinh học     Tỉnh       NV1                      Sư phạm Sinh học                        0.50                                   0.00           NaN
+669 TS_34931           Giải Ba                      Sinh học     Tỉnh       NV2             Sư phạm Khoa học Tự nhiên                        0.50                                   0.00           NaN
+670 TS_39367           Giải Ba                       Lịch sử     Tỉnh       NV1              Sư phạm Lịch sử - Địa lí                        0.50                                   0.00           NaN
+671 TS_41622          Giải Nhì                       Lịch sử     Tỉnh       NV1                       Sư phạm Lịch sử                        0.75                                   0.00           NaN
+672 TS_31253           Giải Ba                        Địa lí     Tỉnh       NV1                        Sư phạm Địa lí                        0.50                                   0.00           NaN
+673 TS_31253           Giải Ba                        Địa lí     Tỉnh       NV2              Sư phạm Lịch sử - Địa lí                        0.50                                   0.00           NaN
+674  TS_7133          Giải Nhì                       Lịch sử     Tỉnh       NV1                       Sư phạm Lịch sử                        0.75                                   0.00           NaN
+675  TS_7133          Giải Nhì                       Lịch sử     Tỉnh       NV2                               Lịch sử                        0.75                                   0.00           NaN
+676  TS_9447           Giải Ba                     Tiếng Anh     Tỉnh       NV1                     Sư phạm Tiếng Anh                        0.50                                   0.00           NaN
+677  TS_9447           Giải Ba                     Tiếng Anh     Tỉnh       NV2                          Ngôn ngữ Anh                        0.50                                   0.00           NaN
+678  TS_2115           Giải Ba                     Tiếng Anh     Tỉnh       NV1                     Sư phạm Tiếng Anh                        0.50                                   0.00           NaN
+679  TS_2115           Giải Ba                     Tiếng Anh     Tỉnh       NV2                    Ngôn ngữ Anh (CLC)                        0.50                                   0.00           NaN
+680  TS_2115           Giải Ba                     Tiếng Anh     Tỉnh       NV3                          Ngôn ngữ Anh                        0.50                                   0.00           NaN
+681 TS_12368           Giải ba                       Lịch sử     Tỉnh       NV1                       Sư phạm Lịch sử                        0.50                                   0.00           NaN
+682 TS_12368           Giải ba                       Lịch sử     Tỉnh       NV2              Sư phạm Lịch sử - Địa lí                        0.50                                   0.00           NaN
+683 TS_12368           Giải ba                       Lịch sử     Tỉnh       NV3                          Ngôn ngữ Anh                        0.50                                   0.00 Loại, nhập dư
+684 TS_19952           Giải Ba                       Ngữ văn     Tỉnh       NV1                     Giáo dục Tiểu học                        0.50                                   0.00           NaN
+685 TS_19952           Giải Ba                       Ngữ văn     Tỉnh       NV2                            Tâm lý học                        0.50                                   0.00           NaN
+686 TS_21859          Giải Nhì                       Ngữ văn     Tỉnh       NV1                       Sư phạm Ngữ văn                        0.75                                   0.00           NaN
+687 TS_21859          Giải Nhì                       Ngữ văn     Tỉnh       NV2                     Giáo dục Tiểu học                        0.75                                   0.00           NaN
+688 TS_33796           Giải Ba                       Lịch sử     Tỉnh       NV1                     Giáo dục Tiểu học                        0.50                                   0.00           NaN
+689 TS_33796           Giải Ba                       Lịch sử     Tỉnh       NV2                      Giáo dục Mầm non                        0.50                                   0.00           NaN
+690 TS_11835           Giải Ba                        Địa lí     Tỉnh       NV1                        Sư phạm Địa lí                        0.50                                   0.00           NaN
+691 TS_11835           Giải Ba                        Địa lí     Tỉnh       NV2                       Sư phạm Ngữ văn                        0.50                                   0.00           NaN
+692 TS_22724          Giải Nhì                       Ngữ văn     Tỉnh       NV1                       Sư phạm Ngữ văn                        0.75                                   0.00           NaN
+693 TS_22724          Giải Nhì                       Ngữ văn     Tỉnh       NV2                     Giáo dục Tiểu học                        0.75                                   0.00           NaN
+694 TS_22724          Giải Nhì                       Ngữ văn     Tỉnh       NV3                            Tâm lí học                        0.75                                   0.00           NaN
+695 TS_22724          Giải Nhì                       Ngữ văn     Tỉnh       NV4                    Quản trị văn phòng                        0.75                                   0.00           NaN
+

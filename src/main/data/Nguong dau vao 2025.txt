@@ -1,0 +1,50 @@
+--- Sheet: Sheet1 ---
+ STT Mã xét tuyển                            Tên ngành, chương trình đào tạo  Ngưỡng đầu vào
+   1       7140114                                          Quản lý giáo dục            17.0
+   2       7140201                                          Giáo dục Mầm non            20.0
+   3       7140202                                         Giáo dục Tiểu học            21.0
+   4       7140205                                        Giáo dục chính trị            23.0
+   5       7140209                                          Sư phạm Toán học            24.5
+   6       7140211                                            Sư phạm Vật lý            24.0
+   7       7140212                                           Sư phạm Hoá học            24.0
+   8       7140213                                          Sư phạm Sinh học            23.0
+   9       7140217                                           Sư phạm Ngữ văn            24.0
+  10       7140218                                           Sư phạm Lịch sử            25.0
+  11       7140219                                            Sư phạm Địa lý            25.0
+  12       7140221                                           Sư phạm Âm nhạc            18.0
+  13       7140222                                          Sư phạm Mỹ thuật            18.0
+  14       7140231                                         Sư phạm Tiếng Anh            24.0
+  15       7140247                                 Sư phạm Khoa học tự nhiên            22.0
+  16       7140249                                  Sư phạm Lịch sử - Địa lí            19.0
+  17       7220201                                              Ngôn ngữ Anh            22.0
+  18    7220201CLC        Ngôn ngữ Anh (Chương trình đào tạo chất lượng cao)            22.0
+  19       7229010                                                   Lịch sử            17.0
+  20       7310401                                                Tâm lý học            18.0
+  21       7310501                                                Địa lý học            17.0
+  22       7310601                                               Quốc tế học            21.0
+  23       7310630                                              Việt Nam học            21.0
+  24       7320201                                      Thông tin - Thư viện            17.0
+  25       7340101                                       Quản trị kinh doanh            18.5
+  26    7340101CLC Quản trị kinh doanh (Chương trình đào tạo chất lượng cao)            18.5
+  27       7340120                                        Kinh doanh quốc tế            18.5
+  28       7340201                                     Tài chính - Ngân hàng            18.5
+  29       7340301                                                   Kế toán            18.5
+  30    7340301CLC             Kế toán (Chương trình đào tạo chất lượng cao)            18.5
+  31       7340302                                                 Kiểm toán            18.5
+  32       7340406                                        Quản trị văn phòng            17.0
+  33       7380101                                                      Luật            17.0
+  34       7440301                                       Khoa học môi trường            18.0
+  35       7460108                                          Khoa học dữ liệu            21.0
+  36       7460112                                             Toán ứng dụng            22.0
+  37       7480103                                         Kỹ thuật phần mềm            21.0
+  38       7480107                                          Trí tuệ nhân tạo            22.0
+  39       7480201                                       Công nghệ thông tin            21.0
+  40    7480201CLC Công nghệ thông tin (Chương trình đào tạo chất lượng cao)            21.0
+  41       7510301                          Công nghệ kỹ thuật điện, điện tử            18.0
+  42       7510302                   Công nghệ kỹ thuật điện tử – viễn thông            18.0
+  43       7510406                             Công nghệ kỹ thuật môi trường            18.0
+  44       7520201                                             Kỹ thuật điện            18.0
+  45       7520207          Kỹ thuật điện tử - viễn thông (Thiết kế vi mạch)            19.0
+  46       7810101                                                   Du lịch            20.5
+  47       7810202                      Quản trị nhà hàng và dịch vụ ăn uống            18.0
+

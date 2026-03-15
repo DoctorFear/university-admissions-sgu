@@ -1,6 +1,28 @@
 package com.xettuyen2026.ui.common;
 
-// TODO: Hiển thị thông báo lỗi/thành công
-public class MessageHelper {
+import javax.swing.*;
+import java.awt.*;
 
+/**
+ * Helper hiển thị thông báo thành công / lỗi / warning.
+ */
+public final class MessageHelper {
+
+    private MessageHelper() {}
+
+    public static void showSuccess(Component parent, String message) {
+        JOptionPane.showMessageDialog(parent, message, "Thành công", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public static void showError(Component parent, String message) {
+        JOptionPane.showMessageDialog(parent, message, "Lỗi", JOptionPane.ERROR_MESSAGE);
+    }
+
+    public static void showWarning(Component parent, String message) {
+        JOptionPane.showMessageDialog(parent, message, "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+    }
+
+    public static void showInfo(Component parent, String message) {
+        JOptionPane.showMessageDialog(parent, message, "Thông tin", JOptionPane.INFORMATION_MESSAGE);
+    }
 }

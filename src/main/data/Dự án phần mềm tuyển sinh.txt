@@ -1,0 +1,289 @@
+Dự án phần mềm tuyển sinh
+
+A. Chức năng Admin (win form)
+
+Yêu cầu: Sử dụng Swing form + Hibernate + mySQL
+
+1. Quản lý người dùng, có 2 loại quyền: user và admin
+
++ Xem danh sách, sửa thông tin, thay đổi password, đổi quyền user ⇔ admin, enable/disable người dùng
+
+2. Quản lý thí sinh
+
++ Import thông tin thí sinh
+
++ Xem danh sách (phân trang 20 row/page)
+
++ Tìm kiếm theo CCCD, họ tên
+
++ Sửa thông tin thí sinh
+
+Table: xt_thisinhxettuyen25
+
+Columns:
+    idthisinh       int AI PK
+    cccd            varchar(20)
+    sobaodanh       varchar(45)
+    ho              varchar(100)
+    ten             varchar(100)
+    ngay_sinh       varchar(45)
+    dien_thoai      varchar(20)
+    password        varchar(100)
+    gioi_tinh       varchar(10)
+    email           varchar(100)
+    noi_sinh        varchar(45)
+    updated_at      date
+    doi_tuong       varchar(45)
+    khu_vuc         varchar(45)
+
+3. Quản lý ngành tuyển sinh
+
++ Import danh sách
+
++ Xem danh sách, sửa thông tin, xóa, thêm mới
+
+Table: xt_nganh
+
+Columns:
+    idnganh             int AI PK
+    manganh             varchar(45)
+    tennganh            varchar(100)
+    n_tohopgoc          varchar(3)
+    n_chitieu           int
+    n_diemsan           decimal(10,2)
+    n_diemtrungnguyen   decimal(10,2)
+    n_tuyenhang         varchar(1)
+    n_dgnl              varchar(1)
+    n_thpt              varchar(1)
+    n_vsat              varchar(1)
+    sl_xtt              int
+    sl_dgnl             int
+    sl_vsat             int
+    sl_thpt             varchar(45)
+
+[Result Grid - xt_nganh sample data]
+idnganh  manganh   tennganh                  n_tohopgoc  n_chitieu  n_diemsan  n_diemtrungnguyen  n_tuyenhang  n_dgnl  n_thpt  n_vsat  sl_xtt  sl_dgnl  sl_vsat  sl_thpt
+1        7140114   Quản lý giáo dục          D01         40         17.00      NULL               NULL         NULL    NULL    NULL   NULL    NULL     NULL
+2        7140201   Giáo dục Mầm non          M01         200        20.00      NULL               NULL         NULL    NULL    NULL   NULL    NULL     NULL
+3        7140202   Giáo dục Tiểu học         C01         200        21.00      NULL               NULL         NULL    NULL    NULL   NULL    NULL     NULL
+4        7140205   Giáo dục chính trị        C01         10         23.00      NULL               NULL         NULL    NULL    NULL   NULL    NULL     NULL
+5        7140209   Sư phạm Toán học          A00         40         24.50      NULL               NULL         NULL    NULL    NULL   NULL    NULL     NULL
+6        7140211   Sư phạm Vật lý            A00         10         24.00      NULL               NULL         NULL    NULL    NULL   NULL    NULL     NULL
+7        7140212   Sư phạm Hóa học           A00         10         24.00      NULL               NULL         NULL    NULL    NULL   NULL    NULL     NULL
+8        7140213   Sư phạm Sinh học          B00         10         23.00      NULL               NULL         NULL    NULL    NULL   NULL    NULL     NULL
+9        7140217   Sư phạm Ngữ văn           C01         50         24.00      NULL               NULL         NULL    NULL    NULL   NULL    NULL     NULL
+10       7140215   Sư phạm Lịch sử           C00         10         25.00      NULL               NULL         NULL    NULL    NULL   NULL    NULL     NULL
+
+4. Quản lý tổ hợp môn xét tuyển
+
++ Import danh sách
+
++ Xem danh sách, sửa thông tin, xóa, thêm mới
+
+Table: xt_tohop_monthi
+
+Columns:
+    idtohop     int AI PK
+    matohop     varchar(45)
+    mon1        varchar(10)
+    mon2        varchar(10)
+    mon3        varchar(10)
+    tentohop    varchar(100)
+
+[Result Grid - xt_tohop_monthi sample data]
+idtohop  matohop  mon1  mon2  mon3  tentohop
+2        A01      TO    LI    N1
+3        B00      TO    HO    SI    Toán, Hóa học, Sinh học
+5        C00      VA    DI    SU    Ngữ văn, Lịch sử, Địa lí
+6        C03      TO    VA    SU    Toán, Lịch sử, Ngữ văn
+7        C04      TO    VA    DI    Toán, Địa lí, Ngữ văn
+8        C19      VA    SU    GD    Văn - Sử - GDCD
+9        D01      TO    VA    N1    Toán, Tiếng Anh, Ngữ văn
+11       H00      VA    NK3   NK4   Ngữ văn, Hình hoa, Trang trí
+12       M01      TO    NK1   NK2   Ngữ văn, Kể chuyện - Đọc diễn cảm, Hát - Nhạc
+13       M02      TO    NK1   NK2   Ngữ văn, Kể chuyện - Đọc diễn cảm, Hát - Nhạc
+14       N01      VA    NK5   NK6   Ngữ văn, Hát - Nhạc cụ, Xướng âm - Thẩm âm, Tiết tấu
+
+5. Quản lý danh sách ngành - tổ hợp
+
+Table: xt_nganh_tohop
+
+Columns:
+    id          int AI PK
+    manganh     varchar(45)
+    matohop     varchar(45)
+    th_mon1     varchar(10)
+    hsmon1      tinyint
+    th_mon2     varchar(10)
+    hsmon2      tinyint
+    th_mon3     varchar(10)
+    hsmon3      tinyint
+    tb_keys     varchar(45)
+    N1          tinyint(1)
+    TO          tinyint(1)
+    LI          tinyint(1)
+    HO          tinyint(1)
+    SI          tinyint(1)
+    VA          tinyint(1)
+    SU          tinyint(1)
+    DI          tinyint(1)
+    TI          tinyint(1)
+    KHAC        tinyint(1)
+    KTPL        tinyint(1)
+    dolech      decimal(6,2)
+
+[Result Grid - xt_nganh_tohop sample data]
+id  manganh   matohop  th_mon1  hsmon1  th_mon2  hsmon2  th_mon3  hsmon3  tb_keys           N1  TO  LI  HO  S  VA  SU  DI  TI
+1   7140114   B03      TO       3       VA       3       SI       1       7140114_B03        0   1   0   0   0  1   0   0   0
+2   7140114   C01      TO       3       VA       3       HO       1       7140114_C01        0   1   0   0   1  1   0   0   0
+3   7140114   C02      TO       3       VA       3       N1       1       7140114_C02        0   1   0   0   0  1   0   0   0
+4   7140114   C03      TO       3       VA       3       SU       1       7140114_C03        0   1   0   0   0  1   1   0   0
+5   7140114   C04      TO       3       VA       3       DI       1       7140114_C04        0   1   0   0   0  1   0   1   0
+6   7140114   D01      TO       3       VA       3       N1       1       7140114_D01        0   1   0   0   0  1   0   0   0
+7   7140114   X01      TO       3       VA       3       KTPL     1       7140114_X01        0   1   0   0   0  1   0   0   0
+8   7140114   X02      TO       3       VA       3       CNCN     1       7140114_X02        0   1   0   0   0  1   0   0   0
+9   7140114   X03      TO       3       CNCN     3       N1       1       7140114_X03        0   1   0   0   0  1   0   0   0
+10  7140114   X04      TO       3       CNCN     3       CNNN     1       7140114_X04        0   1   0   0   0  1   0   0   0
+
+6. Quản lý điểm thí sinh: có 3 loại điểm THPT, VSAT, ĐGNL
+
+- Import danh sách điểm
+
+- Xem danh sách, sửa thông tin, xóa, thêm mới
+
+- Thống kê điểm theo loại điểm, môn
+
+Table: xt_diemthixettuyen
+
+Columns:
+    iddiemthi       int AI PK
+    cccd            varchar(20)
+    sobaodanh       varchar(45)
+    d_phuongthuc    varchar(10)
+    TO              decimal(8,2)
+    LI              decimal(8,2)
+    HO              decimal(8,2)
+    SI              decimal(8,2)
+    SU              decimal(8,2)
+    DI              decimal(8,2)
+    VA              decimal(8,2)
+    N1_THI          decimal(8,2)
+    N1_CC           decimal(8,2)
+    CNCN            decimal(8,2)
+    CNNN            decimal(8,2)
+    TI              decimal(8,2)
+    KTPL            decimal(8,2)
+    NL1             decimal(8,2)
+    NK1             decimal(8,2)
+    NK2             decimal(8,2)
+
+[Result Grid - xt_diemthixettuyen sample data]
+iddiemthi  cccd          sobaodanh  d_phuongth  TO    LI    HO    SI    SU    DI    VA    N1_THI  N1_CC  CNCN  CNNN  TI    KTPL  NL1   NK1   NK2
+...        001207004846  NULL       0           0.00  0.00  0.00  0.00  0.00  0.00  NULL  NULL    NULL   NULL  NULL  NULL  NULL  534.00 NULL NULL
+...        001207004848  NULL       0           0.00  0.00  0.00  0.00  0.00  0.00  NULL  NULL    NULL   NULL  NULL  NULL  NULL  534.00 NULL NULL
+...        001207005157  NULL       0           0.00  0.00  0.00  0.00  0.00  0.00  NULL  NULL    NULL   NULL  NULL  NULL  NULL  533.00 NULL NULL
+...        001207008593  NULL       3           4.38  6.30  0.00  0.00  0.00  0.00  0.00  NULL    NULL   NULL  NULL  NULL  NULL  772.00 NULL NULL
+...        001207008630  NULL       3           5.18  0.00  0.00  0.00  7.53  7.18  7.18  NULL    NULL   NULL  NULL  NULL  NULL  833.00 NULL NULL
+...        001207009704  NULL       3           9.64  0.00  0.00  0.00  0.00  0.00  0.00  NULL    NULL   NULL  NULL  NULL  NULL  794.00 NULL NULL
+...        001207011458  NULL       3           6.07  0.00  0.00  8.77  9.64  9.31  NULL  NULL    NULL   NULL  NULL  NULL  NULL  749.00 NULL NULL
+...        001207012341  NULL       3           0.00  0.00  0.00  0.00  0.00  0.00  NULL  NULL    NULL   NULL  NULL  NULL  NULL  860.00 NULL NULL
+...        001207012684  NULL       3           0.00  0.00  0.00  0.00  0.00  0.00  NULL  NULL    NULL   NULL  NULL  NULL  NULL  756.00 NULL NULL
+
+7. Quản lý điểm cộng
+
+- Xem danh sách điểm cộng
+
+- Import danh sách
+
+- Thêm, xóa, sửa
+
+Table: xt_diemcongxetuyen
+
+Columns:
+    iddiemcong      int UN AI PK
+    ts_cccd         varchar(45)
+    manganh         varchar(20)
+    matohop         varchar(10)
+    phuongthuc      varchar(45)
+    diemCC          decimal(6,2)
+    diemUtxt        decimal(6,2)
+    diemTong        decimal(6,2)
+    ghichu          text
+    dc_keys         varchar(45)
+
+[Result Grid - xt_diemcongxetuyen sample data]
+iddiemcong  ts_cccd         diemTong  manganh  matohop  phuongthuc  ghichu  dc_keys                           diemCC  diemUtxt
+1           056307010216    1.00      7340101  B00      PT4         NULL    056307010216_7340101_B00            NULL    NULL
+2           056307010216    1.00      7340101  X22      PT4         NULL    056307010216_7340101_X22            NULL    NULL
+3           056307010216    1.00      7340101  B02      PT4         NULL    056307010216_7340101_B02            NULL    NULL
+4           056307010216    1.00      7340101  B01      PT4         NULL    056307010216_7340101_B01            NULL    NULL
+5           056307010216    1.00      7340101  A07      PT4         NULL    056307010216_7340101_A07            NULL    NULL
+6           056307010216    1.00      7340101  A08      PT4         NULL    056307010216_7340101_A08            NULL    NULL
+7           056307010216    1.00      7340101  A05      PT4         NULL    056307010216_7340101_A05            NULL    NULL
+8           056307010216    1.00      7340101  A03      PT4         NULL    056307010216_7340101_A03            NULL    NULL
+9           056307010216    1.00      7340101  A02      PT4         NULL    056307010216_7340101_A02            NULL    NULL
+
+8. Quản lý nguyện vọng và xét tuyển.
+
+Table: xt_nguyenvongxettuyen
+
+Columns:
+    idnv            int AI PK
+    nn_cccd         varchar(45)
+    nv_manganh      varchar(45)
+    nv_tt           int
+    diem_thxt       decimal(10,5)
+    diem_utgd       decimal(10,5)
+    diem_cong       decimal(6,2)
+    diem_xettuyen   decimal(10,5)
+    nv_ketqua       varchar(45)
+    nv_keys         varchar(45)
+    tt_phuongthuc   varchar(45)
+    tt_thm          varchar(45)
+
+[Result Grid - xt_nguyenvongxettuyen sample data]
+idnv  nn_cccd         nv_manganh  nv_tt  diem_thxt   diem_utgd  diem_cong  diem_xettuyen  nv_ketqua  nv_keys                       tt_phuongthuc  tt_thm
+2     001207004846    7610302     1      19.50000    0.25000    NULL       19.50000       duolaar    001207004846_7610302_PT2       PT2            NULL
+3     001207005157    7510301     1      16.70000    0.25000    NULL       16.70000       duolaar    001207005157_7510301_PT2       PT2            NULL
+4     001207005157    7510302     25     15.70000    0.00000    NULL       15.70000       duolaar    001207005157_7510302_PT2       PT2            NULL
+5     001207005157    7510302     27     15.70000    0.00000    NULL       15.70000       duolaar    001207005157_7510302_PT2       PT2            NULL
+6     001207005157    7220201     NULL   15.70000    0.00000    NULL       15.70000       duolaar    001207005157_7220201_PT2       PT2            NULL
+7     001207008593    7310401     4      20.25000    0.00000    NULL       20.25000       NULL       001207008593_7310401_PT2       PT2            NULL
+8     001207008630    7310401     NULL   21.18000    0.00000    NULL       21.18000       NULL       001207008630_7310401_PT2       PT2            NULL
+9     001207009704    7310401     NULL   21.85000    0.00000    NULL       21.85000       yes        001207009704_7310401_PT2       PT2            NULL
+10    001207012341    7380101     1      19.93000    0.00000    NULL       19.93000       yes        001207012341_7380101_PT2       PT2            NULL
+11    001207012439    7480201     1      23.85000    0.61000    NULL       24.04000       yes        001207012439_7480201_PT2       PT2            NULL
+
+9. Quản lý bảng quy đổi
+
+- Import danh sách
+
+- Xem, thêm, sửa, xóa, tìm kiếm
+
+Table: xt_bangquydoi
+
+Columns:
+    idqd            int AI PK
+    d_phuongthuc    varchar(45)
+    d_tohop         varchar(45)
+    d_mon           varchar(45)
+    d_diema         decimal(6,2)
+    d_diemb         decimal(6,2)
+    d_diemc         decimal(6,2)
+    d_diemd         decimal(6,2)
+    d_maquydoi      varchar(45)
+    d_phanvi        varchar(45)
+
+[Result Grid - xt_bangquydoi sample data]
+idqd  d_phuongthuc  d_tohop  d_mon  d_diema  d_diemb  d_diemc  d_diemd  d_maquydoi    d_phanvi
+2     DGNL          A01      NULL   980.00   997.00   20.25    20.10    DGNL_A01_2    2
+3     DGNL          A01      NULL   984.00   997.00   25.75    26.10    DGNL_A01_3    3
+4     DGNL          A01      NULL   979.00   983.00   25.00    25.65    DGNL_A01_4    4
+5     DGNL          A01      NULL   962.00   972.00   25.05    25.25    DGNL_A01_5    5
+6     DGNL          A01      NULL   954.00   961.00   24.85    25.05    DGNL_A01_6    6
+7     DGNL          A01      NULL   946.00   953.00   24.00    24.75    DGNL_A01_7    7
+8     DGNL          A01      NULL   939.00   945.00   24.30    24.50    DGNL_A01_8    8
+9     DGNL          A01      NULL   932.00   938.00   24.00    24.25    DGNL_A01_9    9
+10    DGNL          A01      NULL   926.00   931.00   23.60    24.20    DGNL_A01_10   10
+11    DGNL          A01      NULL   919.00   925.00   23.30    23.95    DGNL_A01_11   11
+12    DGNL          A01      NULL   913.00   918.00   23.55    23.75    DGNL_A01_12   12

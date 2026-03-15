@@ -1,0 +1,21 @@
+Bảng quy đổi 2025:
+
+
+
+--- Table ---
+TT	Tên Chứng chỉ	Mức điểm	Mức điểm	Mức điểm
+1	IELTS	4.0 - 5.0	5.5 – 6.5	>=7.0
+2	TOEFL ITP	450-499	500-626	>=627
+3	TOEFL iBT	30 - 45	46 - 93	>=94
+4	TOEIC (4 kỹ năng) - Nghe - Đọc - Nói - Viết	 275-399 275-384 120-159 120-149	 400-489 385-454 160 - 179 150 -179	 >=490 >=455 >=180 >=180
+5	PTE Academic (Pearson)	43-58	59-75	>=76
+6	Linguaskill	140-159	160-179	>=180
+7	Aptis ESOL (General)	B1	B2	C
+8	Aptis ESOL (Advanced)	B1	B2	C1
+9	VSTEP (3 bậc)	Bậc 3	Bậc 4	Bậc 5
+	Mức điểm quy đổi chứng chỉ sang điểm thi môn Tiếng Anh (Kì thi tốt nghiệp THPT)	8.0	9.0	10
+	Mức điểm cộng trong THXT không có môn tiếng Anh như sau:			
+	- Phương thức 2 – ĐGNL-HCM (thang 1200 điểm)	40	60	80
+	- Phương thức 3 – V-SAT (thang 450 điểm)	15	22.5	30
+	- Phương thức 4 – THPT (thang 30 điểm)	1.0	1.5	2.0
+

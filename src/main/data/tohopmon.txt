@@ -1,0 +1,1468 @@
+--- Sheet: Sheet1 ---
+ STT    MANGANH                          TEN_NGANHCHUAN               MA_TO_HOP        tb_keys TEN_TO_HOP Gốc  Độ lệch
+   1    7140114                        Quản lý giáo dục     B03(TO-3,VA-3,SI-1)    7140114_B03        B03 NaN     0.00
+   2    7140114                        Quản lý giáo dục     C01(TO-3,VA-3,LI-1)    7140114_C01        C01 NaN     1.62
+   3    7140114                        Quản lý giáo dục     C02(TO-3,VA-3,HO-1)    7140114_C02        C02 NaN     0.00
+   4    7140114                        Quản lý giáo dục     C03(TO-3,VA-3,SU-1)    7140114_C03        C03 NaN     0.00
+   5    7140114                        Quản lý giáo dục     C04(TO-3,VA-3,DI-1)    7140114_C04        C04 NaN     0.00
+   6    7140114                        Quản lý giáo dục     D01(TO-3,VA-3,N1-1)    7140114_D01        D01 Gốc     0.00
+   7    7140114                        Quản lý giáo dục   X01(TO-3,VA-3,KTPL-1)    7140114_X01        X01 NaN     0.00
+   8    7140114                        Quản lý giáo dục     X02(TO-3,VA-3,TI-1)    7140114_X02        X02 NaN     0.00
+   9    7140114                        Quản lý giáo dục   X03(TO-3,VA-3,CNCN-1)    7140114_X03        X03 NaN     0.00
+  10    7140114                        Quản lý giáo dục   X04(TO-3,VA-3,CNNN-1)    7140114_X04        X04 NaN     0.00
+  11    7140201                        Giáo dục mầm non   M01(NK1-1,NK2-1,VA-1)    7140201_M01        M01 Gốc     0.00
+  12    7140201                        Giáo dục mầm non   M02(NK1-1,TO-1,NK2-1)    7140201_M02        M02 NaN     0.00
+  13    7140202                       Giáo dục Tiểu học     B03(TO-3,VA-3,SI-1)    7140202_B03        B03 NaN     0.00
+  14    7140202                       Giáo dục Tiểu học     C01(TO-3,VA-3,LI-1)    7140202_C01        C01 Gốc     0.00
+  15    7140202                       Giáo dục Tiểu học     C02(TO-3,VA-3,HO-1)    7140202_C02        C02 NaN     0.00
+  16    7140202                       Giáo dục Tiểu học     C03(TO-3,VA-3,SU-1)    7140202_C03        C03 NaN     0.00
+  17    7140202                       Giáo dục Tiểu học     C04(TO-3,VA-3,DI-1)    7140202_C04        C04 NaN     0.00
+  18    7140202                       Giáo dục Tiểu học     D01(TO-3,VA-3,N1-1)    7140202_D01        D01 NaN    -1.62
+  19    7140202                       Giáo dục Tiểu học   X01(TO-3,VA-3,KTPL-1)    7140202_X01        X01 NaN     0.00
+  20    7140202                       Giáo dục Tiểu học     X02(TO-3,VA-3,TI-1)    7140202_X02        X02 NaN     0.00
+  21    7140202                       Giáo dục Tiểu học   X03(TO-3,VA-3,CNCN-1)    7140202_X03        X03 NaN     0.00
+  22    7140202                       Giáo dục Tiểu học   X04(TO-3,VA-3,CNNN-1)    7140202_X04        X04 NaN     0.00
+  23    7140205                      Giáo dục Chính trị     B03(TO-1,VA-3,SI-1)    7140205_B03        B03 NaN     0.00
+  24    7140205                      Giáo dục Chính trị     C01(TO-1,VA-3,LI-1)    7140205_C01        C01 Gốc     0.00
+  25    7140205                      Giáo dục Chính trị     C02(TO-1,VA-3,HO-1)    7140205_C02        C02 NaN     0.00
+  26    7140205                      Giáo dục Chính trị     C03(TO-1,VA-3,SU-1)    7140205_C03        C03 NaN     0.00
+  27    7140205                      Giáo dục Chính trị     C04(TO-1,VA-3,DI-1)    7140205_C04        C04 NaN     0.00
+  28    7140205                      Giáo dục Chính trị     D01(TO-1,VA-3,N1-1)    7140205_D01        D01 NaN    -1.62
+  29    7140205                      Giáo dục Chính trị   X01(TO-1,VA-3,KTPL-1)    7140205_X01        X01 NaN     0.00
+  30    7140205                      Giáo dục Chính trị     X02(TO-1,VA-3,TI-1)    7140205_X02        X02 NaN     0.00
+  31    7140205                      Giáo dục Chính trị   X03(TO-1,VA-3,CNCN-1)    7140205_X03        X03 NaN     0.00
+  32    7140205                      Giáo dục Chính trị   X04(TO-1,VA-3,CNNN-1)    7140205_X04        X04 NaN     0.00
+  33    7140209                        Sư phạm Toán học     A00(TO-5,LI-1,HO-1)    7140209_A00        A00 Gốc     0.00
+  34    7140209                        Sư phạm Toán học     A01(TO-5,LI-1,N1-1)    7140209_A01        A01 NaN    -0.69
+  35    7140209                        Sư phạm Toán học     A02(TO-5,LI-1,SI-1)    7140209_A02        A02 NaN     0.00
+  36    7140209                        Sư phạm Toán học     A03(TO-5,LI-1,SU-1)    7140209_A03        A03 NaN     0.00
+  37    7140209                        Sư phạm Toán học     A04(TO-5,LI-1,DI-1)    7140209_A04        A04 NaN     0.00
+  38    7140209                        Sư phạm Toán học     A05(TO-5,HO-1,SU-1)    7140209_A05        A05 NaN     0.00
+  39    7140209                        Sư phạm Toán học     A06(TO-5,HO-1,DI-1)    7140209_A06        A06 NaN     0.00
+  40    7140209                        Sư phạm Toán học     A07(TO-5,SU-1,DI-1)    7140209_A07        A07 NaN     0.00
+  41    7140209                        Sư phạm Toán học     B00(TO-5,HO-1,SI-1)    7140209_B00        B00 NaN    -1.21
+  42    7140209                        Sư phạm Toán học     B01(TO-5,SI-1,SU-1)    7140209_B01        B01 NaN     0.00
+  43    7140209                        Sư phạm Toán học     B02(TO-5,SI-1,DI-1)    7140209_B02        B02 NaN     0.00
+  44    7140209                        Sư phạm Toán học     B03(TO-5,VA-1,SI-1)    7140209_B03        B03 NaN     0.00
+  45    7140209                        Sư phạm Toán học     B08(TO-5,SI-1,N1-1)    7140209_B08        B08 NaN     0.00
+  46    7140209                        Sư phạm Toán học     C01(TO-5,VA-1,LI-1)    7140209_C01        C01 NaN     0.94
+  47    7140209                        Sư phạm Toán học     C02(TO-5,VA-1,HO-1)    7140209_C02        C02 NaN     0.00
+  48    7140209                        Sư phạm Toán học     C03(TO-5,VA-1,SU-1)    7140209_C03        C03 NaN     0.00
+  49    7140209                        Sư phạm Toán học     C04(TO-5,VA-1,DI-1)    7140209_C04        C04 NaN     0.00
+  50    7140209                        Sư phạm Toán học     D01(TO-5,VA-1,N1-1)    7140209_D01        D01 NaN    -0.68
+  51    7140209                        Sư phạm Toán học     D07(TO-5,HO-1,N1-1)    7140209_D07        D07 NaN    -1.62
+  52    7140209                        Sư phạm Toán học     D09(TO-5,SU-1,N1-1)    7140209_D09        D09 NaN     0.00
+  53    7140209                        Sư phạm Toán học     D10(TO-5,DI-1,N1-1)    7140209_D10        D10 NaN     0.00
+  54    7140209                        Sư phạm Toán học   X01(TO-5,VA-1,KTPL-1)    7140209_X01        X01 NaN     0.00
+  55    7140209                        Sư phạm Toán học     X02(TO-5,VA-1,TI-1)    7140209_X02        X02 NaN     0.00
+  56    7140209                        Sư phạm Toán học   X03(TO-5,VA-1,CNCN-1)    7140209_X03        X03 NaN     0.00
+  57    7140209                        Sư phạm Toán học   X04(TO-5,VA-1,CNNN-1)    7140209_X04        X04 NaN     0.00
+  58    7140209                        Sư phạm Toán học   X05(TO-5,LI-1,KTPL-1)    7140209_X05        X05 NaN     0.00
+  59    7140209                        Sư phạm Toán học     X06(TO-5,LI-1,TI-1)    7140209_X06        X06 NaN     0.00
+  60    7140209                        Sư phạm Toán học   X07(TO-5,LI-1,CNCN-1)    7140209_X07        X07 NaN     0.00
+  61    7140209                        Sư phạm Toán học   X08(TO-5,LI-1,CNNN-1)    7140209_X08        X08 NaN     0.00
+  62    7140209                        Sư phạm Toán học   X09(TO-5,HO-1,KTPL-1)    7140209_X09        X09 NaN     0.00
+  63    7140209                        Sư phạm Toán học     X10(TO-5,HO-1,TI-1)    7140209_X10        X10 NaN     0.00
+  64    7140209                        Sư phạm Toán học   X11(TO-5,HO-1,CNCN-1)    7140209_X11        X11 NaN     0.00
+  65    7140209                        Sư phạm Toán học   X12(TO-5,HO-1,CNNN-1)    7140209_X12        X12 NaN     0.00
+  66    7140209                        Sư phạm Toán học   X13(TO-5,SI-1,KTPL-1)    7140209_X13        X13 NaN     0.00
+  67    7140209                        Sư phạm Toán học     X14(TO-5,SI-1,TI-1)    7140209_X14        X14 NaN     0.00
+  68    7140209                        Sư phạm Toán học   X15(TO-5,SI-1,CNCN-1)    7140209_X15        X15 NaN     0.00
+  69    7140209                        Sư phạm Toán học   X16(TO-5,SI-1,CNNN-1)    7140209_X16        X16 NaN     0.00
+  70    7140209                        Sư phạm Toán học   X17(TO-5,SU-1,KTPL-1)    7140209_X17        X17 NaN     0.00
+  71    7140209                        Sư phạm Toán học     X18(TO-5,SU-1,TI-1)    7140209_X18        X18 NaN     0.00
+  72    7140209                        Sư phạm Toán học   X19(TO-5,SU-1,CNCN-1)    7140209_X19        X19 NaN     0.00
+  73    7140209                        Sư phạm Toán học   X20(TO-5,SU-1,CNNN-1)    7140209_X20        X20 NaN     0.00
+  74    7140209                        Sư phạm Toán học   X21(TO-5,DI-1,KTPL-1)    7140209_X21        X21 NaN     0.00
+  75    7140209                        Sư phạm Toán học     X22(TO-5,DI-1,TI-1)    7140209_X22        X22 NaN     0.00
+  76    7140209                        Sư phạm Toán học   X23(TO-5,DI-1,CNCN-1)    7140209_X23        X23 NaN     0.00
+  77    7140209                        Sư phạm Toán học   X24(TO-5,DI-1,CNNN-1)    7140209_X24        X24 NaN     0.00
+  78    7140209                        Sư phạm Toán học   X25(TO-5,N1-1,KTPL-1)    7140209_X25        X25 NaN     0.00
+  79    7140209                        Sư phạm Toán học     X26(TO-5,N1-1,TI-1)    7140209_X26        X26 NaN     0.00
+  80    7140209                        Sư phạm Toán học   X27(TO-5,N1-1,CNCN-1)    7140209_X27        X27 NaN     0.00
+  81    7140209                        Sư phạm Toán học   X28(TO-5,N1-1,CNNN-1)    7140209_X28        X28 NaN     0.00
+  82    7140209                        Sư phạm Toán học   X53(TO-5,KTPL-1,TI-1)    7140209_X53        X53 NaN     0.00
+  83    7140209                        Sư phạm Toán học X54(TO-5,KTPL-1,CNCN-1)    7140209_X54        X54 NaN     0.00
+  84    7140209                        Sư phạm Toán học X55(TO-5,KTPL-1,CNNN-1)    7140209_X55        X55 NaN     0.00
+  85    7140209                        Sư phạm Toán học   X56(TO-5,TI-1,CNCN-1)    7140209_X56        X56 NaN     0.00
+  86    7140209                        Sư phạm Toán học   X57(TO-5,TI-1,CNNN-1)    7140209_X57        X57 NaN     0.00
+  87    7140211                          Sư phạm Vật lý     A00(TO-3,LI-5,HO-1)    7140211_A00        A00 Gốc     0.00
+  88    7140211                          Sư phạm Vật lý     A01(TO-3,LI-5,N1-1)    7140211_A01        A01 NaN    -0.69
+  89    7140211                          Sư phạm Vật lý     A02(TO-3,LI-5,SI-1)    7140211_A02        A02 NaN     0.00
+  90    7140211                          Sư phạm Vật lý     A03(TO-3,LI-5,SU-1)    7140211_A03        A03 NaN     0.00
+  91    7140211                          Sư phạm Vật lý     A04(TO-3,LI-5,DI-1)    7140211_A04        A04 NaN     0.00
+  92    7140211                          Sư phạm Vật lý     C01(TO-3,VA-1,LI-5)    7140211_C01        C01 NaN     0.94
+  93    7140211                          Sư phạm Vật lý   X05(TO-3,LI-5,KTPL-1)    7140211_X05        X05 NaN     0.00
+  94    7140211                          Sư phạm Vật lý     X06(TO-3,LI-5,TI-1)    7140211_X06        X06 NaN     0.00
+  95    7140211                          Sư phạm Vật lý   X07(TO-3,LI-5,CNCN-1)    7140211_X07        X07 NaN     0.00
+  96    7140211                          Sư phạm Vật lý   X08(TO-3,LI-5,CNNN-1)    7140211_X08        X08 NaN     0.00
+  97    7140212                         Sư phạm Hoá học     A00(TO-3,LI-1,HO-5)    7140212_A00        A00 Gốc     0.00
+  98    7140212                         Sư phạm Hoá học     A05(TO-3,HO-5,SU-1)    7140212_A05        A05 NaN     0.00
+  99    7140212                         Sư phạm Hoá học     A06(TO-3,HO-5,DI-1)    7140212_A06        A06 NaN     0.00
+ 100    7140212                         Sư phạm Hoá học     B00(TO-3,HO-5,SI-1)    7140212_B00        B00 NaN    -1.21
+ 101    7140212                         Sư phạm Hoá học     C02(TO-3,VA-1,HO-5)    7140212_C02        C02 NaN     0.00
+ 102    7140212                         Sư phạm Hoá học     D07(TO-3,HO-5,N1-1)    7140212_D07        D07 NaN    -1.62
+ 103    7140212                         Sư phạm Hoá học   X09(TO-3,HO-5,KTPL-1)    7140212_X09        X09 NaN     0.00
+ 104    7140212                         Sư phạm Hoá học     X10(TO-3,HO-5,TI-1)    7140212_X10        X10 NaN     0.00
+ 105    7140212                         Sư phạm Hoá học   X11(TO-3,HO-5,CNCN-1)    7140212_X11        X11 NaN     0.00
+ 106    7140212                         Sư phạm Hoá học   X12(TO-3,HO-5,CNNN-1)    7140212_X12        X12 NaN     0.00
+ 107    7140213                        Sư phạm Sinh học     A02(TO-3,LI-1,SI-5)    7140213_A02        A02 NaN     0.00
+ 108    7140213                        Sư phạm Sinh học     B00(TO-3,HO-1,SI-5)    7140213_B00        B00 Gốc     0.00
+ 109    7140213                        Sư phạm Sinh học     B01(TO-3,SI-5,SU-1)    7140213_B01        B01 NaN     0.00
+ 110    7140213                        Sư phạm Sinh học     B02(TO-3,SI-5,DI-1)    7140213_B02        B02 NaN     0.00
+ 111    7140213                        Sư phạm Sinh học     B03(TO-3,VA-1,SI-5)    7140213_B03        B03 NaN     0.00
+ 112    7140213                        Sư phạm Sinh học     B08(TO-3,SI-5,N1-1)    7140213_B08        B08 NaN     0.00
+ 113    7140213                        Sư phạm Sinh học   X13(TO-3,SI-5,KTPL-1)    7140213_X13        X13 NaN     0.00
+ 114    7140213                        Sư phạm Sinh học     X14(TO-3,SI-5,TI-1)    7140213_X14        X14 NaN     0.00
+ 115    7140213                        Sư phạm Sinh học   X15(TO-3,SI-5,CNCN-1)    7140213_X15        X15 NaN     0.00
+ 116    7140213                        Sư phạm Sinh học   X16(TO-3,SI-5,CNNN-1)    7140213_X16        X16 NaN     0.00
+ 117    7140217                         Sư phạm Ngữ văn     B03(TO-1,VA-5,SI-1)    7140217_B03        B03 NaN     0.00
+ 118    7140217                         Sư phạm Ngữ văn     C01(TO-1,VA-5,LI-1)    7140217_C01        C01 Gốc     0.00
+ 119    7140217                         Sư phạm Ngữ văn     C02(TO-1,VA-5,HO-1)    7140217_C02        C02 NaN     0.00
+ 120    7140217                         Sư phạm Ngữ văn     C03(TO-1,VA-5,SU-1)    7140217_C03        C03 NaN     0.00
+ 121    7140217                         Sư phạm Ngữ văn     C04(TO-1,VA-5,DI-1)    7140217_C04        C04 NaN     0.00
+ 122    7140217                         Sư phạm Ngữ văn     D01(TO-1,VA-5,N1-1)    7140217_D01        D01 NaN    -1.62
+ 123    7140217                         Sư phạm Ngữ văn   X01(TO-1,VA-5,KTPL-1)    7140217_X01        X01 NaN     0.00
+ 124    7140217                         Sư phạm Ngữ văn     X02(TO-1,VA-5,TI-1)    7140217_X02        X02 NaN     0.00
+ 125    7140217                         Sư phạm Ngữ văn   X03(TO-1,VA-5,CNCN-1)    7140217_X03        X03 NaN     0.00
+ 126    7140217                         Sư phạm Ngữ văn   X04(TO-1,VA-5,CNNN-1)    7140217_X04        X04 NaN     0.00
+ 127    7140218                         Sư phạm Lịch sử     C00(VA-3,SU-5,DI-1)    7140218_C00        C00 Gốc     0.00
+ 128    7140218                         Sư phạm Lịch sử     C03(TO-1,VA-3,SU-5)    7140218_C03        C03 NaN     0.00
+ 129    7140218                         Sư phạm Lịch sử     C07(VA-3,LI-1,SU-5)    7140218_C07        C07 NaN     0.00
+ 130    7140218                         Sư phạm Lịch sử     C10(VA-3,HO-1,SU-5)    7140218_C10        C10 NaN     0.00
+ 131    7140218                         Sư phạm Lịch sử     C12(VA-3,SI-1,SU-5)    7140218_C12        C12 NaN     0.00
+ 132    7140218                         Sư phạm Lịch sử     D14(VA-3,SU-5,N1-1)    7140218_D14        D14 NaN     0.00
+ 133    7140218                         Sư phạm Lịch sử   X70(VA-3,SU-5,KTPL-1)    7140218_X70        X70 NaN     0.00
+ 134    7140218                         Sư phạm Lịch sử     X71(VA-3,SU-5,TI-1)    7140218_X71        X71 NaN     0.00
+ 135    7140218                         Sư phạm Lịch sử   X72(VA-3,SU-5,CNCN-1)    7140218_X72        X72 NaN     0.00
+ 136    7140218                         Sư phạm Lịch sử   X73(VA-3,SU-5,CNNN-1)    7140218_X73        X73 NaN     0.00
+ 137    7140219                          Sư phạm Địa lý     C00(VA-3,SU-1,DI-5)    7140219_C00        C00 Gốc     0.00
+ 138    7140219                          Sư phạm Địa lý     C04(TO-1,VA-3,DI-5)    7140219_C04        C04 NaN     0.00
+ 139    7140219                          Sư phạm Địa lý     C09(VA-3,LI-1,DI-5)    7140219_C09        C09 NaN     0.00
+ 140    7140219                          Sư phạm Địa lý     C11(VA-3,HO-1,DI-5)    7140219_C11        C11 NaN     0.00
+ 141    7140219                          Sư phạm Địa lý     C13(VA-3,SI-1,DI-5)    7140219_C13        C13 NaN     0.00
+ 142    7140219                          Sư phạm Địa lý     D15(VA-3,DI-5,N1-1)    7140219_D15        D15 NaN     0.00
+ 143    7140219                          Sư phạm Địa lý   X74(VA-3,DI-5,KTPL-1)    7140219_X74        X74 NaN     0.00
+ 144    7140219                          Sư phạm Địa lý     X75(VA-3,DI-5,TI-1)    7140219_X75        X75 NaN     0.00
+ 145    7140219                          Sư phạm Địa lý   X76(VA-3,DI-5,CNCN-1)    7140219_X76        X76 NaN     0.00
+ 146    7140219                          Sư phạm Địa lý   X77(VA-3,DI-5,CNNN-1)    7140219_X77        X77 NaN     0.00
+ 147    7140221                         Sư phạm Âm nhạc   N01(VA-1,NK5-1,NK6-1)    7140221_N01        N01 Gốc     0.00
+ 148    7140222                        Sư phạm Mỹ thuật   H00(VA-1,NK3-1,NK4-1)    7140222_H00        H00 Gốc     0.00
+ 149    7140231                       Sư phạm Tiếng Anh     A01(TO-3,LI-1,N1-4)    7140231_A01        A01 NaN    -0.01
+ 150    7140231                       Sư phạm Tiếng Anh     B08(TO-3,SI-1,N1-4)    7140231_B08        B08 NaN     0.00
+ 151    7140231                       Sư phạm Tiếng Anh     D01(TO-3,VA-3,N1-4)    7140231_D01        D01 Gốc     0.00
+ 152    7140231                       Sư phạm Tiếng Anh     D07(TO-3,HO-1,N1-4)    7140231_D07        D07 NaN    -0.94
+ 153    7140231                       Sư phạm Tiếng Anh     D09(TO-3,SU-1,N1-4)    7140231_D09        D09 NaN     0.00
+ 154    7140231                       Sư phạm Tiếng Anh     D10(TO-3,DI-1,N1-4)    7140231_D10        D10 NaN     0.00
+ 155    7140231                       Sư phạm Tiếng Anh     D11(VA-3,LI-1,N1-4)    7140231_D11        D11 NaN     0.00
+ 156    7140231                       Sư phạm Tiếng Anh     D12(VA-3,HO-1,N1-4)    7140231_D12        D12 NaN     0.00
+ 157    7140231                       Sư phạm Tiếng Anh     D13(VA-3,SI-1,N1-4)    7140231_D13        D13 NaN     0.00
+ 158    7140231                       Sư phạm Tiếng Anh     D14(VA-3,SU-1,N1-4)    7140231_D14        D14 NaN     0.00
+ 159    7140231                       Sư phạm Tiếng Anh     D15(VA-3,DI-1,N1-4)    7140231_D15        D15 NaN     0.00
+ 160    7140231                       Sư phạm Tiếng Anh   X25(TO-3,N1-4,KTPL-1)    7140231_X25        X25 NaN     0.00
+ 161    7140231                       Sư phạm Tiếng Anh     X26(TO-3,N1-4,TI-1)    7140231_X26        X26 NaN     0.00
+ 162    7140231                       Sư phạm Tiếng Anh   X27(TO-3,N1-4,CNCN-1)    7140231_X27        X27 NaN     0.00
+ 163    7140231                       Sư phạm Tiếng Anh   X28(TO-3,N1-4,CNNN-1)    7140231_X28        X28 NaN     0.00
+ 164    7140231                       Sư phạm Tiếng Anh   X78(VA-3,N1-4,KTPL-1)    7140231_X78        X78 NaN     0.00
+ 165    7140231                       Sư phạm Tiếng Anh     X79(VA-3,N1-4,TI-1)    7140231_X79        X79 NaN     0.00
+ 166    7140231                       Sư phạm Tiếng Anh   X80(VA-3,N1-4,CNCN-1)    7140231_X80        X80 NaN     0.00
+ 167    7140231                       Sư phạm Tiếng Anh   X81(VA-3,N1-4,CNNN-1)    7140231_X81        X81 NaN     0.00
+ 168    7140247               Sư phạm khoa học tự nhiên     A00(TO-5,LI-3,HO-3)    7140247_A00        A00 Gốc     0.00
+ 169    7140247               Sư phạm khoa học tự nhiên     A01(TO-5,LI-3,N1-1)    7140247_A01        A01 NaN    -0.69
+ 170    7140247               Sư phạm khoa học tự nhiên     A02(TO-5,LI-3,SI-3)    7140247_A02        A02 NaN     0.00
+ 171    7140247               Sư phạm khoa học tự nhiên     A03(TO-5,LI-3,SU-1)    7140247_A03        A03 NaN     0.00
+ 172    7140247               Sư phạm khoa học tự nhiên     A04(TO-5,LI-3,DI-1)    7140247_A04        A04 NaN     0.00
+ 173    7140247               Sư phạm khoa học tự nhiên     A05(TO-5,HO-3,SU-1)    7140247_A05        A05 NaN     0.00
+ 174    7140247               Sư phạm khoa học tự nhiên     A06(TO-5,HO-3,DI-1)    7140247_A06        A06 NaN     0.00
+ 175    7140247               Sư phạm khoa học tự nhiên     B00(TO-5,HO-3,SI-3)    7140247_B00        B00 NaN    -1.21
+ 176    7140247               Sư phạm khoa học tự nhiên     B01(TO-5,SI-3,SU-1)    7140247_B01        B01 NaN     0.00
+ 177    7140247               Sư phạm khoa học tự nhiên     B02(TO-5,SI-3,DI-1)    7140247_B02        B02 NaN     0.00
+ 178    7140247               Sư phạm khoa học tự nhiên     B03(TO-5,VA-1,SI-3)    7140247_B03        B03 NaN     0.00
+ 179    7140247               Sư phạm khoa học tự nhiên     B08(TO-5,SI-3,N1-1)    7140247_B08        B08 NaN     0.00
+ 180    7140247               Sư phạm khoa học tự nhiên     C01(TO-5,VA-1,LI-3)    7140247_C01        C01 NaN     0.94
+ 181    7140247               Sư phạm khoa học tự nhiên     C02(TO-5,VA-1,HO-3)    7140247_C02        C02 NaN     0.00
+ 182    7140247               Sư phạm khoa học tự nhiên     D07(TO-5,HO-3,N1-1)    7140247_D07        D07 NaN    -1.62
+ 183    7140247               Sư phạm khoa học tự nhiên   X05(TO-5,LI-3,KTPL-1)    7140247_X05        X05 NaN     0.00
+ 184    7140247               Sư phạm khoa học tự nhiên     X06(TO-5,LI-3,TI-1)    7140247_X06        X06 NaN     0.00
+ 185    7140247               Sư phạm khoa học tự nhiên   X07(TO-5,LI-3,CNCN-1)    7140247_X07        X07 NaN     0.00
+ 186    7140247               Sư phạm khoa học tự nhiên   X08(TO-5,LI-3,CNNN-1)    7140247_X08        X08 NaN     0.00
+ 187    7140247               Sư phạm khoa học tự nhiên   X09(TO-5,HO-3,KTPL-1)    7140247_X09        X09 NaN     0.00
+ 188    7140247               Sư phạm khoa học tự nhiên     X10(TO-5,HO-3,TI-1)    7140247_X10        X10 NaN     0.00
+ 189    7140247               Sư phạm khoa học tự nhiên   X11(TO-5,HO-3,CNCN-1)    7140247_X11        X11 NaN     0.00
+ 190    7140247               Sư phạm khoa học tự nhiên   X12(TO-5,HO-3,CNNN-1)    7140247_X12        X12 NaN     0.00
+ 191    7140247               Sư phạm khoa học tự nhiên   X13(TO-5,SI-3,KTPL-1)    7140247_X13        X13 NaN     0.00
+ 192    7140247               Sư phạm khoa học tự nhiên     X14(TO-5,SI-3,TI-1)    7140247_X14        X14 NaN     0.00
+ 193    7140247               Sư phạm khoa học tự nhiên   X15(TO-5,SI-3,CNCN-1)    7140247_X15        X15 NaN     0.00
+ 194    7140247               Sư phạm khoa học tự nhiên   X16(TO-5,SI-3,CNNN-1)    7140247_X16        X16 NaN     0.00
+ 195    7140249                Sư phạm Lịch sử - Địa lí     C00(VA-5,SU-3,DI-3)    7140249_C00        C00 Gốc     0.00
+ 196    7140249                Sư phạm Lịch sử - Địa lí     C03(TO-1,VA-5,SU-3)    7140249_C03        C03 NaN     0.00
+ 197    7140249                Sư phạm Lịch sử - Địa lí     C04(TO-1,VA-5,DI-3)    7140249_C04        C04 NaN     0.00
+ 198    7140249                Sư phạm Lịch sử - Địa lí     C07(VA-5,LI-1,SU-3)    7140249_C07        C07 NaN     0.00
+ 199    7140249                Sư phạm Lịch sử - Địa lí     C09(VA-5,LI-1,DI-3)    7140249_C09        C09 NaN     0.00
+ 200    7140249                Sư phạm Lịch sử - Địa lí     C10(VA-5,HO-1,SU-3)    7140249_C10        C10 NaN     0.00
+ 201    7140249                Sư phạm Lịch sử - Địa lí     C11(VA-5,HO-1,DI-3)    7140249_C11        C11 NaN     0.00
+ 202    7140249                Sư phạm Lịch sử - Địa lí     C12(VA-5,SI-1,SU-3)    7140249_C12        C12 NaN     0.00
+ 203    7140249                Sư phạm Lịch sử - Địa lí     C13(VA-5,SI-1,DI-3)    7140249_C13        C13 NaN     0.00
+ 204    7140249                Sư phạm Lịch sử - Địa lí     D14(VA-5,SU-3,N1-1)    7140249_D14        D14 NaN     0.00
+ 205    7140249                Sư phạm Lịch sử - Địa lí     D15(VA-5,DI-3,N1-1)    7140249_D15        D15 NaN     0.00
+ 206    7140249                Sư phạm Lịch sử - Địa lí   X70(VA-5,SU-3,KTPL-1)    7140249_X70        X70 NaN     0.00
+ 207    7140249                Sư phạm Lịch sử - Địa lí     X71(VA-5,SU-3,TI-1)    7140249_X71        X71 NaN     0.00
+ 208    7140249                Sư phạm Lịch sử - Địa lí   X72(VA-5,SU-3,CNCN-1)    7140249_X72        X72 NaN     0.00
+ 209    7140249                Sư phạm Lịch sử - Địa lí   X73(VA-5,SU-3,CNNN-1)    7140249_X73        X73 NaN     0.00
+ 210    7140249                Sư phạm Lịch sử - Địa lí   X74(VA-5,DI-3,KTPL-1)    7140249_X74        X74 NaN     0.00
+ 211    7140249                Sư phạm Lịch sử - Địa lí     X75(VA-5,DI-3,TI-1)    7140249_X75        X75 NaN     0.00
+ 212    7140249                Sư phạm Lịch sử - Địa lí   X76(VA-5,DI-3,CNCN-1)    7140249_X76        X76 NaN     0.00
+ 213    7140249                Sư phạm Lịch sử - Địa lí   X77(VA-5,DI-3,CNNN-1)    7140249_X77        X77 NaN     0.00
+ 214    7220201                            Ngôn ngữ Anh     A01(TO-3,LI-1,N1-4)    7220201_A01        A01 NaN    -0.01
+ 215    7220201                            Ngôn ngữ Anh     B08(TO-3,SI-1,N1-4)    7220201_B08        B08 NaN     0.00
+ 216    7220201                            Ngôn ngữ Anh     D01(TO-3,VA-3,N1-4)    7220201_D01        D01 Gốc     0.00
+ 217    7220201                            Ngôn ngữ Anh     D07(TO-3,HO-1,N1-4)    7220201_D07        D07 NaN    -0.94
+ 218    7220201                            Ngôn ngữ Anh     D09(TO-3,SU-1,N1-4)    7220201_D09        D09 NaN     0.00
+ 219    7220201                            Ngôn ngữ Anh     D10(TO-3,DI-1,N1-4)    7220201_D10        D10 NaN     0.00
+ 220    7220201                            Ngôn ngữ Anh     D11(VA-3,LI-1,N1-4)    7220201_D11        D11 NaN     0.00
+ 221    7220201                            Ngôn ngữ Anh     D12(VA-3,HO-1,N1-4)    7220201_D12        D12 NaN     0.00
+ 222    7220201                            Ngôn ngữ Anh     D13(VA-3,SI-1,N1-4)    7220201_D13        D13 NaN     0.00
+ 223    7220201                            Ngôn ngữ Anh     D14(VA-3,SU-1,N1-4)    7220201_D14        D14 NaN     0.00
+ 224    7220201                            Ngôn ngữ Anh     D15(VA-3,DI-1,N1-4)    7220201_D15        D15 NaN     0.00
+ 225    7220201                            Ngôn ngữ Anh   X25(TO-3,N1-4,KTPL-1)    7220201_X25        X25 NaN     0.00
+ 226    7220201                            Ngôn ngữ Anh     X26(TO-3,N1-4,TI-1)    7220201_X26        X26 NaN     0.00
+ 227    7220201                            Ngôn ngữ Anh   X27(TO-3,N1-4,CNCN-1)    7220201_X27        X27 NaN     0.00
+ 228    7220201                            Ngôn ngữ Anh   X28(TO-3,N1-4,CNNN-1)    7220201_X28        X28 NaN     0.00
+ 229    7220201                            Ngôn ngữ Anh   X78(VA-3,N1-4,KTPL-1)    7220201_X78        X78 NaN     0.00
+ 230    7220201                            Ngôn ngữ Anh     X79(VA-3,N1-4,TI-1)    7220201_X79        X79 NaN     0.00
+ 231    7220201                            Ngôn ngữ Anh   X80(VA-3,N1-4,CNCN-1)    7220201_X80        X80 NaN     0.00
+ 232    7220201                            Ngôn ngữ Anh   X81(VA-3,N1-4,CNNN-1)    7220201_X81        X81 NaN     0.00
+ 233    7229010                                 Lịch sử     C00(VA-3,SU-5,DI-1)    7229010_C00        C00 Gốc     0.00
+ 234    7229010                                 Lịch sử     C03(TO-1,VA-3,SU-5)    7229010_C03        C03 NaN     0.00
+ 235    7229010                                 Lịch sử     C07(VA-3,LI-1,SU-5)    7229010_C07        C07 NaN     0.00
+ 236    7229010                                 Lịch sử     C10(VA-3,HO-1,SU-5)    7229010_C10        C10 NaN     0.00
+ 237    7229010                                 Lịch sử     C12(VA-3,SI-1,SU-5)    7229010_C12        C12 NaN     0.00
+ 238    7229010                                 Lịch sử     D14(VA-3,SU-5,N1-1)    7229010_D14        D14 NaN     0.00
+ 239    7229010                                 Lịch sử   X70(VA-3,SU-5,KTPL-1)    7229010_X70        X70 NaN     0.00
+ 240    7229010                                 Lịch sử     X71(VA-3,SU-5,TI-1)    7229010_X71        X71 NaN     0.00
+ 241    7229010                                 Lịch sử   X72(VA-3,SU-5,CNCN-1)    7229010_X72        X72 NaN     0.00
+ 242    7229010                                 Lịch sử   X73(VA-3,SU-5,CNNN-1)    7229010_X73        X73 NaN     0.00
+ 243    7310401                              Tâm lý học     B03(TO-3,VA-3,SI-1)    7310401_B03        B03 NaN     0.00
+ 244    7310401                              Tâm lý học     C01(TO-3,VA-3,LI-1)    7310401_C01        C01 NaN     1.62
+ 245    7310401                              Tâm lý học     C02(TO-3,VA-3,HO-1)    7310401_C02        C02 NaN     0.00
+ 246    7310401                              Tâm lý học     C03(TO-3,VA-3,SU-1)    7310401_C03        C03 NaN     0.00
+ 247    7310401                              Tâm lý học     C04(TO-3,VA-3,DI-1)    7310401_C04        C04 NaN     0.00
+ 248    7310401                              Tâm lý học     D01(TO-3,VA-3,N1-1)    7310401_D01        D01 Gốc     0.00
+ 249    7310401                              Tâm lý học   X01(TO-3,VA-3,KTPL-1)    7310401_X01        X01 NaN     0.00
+ 250    7310401                              Tâm lý học     X02(TO-3,VA-3,TI-1)    7310401_X02        X02 NaN     0.00
+ 251    7310401                              Tâm lý học   X03(TO-3,VA-3,CNCN-1)    7310401_X03        X03 NaN     0.00
+ 252    7310401                              Tâm lý học   X04(TO-3,VA-3,CNNN-1)    7310401_X04        X04 NaN     0.00
+ 253    7310501                              Địa lý học     C00(VA-3,SU-1,DI-5)    7310501_C00        C00 Gốc     0.00
+ 254    7310501                              Địa lý học     C04(TO-1,VA-3,DI-5)    7310501_C04        C04 NaN     0.00
+ 255    7310501                              Địa lý học     C09(VA-3,LI-1,DI-5)    7310501_C09        C09 NaN     0.00
+ 256    7310501                              Địa lý học     C11(VA-3,HO-1,DI-5)    7310501_C11        C11 NaN     0.00
+ 257    7310501                              Địa lý học     C13(VA-3,SI-1,DI-5)    7310501_C13        C13 NaN     0.00
+ 258    7310501                              Địa lý học     D15(VA-3,DI-5,N1-1)    7310501_D15        D15 NaN     0.00
+ 259    7310501                              Địa lý học   X74(VA-3,DI-5,KTPL-1)    7310501_X74        X74 NaN     0.00
+ 260    7310501                              Địa lý học     X75(VA-3,DI-5,TI-1)    7310501_X75        X75 NaN     0.00
+ 261    7310501                              Địa lý học   X76(VA-3,DI-5,CNCN-1)    7310501_X76        X76 NaN     0.00
+ 262    7310501                              Địa lý học   X77(VA-3,DI-5,CNNN-1)    7310501_X77        X77 NaN     0.00
+ 263    7310601                             Quốc tế học     B03(TO-3,VA-3,SI-1)    7310601_B03        B03 NaN     0.00
+ 264    7310601                             Quốc tế học     C01(TO-3,VA-3,LI-1)    7310601_C01        C01 NaN     1.62
+ 265    7310601                             Quốc tế học     C02(TO-3,VA-3,HO-1)    7310601_C02        C02 NaN     0.00
+ 266    7310601                             Quốc tế học     C03(TO-3,VA-3,SU-1)    7310601_C03        C03 NaN     0.00
+ 267    7310601                             Quốc tế học     C04(TO-3,VA-3,DI-1)    7310601_C04        C04 NaN     0.00
+ 268    7310601                             Quốc tế học     D01(TO-3,VA-3,N1-1)    7310601_D01        D01 Gốc     0.00
+ 269    7310601                             Quốc tế học   X01(TO-3,VA-3,KTPL-1)    7310601_X01        X01 NaN     0.00
+ 270    7310601                             Quốc tế học     X02(TO-3,VA-3,TI-1)    7310601_X02        X02 NaN     0.00
+ 271    7310601                             Quốc tế học   X03(TO-3,VA-3,CNCN-1)    7310601_X03        X03 NaN     0.00
+ 272    7310601                             Quốc tế học   X04(TO-3,VA-3,CNNN-1)    7310601_X04        X04 NaN     0.00
+ 273    7310630                            Việt Nam học     B03(TO-3,VA-3,SI-1)    7310630_B03        B03 NaN     0.00
+ 274    7310630                            Việt Nam học     C01(TO-3,VA-3,LI-1)    7310630_C01        C01 NaN     1.62
+ 275    7310630                            Việt Nam học     C02(TO-3,VA-3,HO-1)    7310630_C02        C02 NaN     0.00
+ 276    7310630                            Việt Nam học     C03(TO-3,VA-3,SU-1)    7310630_C03        C03 NaN     0.00
+ 277    7310630                            Việt Nam học     C04(TO-3,VA-3,DI-1)    7310630_C04        C04 NaN     0.00
+ 278    7310630                            Việt Nam học     D01(TO-3,VA-3,N1-1)    7310630_D01        D01 Gốc     0.00
+ 279    7310630                            Việt Nam học   X01(TO-3,VA-3,KTPL-1)    7310630_X01        X01 NaN     0.00
+ 280    7310630                            Việt Nam học     X02(TO-3,VA-3,TI-1)    7310630_X02        X02 NaN     0.00
+ 281    7310630                            Việt Nam học   X03(TO-3,VA-3,CNCN-1)    7310630_X03        X03 NaN     0.00
+ 282    7310630                            Việt Nam học   X04(TO-3,VA-3,CNNN-1)    7310630_X04        X04 NaN     0.00
+ 283    7320201                   Thông tin - thư viện      B03(TO-1,VA-5,SI-1)    7320201_B03        B03 NaN     0.00
+ 284    7320201                   Thông tin - thư viện      C00(VA-5,SU-1,DI-1)    7320201_C00        C00 Gốc     0.00
+ 285    7320201                   Thông tin - thư viện      C01(TO-1,VA-5,LI-1)    7320201_C01        C01 NaN    -1.38
+ 286    7320201                   Thông tin - thư viện      C02(TO-1,VA-5,HO-1)    7320201_C02        C02 NaN     0.00
+ 287    7320201                   Thông tin - thư viện      C03(TO-1,VA-5,SU-1)    7320201_C03        C03 NaN     0.00
+ 288    7320201                   Thông tin - thư viện      C04(TO-1,VA-5,DI-1)    7320201_C04        C04 NaN     0.00
+ 289    7320201                   Thông tin - thư viện      C05(VA-5,LI-1,HO-1)    7320201_C05        C05 NaN     0.00
+ 290    7320201                   Thông tin - thư viện      C06(VA-5,LI-1,SI-1)    7320201_C06        C06 NaN     0.00
+ 291    7320201                   Thông tin - thư viện      C07(VA-5,LI-1,SU-1)    7320201_C07        C07 NaN     0.00
+ 292    7320201                   Thông tin - thư viện      C08(VA-5,HO-1,SI-1)    7320201_C08        C08 NaN     0.00
+ 293    7320201                   Thông tin - thư viện      C09(VA-5,LI-1,DI-1)    7320201_C09        C09 NaN     0.00
+ 294    7320201                   Thông tin - thư viện      C10(VA-5,HO-1,SU-1)    7320201_C10        C10 NaN     0.00
+ 295    7320201                   Thông tin - thư viện      C11(VA-5,HO-1,DI-1)    7320201_C11        C11 NaN     0.00
+ 296    7320201                   Thông tin - thư viện      C12(VA-5,SI-1,SU-1)    7320201_C12        C12 NaN     0.00
+ 297    7320201                   Thông tin - thư viện      C13(VA-5,SI-1,DI-1)    7320201_C13        C13 NaN     0.00
+ 298    7320201                   Thông tin - thư viện      D01(TO-1,VA-5,N1-1)    7320201_D01        D01 NaN    -3.00
+ 299    7320201                   Thông tin - thư viện      D11(VA-5,LI-1,N1-1)    7320201_D11        D11 NaN     0.00
+ 300    7320201                   Thông tin - thư viện      D12(VA-5,HO-1,N1-1)    7320201_D12        D12 NaN     0.00
+ 301    7320201                   Thông tin - thư viện      D13(VA-5,SI-1,N1-1)    7320201_D13        D13 NaN     0.00
+ 302    7320201                   Thông tin - thư viện      D14(VA-5,SU-1,N1-1)    7320201_D14        D14 NaN     0.00
+ 303    7320201                   Thông tin - thư viện      D15(VA-5,DI-1,N1-1)    7320201_D15        D15 NaN     0.00
+ 304    7320201                   Thông tin - thư viện    X01(TO-1,VA-5,KTPL-1)    7320201_X01        X01 NaN     0.00
+ 305    7320201                   Thông tin - thư viện      X02(TO-1,VA-5,TI-1)    7320201_X02        X02 NaN     0.00
+ 306    7320201                   Thông tin - thư viện    X03(TO-1,VA-5,CNCN-1)    7320201_X03        X03 NaN     0.00
+ 307    7320201                   Thông tin - thư viện    X04(TO-1,VA-5,CNNN-1)    7320201_X04        X04 NaN     0.00
+ 308    7320201                   Thông tin - thư viện    X58(VA-5,LI-1,KTPL-1)    7320201_X58        X58 NaN     0.00
+ 309    7320201                   Thông tin - thư viện      X59(VA-5,LI-1,TI-1)    7320201_X59        X59 NaN     0.00
+ 310    7320201                   Thông tin - thư viện    X60(VA-5,LI-1,CNCN-1)    7320201_X60        X60 NaN     0.00
+ 311    7320201                   Thông tin - thư viện    X61(VA-5,LI-1,CNNN-1)    7320201_X61        X61 NaN     0.00
+ 312    7320201                   Thông tin - thư viện    X62(VA-5,HO-1,KTPL-1)    7320201_X62        X62 NaN     0.00
+ 313    7320201                   Thông tin - thư viện      X63(VA-5,HO-1,TI-1)    7320201_X63        X63 NaN     0.00
+ 314    7320201                   Thông tin - thư viện    X64(VA-5,HO-1,CNCN-1)    7320201_X64        X64 NaN     0.00
+ 315    7320201                   Thông tin - thư viện    X65(VA-5,HO-1,CNNN-1)    7320201_X65        X65 NaN     0.00
+ 316    7320201                   Thông tin - thư viện    X66(VA-5,SI-1,KTPL-1)    7320201_X66        X66 NaN     0.00
+ 317    7320201                   Thông tin - thư viện      X67(VA-5,SI-1,TI-1)    7320201_X67        X67 NaN     0.00
+ 318    7320201                   Thông tin - thư viện    X68(VA-5,SI-1,CNCN-1)    7320201_X68        X68 NaN     0.00
+ 319    7320201                   Thông tin - thư viện    X69(VA-5,SI-1,CNNN-1)    7320201_X69        X69 NaN     0.00
+ 320    7320201                   Thông tin - thư viện    X70(VA-5,SU-1,KTPL-1)    7320201_X70        X70 NaN     0.00
+ 321    7320201                   Thông tin - thư viện      X71(VA-5,SU-1,TI-1)    7320201_X71        X71 NaN     0.00
+ 322    7320201                   Thông tin - thư viện    X72(VA-5,SU-1,CNCN-1)    7320201_X72        X72 NaN     0.00
+ 323    7320201                   Thông tin - thư viện    X73(VA-5,SU-1,CNNN-1)    7320201_X73        X73 NaN     0.00
+ 324    7320201                   Thông tin - thư viện    X74(VA-5,DI-1,KTPL-1)    7320201_X74        X74 NaN     0.00
+ 325    7320201                   Thông tin - thư viện      X75(VA-5,DI-1,TI-1)    7320201_X75        X75 NaN     0.00
+ 326    7320201                   Thông tin - thư viện    X76(VA-5,DI-1,CNCN-1)    7320201_X76        X76 NaN     0.00
+ 327    7320201                   Thông tin - thư viện    X77(VA-5,DI-1,CNNN-1)    7320201_X77        X77 NaN     0.00
+ 328    7320201                   Thông tin - thư viện    X78(VA-5,N1-1,KTPL-1)    7320201_X78        X78 NaN     0.00
+ 329    7320201                   Thông tin - thư viện      X79(VA-5,N1-1,TI-1)    7320201_X79        X79 NaN     0.00
+ 330    7320201                   Thông tin - thư viện    X80(VA-5,N1-1,CNCN-1)    7320201_X80        X80 NaN     0.00
+ 331    7320201                   Thông tin - thư viện    X81(VA-5,N1-1,CNNN-1)    7320201_X81        X81 NaN     0.00
+ 332    7320201                   Thông tin - thư viện    Y07(VA-5,KTPL-1,TI-1)    7320201_Y07        Y07 NaN     0.00
+ 333    7320201                   Thông tin - thư viện  Y08(VA-5,KTPL-1,CNCN-1)    7320201_Y08        Y08 NaN     0.00
+ 334    7320201                   Thông tin - thư viện  Y09(VA-5,KTPL-1,CNNN-1)    7320201_Y09        Y09 NaN     0.00
+ 335    7320201                   Thông tin - thư viện    Y10(VA-5,TI-1,CNCN-1)    7320201_Y10        Y10 NaN     0.00
+ 336    7320201                   Thông tin - thư viện    Y11(VA-5,TI-1,CNNN-1)    7320201_Y11        Y11 NaN     0.00
+ 337    7340101                     Quản trị kinh doanh     A00(TO-3,LI-1,HO-1)    7340101_A00        A00 NaN     0.68
+ 338    7340101                     Quản trị kinh doanh     A01(TO-3,LI-1,N1-1)    7340101_A01        A01 NaN    -0.01
+ 339    7340101                     Quản trị kinh doanh     A02(TO-3,LI-1,SI-1)    7340101_A02        A02 NaN     0.00
+ 340    7340101                     Quản trị kinh doanh     A03(TO-3,LI-1,SU-1)    7340101_A03        A03 NaN     0.00
+ 341    7340101                     Quản trị kinh doanh     A04(TO-3,LI-1,DI-1)    7340101_A04        A04 NaN     0.00
+ 342    7340101                     Quản trị kinh doanh     A05(TO-3,HO-1,SU-1)    7340101_A05        A05 NaN     0.00
+ 343    7340101                     Quản trị kinh doanh     A06(TO-3,HO-1,DI-1)    7340101_A06        A06 NaN     0.00
+ 344    7340101                     Quản trị kinh doanh     A07(TO-3,SU-1,DI-1)    7340101_A07        A07 NaN     0.00
+ 345    7340101                     Quản trị kinh doanh     B00(TO-3,HO-1,SI-1)    7340101_B00        B00 NaN    -0.53
+ 346    7340101                     Quản trị kinh doanh     B01(TO-3,SI-1,SU-1)    7340101_B01        B01 NaN     0.00
+ 347    7340101                     Quản trị kinh doanh     B02(TO-3,SI-1,DI-1)    7340101_B02        B02 NaN     0.00
+ 348    7340101                     Quản trị kinh doanh     B03(TO-3,VA-1,SI-1)    7340101_B03        B03 NaN     0.00
+ 349    7340101                     Quản trị kinh doanh     B08(TO-3,SI-1,N1-1)    7340101_B08        B08 NaN     0.00
+ 350    7340101                     Quản trị kinh doanh     C01(TO-3,VA-1,LI-1)    7340101_C01        C01 NaN     1.62
+ 351    7340101                     Quản trị kinh doanh     C02(TO-3,VA-1,HO-1)    7340101_C02        C02 NaN     0.00
+ 352    7340101                     Quản trị kinh doanh     C03(TO-3,VA-1,SU-1)    7340101_C03        C03 NaN     0.00
+ 353    7340101                     Quản trị kinh doanh     C04(TO-3,VA-1,DI-1)    7340101_C04        C04 NaN     0.00
+ 354    7340101                     Quản trị kinh doanh     D01(TO-3,VA-1,N1-1)    7340101_D01        D01 Gốc     0.00
+ 355    7340101                     Quản trị kinh doanh     D07(TO-3,HO-1,N1-1)    7340101_D07        D07 NaN    -0.94
+ 356    7340101                     Quản trị kinh doanh     D09(TO-3,SU-1,N1-1)    7340101_D09        D09 NaN     0.00
+ 357    7340101                     Quản trị kinh doanh     D10(TO-3,DI-1,N1-1)    7340101_D10        D10 NaN     0.00
+ 358    7340101                     Quản trị kinh doanh   X01(TO-3,VA-1,KTPL-1)    7340101_X01        X01 NaN     0.00
+ 359    7340101                     Quản trị kinh doanh     X02(TO-3,VA-1,TI-1)    7340101_X02        X02 NaN     0.00
+ 360    7340101                     Quản trị kinh doanh   X03(TO-3,VA-1,CNCN-1)    7340101_X03        X03 NaN     0.00
+ 361    7340101                     Quản trị kinh doanh   X04(TO-3,VA-1,CNNN-1)    7340101_X04        X04 NaN     0.00
+ 362    7340101                     Quản trị kinh doanh   X05(TO-3,LI-1,KTPL-1)    7340101_X05        X05 NaN     0.00
+ 363    7340101                     Quản trị kinh doanh     X06(TO-3,LI-1,TI-1)    7340101_X06        X06 NaN     0.00
+ 364    7340101                     Quản trị kinh doanh   X07(TO-3,LI-1,CNCN-1)    7340101_X07        X07 NaN     0.00
+ 365    7340101                     Quản trị kinh doanh   X08(TO-3,LI-1,CNNN-1)    7340101_X08        X08 NaN     0.00
+ 366    7340101                     Quản trị kinh doanh   X09(TO-3,HO-1,KTPL-1)    7340101_X09        X09 NaN     0.00
+ 367    7340101                     Quản trị kinh doanh     X10(TO-3,HO-1,TI-1)    7340101_X10        X10 NaN     0.00
+ 368    7340101                     Quản trị kinh doanh   X11(TO-3,HO-1,CNCN-1)    7340101_X11        X11 NaN     0.00
+ 369    7340101                     Quản trị kinh doanh   X12(TO-3,HO-1,CNNN-1)    7340101_X12        X12 NaN     0.00
+ 370    7340101                     Quản trị kinh doanh   X13(TO-3,SI-1,KTPL-1)    7340101_X13        X13 NaN     0.00
+ 371    7340101                     Quản trị kinh doanh     X14(TO-3,SI-1,TI-1)    7340101_X14        X14 NaN     0.00
+ 372    7340101                     Quản trị kinh doanh   X15(TO-3,SI-1,CNCN-1)    7340101_X15        X15 NaN     0.00
+ 373    7340101                     Quản trị kinh doanh   X16(TO-3,SI-1,CNNN-1)    7340101_X16        X16 NaN     0.00
+ 374    7340101                     Quản trị kinh doanh   X17(TO-3,SU-1,KTPL-1)    7340101_X17        X17 NaN     0.00
+ 375    7340101                     Quản trị kinh doanh     X18(TO-3,SU-1,TI-1)    7340101_X18        X18 NaN     0.00
+ 376    7340101                     Quản trị kinh doanh   X19(TO-3,SU-1,CNCN-1)    7340101_X19        X19 NaN     0.00
+ 377    7340101                     Quản trị kinh doanh   X20(TO-3,SU-1,CNNN-1)    7340101_X20        X20 NaN     0.00
+ 378    7340101                     Quản trị kinh doanh   X21(TO-3,DI-1,KTPL-1)    7340101_X21        X21 NaN     0.00
+ 379    7340101                     Quản trị kinh doanh     X22(TO-3,DI-1,TI-1)    7340101_X22        X22 NaN     0.00
+ 380    7340101                     Quản trị kinh doanh   X23(TO-3,DI-1,CNCN-1)    7340101_X23        X23 NaN     0.00
+ 381    7340101                     Quản trị kinh doanh   X24(TO-3,DI-1,CNNN-1)    7340101_X24        X24 NaN     0.00
+ 382    7340101                     Quản trị kinh doanh   X25(TO-3,N1-1,KTPL-1)    7340101_X25        X25 NaN     0.00
+ 383    7340101                     Quản trị kinh doanh     X26(TO-3,N1-1,TI-1)    7340101_X26        X26 NaN     0.00
+ 384    7340101                     Quản trị kinh doanh   X27(TO-3,N1-1,CNCN-1)    7340101_X27        X27 NaN     0.00
+ 385    7340101                     Quản trị kinh doanh   X28(TO-3,N1-1,CNNN-1)    7340101_X28        X28 NaN     0.00
+ 386    7340101                     Quản trị kinh doanh   X53(TO-3,KTPL-1,TI-1)    7340101_X53        X53 NaN     0.00
+ 387    7340101                     Quản trị kinh doanh X54(TO-3,KTPL-1,CNCN-1)    7340101_X54        X54 NaN     0.00
+ 388    7340101                     Quản trị kinh doanh X55(TO-3,KTPL-1,CNNN-1)    7340101_X55        X55 NaN     0.00
+ 389    7340101                     Quản trị kinh doanh   X56(TO-3,TI-1,CNCN-1)    7340101_X56        X56 NaN     0.00
+ 390    7340101                     Quản trị kinh doanh   X57(TO-3,TI-1,CNNN-1)    7340101_X57        X57 NaN     0.00
+ 391    7340120                     Kinh doanh quốc tế      A00(TO-3,LI-1,HO-1)    7340120_A00        A00 NaN     0.68
+ 392    7340120                     Kinh doanh quốc tế      A01(TO-3,LI-1,N1-1)    7340120_A01        A01 NaN    -0.01
+ 393    7340120                     Kinh doanh quốc tế      A02(TO-3,LI-1,SI-1)    7340120_A02        A02 NaN     0.00
+ 394    7340120                     Kinh doanh quốc tế      A03(TO-3,LI-1,SU-1)    7340120_A03        A03 NaN     0.00
+ 395    7340120                     Kinh doanh quốc tế      A04(TO-3,LI-1,DI-1)    7340120_A04        A04 NaN     0.00
+ 396    7340120                     Kinh doanh quốc tế      A05(TO-3,HO-1,SU-1)    7340120_A05        A05 NaN     0.00
+ 397    7340120                     Kinh doanh quốc tế      A06(TO-3,HO-1,DI-1)    7340120_A06        A06 NaN     0.00
+ 398    7340120                     Kinh doanh quốc tế      A07(TO-3,SU-1,DI-1)    7340120_A07        A07 NaN     0.00
+ 399    7340120                     Kinh doanh quốc tế      B00(TO-3,HO-1,SI-1)    7340120_B00        B00 NaN    -0.53
+ 400    7340120                     Kinh doanh quốc tế      B01(TO-3,SI-1,SU-1)    7340120_B01        B01 NaN     0.00
+ 401    7340120                     Kinh doanh quốc tế      B02(TO-3,SI-1,DI-1)    7340120_B02        B02 NaN     0.00
+ 402    7340120                     Kinh doanh quốc tế      B03(TO-3,VA-1,SI-1)    7340120_B03        B03 NaN     0.00
+ 403    7340120                     Kinh doanh quốc tế      B08(TO-3,SI-1,N1-1)    7340120_B08        B08 NaN     0.00
+ 404    7340120                     Kinh doanh quốc tế      C01(TO-3,VA-1,LI-1)    7340120_C01        C01 NaN     1.62
+ 405    7340120                     Kinh doanh quốc tế      C02(TO-3,VA-1,HO-1)    7340120_C02        C02 NaN     0.00
+ 406    7340120                     Kinh doanh quốc tế      C03(TO-3,VA-1,SU-1)    7340120_C03        C03 NaN     0.00
+ 407    7340120                     Kinh doanh quốc tế      C04(TO-3,VA-1,DI-1)    7340120_C04        C04 NaN     0.00
+ 408    7340120                     Kinh doanh quốc tế      D01(TO-3,VA-1,N1-1)    7340120_D01        D01 Gốc     0.00
+ 409    7340120                     Kinh doanh quốc tế      D07(TO-3,HO-1,N1-1)    7340120_D07        D07 NaN    -0.94
+ 410    7340120                     Kinh doanh quốc tế      D09(TO-3,SU-1,N1-1)    7340120_D09        D09 NaN     0.00
+ 411    7340120                     Kinh doanh quốc tế      D10(TO-3,DI-1,N1-1)    7340120_D10        D10 NaN     0.00
+ 412    7340120                     Kinh doanh quốc tế    X01(TO-3,VA-1,KTPL-1)    7340120_X01        X01 NaN     0.00
+ 413    7340120                     Kinh doanh quốc tế      X02(TO-3,VA-1,TI-1)    7340120_X02        X02 NaN     0.00
+ 414    7340120                     Kinh doanh quốc tế    X03(TO-3,VA-1,CNCN-1)    7340120_X03        X03 NaN     0.00
+ 415    7340120                     Kinh doanh quốc tế    X04(TO-3,VA-1,CNNN-1)    7340120_X04        X04 NaN     0.00
+ 416    7340120                     Kinh doanh quốc tế    X05(TO-3,LI-1,KTPL-1)    7340120_X05        X05 NaN     0.00
+ 417    7340120                     Kinh doanh quốc tế      X06(TO-3,LI-1,TI-1)    7340120_X06        X06 NaN     0.00
+ 418    7340120                     Kinh doanh quốc tế    X07(TO-3,LI-1,CNCN-1)    7340120_X07        X07 NaN     0.00
+ 419    7340120                     Kinh doanh quốc tế    X08(TO-3,LI-1,CNNN-1)    7340120_X08        X08 NaN     0.00
+ 420    7340120                     Kinh doanh quốc tế    X09(TO-3,HO-1,KTPL-1)    7340120_X09        X09 NaN     0.00
+ 421    7340120                     Kinh doanh quốc tế      X10(TO-3,HO-1,TI-1)    7340120_X10        X10 NaN     0.00
+ 422    7340120                     Kinh doanh quốc tế    X11(TO-3,HO-1,CNCN-1)    7340120_X11        X11 NaN     0.00
+ 423    7340120                     Kinh doanh quốc tế    X12(TO-3,HO-1,CNNN-1)    7340120_X12        X12 NaN     0.00
+ 424    7340120                     Kinh doanh quốc tế    X13(TO-3,SI-1,KTPL-1)    7340120_X13        X13 NaN     0.00
+ 425    7340120                     Kinh doanh quốc tế      X14(TO-3,SI-1,TI-1)    7340120_X14        X14 NaN     0.00
+ 426    7340120                     Kinh doanh quốc tế    X15(TO-3,SI-1,CNCN-1)    7340120_X15        X15 NaN     0.00
+ 427    7340120                     Kinh doanh quốc tế    X16(TO-3,SI-1,CNNN-1)    7340120_X16        X16 NaN     0.00
+ 428    7340120                     Kinh doanh quốc tế    X17(TO-3,SU-1,KTPL-1)    7340120_X17        X17 NaN     0.00
+ 429    7340120                     Kinh doanh quốc tế      X18(TO-3,SU-1,TI-1)    7340120_X18        X18 NaN     0.00
+ 430    7340120                     Kinh doanh quốc tế    X19(TO-3,SU-1,CNCN-1)    7340120_X19        X19 NaN     0.00
+ 431    7340120                     Kinh doanh quốc tế    X20(TO-3,SU-1,CNNN-1)    7340120_X20        X20 NaN     0.00
+ 432    7340120                     Kinh doanh quốc tế    X21(TO-3,DI-1,KTPL-1)    7340120_X21        X21 NaN     0.00
+ 433    7340120                     Kinh doanh quốc tế      X22(TO-3,DI-1,TI-1)    7340120_X22        X22 NaN     0.00
+ 434    7340120                     Kinh doanh quốc tế    X23(TO-3,DI-1,CNCN-1)    7340120_X23        X23 NaN     0.00
+ 435    7340120                     Kinh doanh quốc tế    X24(TO-3,DI-1,CNNN-1)    7340120_X24        X24 NaN     0.00
+ 436    7340120                     Kinh doanh quốc tế    X25(TO-3,N1-1,KTPL-1)    7340120_X25        X25 NaN     0.00
+ 437    7340120                     Kinh doanh quốc tế      X26(TO-3,N1-1,TI-1)    7340120_X26        X26 NaN     0.00
+ 438    7340120                     Kinh doanh quốc tế    X27(TO-3,N1-1,CNCN-1)    7340120_X27        X27 NaN     0.00
+ 439    7340120                     Kinh doanh quốc tế    X28(TO-3,N1-1,CNNN-1)    7340120_X28        X28 NaN     0.00
+ 440    7340120                     Kinh doanh quốc tế    X53(TO-3,KTPL-1,TI-1)    7340120_X53        X53 NaN     0.00
+ 441    7340120                     Kinh doanh quốc tế  X54(TO-3,KTPL-1,CNCN-1)    7340120_X54        X54 NaN     0.00
+ 442    7340120                     Kinh doanh quốc tế  X55(TO-3,KTPL-1,CNNN-1)    7340120_X55        X55 NaN     0.00
+ 443    7340120                     Kinh doanh quốc tế    X56(TO-3,TI-1,CNCN-1)    7340120_X56        X56 NaN     0.00
+ 444    7340120                     Kinh doanh quốc tế    X57(TO-3,TI-1,CNNN-1)    7340120_X57        X57 NaN     0.00
+ 445    7340201                   Tài chính – Ngân hàng     A00(TO-3,LI-1,HO-1)    7340201_A00        A00 NaN     0.68
+ 446    7340201                   Tài chính – Ngân hàng     A01(TO-3,LI-1,N1-1)    7340201_A01        A01 NaN    -0.01
+ 447    7340201                   Tài chính – Ngân hàng     A02(TO-3,LI-1,SI-1)    7340201_A02        A02 NaN     0.00
+ 448    7340201                   Tài chính – Ngân hàng     A03(TO-3,LI-1,SU-1)    7340201_A03        A03 NaN     0.00
+ 449    7340201                   Tài chính – Ngân hàng     A04(TO-3,LI-1,DI-1)    7340201_A04        A04 NaN     0.00
+ 450    7340201                   Tài chính – Ngân hàng     A05(TO-3,HO-1,SU-1)    7340201_A05        A05 NaN     0.00
+ 451    7340201                   Tài chính – Ngân hàng     A06(TO-3,HO-1,DI-1)    7340201_A06        A06 NaN     0.00
+ 452    7340201                   Tài chính – Ngân hàng     A07(TO-3,SU-1,DI-1)    7340201_A07        A07 NaN     0.00
+ 453    7340201                   Tài chính – Ngân hàng     B00(TO-3,HO-1,SI-1)    7340201_B00        B00 NaN    -0.53
+ 454    7340201                   Tài chính – Ngân hàng     B01(TO-3,SI-1,SU-1)    7340201_B01        B01 NaN     0.00
+ 455    7340201                   Tài chính – Ngân hàng     B02(TO-3,SI-1,DI-1)    7340201_B02        B02 NaN     0.00
+ 456    7340201                   Tài chính – Ngân hàng     B03(TO-3,VA-1,SI-1)    7340201_B03        B03 NaN     0.00
+ 457    7340201                   Tài chính – Ngân hàng     B08(TO-3,SI-1,N1-1)    7340201_B08        B08 NaN     0.00
+ 458    7340201                   Tài chính – Ngân hàng     C01(TO-3,VA-1,LI-1)    7340201_C01        C01 NaN     1.62
+ 459    7340201                   Tài chính – Ngân hàng     C02(TO-3,VA-1,HO-1)    7340201_C02        C02 NaN     0.00
+ 460    7340201                   Tài chính – Ngân hàng     C03(TO-3,VA-1,SU-1)    7340201_C03        C03 NaN     0.00
+ 461    7340201                   Tài chính – Ngân hàng     C04(TO-3,VA-1,DI-1)    7340201_C04        C04 NaN     0.00
+ 462    7340201                   Tài chính – Ngân hàng     D01(TO-3,VA-1,N1-1)    7340201_D01        D01 Gốc     0.00
+ 463    7340201                   Tài chính – Ngân hàng     D07(TO-3,HO-1,N1-1)    7340201_D07        D07 NaN    -0.94
+ 464    7340201                   Tài chính – Ngân hàng     D09(TO-3,SU-1,N1-1)    7340201_D09        D09 NaN     0.00
+ 465    7340201                   Tài chính – Ngân hàng     D10(TO-3,DI-1,N1-1)    7340201_D10        D10 NaN     0.00
+ 466    7340201                   Tài chính – Ngân hàng   X01(TO-3,VA-1,KTPL-1)    7340201_X01        X01 NaN     0.00
+ 467    7340201                   Tài chính – Ngân hàng     X02(TO-3,VA-1,TI-1)    7340201_X02        X02 NaN     0.00
+ 468    7340201                   Tài chính – Ngân hàng   X03(TO-3,VA-1,CNCN-1)    7340201_X03        X03 NaN     0.00
+ 469    7340201                   Tài chính – Ngân hàng   X04(TO-3,VA-1,CNNN-1)    7340201_X04        X04 NaN     0.00
+ 470    7340201                   Tài chính – Ngân hàng   X05(TO-3,LI-1,KTPL-1)    7340201_X05        X05 NaN     0.00
+ 471    7340201                   Tài chính – Ngân hàng     X06(TO-3,LI-1,TI-1)    7340201_X06        X06 NaN     0.00
+ 472    7340201                   Tài chính – Ngân hàng   X07(TO-3,LI-1,CNCN-1)    7340201_X07        X07 NaN     0.00
+ 473    7340201                   Tài chính – Ngân hàng   X08(TO-3,LI-1,CNNN-1)    7340201_X08        X08 NaN     0.00
+ 474    7340201                   Tài chính – Ngân hàng   X09(TO-3,HO-1,KTPL-1)    7340201_X09        X09 NaN     0.00
+ 475    7340201                   Tài chính – Ngân hàng     X10(TO-3,HO-1,TI-1)    7340201_X10        X10 NaN     0.00
+ 476    7340201                   Tài chính – Ngân hàng   X11(TO-3,HO-1,CNCN-1)    7340201_X11        X11 NaN     0.00
+ 477    7340201                   Tài chính – Ngân hàng   X12(TO-3,HO-1,CNNN-1)    7340201_X12        X12 NaN     0.00
+ 478    7340201                   Tài chính – Ngân hàng   X13(TO-3,SI-1,KTPL-1)    7340201_X13        X13 NaN     0.00
+ 479    7340201                   Tài chính – Ngân hàng     X14(TO-3,SI-1,TI-1)    7340201_X14        X14 NaN     0.00
+ 480    7340201                   Tài chính – Ngân hàng   X15(TO-3,SI-1,CNCN-1)    7340201_X15        X15 NaN     0.00
+ 481    7340201                   Tài chính – Ngân hàng   X16(TO-3,SI-1,CNNN-1)    7340201_X16        X16 NaN     0.00
+ 482    7340201                   Tài chính – Ngân hàng   X17(TO-3,SU-1,KTPL-1)    7340201_X17        X17 NaN     0.00
+ 483    7340201                   Tài chính – Ngân hàng     X18(TO-3,SU-1,TI-1)    7340201_X18        X18 NaN     0.00
+ 484    7340201                   Tài chính – Ngân hàng   X19(TO-3,SU-1,CNCN-1)    7340201_X19        X19 NaN     0.00
+ 485    7340201                   Tài chính – Ngân hàng   X20(TO-3,SU-1,CNNN-1)    7340201_X20        X20 NaN     0.00
+ 486    7340201                   Tài chính – Ngân hàng   X21(TO-3,DI-1,KTPL-1)    7340201_X21        X21 NaN     0.00
+ 487    7340201                   Tài chính – Ngân hàng     X22(TO-3,DI-1,TI-1)    7340201_X22        X22 NaN     0.00
+ 488    7340201                   Tài chính – Ngân hàng   X23(TO-3,DI-1,CNCN-1)    7340201_X23        X23 NaN     0.00
+ 489    7340201                   Tài chính – Ngân hàng   X24(TO-3,DI-1,CNNN-1)    7340201_X24        X24 NaN     0.00
+ 490    7340201                   Tài chính – Ngân hàng   X25(TO-3,N1-1,KTPL-1)    7340201_X25        X25 NaN     0.00
+ 491    7340201                   Tài chính – Ngân hàng     X26(TO-3,N1-1,TI-1)    7340201_X26        X26 NaN     0.00
+ 492    7340201                   Tài chính – Ngân hàng   X27(TO-3,N1-1,CNCN-1)    7340201_X27        X27 NaN     0.00
+ 493    7340201                   Tài chính – Ngân hàng   X28(TO-3,N1-1,CNNN-1)    7340201_X28        X28 NaN     0.00
+ 494    7340201                   Tài chính – Ngân hàng   X53(TO-3,KTPL-1,TI-1)    7340201_X53        X53 NaN     0.00
+ 495    7340201                   Tài chính – Ngân hàng X54(TO-3,KTPL-1,CNCN-1)    7340201_X54        X54 NaN     0.00
+ 496    7340201                   Tài chính – Ngân hàng X55(TO-3,KTPL-1,CNNN-1)    7340201_X55        X55 NaN     0.00
+ 497    7340201                   Tài chính – Ngân hàng   X56(TO-3,TI-1,CNCN-1)    7340201_X56        X56 NaN     0.00
+ 498    7340201                   Tài chính – Ngân hàng   X57(TO-3,TI-1,CNNN-1)    7340201_X57        X57 NaN     0.00
+ 499    7340301                                 Kế toán     A00(TO-3,LI-1,HO-1)    7340301_A00        A00 NaN     0.68
+ 500    7340301                                 Kế toán     A01(TO-3,LI-1,N1-1)    7340301_A01        A01 NaN    -0.01
+ 501    7340301                                 Kế toán     A02(TO-3,LI-1,SI-1)    7340301_A02        A02 NaN     0.00
+ 502    7340301                                 Kế toán     A03(TO-3,LI-1,SU-1)    7340301_A03        A03 NaN     0.00
+ 503    7340301                                 Kế toán     A04(TO-3,LI-1,DI-1)    7340301_A04        A04 NaN     0.00
+ 504    7340301                                 Kế toán     A05(TO-3,HO-1,SU-1)    7340301_A05        A05 NaN     0.00
+ 505    7340301                                 Kế toán     A06(TO-3,HO-1,DI-1)    7340301_A06        A06 NaN     0.00
+ 506    7340301                                 Kế toán     A07(TO-3,SU-1,DI-1)    7340301_A07        A07 NaN     0.00
+ 507    7340301                                 Kế toán     B00(TO-3,HO-1,SI-1)    7340301_B00        B00 NaN    -0.53
+ 508    7340301                                 Kế toán     B01(TO-3,SI-1,SU-1)    7340301_B01        B01 NaN     0.00
+ 509    7340301                                 Kế toán     B02(TO-3,SI-1,DI-1)    7340301_B02        B02 NaN     0.00
+ 510    7340301                                 Kế toán     B03(TO-3,VA-1,SI-1)    7340301_B03        B03 NaN     0.00
+ 511    7340301                                 Kế toán     B08(TO-3,SI-1,N1-1)    7340301_B08        B08 NaN     0.00
+ 512    7340301                                 Kế toán     C01(TO-3,VA-1,LI-1)    7340301_C01        C01 NaN     1.62
+ 513    7340301                                 Kế toán     C02(TO-3,VA-1,HO-1)    7340301_C02        C02 NaN     0.00
+ 514    7340301                                 Kế toán     C03(TO-3,VA-1,SU-1)    7340301_C03        C03 NaN     0.00
+ 515    7340301                                 Kế toán     C04(TO-3,VA-1,DI-1)    7340301_C04        C04 NaN     0.00
+ 516    7340301                                 Kế toán     D01(TO-3,VA-1,N1-1)    7340301_D01        D01 Gốc     0.00
+ 517    7340301                                 Kế toán     D07(TO-3,HO-1,N1-1)    7340301_D07        D07 NaN    -0.94
+ 518    7340301                                 Kế toán     D09(TO-3,SU-1,N1-1)    7340301_D09        D09 NaN     0.00
+ 519    7340301                                 Kế toán     D10(TO-3,DI-1,N1-1)    7340301_D10        D10 NaN     0.00
+ 520    7340301                                 Kế toán   X01(TO-3,VA-1,KTPL-1)    7340301_X01        X01 NaN     0.00
+ 521    7340301                                 Kế toán     X02(TO-3,VA-1,TI-1)    7340301_X02        X02 NaN     0.00
+ 522    7340301                                 Kế toán   X03(TO-3,VA-1,CNCN-1)    7340301_X03        X03 NaN     0.00
+ 523    7340301                                 Kế toán   X04(TO-3,VA-1,CNNN-1)    7340301_X04        X04 NaN     0.00
+ 524    7340301                                 Kế toán   X05(TO-3,LI-1,KTPL-1)    7340301_X05        X05 NaN     0.00
+ 525    7340301                                 Kế toán     X06(TO-3,LI-1,TI-1)    7340301_X06        X06 NaN     0.00
+ 526    7340301                                 Kế toán   X07(TO-3,LI-1,CNCN-1)    7340301_X07        X07 NaN     0.00
+ 527    7340301                                 Kế toán   X08(TO-3,LI-1,CNNN-1)    7340301_X08        X08 NaN     0.00
+ 528    7340301                                 Kế toán   X09(TO-3,HO-1,KTPL-1)    7340301_X09        X09 NaN     0.00
+ 529    7340301                                 Kế toán     X10(TO-3,HO-1,TI-1)    7340301_X10        X10 NaN     0.00
+ 530    7340301                                 Kế toán   X11(TO-3,HO-1,CNCN-1)    7340301_X11        X11 NaN     0.00
+ 531    7340301                                 Kế toán   X12(TO-3,HO-1,CNNN-1)    7340301_X12        X12 NaN     0.00
+ 532    7340301                                 Kế toán   X13(TO-3,SI-1,KTPL-1)    7340301_X13        X13 NaN     0.00
+ 533    7340301                                 Kế toán     X14(TO-3,SI-1,TI-1)    7340301_X14        X14 NaN     0.00
+ 534    7340301                                 Kế toán   X15(TO-3,SI-1,CNCN-1)    7340301_X15        X15 NaN     0.00
+ 535    7340301                                 Kế toán   X16(TO-3,SI-1,CNNN-1)    7340301_X16        X16 NaN     0.00
+ 536    7340301                                 Kế toán   X17(TO-3,SU-1,KTPL-1)    7340301_X17        X17 NaN     0.00
+ 537    7340301                                 Kế toán     X18(TO-3,SU-1,TI-1)    7340301_X18        X18 NaN     0.00
+ 538    7340301                                 Kế toán   X19(TO-3,SU-1,CNCN-1)    7340301_X19        X19 NaN     0.00
+ 539    7340301                                 Kế toán   X20(TO-3,SU-1,CNNN-1)    7340301_X20        X20 NaN     0.00
+ 540    7340301                                 Kế toán   X21(TO-3,DI-1,KTPL-1)    7340301_X21        X21 NaN     0.00
+ 541    7340301                                 Kế toán     X22(TO-3,DI-1,TI-1)    7340301_X22        X22 NaN     0.00
+ 542    7340301                                 Kế toán   X23(TO-3,DI-1,CNCN-1)    7340301_X23        X23 NaN     0.00
+ 543    7340301                                 Kế toán   X24(TO-3,DI-1,CNNN-1)    7340301_X24        X24 NaN     0.00
+ 544    7340301                                 Kế toán   X25(TO-3,N1-1,KTPL-1)    7340301_X25        X25 NaN     0.00
+ 545    7340301                                 Kế toán     X26(TO-3,N1-1,TI-1)    7340301_X26        X26 NaN     0.00
+ 546    7340301                                 Kế toán   X27(TO-3,N1-1,CNCN-1)    7340301_X27        X27 NaN     0.00
+ 547    7340301                                 Kế toán   X28(TO-3,N1-1,CNNN-1)    7340301_X28        X28 NaN     0.00
+ 548    7340301                                 Kế toán   X53(TO-3,KTPL-1,TI-1)    7340301_X53        X53 NaN     0.00
+ 549    7340301                                 Kế toán X54(TO-3,KTPL-1,CNCN-1)    7340301_X54        X54 NaN     0.00
+ 550    7340301                                 Kế toán X55(TO-3,KTPL-1,CNNN-1)    7340301_X55        X55 NaN     0.00
+ 551    7340301                                 Kế toán   X56(TO-3,TI-1,CNCN-1)    7340301_X56        X56 NaN     0.00
+ 552    7340301                                 Kế toán   X57(TO-3,TI-1,CNNN-1)    7340301_X57        X57 NaN     0.00
+ 553    7340302                               Kiểm toán     A00(TO-3,LI-1,HO-1)    7340302_A00        A00 NaN     0.68
+ 554    7340302                               Kiểm toán     A01(TO-3,LI-1,N1-1)    7340302_A01        A01 NaN    -0.01
+ 555    7340302                               Kiểm toán     A02(TO-3,LI-1,SI-1)    7340302_A02        A02 NaN     0.00
+ 556    7340302                               Kiểm toán     A03(TO-3,LI-1,SU-1)    7340302_A03        A03 NaN     0.00
+ 557    7340302                               Kiểm toán     A04(TO-3,LI-1,DI-1)    7340302_A04        A04 NaN     0.00
+ 558    7340302                               Kiểm toán     A05(TO-3,HO-1,SU-1)    7340302_A05        A05 NaN     0.00
+ 559    7340302                               Kiểm toán     A06(TO-3,HO-1,DI-1)    7340302_A06        A06 NaN     0.00
+ 560    7340302                               Kiểm toán     A07(TO-3,SU-1,DI-1)    7340302_A07        A07 NaN     0.00
+ 561    7340302                               Kiểm toán     B00(TO-3,HO-1,SI-1)    7340302_B00        B00 NaN    -0.53
+ 562    7340302                               Kiểm toán     B01(TO-3,SI-1,SU-1)    7340302_B01        B01 NaN     0.00
+ 563    7340302                               Kiểm toán     B02(TO-3,SI-1,DI-1)    7340302_B02        B02 NaN     0.00
+ 564    7340302                               Kiểm toán     B03(TO-3,VA-1,SI-1)    7340302_B03        B03 NaN     0.00
+ 565    7340302                               Kiểm toán     B08(TO-3,SI-1,N1-1)    7340302_B08        B08 NaN     0.00
+ 566    7340302                               Kiểm toán     C01(TO-3,VA-1,LI-1)    7340302_C01        C01 NaN     1.62
+ 567    7340302                               Kiểm toán     C02(TO-3,VA-1,HO-1)    7340302_C02        C02 NaN     0.00
+ 568    7340302                               Kiểm toán     C03(TO-3,VA-1,SU-1)    7340302_C03        C03 NaN     0.00
+ 569    7340302                               Kiểm toán     C04(TO-3,VA-1,DI-1)    7340302_C04        C04 NaN     0.00
+ 570    7340302                               Kiểm toán     D01(TO-3,VA-1,N1-1)    7340302_D01        D01 Gốc     0.00
+ 571    7340302                               Kiểm toán     D07(TO-3,HO-1,N1-1)    7340302_D07        D07 NaN    -0.94
+ 572    7340302                               Kiểm toán     D09(TO-3,SU-1,N1-1)    7340302_D09        D09 NaN     0.00
+ 573    7340302                               Kiểm toán     D10(TO-3,DI-1,N1-1)    7340302_D10        D10 NaN     0.00
+ 574    7340302                               Kiểm toán   X01(TO-3,VA-1,KTPL-1)    7340302_X01        X01 NaN     0.00
+ 575    7340302                               Kiểm toán     X02(TO-3,VA-1,TI-1)    7340302_X02        X02 NaN     0.00
+ 576    7340302                               Kiểm toán   X03(TO-3,VA-1,CNCN-1)    7340302_X03        X03 NaN     0.00
+ 577    7340302                               Kiểm toán   X04(TO-3,VA-1,CNNN-1)    7340302_X04        X04 NaN     0.00
+ 578    7340302                               Kiểm toán   X05(TO-3,LI-1,KTPL-1)    7340302_X05        X05 NaN     0.00
+ 579    7340302                               Kiểm toán     X06(TO-3,LI-1,TI-1)    7340302_X06        X06 NaN     0.00
+ 580    7340302                               Kiểm toán   X07(TO-3,LI-1,CNCN-1)    7340302_X07        X07 NaN     0.00
+ 581    7340302                               Kiểm toán   X08(TO-3,LI-1,CNNN-1)    7340302_X08        X08 NaN     0.00
+ 582    7340302                               Kiểm toán   X09(TO-3,HO-1,KTPL-1)    7340302_X09        X09 NaN     0.00
+ 583    7340302                               Kiểm toán     X10(TO-3,HO-1,TI-1)    7340302_X10        X10 NaN     0.00
+ 584    7340302                               Kiểm toán   X11(TO-3,HO-1,CNCN-1)    7340302_X11        X11 NaN     0.00
+ 585    7340302                               Kiểm toán   X12(TO-3,HO-1,CNNN-1)    7340302_X12        X12 NaN     0.00
+ 586    7340302                               Kiểm toán   X13(TO-3,SI-1,KTPL-1)    7340302_X13        X13 NaN     0.00
+ 587    7340302                               Kiểm toán     X14(TO-3,SI-1,TI-1)    7340302_X14        X14 NaN     0.00
+ 588    7340302                               Kiểm toán   X15(TO-3,SI-1,CNCN-1)    7340302_X15        X15 NaN     0.00
+ 589    7340302                               Kiểm toán   X16(TO-3,SI-1,CNNN-1)    7340302_X16        X16 NaN     0.00
+ 590    7340302                               Kiểm toán   X17(TO-3,SU-1,KTPL-1)    7340302_X17        X17 NaN     0.00
+ 591    7340302                               Kiểm toán     X18(TO-3,SU-1,TI-1)    7340302_X18        X18 NaN     0.00
+ 592    7340302                               Kiểm toán   X19(TO-3,SU-1,CNCN-1)    7340302_X19        X19 NaN     0.00
+ 593    7340302                               Kiểm toán   X20(TO-3,SU-1,CNNN-1)    7340302_X20        X20 NaN     0.00
+ 594    7340302                               Kiểm toán   X21(TO-3,DI-1,KTPL-1)    7340302_X21        X21 NaN     0.00
+ 595    7340302                               Kiểm toán     X22(TO-3,DI-1,TI-1)    7340302_X22        X22 NaN     0.00
+ 596    7340302                               Kiểm toán   X23(TO-3,DI-1,CNCN-1)    7340302_X23        X23 NaN     0.00
+ 597    7340302                               Kiểm toán   X24(TO-3,DI-1,CNNN-1)    7340302_X24        X24 NaN     0.00
+ 598    7340302                               Kiểm toán   X25(TO-3,N1-1,KTPL-1)    7340302_X25        X25 NaN     0.00
+ 599    7340302                               Kiểm toán     X26(TO-3,N1-1,TI-1)    7340302_X26        X26 NaN     0.00
+ 600    7340302                               Kiểm toán   X27(TO-3,N1-1,CNCN-1)    7340302_X27        X27 NaN     0.00
+ 601    7340302                               Kiểm toán   X28(TO-3,N1-1,CNNN-1)    7340302_X28        X28 NaN     0.00
+ 602    7340302                               Kiểm toán   X53(TO-3,KTPL-1,TI-1)    7340302_X53        X53 NaN     0.00
+ 603    7340302                               Kiểm toán X54(TO-3,KTPL-1,CNCN-1)    7340302_X54        X54 NaN     0.00
+ 604    7340302                               Kiểm toán X55(TO-3,KTPL-1,CNNN-1)    7340302_X55        X55 NaN     0.00
+ 605    7340302                               Kiểm toán   X56(TO-3,TI-1,CNCN-1)    7340302_X56        X56 NaN     0.00
+ 606    7340302                               Kiểm toán   X57(TO-3,TI-1,CNNN-1)    7340302_X57        X57 NaN     0.00
+ 607    7340406                      Quản trị văn phòng     B03(TO-3,VA-3,SI-1)    7340406_B03        B03 NaN     0.00
+ 608    7340406                      Quản trị văn phòng     C01(TO-3,VA-3,LI-1)    7340406_C01        C01 NaN     1.62
+ 609    7340406                      Quản trị văn phòng     C02(TO-3,VA-3,HO-1)    7340406_C02        C02 NaN     0.00
+ 610    7340406                      Quản trị văn phòng     C03(TO-3,VA-3,SU-1)    7340406_C03        C03 NaN     0.00
+ 611    7340406                      Quản trị văn phòng     C04(TO-3,VA-3,DI-1)    7340406_C04        C04 NaN     0.00
+ 612    7340406                      Quản trị văn phòng     D01(TO-3,VA-3,N1-1)    7340406_D01        D01 Gốc     0.00
+ 613    7340406                      Quản trị văn phòng   X01(TO-3,VA-3,KTPL-1)    7340406_X01        X01 NaN     0.00
+ 614    7340406                      Quản trị văn phòng     X02(TO-3,VA-3,TI-1)    7340406_X02        X02 NaN     0.00
+ 615    7340406                      Quản trị văn phòng   X03(TO-3,VA-3,CNCN-1)    7340406_X03        X03 NaN     0.00
+ 616    7340406                      Quản trị văn phòng   X04(TO-3,VA-3,CNNN-1)    7340406_X04        X04 NaN     0.00
+ 617    7380101                                    Luật     B03(TO-3,VA-3,SI-1)    7380101_B03        B03 NaN     0.00
+ 618    7380101                                    Luật     C01(TO-3,VA-3,LI-1)    7380101_C01        C01 NaN     1.62
+ 619    7380101                                    Luật     C02(TO-3,VA-3,HO-1)    7380101_C02        C02 NaN     0.00
+ 620    7380101                                    Luật     C03(TO-3,VA-3,SU-1)    7380101_C03        C03 NaN     0.00
+ 621    7380101                                    Luật     C04(TO-3,VA-3,DI-1)    7380101_C04        C04 NaN     0.00
+ 622    7380101                                    Luật     D01(TO-3,VA-3,N1-1)    7380101_D01        D01 Gốc     0.00
+ 623    7380101                                    Luật   X01(TO-3,VA-3,KTPL-1)    7380101_X01        X01 NaN     0.00
+ 624    7380101                                    Luật     X02(TO-3,VA-3,TI-1)    7380101_X02        X02 NaN     0.00
+ 625    7380101                                    Luật   X03(TO-3,VA-3,CNCN-1)    7380101_X03        X03 NaN     0.00
+ 626    7380101                                    Luật   X04(TO-3,VA-3,CNNN-1)    7380101_X04        X04 NaN     0.00
+ 627    7440301                     Khoa học môi trường     A00(TO-5,LI-1,HO-1)    7440301_A00        A00 NaN     1.21
+ 628    7440301                     Khoa học môi trường     A01(TO-5,LI-1,N1-1)    7440301_A01        A01 NaN     0.52
+ 629    7440301                     Khoa học môi trường     A02(TO-5,LI-1,SI-1)    7440301_A02        A02 NaN     0.00
+ 630    7440301                     Khoa học môi trường     A03(TO-5,LI-1,SU-1)    7440301_A03        A03 NaN     0.00
+ 631    7440301                     Khoa học môi trường     A04(TO-5,LI-1,DI-1)    7440301_A04        A04 NaN     0.00
+ 632    7440301                     Khoa học môi trường     A05(TO-5,HO-1,SU-1)    7440301_A05        A05 NaN     0.00
+ 633    7440301                     Khoa học môi trường     A06(TO-5,HO-1,DI-1)    7440301_A06        A06 NaN     0.00
+ 634    7440301                     Khoa học môi trường     A07(TO-5,SU-1,DI-1)    7440301_A07        A07 NaN     0.00
+ 635    7440301                     Khoa học môi trường     B00(TO-5,HO-1,SI-1)    7440301_B00        B00 Gốc     0.00
+ 636    7440301                     Khoa học môi trường     B01(TO-5,SI-1,SU-1)    7440301_B01        B01 NaN     0.00
+ 637    7440301                     Khoa học môi trường     B02(TO-5,SI-1,DI-1)    7440301_B02        B02 NaN     0.00
+ 638    7440301                     Khoa học môi trường     B03(TO-5,VA-1,SI-1)    7440301_B03        B03 NaN     0.00
+ 639    7440301                     Khoa học môi trường     B08(TO-5,SI-1,N1-1)    7440301_B08        B08 NaN     0.00
+ 640    7440301                     Khoa học môi trường     C01(TO-5,VA-1,LI-1)    7440301_C01        C01 NaN     2.15
+ 641    7440301                     Khoa học môi trường     C02(TO-5,VA-1,HO-1)    7440301_C02        C02 NaN     0.00
+ 642    7440301                     Khoa học môi trường     C03(TO-5,VA-1,SU-1)    7440301_C03        C03 NaN     0.00
+ 643    7440301                     Khoa học môi trường     C04(TO-5,VA-1,DI-1)    7440301_C04        C04 NaN     0.00
+ 644    7440301                     Khoa học môi trường     D01(TO-5,VA-1,N1-1)    7440301_D01        D01 NaN     0.53
+ 645    7440301                     Khoa học môi trường     D07(TO-5,HO-1,N1-1)    7440301_D07        D07 NaN    -0.41
+ 646    7440301                     Khoa học môi trường     D09(TO-5,SU-1,N1-1)    7440301_D09        D09 NaN     0.00
+ 647    7440301                     Khoa học môi trường     D10(TO-5,DI-1,N1-1)    7440301_D10        D10 NaN     0.00
+ 648    7440301                     Khoa học môi trường   X01(TO-5,VA-1,KTPL-1)    7440301_X01        X01 NaN     0.00
+ 649    7440301                     Khoa học môi trường     X02(TO-5,VA-1,TI-1)    7440301_X02        X02 NaN     0.00
+ 650    7440301                     Khoa học môi trường   X03(TO-5,VA-1,CNCN-1)    7440301_X03        X03 NaN     0.00
+ 651    7440301                     Khoa học môi trường   X04(TO-5,VA-1,CNNN-1)    7440301_X04        X04 NaN     0.00
+ 652    7440301                     Khoa học môi trường   X05(TO-5,LI-1,KTPL-1)    7440301_X05        X05 NaN     0.00
+ 653    7440301                     Khoa học môi trường     X06(TO-5,LI-1,TI-1)    7440301_X06        X06 NaN     0.00
+ 654    7440301                     Khoa học môi trường   X07(TO-5,LI-1,CNCN-1)    7440301_X07        X07 NaN     0.00
+ 655    7440301                     Khoa học môi trường   X08(TO-5,LI-1,CNNN-1)    7440301_X08        X08 NaN     0.00
+ 656    7440301                     Khoa học môi trường   X09(TO-5,HO-1,KTPL-1)    7440301_X09        X09 NaN     0.00
+ 657    7440301                     Khoa học môi trường     X10(TO-5,HO-1,TI-1)    7440301_X10        X10 NaN     0.00
+ 658    7440301                     Khoa học môi trường   X11(TO-5,HO-1,CNCN-1)    7440301_X11        X11 NaN     0.00
+ 659    7440301                     Khoa học môi trường   X12(TO-5,HO-1,CNNN-1)    7440301_X12        X12 NaN     0.00
+ 660    7440301                     Khoa học môi trường   X13(TO-5,SI-1,KTPL-1)    7440301_X13        X13 NaN     0.00
+ 661    7440301                     Khoa học môi trường     X14(TO-5,SI-1,TI-1)    7440301_X14        X14 NaN     0.00
+ 662    7440301                     Khoa học môi trường   X15(TO-5,SI-1,CNCN-1)    7440301_X15        X15 NaN     0.00
+ 663    7440301                     Khoa học môi trường   X16(TO-5,SI-1,CNNN-1)    7440301_X16        X16 NaN     0.00
+ 664    7440301                     Khoa học môi trường   X17(TO-5,SU-1,KTPL-1)    7440301_X17        X17 NaN     0.00
+ 665    7440301                     Khoa học môi trường     X18(TO-5,SU-1,TI-1)    7440301_X18        X18 NaN     0.00
+ 666    7440301                     Khoa học môi trường   X19(TO-5,SU-1,CNCN-1)    7440301_X19        X19 NaN     0.00
+ 667    7440301                     Khoa học môi trường   X20(TO-5,SU-1,CNNN-1)    7440301_X20        X20 NaN     0.00
+ 668    7440301                     Khoa học môi trường   X21(TO-5,DI-1,KTPL-1)    7440301_X21        X21 NaN     0.00
+ 669    7440301                     Khoa học môi trường     X22(TO-5,DI-1,TI-1)    7440301_X22        X22 NaN     0.00
+ 670    7440301                     Khoa học môi trường   X23(TO-5,DI-1,CNCN-1)    7440301_X23        X23 NaN     0.00
+ 671    7440301                     Khoa học môi trường   X24(TO-5,DI-1,CNNN-1)    7440301_X24        X24 NaN     0.00
+ 672    7440301                     Khoa học môi trường   X25(TO-5,N1-1,KTPL-1)    7440301_X25        X25 NaN     0.00
+ 673    7440301                     Khoa học môi trường     X26(TO-5,N1-1,TI-1)    7440301_X26        X26 NaN     0.00
+ 674    7440301                     Khoa học môi trường   X27(TO-5,N1-1,CNCN-1)    7440301_X27        X27 NaN     0.00
+ 675    7440301                     Khoa học môi trường   X28(TO-5,N1-1,CNNN-1)    7440301_X28        X28 NaN     0.00
+ 676    7440301                     Khoa học môi trường   X53(TO-5,KTPL-1,TI-1)    7440301_X53        X53 NaN     0.00
+ 677    7440301                     Khoa học môi trường X54(TO-5,KTPL-1,CNCN-1)    7440301_X54        X54 NaN     0.00
+ 678    7440301                     Khoa học môi trường X55(TO-5,KTPL-1,CNNN-1)    7440301_X55        X55 NaN     0.00
+ 679    7440301                     Khoa học môi trường   X56(TO-5,TI-1,CNCN-1)    7440301_X56        X56 NaN     0.00
+ 680    7440301                     Khoa học môi trường   X57(TO-5,TI-1,CNNN-1)    7440301_X57        X57 NaN     0.00
+ 681    7460108                        Khoa học dữ liệu     A00(TO-5,LI-1,HO-1)    7460108_A00        A00 Gốc     0.00
+ 682    7460108                        Khoa học dữ liệu     A01(TO-5,LI-1,N1-1)    7460108_A01        A01 NaN    -0.69
+ 683    7460108                        Khoa học dữ liệu     A02(TO-5,LI-1,SI-1)    7460108_A02        A02 NaN     0.00
+ 684    7460108                        Khoa học dữ liệu     A03(TO-5,LI-1,SU-1)    7460108_A03        A03 NaN     0.00
+ 685    7460108                        Khoa học dữ liệu     A04(TO-5,LI-1,DI-1)    7460108_A04        A04 NaN     0.00
+ 686    7460108                        Khoa học dữ liệu     A05(TO-5,HO-1,SU-1)    7460108_A05        A05 NaN     0.00
+ 687    7460108                        Khoa học dữ liệu     A06(TO-5,HO-1,DI-1)    7460108_A06        A06 NaN     0.00
+ 688    7460108                        Khoa học dữ liệu     A07(TO-5,SU-1,DI-1)    7460108_A07        A07 NaN     0.00
+ 689    7460108                        Khoa học dữ liệu     B00(TO-5,HO-1,SI-1)    7460108_B00        B00 NaN    -1.21
+ 690    7460108                        Khoa học dữ liệu     B01(TO-5,SI-1,SU-1)    7460108_B01        B01 NaN     0.00
+ 691    7460108                        Khoa học dữ liệu     B02(TO-5,SI-1,DI-1)    7460108_B02        B02 NaN     0.00
+ 692    7460108                        Khoa học dữ liệu     B03(TO-5,VA-1,SI-1)    7460108_B03        B03 NaN     0.00
+ 693    7460108                        Khoa học dữ liệu     B08(TO-5,SI-1,N1-1)    7460108_B08        B08 NaN     0.00
+ 694    7460108                        Khoa học dữ liệu     C01(TO-5,VA-1,LI-1)    7460108_C01        C01 NaN     0.94
+ 695    7460108                        Khoa học dữ liệu     C02(TO-5,VA-1,HO-1)    7460108_C02        C02 NaN     0.00
+ 696    7460108                        Khoa học dữ liệu     C03(TO-5,VA-1,SU-1)    7460108_C03        C03 NaN     0.00
+ 697    7460108                        Khoa học dữ liệu     C04(TO-5,VA-1,DI-1)    7460108_C04        C04 NaN     0.00
+ 698    7460108                        Khoa học dữ liệu     D01(TO-5,VA-1,N1-1)    7460108_D01        D01 NaN    -0.68
+ 699    7460108                        Khoa học dữ liệu     D07(TO-5,HO-1,N1-1)    7460108_D07        D07 NaN    -1.62
+ 700    7460108                        Khoa học dữ liệu     D09(TO-5,SU-1,N1-1)    7460108_D09        D09 NaN     0.00
+ 701    7460108                        Khoa học dữ liệu     D10(TO-5,DI-1,N1-1)    7460108_D10        D10 NaN     0.00
+ 702    7460108                        Khoa học dữ liệu   X01(TO-5,VA-1,KTPL-1)    7460108_X01        X01 NaN     0.00
+ 703    7460108                        Khoa học dữ liệu     X02(TO-5,VA-1,TI-1)    7460108_X02        X02 NaN     0.00
+ 704    7460108                        Khoa học dữ liệu   X03(TO-5,VA-1,CNCN-1)    7460108_X03        X03 NaN     0.00
+ 705    7460108                        Khoa học dữ liệu   X04(TO-5,VA-1,CNNN-1)    7460108_X04        X04 NaN     0.00
+ 706    7460108                        Khoa học dữ liệu   X05(TO-5,LI-1,KTPL-1)    7460108_X05        X05 NaN     0.00
+ 707    7460108                        Khoa học dữ liệu     X06(TO-5,LI-1,TI-1)    7460108_X06        X06 NaN     0.00
+ 708    7460108                        Khoa học dữ liệu   X07(TO-5,LI-1,CNCN-1)    7460108_X07        X07 NaN     0.00
+ 709    7460108                        Khoa học dữ liệu   X08(TO-5,LI-1,CNNN-1)    7460108_X08        X08 NaN     0.00
+ 710    7460108                        Khoa học dữ liệu   X09(TO-5,HO-1,KTPL-1)    7460108_X09        X09 NaN     0.00
+ 711    7460108                        Khoa học dữ liệu     X10(TO-5,HO-1,TI-1)    7460108_X10        X10 NaN     0.00
+ 712    7460108                        Khoa học dữ liệu   X11(TO-5,HO-1,CNCN-1)    7460108_X11        X11 NaN     0.00
+ 713    7460108                        Khoa học dữ liệu   X12(TO-5,HO-1,CNNN-1)    7460108_X12        X12 NaN     0.00
+ 714    7460108                        Khoa học dữ liệu   X13(TO-5,SI-1,KTPL-1)    7460108_X13        X13 NaN     0.00
+ 715    7460108                        Khoa học dữ liệu     X14(TO-5,SI-1,TI-1)    7460108_X14        X14 NaN     0.00
+ 716    7460108                        Khoa học dữ liệu   X15(TO-5,SI-1,CNCN-1)    7460108_X15        X15 NaN     0.00
+ 717    7460108                        Khoa học dữ liệu   X16(TO-5,SI-1,CNNN-1)    7460108_X16        X16 NaN     0.00
+ 718    7460108                        Khoa học dữ liệu   X17(TO-5,SU-1,KTPL-1)    7460108_X17        X17 NaN     0.00
+ 719    7460108                        Khoa học dữ liệu     X18(TO-5,SU-1,TI-1)    7460108_X18        X18 NaN     0.00
+ 720    7460108                        Khoa học dữ liệu   X19(TO-5,SU-1,CNCN-1)    7460108_X19        X19 NaN     0.00
+ 721    7460108                        Khoa học dữ liệu   X20(TO-5,SU-1,CNNN-1)    7460108_X20        X20 NaN     0.00
+ 722    7460108                        Khoa học dữ liệu   X21(TO-5,DI-1,KTPL-1)    7460108_X21        X21 NaN     0.00
+ 723    7460108                        Khoa học dữ liệu     X22(TO-5,DI-1,TI-1)    7460108_X22        X22 NaN     0.00
+ 724    7460108                        Khoa học dữ liệu   X23(TO-5,DI-1,CNCN-1)    7460108_X23        X23 NaN     0.00
+ 725    7460108                        Khoa học dữ liệu   X24(TO-5,DI-1,CNNN-1)    7460108_X24        X24 NaN     0.00
+ 726    7460108                        Khoa học dữ liệu   X25(TO-5,N1-1,KTPL-1)    7460108_X25        X25 NaN     0.00
+ 727    7460108                        Khoa học dữ liệu     X26(TO-5,N1-1,TI-1)    7460108_X26        X26 NaN     0.00
+ 728    7460108                        Khoa học dữ liệu   X27(TO-5,N1-1,CNCN-1)    7460108_X27        X27 NaN     0.00
+ 729    7460108                        Khoa học dữ liệu   X28(TO-5,N1-1,CNNN-1)    7460108_X28        X28 NaN     0.00
+ 730    7460108                        Khoa học dữ liệu   X53(TO-5,KTPL-1,TI-1)    7460108_X53        X53 NaN     0.00
+ 731    7460108                        Khoa học dữ liệu X54(TO-5,KTPL-1,CNCN-1)    7460108_X54        X54 NaN     0.00
+ 732    7460108                        Khoa học dữ liệu X55(TO-5,KTPL-1,CNNN-1)    7460108_X55        X55 NaN     0.00
+ 733    7460108                        Khoa học dữ liệu   X56(TO-5,TI-1,CNCN-1)    7460108_X56        X56 NaN     0.00
+ 734    7460108                        Khoa học dữ liệu   X57(TO-5,TI-1,CNNN-1)    7460108_X57        X57 NaN     0.00
+ 735    7460112                           Toán ứng dụng     A00(TO-5,LI-1,HO-1)    7460112_A00        A00 Gốc     0.00
+ 736    7460112                           Toán ứng dụng     A01(TO-5,LI-1,N1-1)    7460112_A01        A01 NaN    -0.69
+ 737    7460112                           Toán ứng dụng     A02(TO-5,LI-1,SI-1)    7460112_A02        A02 NaN     0.00
+ 738    7460112                           Toán ứng dụng     A03(TO-5,LI-1,SU-1)    7460112_A03        A03 NaN     0.00
+ 739    7460112                           Toán ứng dụng     A04(TO-5,LI-1,DI-1)    7460112_A04        A04 NaN     0.00
+ 740    7460112                           Toán ứng dụng     A05(TO-5,HO-1,SU-1)    7460112_A05        A05 NaN     0.00
+ 741    7460112                           Toán ứng dụng     A06(TO-5,HO-1,DI-1)    7460112_A06        A06 NaN     0.00
+ 742    7460112                           Toán ứng dụng     A07(TO-5,SU-1,DI-1)    7460112_A07        A07 NaN     0.00
+ 743    7460112                           Toán ứng dụng     B00(TO-5,HO-1,SI-1)    7460112_B00        B00 NaN    -1.21
+ 744    7460112                           Toán ứng dụng     B01(TO-5,SI-1,SU-1)    7460112_B01        B01 NaN     0.00
+ 745    7460112                           Toán ứng dụng     B02(TO-5,SI-1,DI-1)    7460112_B02        B02 NaN     0.00
+ 746    7460112                           Toán ứng dụng     B03(TO-5,VA-1,SI-1)    7460112_B03        B03 NaN     0.00
+ 747    7460112                           Toán ứng dụng     B08(TO-5,SI-1,N1-1)    7460112_B08        B08 NaN     0.00
+ 748    7460112                           Toán ứng dụng     C01(TO-5,VA-1,LI-1)    7460112_C01        C01 NaN     0.94
+ 749    7460112                           Toán ứng dụng     C02(TO-5,VA-1,HO-1)    7460112_C02        C02 NaN     0.00
+ 750    7460112                           Toán ứng dụng     C03(TO-5,VA-1,SU-1)    7460112_C03        C03 NaN     0.00
+ 751    7460112                           Toán ứng dụng     C04(TO-5,VA-1,DI-1)    7460112_C04        C04 NaN     0.00
+ 752    7460112                           Toán ứng dụng     D01(TO-5,VA-1,N1-1)    7460112_D01        D01 NaN    -0.68
+ 753    7460112                           Toán ứng dụng     D07(TO-5,HO-1,N1-1)    7460112_D07        D07 NaN    -1.62
+ 754    7460112                           Toán ứng dụng     D09(TO-5,SU-1,N1-1)    7460112_D09        D09 NaN     0.00
+ 755    7460112                           Toán ứng dụng     D10(TO-5,DI-1,N1-1)    7460112_D10        D10 NaN     0.00
+ 756    7460112                           Toán ứng dụng   X01(TO-5,VA-1,KTPL-1)    7460112_X01        X01 NaN     0.00
+ 757    7460112                           Toán ứng dụng     X02(TO-5,VA-1,TI-1)    7460112_X02        X02 NaN     0.00
+ 758    7460112                           Toán ứng dụng   X03(TO-5,VA-1,CNCN-1)    7460112_X03        X03 NaN     0.00
+ 759    7460112                           Toán ứng dụng   X04(TO-5,VA-1,CNNN-1)    7460112_X04        X04 NaN     0.00
+ 760    7460112                           Toán ứng dụng   X05(TO-5,LI-1,KTPL-1)    7460112_X05        X05 NaN     0.00
+ 761    7460112                           Toán ứng dụng     X06(TO-5,LI-1,TI-1)    7460112_X06        X06 NaN     0.00
+ 762    7460112                           Toán ứng dụng   X07(TO-5,LI-1,CNCN-1)    7460112_X07        X07 NaN     0.00
+ 763    7460112                           Toán ứng dụng   X08(TO-5,LI-1,CNNN-1)    7460112_X08        X08 NaN     0.00
+ 764    7460112                           Toán ứng dụng   X09(TO-5,HO-1,KTPL-1)    7460112_X09        X09 NaN     0.00
+ 765    7460112                           Toán ứng dụng     X10(TO-5,HO-1,TI-1)    7460112_X10        X10 NaN     0.00
+ 766    7460112                           Toán ứng dụng   X11(TO-5,HO-1,CNCN-1)    7460112_X11        X11 NaN     0.00
+ 767    7460112                           Toán ứng dụng   X12(TO-5,HO-1,CNNN-1)    7460112_X12        X12 NaN     0.00
+ 768    7460112                           Toán ứng dụng   X13(TO-5,SI-1,KTPL-1)    7460112_X13        X13 NaN     0.00
+ 769    7460112                           Toán ứng dụng     X14(TO-5,SI-1,TI-1)    7460112_X14        X14 NaN     0.00
+ 770    7460112                           Toán ứng dụng   X15(TO-5,SI-1,CNCN-1)    7460112_X15        X15 NaN     0.00
+ 771    7460112                           Toán ứng dụng   X16(TO-5,SI-1,CNNN-1)    7460112_X16        X16 NaN     0.00
+ 772    7460112                           Toán ứng dụng   X17(TO-5,SU-1,KTPL-1)    7460112_X17        X17 NaN     0.00
+ 773    7460112                           Toán ứng dụng     X18(TO-5,SU-1,TI-1)    7460112_X18        X18 NaN     0.00
+ 774    7460112                           Toán ứng dụng   X19(TO-5,SU-1,CNCN-1)    7460112_X19        X19 NaN     0.00
+ 775    7460112                           Toán ứng dụng   X20(TO-5,SU-1,CNNN-1)    7460112_X20        X20 NaN     0.00
+ 776    7460112                           Toán ứng dụng   X21(TO-5,DI-1,KTPL-1)    7460112_X21        X21 NaN     0.00
+ 777    7460112                           Toán ứng dụng     X22(TO-5,DI-1,TI-1)    7460112_X22        X22 NaN     0.00
+ 778    7460112                           Toán ứng dụng   X23(TO-5,DI-1,CNCN-1)    7460112_X23        X23 NaN     0.00
+ 779    7460112                           Toán ứng dụng   X24(TO-5,DI-1,CNNN-1)    7460112_X24        X24 NaN     0.00
+ 780    7460112                           Toán ứng dụng   X25(TO-5,N1-1,KTPL-1)    7460112_X25        X25 NaN     0.00
+ 781    7460112                           Toán ứng dụng     X26(TO-5,N1-1,TI-1)    7460112_X26        X26 NaN     0.00
+ 782    7460112                           Toán ứng dụng   X27(TO-5,N1-1,CNCN-1)    7460112_X27        X27 NaN     0.00
+ 783    7460112                           Toán ứng dụng   X28(TO-5,N1-1,CNNN-1)    7460112_X28        X28 NaN     0.00
+ 784    7460112                           Toán ứng dụng   X53(TO-5,KTPL-1,TI-1)    7460112_X53        X53 NaN     0.00
+ 785    7460112                           Toán ứng dụng X54(TO-5,KTPL-1,CNCN-1)    7460112_X54        X54 NaN     0.00
+ 786    7460112                           Toán ứng dụng X55(TO-5,KTPL-1,CNNN-1)    7460112_X55        X55 NaN     0.00
+ 787    7460112                           Toán ứng dụng   X56(TO-5,TI-1,CNCN-1)    7460112_X56        X56 NaN     0.00
+ 788    7460112                           Toán ứng dụng   X57(TO-5,TI-1,CNNN-1)    7460112_X57        X57 NaN     0.00
+ 789    7480103                       Kỹ thuật phần mềm     A00(TO-5,LI-1,HO-1)    7480103_A00        A00 NaN     0.68
+ 790    7480103                       Kỹ thuật phần mềm     A01(TO-5,LI-1,N1-1)    7480103_A01        A01 NaN    -0.01
+ 791    7480103                       Kỹ thuật phần mềm     A02(TO-5,LI-1,SI-1)    7480103_A02        A02 NaN     0.00
+ 792    7480103                       Kỹ thuật phần mềm     A03(TO-5,LI-1,SU-1)    7480103_A03        A03 NaN     0.00
+ 793    7480103                       Kỹ thuật phần mềm     A04(TO-5,LI-1,DI-1)    7480103_A04        A04 NaN     0.00
+ 794    7480103                       Kỹ thuật phần mềm     A05(TO-5,HO-1,SU-1)    7480103_A05        A05 NaN     0.00
+ 795    7480103                       Kỹ thuật phần mềm     A06(TO-5,HO-1,DI-1)    7480103_A06        A06 NaN     0.00
+ 796    7480103                       Kỹ thuật phần mềm     A07(TO-5,SU-1,DI-1)    7480103_A07        A07 NaN     0.00
+ 797    7480103                       Kỹ thuật phần mềm     B00(TO-5,HO-1,SI-1)    7480103_B00        B00 NaN    -0.53
+ 798    7480103                       Kỹ thuật phần mềm     B01(TO-5,SI-1,SU-1)    7480103_B01        B01 NaN     0.00
+ 799    7480103                       Kỹ thuật phần mềm     B02(TO-5,SI-1,DI-1)    7480103_B02        B02 NaN     0.00
+ 800    7480103                       Kỹ thuật phần mềm     B03(TO-5,VA-1,SI-1)    7480103_B03        B03 NaN     0.00
+ 801    7480103                       Kỹ thuật phần mềm     B08(TO-5,SI-1,N1-1)    7480103_B08        B08 NaN     0.00
+ 802    7480103                       Kỹ thuật phần mềm     C01(TO-5,VA-1,LI-1)    7480103_C01        C01 NaN     1.62
+ 803    7480103                       Kỹ thuật phần mềm     C02(TO-5,VA-1,HO-1)    7480103_C02        C02 NaN     0.00
+ 804    7480103                       Kỹ thuật phần mềm     C03(TO-5,VA-1,SU-1)    7480103_C03        C03 NaN     0.00
+ 805    7480103                       Kỹ thuật phần mềm     C04(TO-5,VA-1,DI-1)    7480103_C04        C04 NaN     0.00
+ 806    7480103                       Kỹ thuật phần mềm     D01(TO-5,VA-1,N1-1)    7480103_D01        D01 Gốc     0.00
+ 807    7480103                       Kỹ thuật phần mềm     D07(TO-5,HO-1,N1-1)    7480103_D07        D07 NaN    -0.94
+ 808    7480103                       Kỹ thuật phần mềm     D09(TO-5,SU-1,N1-1)    7480103_D09        D09 NaN     0.00
+ 809    7480103                       Kỹ thuật phần mềm     D10(TO-5,DI-1,N1-1)    7480103_D10        D10 NaN     0.00
+ 810    7480103                       Kỹ thuật phần mềm   X01(TO-5,VA-1,KTPL-1)    7480103_X01        X01 NaN     0.00
+ 811    7480103                       Kỹ thuật phần mềm     X02(TO-5,VA-1,TI-3)    7480103_X02        X02 NaN     0.00
+ 812    7480103                       Kỹ thuật phần mềm   X03(TO-5,VA-1,CNCN-1)    7480103_X03        X03 NaN     0.00
+ 813    7480103                       Kỹ thuật phần mềm   X04(TO-5,VA-1,CNNN-1)    7480103_X04        X04 NaN     0.00
+ 814    7480103                       Kỹ thuật phần mềm   X05(TO-5,LI-1,KTPL-1)    7480103_X05        X05 NaN     0.00
+ 815    7480103                       Kỹ thuật phần mềm     X06(TO-5,LI-1,TI-3)    7480103_X06        X06 NaN     0.00
+ 816    7480103                       Kỹ thuật phần mềm   X07(TO-5,LI-1,CNCN-1)    7480103_X07        X07 NaN     0.00
+ 817    7480103                       Kỹ thuật phần mềm   X08(TO-5,LI-1,CNNN-1)    7480103_X08        X08 NaN     0.00
+ 818    7480103                       Kỹ thuật phần mềm   X09(TO-5,HO-1,KTPL-1)    7480103_X09        X09 NaN     0.00
+ 819    7480103                       Kỹ thuật phần mềm     X10(TO-5,HO-1,TI-3)    7480103_X10        X10 NaN     0.00
+ 820    7480103                       Kỹ thuật phần mềm   X11(TO-5,HO-1,CNCN-1)    7480103_X11        X11 NaN     0.00
+ 821    7480103                       Kỹ thuật phần mềm   X12(TO-5,HO-1,CNNN-1)    7480103_X12        X12 NaN     0.00
+ 822    7480103                       Kỹ thuật phần mềm   X13(TO-5,SI-1,KTPL-1)    7480103_X13        X13 NaN     0.00
+ 823    7480103                       Kỹ thuật phần mềm     X14(TO-5,SI-1,TI-3)    7480103_X14        X14 NaN     0.00
+ 824    7480103                       Kỹ thuật phần mềm   X15(TO-5,SI-1,CNCN-1)    7480103_X15        X15 NaN     0.00
+ 825    7480103                       Kỹ thuật phần mềm   X16(TO-5,SI-1,CNNN-1)    7480103_X16        X16 NaN     0.00
+ 826    7480103                       Kỹ thuật phần mềm   X17(TO-5,SU-1,KTPL-1)    7480103_X17        X17 NaN     0.00
+ 827    7480103                       Kỹ thuật phần mềm     X18(TO-5,SU-1,TI-3)    7480103_X18        X18 NaN     0.00
+ 828    7480103                       Kỹ thuật phần mềm   X19(TO-5,SU-1,CNCN-1)    7480103_X19        X19 NaN     0.00
+ 829    7480103                       Kỹ thuật phần mềm   X20(TO-5,SU-1,CNNN-1)    7480103_X20        X20 NaN     0.00
+ 830    7480103                       Kỹ thuật phần mềm   X21(TO-5,DI-1,KTPL-1)    7480103_X21        X21 NaN     0.00
+ 831    7480103                       Kỹ thuật phần mềm     X22(TO-5,DI-1,TI-3)    7480103_X22        X22 NaN     0.00
+ 832    7480103                       Kỹ thuật phần mềm   X23(TO-5,DI-1,CNCN-1)    7480103_X23        X23 NaN     0.00
+ 833    7480103                       Kỹ thuật phần mềm   X24(TO-5,DI-1,CNNN-1)    7480103_X24        X24 NaN     0.00
+ 834    7480103                       Kỹ thuật phần mềm   X25(TO-5,N1-1,KTPL-1)    7480103_X25        X25 NaN     0.00
+ 835    7480103                       Kỹ thuật phần mềm     X26(TO-5,N1-1,TI-3)    7480103_X26        X26 NaN     0.00
+ 836    7480103                       Kỹ thuật phần mềm   X27(TO-5,N1-1,CNCN-1)    7480103_X27        X27 NaN     0.00
+ 837    7480103                       Kỹ thuật phần mềm   X28(TO-5,N1-1,CNNN-1)    7480103_X28        X28 NaN     0.00
+ 838    7480103                       Kỹ thuật phần mềm   X53(TO-5,KTPL-1,TI-3)    7480103_X53        X53 NaN     0.00
+ 839    7480103                       Kỹ thuật phần mềm X54(TO-5,KTPL-1,CNCN-1)    7480103_X54        X54 NaN     0.00
+ 840    7480103                       Kỹ thuật phần mềm X55(TO-5,KTPL-1,CNNN-1)    7480103_X55        X55 NaN     0.00
+ 841    7480103                       Kỹ thuật phần mềm   X56(TO-5,TI-3,CNCN-1)    7480103_X56        X56 NaN     0.00
+ 842    7480103                       Kỹ thuật phần mềm   X57(TO-5,TI-3,CNNN-1)    7480103_X57        X57 NaN     0.00
+ 843    7480107                        Trí tuệ nhân tạo     A00(TO-5,LI-1,HO-1)    7480107_A00        A00 NaN     0.68
+ 844    7480107                        Trí tuệ nhân tạo     A01(TO-5,LI-1,N1-1)    7480107_A01        A01 NaN    -0.01
+ 845    7480107                        Trí tuệ nhân tạo     A02(TO-5,LI-1,SI-1)    7480107_A02        A02 NaN     0.00
+ 846    7480107                        Trí tuệ nhân tạo     A03(TO-5,LI-1,SU-1)    7480107_A03        A03 NaN     0.00
+ 847    7480107                        Trí tuệ nhân tạo     A04(TO-5,LI-1,DI-1)    7480107_A04        A04 NaN     0.00
+ 848    7480107                        Trí tuệ nhân tạo     A05(TO-5,HO-1,SU-1)    7480107_A05        A05 NaN     0.00
+ 849    7480107                        Trí tuệ nhân tạo     A06(TO-5,HO-1,DI-1)    7480107_A06        A06 NaN     0.00
+ 850    7480107                        Trí tuệ nhân tạo     A07(TO-5,SU-1,DI-1)    7480107_A07        A07 NaN     0.00
+ 851    7480107                        Trí tuệ nhân tạo     B00(TO-5,HO-1,SI-1)    7480107_B00        B00 NaN    -0.53
+ 852    7480107                        Trí tuệ nhân tạo     B01(TO-5,SI-1,SU-1)    7480107_B01        B01 NaN     0.00
+ 853    7480107                        Trí tuệ nhân tạo     B02(TO-5,SI-1,DI-1)    7480107_B02        B02 NaN     0.00
+ 854    7480107                        Trí tuệ nhân tạo     B03(TO-5,VA-1,SI-1)    7480107_B03        B03 NaN     0.00
+ 855    7480107                        Trí tuệ nhân tạo     B08(TO-5,SI-1,N1-1)    7480107_B08        B08 NaN     0.00
+ 856    7480107                        Trí tuệ nhân tạo     C01(TO-5,VA-1,LI-1)    7480107_C01        C01 NaN     1.62
+ 857    7480107                        Trí tuệ nhân tạo     C02(TO-5,VA-1,HO-1)    7480107_C02        C02 NaN     0.00
+ 858    7480107                        Trí tuệ nhân tạo     C03(TO-5,VA-1,SU-1)    7480107_C03        C03 NaN     0.00
+ 859    7480107                        Trí tuệ nhân tạo     C04(TO-5,VA-1,DI-1)    7480107_C04        C04 NaN     0.00
+ 860    7480107                        Trí tuệ nhân tạo     D01(TO-5,VA-1,N1-1)    7480107_D01        D01 Gốc     0.00
+ 861    7480107                        Trí tuệ nhân tạo     D07(TO-5,HO-1,N1-1)    7480107_D07        D07 NaN    -0.94
+ 862    7480107                        Trí tuệ nhân tạo     D09(TO-5,SU-1,N1-1)    7480107_D09        D09 NaN     0.00
+ 863    7480107                        Trí tuệ nhân tạo     D10(TO-5,DI-1,N1-1)    7480107_D10        D10 NaN     0.00
+ 864    7480107                        Trí tuệ nhân tạo   X01(TO-5,VA-1,KTPL-1)    7480107_X01        X01 NaN     0.00
+ 865    7480107                        Trí tuệ nhân tạo     X02(TO-5,VA-1,TI-3)    7480107_X02        X02 NaN     0.00
+ 866    7480107                        Trí tuệ nhân tạo   X03(TO-5,VA-1,CNCN-1)    7480107_X03        X03 NaN     0.00
+ 867    7480107                        Trí tuệ nhân tạo   X04(TO-5,VA-1,CNNN-1)    7480107_X04        X04 NaN     0.00
+ 868    7480107                        Trí tuệ nhân tạo   X05(TO-5,LI-1,KTPL-1)    7480107_X05        X05 NaN     0.00
+ 869    7480107                        Trí tuệ nhân tạo     X06(TO-5,LI-1,TI-3)    7480107_X06        X06 NaN     0.00
+ 870    7480107                        Trí tuệ nhân tạo   X07(TO-5,LI-1,CNCN-1)    7480107_X07        X07 NaN     0.00
+ 871    7480107                        Trí tuệ nhân tạo   X08(TO-5,LI-1,CNNN-1)    7480107_X08        X08 NaN     0.00
+ 872    7480107                        Trí tuệ nhân tạo   X09(TO-5,HO-1,KTPL-1)    7480107_X09        X09 NaN     0.00
+ 873    7480107                        Trí tuệ nhân tạo     X10(TO-5,HO-1,TI-3)    7480107_X10        X10 NaN     0.00
+ 874    7480107                        Trí tuệ nhân tạo   X11(TO-5,HO-1,CNCN-1)    7480107_X11        X11 NaN     0.00
+ 875    7480107                        Trí tuệ nhân tạo   X12(TO-5,HO-1,CNNN-1)    7480107_X12        X12 NaN     0.00
+ 876    7480107                        Trí tuệ nhân tạo   X13(TO-5,SI-1,KTPL-1)    7480107_X13        X13 NaN     0.00
+ 877    7480107                        Trí tuệ nhân tạo     X14(TO-5,SI-1,TI-3)    7480107_X14        X14 NaN     0.00
+ 878    7480107                        Trí tuệ nhân tạo   X15(TO-5,SI-1,CNCN-1)    7480107_X15        X15 NaN     0.00
+ 879    7480107                        Trí tuệ nhân tạo   X16(TO-5,SI-1,CNNN-1)    7480107_X16        X16 NaN     0.00
+ 880    7480107                        Trí tuệ nhân tạo   X17(TO-5,SU-1,KTPL-1)    7480107_X17        X17 NaN     0.00
+ 881    7480107                        Trí tuệ nhân tạo     X18(TO-5,SU-1,TI-3)    7480107_X18        X18 NaN     0.00
+ 882    7480107                        Trí tuệ nhân tạo   X19(TO-5,SU-1,CNCN-1)    7480107_X19        X19 NaN     0.00
+ 883    7480107                        Trí tuệ nhân tạo   X20(TO-5,SU-1,CNNN-1)    7480107_X20        X20 NaN     0.00
+ 884    7480107                        Trí tuệ nhân tạo   X21(TO-5,DI-1,KTPL-1)    7480107_X21        X21 NaN     0.00
+ 885    7480107                        Trí tuệ nhân tạo     X22(TO-5,DI-1,TI-3)    7480107_X22        X22 NaN     0.00
+ 886    7480107                        Trí tuệ nhân tạo   X23(TO-5,DI-1,CNCN-1)    7480107_X23        X23 NaN     0.00
+ 887    7480107                        Trí tuệ nhân tạo   X24(TO-5,DI-1,CNNN-1)    7480107_X24        X24 NaN     0.00
+ 888    7480107                        Trí tuệ nhân tạo   X25(TO-5,N1-1,KTPL-1)    7480107_X25        X25 NaN     0.00
+ 889    7480107                        Trí tuệ nhân tạo     X26(TO-5,N1-1,TI-3)    7480107_X26        X26 NaN     0.00
+ 890    7480107                        Trí tuệ nhân tạo   X27(TO-5,N1-1,CNCN-1)    7480107_X27        X27 NaN     0.00
+ 891    7480107                        Trí tuệ nhân tạo   X28(TO-5,N1-1,CNNN-1)    7480107_X28        X28 NaN     0.00
+ 892    7480107                        Trí tuệ nhân tạo   X53(TO-5,KTPL-1,TI-3)    7480107_X53        X53 NaN     0.00
+ 893    7480107                        Trí tuệ nhân tạo X54(TO-5,KTPL-1,CNCN-1)    7480107_X54        X54 NaN     0.00
+ 894    7480107                        Trí tuệ nhân tạo X55(TO-5,KTPL-1,CNNN-1)    7480107_X55        X55 NaN     0.00
+ 895    7480107                        Trí tuệ nhân tạo   X56(TO-5,TI-3,CNCN-1)    7480107_X56        X56 NaN     0.00
+ 896    7480107                        Trí tuệ nhân tạo   X57(TO-5,TI-3,CNNN-1)    7480107_X57        X57 NaN     0.00
+ 897    7480201                     Công nghệ thông tin     A00(TO-5,LI-1,HO-1)    7480201_A00        A00 NaN     0.68
+ 898    7480201                     Công nghệ thông tin     A01(TO-5,LI-1,N1-1)    7480201_A01        A01 NaN    -0.01
+ 899    7480201                     Công nghệ thông tin     A02(TO-5,LI-1,SI-1)    7480201_A02        A02 NaN     0.00
+ 900    7480201                     Công nghệ thông tin     A03(TO-5,LI-1,SU-1)    7480201_A03        A03 NaN     0.00
+ 901    7480201                     Công nghệ thông tin     A04(TO-5,LI-1,DI-1)    7480201_A04        A04 NaN     0.00
+ 902    7480201                     Công nghệ thông tin     A05(TO-5,HO-1,SU-1)    7480201_A05        A05 NaN     0.00
+ 903    7480201                     Công nghệ thông tin     A06(TO-5,HO-1,DI-1)    7480201_A06        A06 NaN     0.00
+ 904    7480201                     Công nghệ thông tin     A07(TO-5,SU-1,DI-1)    7480201_A07        A07 NaN     0.00
+ 905    7480201                     Công nghệ thông tin     B00(TO-5,HO-1,SI-1)    7480201_B00        B00 NaN    -0.53
+ 906    7480201                     Công nghệ thông tin     B01(TO-5,SI-1,SU-1)    7480201_B01        B01 NaN     0.00
+ 907    7480201                     Công nghệ thông tin     B02(TO-5,SI-1,DI-1)    7480201_B02        B02 NaN     0.00
+ 908    7480201                     Công nghệ thông tin     B03(TO-5,VA-1,SI-1)    7480201_B03        B03 NaN     0.00
+ 909    7480201                     Công nghệ thông tin     B08(TO-5,SI-1,N1-1)    7480201_B08        B08 NaN     0.00
+ 910    7480201                     Công nghệ thông tin     C01(TO-5,VA-1,LI-1)    7480201_C01        C01 NaN     1.62
+ 911    7480201                     Công nghệ thông tin     C02(TO-5,VA-1,HO-1)    7480201_C02        C02 NaN     0.00
+ 912    7480201                     Công nghệ thông tin     C03(TO-5,VA-1,SU-1)    7480201_C03        C03 NaN     0.00
+ 913    7480201                     Công nghệ thông tin     C04(TO-5,VA-1,DI-1)    7480201_C04        C04 NaN     0.00
+ 914    7480201                     Công nghệ thông tin     D01(TO-5,VA-1,N1-1)    7480201_D01        D01 Gốc     0.00
+ 915    7480201                     Công nghệ thông tin     D07(TO-5,HO-1,N1-1)    7480201_D07        D07 NaN    -0.94
+ 916    7480201                     Công nghệ thông tin     D09(TO-5,SU-1,N1-1)    7480201_D09        D09 NaN     0.00
+ 917    7480201                     Công nghệ thông tin     D10(TO-5,DI-1,N1-1)    7480201_D10        D10 NaN     0.00
+ 918    7480201                     Công nghệ thông tin   X01(TO-5,VA-1,KTPL-1)    7480201_X01        X01 NaN     0.00
+ 919    7480201                     Công nghệ thông tin     X02(TO-5,VA-1,TI-3)    7480201_X02        X02 NaN     0.00
+ 920    7480201                     Công nghệ thông tin   X03(TO-5,VA-1,CNCN-1)    7480201_X03        X03 NaN     0.00
+ 921    7480201                     Công nghệ thông tin   X04(TO-5,VA-1,CNNN-1)    7480201_X04        X04 NaN     0.00
+ 922    7480201                     Công nghệ thông tin   X05(TO-5,LI-1,KTPL-1)    7480201_X05        X05 NaN     0.00
+ 923    7480201                     Công nghệ thông tin     X06(TO-5,LI-1,TI-3)    7480201_X06        X06 NaN     0.00
+ 924    7480201                     Công nghệ thông tin   X07(TO-5,LI-1,CNCN-1)    7480201_X07        X07 NaN     0.00
+ 925    7480201                     Công nghệ thông tin   X08(TO-5,LI-1,CNNN-1)    7480201_X08        X08 NaN     0.00
+ 926    7480201                     Công nghệ thông tin   X09(TO-5,HO-1,KTPL-1)    7480201_X09        X09 NaN     0.00
+ 927    7480201                     Công nghệ thông tin     X10(TO-5,HO-1,TI-3)    7480201_X10        X10 NaN     0.00
+ 928    7480201                     Công nghệ thông tin   X11(TO-5,HO-1,CNCN-1)    7480201_X11        X11 NaN     0.00
+ 929    7480201                     Công nghệ thông tin   X12(TO-5,HO-1,CNNN-1)    7480201_X12        X12 NaN     0.00
+ 930    7480201                     Công nghệ thông tin   X13(TO-5,SI-1,KTPL-1)    7480201_X13        X13 NaN     0.00
+ 931    7480201                     Công nghệ thông tin     X14(TO-5,SI-1,TI-3)    7480201_X14        X14 NaN     0.00
+ 932    7480201                     Công nghệ thông tin   X15(TO-5,SI-1,CNCN-1)    7480201_X15        X15 NaN     0.00
+ 933    7480201                     Công nghệ thông tin   X16(TO-5,SI-1,CNNN-1)    7480201_X16        X16 NaN     0.00
+ 934    7480201                     Công nghệ thông tin   X17(TO-5,SU-1,KTPL-1)    7480201_X17        X17 NaN     0.00
+ 935    7480201                     Công nghệ thông tin     X18(TO-5,SU-1,TI-3)    7480201_X18        X18 NaN     0.00
+ 936    7480201                     Công nghệ thông tin   X19(TO-5,SU-1,CNCN-1)    7480201_X19        X19 NaN     0.00
+ 937    7480201                     Công nghệ thông tin   X20(TO-5,SU-1,CNNN-1)    7480201_X20        X20 NaN     0.00
+ 938    7480201                     Công nghệ thông tin   X21(TO-5,DI-1,KTPL-1)    7480201_X21        X21 NaN     0.00
+ 939    7480201                     Công nghệ thông tin     X22(TO-5,DI-1,TI-3)    7480201_X22        X22 NaN     0.00
+ 940    7480201                     Công nghệ thông tin   X23(TO-5,DI-1,CNCN-1)    7480201_X23        X23 NaN     0.00
+ 941    7480201                     Công nghệ thông tin   X24(TO-5,DI-1,CNNN-1)    7480201_X24        X24 NaN     0.00
+ 942    7480201                     Công nghệ thông tin   X25(TO-5,N1-1,KTPL-1)    7480201_X25        X25 NaN     0.00
+ 943    7480201                     Công nghệ thông tin     X26(TO-5,N1-1,TI-3)    7480201_X26        X26 NaN     0.00
+ 944    7480201                     Công nghệ thông tin   X27(TO-5,N1-1,CNCN-1)    7480201_X27        X27 NaN     0.00
+ 945    7480201                     Công nghệ thông tin   X28(TO-5,N1-1,CNNN-1)    7480201_X28        X28 NaN     0.00
+ 946    7480201                     Công nghệ thông tin   X53(TO-5,KTPL-1,TI-3)    7480201_X53        X53 NaN     0.00
+ 947    7480201                     Công nghệ thông tin X54(TO-5,KTPL-1,CNCN-1)    7480201_X54        X54 NaN     0.00
+ 948    7480201                     Công nghệ thông tin X55(TO-5,KTPL-1,CNNN-1)    7480201_X55        X55 NaN     0.00
+ 949    7480201                     Công nghệ thông tin   X56(TO-5,TI-3,CNCN-1)    7480201_X56        X56 NaN     0.00
+ 950    7480201                     Công nghệ thông tin   X57(TO-5,TI-3,CNNN-1)    7480201_X57        X57 NaN     0.00
+ 951    7510301        Công nghệ kỹ thuật điện, điện tử     A00(TO-5,LI-1,HO-1)    7510301_A00        A00 NaN     0.69
+ 952    7510301        Công nghệ kỹ thuật điện, điện tử     A01(TO-5,LI-1,N1-1)    7510301_A01        A01 Gốc     0.00
+ 953    7510301        Công nghệ kỹ thuật điện, điện tử     A02(TO-5,LI-1,SI-1)    7510301_A02        A02 NaN     0.00
+ 954    7510301        Công nghệ kỹ thuật điện, điện tử     A03(TO-5,LI-1,SU-1)    7510301_A03        A03 NaN     0.00
+ 955    7510301        Công nghệ kỹ thuật điện, điện tử     A04(TO-5,LI-1,DI-1)    7510301_A04        A04 NaN     0.00
+ 956    7510301        Công nghệ kỹ thuật điện, điện tử     A05(TO-5,HO-1,SU-1)    7510301_A05        A05 NaN     0.00
+ 957    7510301        Công nghệ kỹ thuật điện, điện tử     A06(TO-5,HO-1,DI-1)    7510301_A06        A06 NaN     0.00
+ 958    7510301        Công nghệ kỹ thuật điện, điện tử     A07(TO-5,SU-1,DI-1)    7510301_A07        A07 NaN     0.00
+ 959    7510301        Công nghệ kỹ thuật điện, điện tử     B00(TO-5,HO-1,SI-1)    7510301_B00        B00 NaN    -0.52
+ 960    7510301        Công nghệ kỹ thuật điện, điện tử     B01(TO-5,SI-1,SU-1)    7510301_B01        B01 NaN     0.00
+ 961    7510301        Công nghệ kỹ thuật điện, điện tử     B02(TO-5,SI-1,DI-1)    7510301_B02        B02 NaN     0.00
+ 962    7510301        Công nghệ kỹ thuật điện, điện tử     B03(TO-5,VA-1,SI-1)    7510301_B03        B03 NaN     0.00
+ 963    7510301        Công nghệ kỹ thuật điện, điện tử     B08(TO-5,SI-1,N1-1)    7510301_B08        B08 NaN     0.00
+ 964    7510301        Công nghệ kỹ thuật điện, điện tử     C01(TO-5,VA-1,LI-1)    7510301_C01        C01 NaN     1.63
+ 965    7510301        Công nghệ kỹ thuật điện, điện tử     C02(TO-5,VA-1,HO-1)    7510301_C02        C02 NaN     0.00
+ 966    7510301        Công nghệ kỹ thuật điện, điện tử     C03(TO-5,VA-1,SU-1)    7510301_C03        C03 NaN     0.00
+ 967    7510301        Công nghệ kỹ thuật điện, điện tử     C04(TO-5,VA-1,DI-1)    7510301_C04        C04 NaN     0.00
+ 968    7510301        Công nghệ kỹ thuật điện, điện tử     D01(TO-5,VA-1,N1-1)    7510301_D01        D01 NaN     0.01
+ 969    7510301        Công nghệ kỹ thuật điện, điện tử     D07(TO-5,HO-1,N1-1)    7510301_D07        D07 NaN    -0.93
+ 970    7510301        Công nghệ kỹ thuật điện, điện tử     D09(TO-5,SU-1,N1-1)    7510301_D09        D09 NaN     0.00
+ 971    7510301        Công nghệ kỹ thuật điện, điện tử     D10(TO-5,DI-1,N1-1)    7510301_D10        D10 NaN     0.00
+ 972    7510301        Công nghệ kỹ thuật điện, điện tử   X01(TO-5,VA-1,KTPL-1)    7510301_X01        X01 NaN     0.00
+ 973    7510301        Công nghệ kỹ thuật điện, điện tử     X02(TO-5,VA-1,TI-1)    7510301_X02        X02 NaN     0.00
+ 974    7510301        Công nghệ kỹ thuật điện, điện tử   X03(TO-5,VA-1,CNCN-1)    7510301_X03        X03 NaN     0.00
+ 975    7510301        Công nghệ kỹ thuật điện, điện tử   X04(TO-5,VA-1,CNNN-1)    7510301_X04        X04 NaN     0.00
+ 976    7510301        Công nghệ kỹ thuật điện, điện tử   X05(TO-5,LI-1,KTPL-1)    7510301_X05        X05 NaN     0.00
+ 977    7510301        Công nghệ kỹ thuật điện, điện tử     X06(TO-5,LI-1,TI-1)    7510301_X06        X06 NaN     0.00
+ 978    7510301        Công nghệ kỹ thuật điện, điện tử   X07(TO-5,LI-1,CNCN-1)    7510301_X07        X07 NaN     0.00
+ 979    7510301        Công nghệ kỹ thuật điện, điện tử   X08(TO-5,LI-1,CNNN-1)    7510301_X08        X08 NaN     0.00
+ 980    7510301        Công nghệ kỹ thuật điện, điện tử   X09(TO-5,HO-1,KTPL-1)    7510301_X09        X09 NaN     0.00
+ 981    7510301        Công nghệ kỹ thuật điện, điện tử     X10(TO-5,HO-1,TI-1)    7510301_X10        X10 NaN     0.00
+ 982    7510301        Công nghệ kỹ thuật điện, điện tử   X11(TO-5,HO-1,CNCN-1)    7510301_X11        X11 NaN     0.00
+ 983    7510301        Công nghệ kỹ thuật điện, điện tử   X12(TO-5,HO-1,CNNN-1)    7510301_X12        X12 NaN     0.00
+ 984    7510301        Công nghệ kỹ thuật điện, điện tử   X13(TO-5,SI-1,KTPL-1)    7510301_X13        X13 NaN     0.00
+ 985    7510301        Công nghệ kỹ thuật điện, điện tử     X14(TO-5,SI-1,TI-1)    7510301_X14        X14 NaN     0.00
+ 986    7510301        Công nghệ kỹ thuật điện, điện tử   X15(TO-5,SI-1,CNCN-1)    7510301_X15        X15 NaN     0.00
+ 987    7510301        Công nghệ kỹ thuật điện, điện tử   X16(TO-5,SI-1,CNNN-1)    7510301_X16        X16 NaN     0.00
+ 988    7510301        Công nghệ kỹ thuật điện, điện tử   X17(TO-5,SU-1,KTPL-1)    7510301_X17        X17 NaN     0.00
+ 989    7510301        Công nghệ kỹ thuật điện, điện tử     X18(TO-5,SU-1,TI-1)    7510301_X18        X18 NaN     0.00
+ 990    7510301        Công nghệ kỹ thuật điện, điện tử   X19(TO-5,SU-1,CNCN-1)    7510301_X19        X19 NaN     0.00
+ 991    7510301        Công nghệ kỹ thuật điện, điện tử   X20(TO-5,SU-1,CNNN-1)    7510301_X20        X20 NaN     0.00
+ 992    7510301        Công nghệ kỹ thuật điện, điện tử   X21(TO-5,DI-1,KTPL-1)    7510301_X21        X21 NaN     0.00
+ 993    7510301        Công nghệ kỹ thuật điện, điện tử     X22(TO-5,DI-1,TI-1)    7510301_X22        X22 NaN     0.00
+ 994    7510301        Công nghệ kỹ thuật điện, điện tử   X23(TO-5,DI-1,CNCN-1)    7510301_X23        X23 NaN     0.00
+ 995    7510301        Công nghệ kỹ thuật điện, điện tử   X24(TO-5,DI-1,CNNN-1)    7510301_X24        X24 NaN     0.00
+ 996    7510301        Công nghệ kỹ thuật điện, điện tử   X25(TO-5,N1-1,KTPL-1)    7510301_X25        X25 NaN     0.00
+ 997    7510301        Công nghệ kỹ thuật điện, điện tử     X26(TO-5,N1-1,TI-1)    7510301_X26        X26 NaN     0.00
+ 998    7510301        Công nghệ kỹ thuật điện, điện tử   X27(TO-5,N1-1,CNCN-1)    7510301_X27        X27 NaN     0.00
+ 999    7510301        Công nghệ kỹ thuật điện, điện tử   X28(TO-5,N1-1,CNNN-1)    7510301_X28        X28 NaN     0.00
+1000    7510301        Công nghệ kỹ thuật điện, điện tử   X53(TO-5,KTPL-1,TI-1)    7510301_X53        X53 NaN     0.00
+1001    7510301        Công nghệ kỹ thuật điện, điện tử X54(TO-5,KTPL-1,CNCN-1)    7510301_X54        X54 NaN     0.00
+1002    7510301        Công nghệ kỹ thuật điện, điện tử X55(TO-5,KTPL-1,CNNN-1)    7510301_X55        X55 NaN     0.00
+1003    7510301        Công nghệ kỹ thuật điện, điện tử   X56(TO-5,TI-1,CNCN-1)    7510301_X56        X56 NaN     0.00
+1004    7510301        Công nghệ kỹ thuật điện, điện tử   X57(TO-5,TI-1,CNNN-1)    7510301_X57        X57 NaN     0.00
+1005    7510302 Công nghệ kỹ thuật điện tử - viễn thông     A00(TO-5,LI-1,HO-1)    7510302_A00        A00 NaN     0.69
+1006    7510302 Công nghệ kỹ thuật điện tử - viễn thông     A01(TO-5,LI-1,N1-1)    7510302_A01        A01 Gốc     0.00
+1007    7510302 Công nghệ kỹ thuật điện tử - viễn thông     A02(TO-5,LI-1,SI-1)    7510302_A02        A02 NaN     0.00
+1008    7510302 Công nghệ kỹ thuật điện tử - viễn thông     A03(TO-5,LI-1,SU-1)    7510302_A03        A03 NaN     0.00
+1009    7510302 Công nghệ kỹ thuật điện tử - viễn thông     A04(TO-5,LI-1,DI-1)    7510302_A04        A04 NaN     0.00
+1010    7510302 Công nghệ kỹ thuật điện tử - viễn thông     A05(TO-5,HO-1,SU-1)    7510302_A05        A05 NaN     0.00
+1011    7510302 Công nghệ kỹ thuật điện tử - viễn thông     A06(TO-5,HO-1,DI-1)    7510302_A06        A06 NaN     0.00
+1012    7510302 Công nghệ kỹ thuật điện tử - viễn thông     A07(TO-5,SU-1,DI-1)    7510302_A07        A07 NaN     0.00
+1013    7510302 Công nghệ kỹ thuật điện tử - viễn thông     B00(TO-5,HO-1,SI-1)    7510302_B00        B00 NaN    -0.52
+1014    7510302 Công nghệ kỹ thuật điện tử - viễn thông     B01(TO-5,SI-1,SU-1)    7510302_B01        B01 NaN     0.00
+1015    7510302 Công nghệ kỹ thuật điện tử - viễn thông     B02(TO-5,SI-1,DI-1)    7510302_B02        B02 NaN     0.00
+1016    7510302 Công nghệ kỹ thuật điện tử - viễn thông     B03(TO-5,VA-1,SI-1)    7510302_B03        B03 NaN     0.00
+1017    7510302 Công nghệ kỹ thuật điện tử - viễn thông     B08(TO-5,SI-1,N1-1)    7510302_B08        B08 NaN     0.00
+1018    7510302 Công nghệ kỹ thuật điện tử - viễn thông     C01(TO-5,VA-1,LI-1)    7510302_C01        C01 NaN     1.63
+1019    7510302 Công nghệ kỹ thuật điện tử - viễn thông     C02(TO-5,VA-1,HO-1)    7510302_C02        C02 NaN     0.00
+1020    7510302 Công nghệ kỹ thuật điện tử - viễn thông     C03(TO-5,VA-1,SU-1)    7510302_C03        C03 NaN     0.00
+1021    7510302 Công nghệ kỹ thuật điện tử - viễn thông     C04(TO-5,VA-1,DI-1)    7510302_C04        C04 NaN     0.00
+1022    7510302 Công nghệ kỹ thuật điện tử - viễn thông     D01(TO-5,VA-1,N1-1)    7510302_D01        D01 NaN     0.01
+1023    7510302 Công nghệ kỹ thuật điện tử - viễn thông     D07(TO-5,HO-1,N1-1)    7510302_D07        D07 NaN    -0.93
+1024    7510302 Công nghệ kỹ thuật điện tử - viễn thông     D09(TO-5,SU-1,N1-1)    7510302_D09        D09 NaN     0.00
+1025    7510302 Công nghệ kỹ thuật điện tử - viễn thông     D10(TO-5,DI-1,N1-1)    7510302_D10        D10 NaN     0.00
+1026    7510302 Công nghệ kỹ thuật điện tử - viễn thông   X01(TO-5,VA-1,KTPL-1)    7510302_X01        X01 NaN     0.00
+1027    7510302 Công nghệ kỹ thuật điện tử - viễn thông     X02(TO-5,VA-1,TI-1)    7510302_X02        X02 NaN     0.00
+1028    7510302 Công nghệ kỹ thuật điện tử - viễn thông   X03(TO-5,VA-1,CNCN-1)    7510302_X03        X03 NaN     0.00
+1029    7510302 Công nghệ kỹ thuật điện tử - viễn thông   X04(TO-5,VA-1,CNNN-1)    7510302_X04        X04 NaN     0.00
+1030    7510302 Công nghệ kỹ thuật điện tử - viễn thông   X05(TO-5,LI-1,KTPL-1)    7510302_X05        X05 NaN     0.00
+1031    7510302 Công nghệ kỹ thuật điện tử - viễn thông     X06(TO-5,LI-1,TI-1)    7510302_X06        X06 NaN     0.00
+1032    7510302 Công nghệ kỹ thuật điện tử - viễn thông   X07(TO-5,LI-1,CNCN-1)    7510302_X07        X07 NaN     0.00
+1033    7510302 Công nghệ kỹ thuật điện tử - viễn thông   X08(TO-5,LI-1,CNNN-1)    7510302_X08        X08 NaN     0.00
+1034    7510302 Công nghệ kỹ thuật điện tử - viễn thông   X09(TO-5,HO-1,KTPL-1)    7510302_X09        X09 NaN     0.00
+1035    7510302 Công nghệ kỹ thuật điện tử - viễn thông     X10(TO-5,HO-1,TI-1)    7510302_X10        X10 NaN     0.00
+1036    7510302 Công nghệ kỹ thuật điện tử - viễn thông   X11(TO-5,HO-1,CNCN-1)    7510302_X11        X11 NaN     0.00
+1037    7510302 Công nghệ kỹ thuật điện tử - viễn thông   X12(TO-5,HO-1,CNNN-1)    7510302_X12        X12 NaN     0.00
+1038    7510302 Công nghệ kỹ thuật điện tử - viễn thông   X13(TO-5,SI-1,KTPL-1)    7510302_X13        X13 NaN     0.00
+1039    7510302 Công nghệ kỹ thuật điện tử - viễn thông     X14(TO-5,SI-1,TI-1)    7510302_X14        X14 NaN     0.00
+1040    7510302 Công nghệ kỹ thuật điện tử - viễn thông   X15(TO-5,SI-1,CNCN-1)    7510302_X15        X15 NaN     0.00
+1041    7510302 Công nghệ kỹ thuật điện tử - viễn thông   X16(TO-5,SI-1,CNNN-1)    7510302_X16        X16 NaN     0.00
+1042    7510302 Công nghệ kỹ thuật điện tử - viễn thông   X17(TO-5,SU-1,KTPL-1)    7510302_X17        X17 NaN     0.00
+1043    7510302 Công nghệ kỹ thuật điện tử - viễn thông     X18(TO-5,SU-1,TI-1)    7510302_X18        X18 NaN     0.00
+1044    7510302 Công nghệ kỹ thuật điện tử - viễn thông   X19(TO-5,SU-1,CNCN-1)    7510302_X19        X19 NaN     0.00
+1045    7510302 Công nghệ kỹ thuật điện tử - viễn thông   X20(TO-5,SU-1,CNNN-1)    7510302_X20        X20 NaN     0.00
+1046    7510302 Công nghệ kỹ thuật điện tử - viễn thông   X21(TO-5,DI-1,KTPL-1)    7510302_X21        X21 NaN     0.00
+1047    7510302 Công nghệ kỹ thuật điện tử - viễn thông     X22(TO-5,DI-1,TI-1)    7510302_X22        X22 NaN     0.00
+1048    7510302 Công nghệ kỹ thuật điện tử - viễn thông   X23(TO-5,DI-1,CNCN-1)    7510302_X23        X23 NaN     0.00
+1049    7510302 Công nghệ kỹ thuật điện tử - viễn thông   X24(TO-5,DI-1,CNNN-1)    7510302_X24        X24 NaN     0.00
+1050    7510302 Công nghệ kỹ thuật điện tử - viễn thông   X25(TO-5,N1-1,KTPL-1)    7510302_X25        X25 NaN     0.00
+1051    7510302 Công nghệ kỹ thuật điện tử - viễn thông     X26(TO-5,N1-1,TI-1)    7510302_X26        X26 NaN     0.00
+1052    7510302 Công nghệ kỹ thuật điện tử - viễn thông   X27(TO-5,N1-1,CNCN-1)    7510302_X27        X27 NaN     0.00
+1053    7510302 Công nghệ kỹ thuật điện tử - viễn thông   X28(TO-5,N1-1,CNNN-1)    7510302_X28        X28 NaN     0.00
+1054    7510302 Công nghệ kỹ thuật điện tử - viễn thông   X53(TO-5,KTPL-1,TI-1)    7510302_X53        X53 NaN     0.00
+1055    7510302 Công nghệ kỹ thuật điện tử - viễn thông X54(TO-5,KTPL-1,CNCN-1)    7510302_X54        X54 NaN     0.00
+1056    7510302 Công nghệ kỹ thuật điện tử - viễn thông X55(TO-5,KTPL-1,CNNN-1)    7510302_X55        X55 NaN     0.00
+1057    7510302 Công nghệ kỹ thuật điện tử - viễn thông   X56(TO-5,TI-1,CNCN-1)    7510302_X56        X56 NaN     0.00
+1058    7510302 Công nghệ kỹ thuật điện tử - viễn thông   X57(TO-5,TI-1,CNNN-1)    7510302_X57        X57 NaN     0.00
+1059    7510406           Công nghệ kỹ thuật môi trường     A00(TO-5,LI-1,HO-1)    7510406_A00        A00 NaN     1.21
+1060    7510406           Công nghệ kỹ thuật môi trường     A01(TO-5,LI-1,N1-1)    7510406_A01        A01 NaN     0.52
+1061    7510406           Công nghệ kỹ thuật môi trường     A02(TO-5,LI-1,SI-1)    7510406_A02        A02 NaN     0.00
+1062    7510406           Công nghệ kỹ thuật môi trường     A03(TO-5,LI-1,SU-1)    7510406_A03        A03 NaN     0.00
+1063    7510406           Công nghệ kỹ thuật môi trường     A04(TO-5,LI-1,DI-1)    7510406_A04        A04 NaN     0.00
+1064    7510406           Công nghệ kỹ thuật môi trường     A05(TO-5,HO-1,SU-1)    7510406_A05        A05 NaN     0.00
+1065    7510406           Công nghệ kỹ thuật môi trường     A06(TO-5,HO-1,DI-1)    7510406_A06        A06 NaN     0.00
+1066    7510406           Công nghệ kỹ thuật môi trường     A07(TO-5,SU-1,DI-1)    7510406_A07        A07 NaN     0.00
+1067    7510406           Công nghệ kỹ thuật môi trường     B00(TO-5,HO-1,SI-1)    7510406_B00        B00 Gốc     0.00
+1068    7510406           Công nghệ kỹ thuật môi trường     B01(TO-5,SI-1,SU-1)    7510406_B01        B01 NaN     0.00
+1069    7510406           Công nghệ kỹ thuật môi trường     B02(TO-5,SI-1,DI-1)    7510406_B02        B02 NaN     0.00
+1070    7510406           Công nghệ kỹ thuật môi trường     B03(TO-5,VA-1,SI-1)    7510406_B03        B03 NaN     0.00
+1071    7510406           Công nghệ kỹ thuật môi trường     B08(TO-5,SI-1,N1-1)    7510406_B08        B08 NaN     0.00
+1072    7510406           Công nghệ kỹ thuật môi trường     C01(TO-5,VA-1,LI-1)    7510406_C01        C01 NaN     2.15
+1073    7510406           Công nghệ kỹ thuật môi trường     C02(TO-5,VA-1,HO-1)    7510406_C02        C02 NaN     0.00
+1074    7510406           Công nghệ kỹ thuật môi trường     C03(TO-5,VA-1,SU-1)    7510406_C03        C03 NaN     0.00
+1075    7510406           Công nghệ kỹ thuật môi trường     C04(TO-5,VA-1,DI-1)    7510406_C04        C04 NaN     0.00
+1076    7510406           Công nghệ kỹ thuật môi trường     D01(TO-5,VA-1,N1-1)    7510406_D01        D01 NaN     0.53
+1077    7510406           Công nghệ kỹ thuật môi trường     D07(TO-5,HO-1,N1-1)    7510406_D07        D07 NaN    -0.41
+1078    7510406           Công nghệ kỹ thuật môi trường     D09(TO-5,SU-1,N1-1)    7510406_D09        D09 NaN     0.00
+1079    7510406           Công nghệ kỹ thuật môi trường     D10(TO-5,DI-1,N1-1)    7510406_D10        D10 NaN     0.00
+1080    7510406           Công nghệ kỹ thuật môi trường   X01(TO-5,VA-1,KTPL-1)    7510406_X01        X01 NaN     0.00
+1081    7510406           Công nghệ kỹ thuật môi trường     X02(TO-5,VA-1,TI-1)    7510406_X02        X02 NaN     0.00
+1082    7510406           Công nghệ kỹ thuật môi trường   X03(TO-5,VA-1,CNCN-1)    7510406_X03        X03 NaN     0.00
+1083    7510406           Công nghệ kỹ thuật môi trường   X04(TO-5,VA-1,CNNN-1)    7510406_X04        X04 NaN     0.00
+1084    7510406           Công nghệ kỹ thuật môi trường   X05(TO-5,LI-1,KTPL-1)    7510406_X05        X05 NaN     0.00
+1085    7510406           Công nghệ kỹ thuật môi trường     X06(TO-5,LI-1,TI-1)    7510406_X06        X06 NaN     0.00
+1086    7510406           Công nghệ kỹ thuật môi trường   X07(TO-5,LI-1,CNCN-1)    7510406_X07        X07 NaN     0.00
+1087    7510406           Công nghệ kỹ thuật môi trường   X08(TO-5,LI-1,CNNN-1)    7510406_X08        X08 NaN     0.00
+1088    7510406           Công nghệ kỹ thuật môi trường   X09(TO-5,HO-1,KTPL-1)    7510406_X09        X09 NaN     0.00
+1089    7510406           Công nghệ kỹ thuật môi trường     X10(TO-5,HO-1,TI-1)    7510406_X10        X10 NaN     0.00
+1090    7510406           Công nghệ kỹ thuật môi trường   X11(TO-5,HO-1,CNCN-1)    7510406_X11        X11 NaN     0.00
+1091    7510406           Công nghệ kỹ thuật môi trường   X12(TO-5,HO-1,CNNN-1)    7510406_X12        X12 NaN     0.00
+1092    7510406           Công nghệ kỹ thuật môi trường   X13(TO-5,SI-1,KTPL-1)    7510406_X13        X13 NaN     0.00
+1093    7510406           Công nghệ kỹ thuật môi trường     X14(TO-5,SI-1,TI-1)    7510406_X14        X14 NaN     0.00
+1094    7510406           Công nghệ kỹ thuật môi trường   X15(TO-5,SI-1,CNCN-1)    7510406_X15        X15 NaN     0.00
+1095    7510406           Công nghệ kỹ thuật môi trường   X16(TO-5,SI-1,CNNN-1)    7510406_X16        X16 NaN     0.00
+1096    7510406           Công nghệ kỹ thuật môi trường   X17(TO-5,SU-1,KTPL-1)    7510406_X17        X17 NaN     0.00
+1097    7510406           Công nghệ kỹ thuật môi trường     X18(TO-5,SU-1,TI-1)    7510406_X18        X18 NaN     0.00
+1098    7510406           Công nghệ kỹ thuật môi trường   X19(TO-5,SU-1,CNCN-1)    7510406_X19        X19 NaN     0.00
+1099    7510406           Công nghệ kỹ thuật môi trường   X20(TO-5,SU-1,CNNN-1)    7510406_X20        X20 NaN     0.00
+1100    7510406           Công nghệ kỹ thuật môi trường   X21(TO-5,DI-1,KTPL-1)    7510406_X21        X21 NaN     0.00
+1101    7510406           Công nghệ kỹ thuật môi trường     X22(TO-5,DI-1,TI-1)    7510406_X22        X22 NaN     0.00
+1102    7510406           Công nghệ kỹ thuật môi trường   X23(TO-5,DI-1,CNCN-1)    7510406_X23        X23 NaN     0.00
+1103    7510406           Công nghệ kỹ thuật môi trường   X24(TO-5,DI-1,CNNN-1)    7510406_X24        X24 NaN     0.00
+1104    7510406           Công nghệ kỹ thuật môi trường   X25(TO-5,N1-1,KTPL-1)    7510406_X25        X25 NaN     0.00
+1105    7510406           Công nghệ kỹ thuật môi trường     X26(TO-5,N1-1,TI-1)    7510406_X26        X26 NaN     0.00
+1106    7510406           Công nghệ kỹ thuật môi trường   X27(TO-5,N1-1,CNCN-1)    7510406_X27        X27 NaN     0.00
+1107    7510406           Công nghệ kỹ thuật môi trường   X28(TO-5,N1-1,CNNN-1)    7510406_X28        X28 NaN     0.00
+1108    7510406           Công nghệ kỹ thuật môi trường   X53(TO-5,KTPL-1,TI-1)    7510406_X53        X53 NaN     0.00
+1109    7510406           Công nghệ kỹ thuật môi trường X54(TO-5,KTPL-1,CNCN-1)    7510406_X54        X54 NaN     0.00
+1110    7510406           Công nghệ kỹ thuật môi trường X55(TO-5,KTPL-1,CNNN-1)    7510406_X55        X55 NaN     0.00
+1111    7510406           Công nghệ kỹ thuật môi trường   X56(TO-5,TI-1,CNCN-1)    7510406_X56        X56 NaN     0.00
+1112    7510406           Công nghệ kỹ thuật môi trường   X57(TO-5,TI-1,CNNN-1)    7510406_X57        X57 NaN     0.00
+1113    7520201                           Kỹ thuật điện     A00(TO-5,LI-1,HO-1)    7520201_A00        A00 NaN     0.69
+1114    7520201                           Kỹ thuật điện     A01(TO-5,LI-1,N1-1)    7520201_A01        A01 Gốc     0.00
+1115    7520201                           Kỹ thuật điện     A02(TO-5,LI-1,SI-1)    7520201_A02        A02 NaN     0.00
+1116    7520201                           Kỹ thuật điện     A03(TO-5,LI-1,SU-1)    7520201_A03        A03 NaN     0.00
+1117    7520201                           Kỹ thuật điện     A04(TO-5,LI-1,DI-1)    7520201_A04        A04 NaN     0.00
+1118    7520201                           Kỹ thuật điện     A05(TO-5,HO-1,SU-1)    7520201_A05        A05 NaN     0.00
+1119    7520201                           Kỹ thuật điện     A06(TO-5,HO-1,DI-1)    7520201_A06        A06 NaN     0.00
+1120    7520201                           Kỹ thuật điện     A07(TO-5,SU-1,DI-1)    7520201_A07        A07 NaN     0.00
+1121    7520201                           Kỹ thuật điện     B00(TO-5,HO-1,SI-1)    7520201_B00        B00 NaN    -0.52
+1122    7520201                           Kỹ thuật điện     B01(TO-5,SI-1,SU-1)    7520201_B01        B01 NaN     0.00
+1123    7520201                           Kỹ thuật điện     B02(TO-5,SI-1,DI-1)    7520201_B02        B02 NaN     0.00
+1124    7520201                           Kỹ thuật điện     B03(TO-5,VA-1,SI-1)    7520201_B03        B03 NaN     0.00
+1125    7520201                           Kỹ thuật điện     B08(TO-5,SI-1,N1-1)    7520201_B08        B08 NaN     0.00
+1126    7520201                           Kỹ thuật điện     C01(TO-5,VA-1,LI-1)    7520201_C01        C01 NaN     1.63
+1127    7520201                           Kỹ thuật điện     C02(TO-5,VA-1,HO-1)    7520201_C02        C02 NaN     0.00
+1128    7520201                           Kỹ thuật điện     C03(TO-5,VA-1,SU-1)    7520201_C03        C03 NaN     0.00
+1129    7520201                           Kỹ thuật điện     C04(TO-5,VA-1,DI-1)    7520201_C04        C04 NaN     0.00
+1130    7520201                           Kỹ thuật điện     D01(TO-5,VA-1,N1-1)    7520201_D01        D01 NaN     0.01
+1131    7520201                           Kỹ thuật điện     D07(TO-5,HO-1,N1-1)    7520201_D07        D07 NaN    -0.93
+1132    7520201                           Kỹ thuật điện     D09(TO-5,SU-1,N1-1)    7520201_D09        D09 NaN     0.00
+1133    7520201                           Kỹ thuật điện     D10(TO-5,DI-1,N1-1)    7520201_D10        D10 NaN     0.00
+1134    7520201                           Kỹ thuật điện   X01(TO-5,VA-1,KTPL-1)    7520201_X01        X01 NaN     0.00
+1135    7520201                           Kỹ thuật điện     X02(TO-5,VA-1,TI-1)    7520201_X02        X02 NaN     0.00
+1136    7520201                           Kỹ thuật điện   X03(TO-5,VA-1,CNCN-1)    7520201_X03        X03 NaN     0.00
+1137    7520201                           Kỹ thuật điện   X04(TO-5,VA-1,CNNN-1)    7520201_X04        X04 NaN     0.00
+1138    7520201                           Kỹ thuật điện   X05(TO-5,LI-1,KTPL-1)    7520201_X05        X05 NaN     0.00
+1139    7520201                           Kỹ thuật điện     X06(TO-5,LI-1,TI-1)    7520201_X06        X06 NaN     0.00
+1140    7520201                           Kỹ thuật điện   X07(TO-5,LI-1,CNCN-1)    7520201_X07        X07 NaN     0.00
+1141    7520201                           Kỹ thuật điện   X08(TO-5,LI-1,CNNN-1)    7520201_X08        X08 NaN     0.00
+1142    7520201                           Kỹ thuật điện   X09(TO-5,HO-1,KTPL-1)    7520201_X09        X09 NaN     0.00
+1143    7520201                           Kỹ thuật điện     X10(TO-5,HO-1,TI-1)    7520201_X10        X10 NaN     0.00
+1144    7520201                           Kỹ thuật điện   X11(TO-5,HO-1,CNCN-1)    7520201_X11        X11 NaN     0.00
+1145    7520201                           Kỹ thuật điện   X12(TO-5,HO-1,CNNN-1)    7520201_X12        X12 NaN     0.00
+1146    7520201                           Kỹ thuật điện   X13(TO-5,SI-1,KTPL-1)    7520201_X13        X13 NaN     0.00
+1147    7520201                           Kỹ thuật điện     X14(TO-5,SI-1,TI-1)    7520201_X14        X14 NaN     0.00
+1148    7520201                           Kỹ thuật điện   X15(TO-5,SI-1,CNCN-1)    7520201_X15        X15 NaN     0.00
+1149    7520201                           Kỹ thuật điện   X16(TO-5,SI-1,CNNN-1)    7520201_X16        X16 NaN     0.00
+1150    7520201                           Kỹ thuật điện   X17(TO-5,SU-1,KTPL-1)    7520201_X17        X17 NaN     0.00
+1151    7520201                           Kỹ thuật điện     X18(TO-5,SU-1,TI-1)    7520201_X18        X18 NaN     0.00
+1152    7520201                           Kỹ thuật điện   X19(TO-5,SU-1,CNCN-1)    7520201_X19        X19 NaN     0.00
+1153    7520201                           Kỹ thuật điện   X20(TO-5,SU-1,CNNN-1)    7520201_X20        X20 NaN     0.00
+1154    7520201                           Kỹ thuật điện   X21(TO-5,DI-1,KTPL-1)    7520201_X21        X21 NaN     0.00
+1155    7520201                           Kỹ thuật điện     X22(TO-5,DI-1,TI-1)    7520201_X22        X22 NaN     0.00
+1156    7520201                           Kỹ thuật điện   X23(TO-5,DI-1,CNCN-1)    7520201_X23        X23 NaN     0.00
+1157    7520201                           Kỹ thuật điện   X24(TO-5,DI-1,CNNN-1)    7520201_X24        X24 NaN     0.00
+1158    7520201                           Kỹ thuật điện   X25(TO-5,N1-1,KTPL-1)    7520201_X25        X25 NaN     0.00
+1159    7520201                           Kỹ thuật điện     X26(TO-5,N1-1,TI-1)    7520201_X26        X26 NaN     0.00
+1160    7520201                           Kỹ thuật điện   X27(TO-5,N1-1,CNCN-1)    7520201_X27        X27 NaN     0.00
+1161    7520201                           Kỹ thuật điện   X28(TO-5,N1-1,CNNN-1)    7520201_X28        X28 NaN     0.00
+1162    7520201                           Kỹ thuật điện   X53(TO-5,KTPL-1,TI-1)    7520201_X53        X53 NaN     0.00
+1163    7520201                           Kỹ thuật điện X54(TO-5,KTPL-1,CNCN-1)    7520201_X54        X54 NaN     0.00
+1164    7520201                           Kỹ thuật điện X55(TO-5,KTPL-1,CNNN-1)    7520201_X55        X55 NaN     0.00
+1165    7520201                           Kỹ thuật điện   X56(TO-5,TI-1,CNCN-1)    7520201_X56        X56 NaN     0.00
+1166    7520201                           Kỹ thuật điện   X57(TO-5,TI-1,CNNN-1)    7520201_X57        X57 NaN     0.00
+1167    7520207           Kỹ thuật điện tử - viễn thông     A00(TO-5,LI-1,HO-1)    7520207_A00        A00 NaN     0.69
+1168    7520207           Kỹ thuật điện tử - viễn thông     A01(TO-5,LI-1,N1-1)    7520207_A01        A01 Gốc     0.00
+1169    7520207           Kỹ thuật điện tử - viễn thông     A02(TO-5,LI-1,SI-1)    7520207_A02        A02 NaN     0.00
+1170    7520207           Kỹ thuật điện tử - viễn thông     A03(TO-5,LI-1,SU-1)    7520207_A03        A03 NaN     0.00
+1171    7520207           Kỹ thuật điện tử - viễn thông     A04(TO-5,LI-1,DI-1)    7520207_A04        A04 NaN     0.00
+1172    7520207           Kỹ thuật điện tử - viễn thông     A05(TO-5,HO-1,SU-1)    7520207_A05        A05 NaN     0.00
+1173    7520207           Kỹ thuật điện tử - viễn thông     A06(TO-5,HO-1,DI-1)    7520207_A06        A06 NaN     0.00
+1174    7520207           Kỹ thuật điện tử - viễn thông     A07(TO-5,SU-1,DI-1)    7520207_A07        A07 NaN     0.00
+1175    7520207           Kỹ thuật điện tử - viễn thông     B00(TO-5,HO-1,SI-1)    7520207_B00        B00 NaN    -0.52
+1176    7520207           Kỹ thuật điện tử - viễn thông     B01(TO-5,SI-1,SU-1)    7520207_B01        B01 NaN     0.00
+1177    7520207           Kỹ thuật điện tử - viễn thông     B02(TO-5,SI-1,DI-1)    7520207_B02        B02 NaN     0.00
+1178    7520207           Kỹ thuật điện tử - viễn thông     B03(TO-5,VA-1,SI-1)    7520207_B03        B03 NaN     0.00
+1179    7520207           Kỹ thuật điện tử - viễn thông     B08(TO-5,SI-1,N1-1)    7520207_B08        B08 NaN     0.00
+1180    7520207           Kỹ thuật điện tử - viễn thông     C01(TO-5,VA-1,LI-1)    7520207_C01        C01 NaN     1.63
+1181    7520207           Kỹ thuật điện tử - viễn thông     C02(TO-5,VA-1,HO-1)    7520207_C02        C02 NaN     0.00
+1182    7520207           Kỹ thuật điện tử - viễn thông     C03(TO-5,VA-1,SU-1)    7520207_C03        C03 NaN     0.00
+1183    7520207           Kỹ thuật điện tử - viễn thông     C04(TO-5,VA-1,DI-1)    7520207_C04        C04 NaN     0.00
+1184    7520207           Kỹ thuật điện tử - viễn thông     D01(TO-5,VA-1,N1-1)    7520207_D01        D01 NaN     0.01
+1185    7520207           Kỹ thuật điện tử - viễn thông     D07(TO-5,HO-1,N1-1)    7520207_D07        D07 NaN    -0.93
+1186    7520207           Kỹ thuật điện tử - viễn thông     D09(TO-5,SU-1,N1-1)    7520207_D09        D09 NaN     0.00
+1187    7520207           Kỹ thuật điện tử - viễn thông     D10(TO-5,DI-1,N1-1)    7520207_D10        D10 NaN     0.00
+1188    7520207           Kỹ thuật điện tử - viễn thông   X01(TO-5,VA-1,KTPL-1)    7520207_X01        X01 NaN     0.00
+1189    7520207           Kỹ thuật điện tử - viễn thông     X02(TO-5,VA-1,TI-1)    7520207_X02        X02 NaN     0.00
+1190    7520207           Kỹ thuật điện tử - viễn thông   X03(TO-5,VA-1,CNCN-1)    7520207_X03        X03 NaN     0.00
+1191    7520207           Kỹ thuật điện tử - viễn thông   X04(TO-5,VA-1,CNNN-1)    7520207_X04        X04 NaN     0.00
+1192    7520207           Kỹ thuật điện tử - viễn thông   X05(TO-5,LI-1,KTPL-1)    7520207_X05        X05 NaN     0.00
+1193    7520207           Kỹ thuật điện tử - viễn thông     X06(TO-5,LI-1,TI-1)    7520207_X06        X06 NaN     0.00
+1194    7520207           Kỹ thuật điện tử - viễn thông   X07(TO-5,LI-1,CNCN-1)    7520207_X07        X07 NaN     0.00
+1195    7520207           Kỹ thuật điện tử - viễn thông   X08(TO-5,LI-1,CNNN-1)    7520207_X08        X08 NaN     0.00
+1196    7520207           Kỹ thuật điện tử - viễn thông   X09(TO-5,HO-1,KTPL-1)    7520207_X09        X09 NaN     0.00
+1197    7520207           Kỹ thuật điện tử - viễn thông     X10(TO-5,HO-1,TI-1)    7520207_X10        X10 NaN     0.00
+1198    7520207           Kỹ thuật điện tử - viễn thông   X11(TO-5,HO-1,CNCN-1)    7520207_X11        X11 NaN     0.00
+1199    7520207           Kỹ thuật điện tử - viễn thông   X12(TO-5,HO-1,CNNN-1)    7520207_X12        X12 NaN     0.00
+1200    7520207           Kỹ thuật điện tử - viễn thông   X13(TO-5,SI-1,KTPL-1)    7520207_X13        X13 NaN     0.00
+1201    7520207           Kỹ thuật điện tử - viễn thông     X14(TO-5,SI-1,TI-1)    7520207_X14        X14 NaN     0.00
+1202    7520207           Kỹ thuật điện tử - viễn thông   X15(TO-5,SI-1,CNCN-1)    7520207_X15        X15 NaN     0.00
+1203    7520207           Kỹ thuật điện tử - viễn thông   X16(TO-5,SI-1,CNNN-1)    7520207_X16        X16 NaN     0.00
+1204    7520207           Kỹ thuật điện tử - viễn thông   X17(TO-5,SU-1,KTPL-1)    7520207_X17        X17 NaN     0.00
+1205    7520207           Kỹ thuật điện tử - viễn thông     X18(TO-5,SU-1,TI-1)    7520207_X18        X18 NaN     0.00
+1206    7520207           Kỹ thuật điện tử - viễn thông   X19(TO-5,SU-1,CNCN-1)    7520207_X19        X19 NaN     0.00
+1207    7520207           Kỹ thuật điện tử - viễn thông   X20(TO-5,SU-1,CNNN-1)    7520207_X20        X20 NaN     0.00
+1208    7520207           Kỹ thuật điện tử - viễn thông   X21(TO-5,DI-1,KTPL-1)    7520207_X21        X21 NaN     0.00
+1209    7520207           Kỹ thuật điện tử - viễn thông     X22(TO-5,DI-1,TI-1)    7520207_X22        X22 NaN     0.00
+1210    7520207           Kỹ thuật điện tử - viễn thông   X23(TO-5,DI-1,CNCN-1)    7520207_X23        X23 NaN     0.00
+1211    7520207           Kỹ thuật điện tử - viễn thông   X24(TO-5,DI-1,CNNN-1)    7520207_X24        X24 NaN     0.00
+1212    7520207           Kỹ thuật điện tử - viễn thông   X25(TO-5,N1-1,KTPL-1)    7520207_X25        X25 NaN     0.00
+1213    7520207           Kỹ thuật điện tử - viễn thông     X26(TO-5,N1-1,TI-1)    7520207_X26        X26 NaN     0.00
+1214    7520207           Kỹ thuật điện tử - viễn thông   X27(TO-5,N1-1,CNCN-1)    7520207_X27        X27 NaN     0.00
+1215    7520207           Kỹ thuật điện tử - viễn thông   X28(TO-5,N1-1,CNNN-1)    7520207_X28        X28 NaN     0.00
+1216    7520207           Kỹ thuật điện tử - viễn thông   X53(TO-5,KTPL-1,TI-1)    7520207_X53        X53 NaN     0.00
+1217    7520207           Kỹ thuật điện tử - viễn thông X54(TO-5,KTPL-1,CNCN-1)    7520207_X54        X54 NaN     0.00
+1218    7520207           Kỹ thuật điện tử - viễn thông X55(TO-5,KTPL-1,CNNN-1)    7520207_X55        X55 NaN     0.00
+1219    7520207           Kỹ thuật điện tử - viễn thông   X56(TO-5,TI-1,CNCN-1)    7520207_X56        X56 NaN     0.00
+1220    7520207           Kỹ thuật điện tử - viễn thông   X57(TO-5,TI-1,CNNN-1)    7520207_X57        X57 NaN     0.00
+1221    7810101                                 Du lịch     B03(TO-3,VA-3,SI-1)    7810101_B03        B03 NaN     0.00
+1222    7810101                                 Du lịch     C01(TO-3,VA-3,LI-1)    7810101_C01        C01 NaN     1.62
+1223    7810101                                 Du lịch     C02(TO-3,VA-3,HO-1)    7810101_C02        C02 NaN     0.00
+1224    7810101                                 Du lịch     C03(TO-3,VA-3,SU-1)    7810101_C03        C03 NaN     0.00
+1225    7810101                                 Du lịch     C04(TO-3,VA-3,DI-1)    7810101_C04        C04 NaN     0.00
+1226    7810101                                 Du lịch     D01(TO-3,VA-3,N1-1)    7810101_D01        D01 Gốc     0.00
+1227    7810101                                 Du lịch   X01(TO-3,VA-3,KTPL-1)    7810101_X01        X01 NaN     0.00
+1228    7810101                                 Du lịch     X02(TO-3,VA-3,TI-1)    7810101_X02        X02 NaN     0.00
+1229    7810101                                 Du lịch   X03(TO-3,VA-3,CNCN-1)    7810101_X03        X03 NaN     0.00
+1230    7810101                                 Du lịch   X04(TO-3,VA-3,CNNN-1)    7810101_X04        X04 NaN     0.00
+1231    7810202    Quản trị nhà hàng và dịch vụ ăn uống     A00(TO-3,LI-1,HO-1)    7810202_A00        A00 NaN     0.68
+1232    7810202    Quản trị nhà hàng và dịch vụ ăn uống     A01(TO-3,LI-1,N1-1)    7810202_A01        A01 NaN    -0.01
+1233    7810202    Quản trị nhà hàng và dịch vụ ăn uống     A02(TO-3,LI-1,SI-1)    7810202_A02        A02 NaN     0.00
+1234    7810202    Quản trị nhà hàng và dịch vụ ăn uống     A03(TO-3,LI-1,SU-1)    7810202_A03        A03 NaN     0.00
+1235    7810202    Quản trị nhà hàng và dịch vụ ăn uống     A04(TO-3,LI-1,DI-1)    7810202_A04        A04 NaN     0.00
+1236    7810202    Quản trị nhà hàng và dịch vụ ăn uống     A05(TO-3,HO-1,SU-1)    7810202_A05        A05 NaN     0.00
+1237    7810202    Quản trị nhà hàng và dịch vụ ăn uống     A06(TO-3,HO-1,DI-1)    7810202_A06        A06 NaN     0.00
+1238    7810202    Quản trị nhà hàng và dịch vụ ăn uống     A07(TO-3,SU-1,DI-1)    7810202_A07        A07 NaN     0.00
+1239    7810202    Quản trị nhà hàng và dịch vụ ăn uống     B00(TO-3,HO-1,SI-1)    7810202_B00        B00 NaN    -0.53
+1240    7810202    Quản trị nhà hàng và dịch vụ ăn uống     B01(TO-3,SI-1,SU-1)    7810202_B01        B01 NaN     0.00
+1241    7810202    Quản trị nhà hàng và dịch vụ ăn uống     B02(TO-3,SI-1,DI-1)    7810202_B02        B02 NaN     0.00
+1242    7810202    Quản trị nhà hàng và dịch vụ ăn uống     B03(TO-3,VA-1,SI-1)    7810202_B03        B03 NaN     0.00
+1243    7810202    Quản trị nhà hàng và dịch vụ ăn uống     B08(TO-3,SI-1,N1-1)    7810202_B08        B08 NaN     0.00
+1244    7810202    Quản trị nhà hàng và dịch vụ ăn uống     C01(TO-3,VA-1,LI-1)    7810202_C01        C01 NaN     1.62
+1245    7810202    Quản trị nhà hàng và dịch vụ ăn uống     C02(TO-3,VA-1,HO-1)    7810202_C02        C02 NaN     0.00
+1246    7810202    Quản trị nhà hàng và dịch vụ ăn uống     C03(TO-3,VA-1,SU-1)    7810202_C03        C03 NaN     0.00
+1247    7810202    Quản trị nhà hàng và dịch vụ ăn uống     C04(TO-3,VA-1,DI-1)    7810202_C04        C04 NaN     0.00
+1248    7810202    Quản trị nhà hàng và dịch vụ ăn uống     D01(TO-3,VA-1,N1-1)    7810202_D01        D01 Gốc     0.00
+1249    7810202    Quản trị nhà hàng và dịch vụ ăn uống     D07(TO-3,HO-1,N1-1)    7810202_D07        D07 NaN    -0.94
+1250    7810202    Quản trị nhà hàng và dịch vụ ăn uống     D09(TO-3,SU-1,N1-1)    7810202_D09        D09 NaN     0.00
+1251    7810202    Quản trị nhà hàng và dịch vụ ăn uống     D10(TO-3,DI-1,N1-1)    7810202_D10        D10 NaN     0.00
+1252    7810202    Quản trị nhà hàng và dịch vụ ăn uống   X01(TO-3,VA-1,KTPL-1)    7810202_X01        X01 NaN     0.00
+1253    7810202    Quản trị nhà hàng và dịch vụ ăn uống     X02(TO-3,VA-1,TI-1)    7810202_X02        X02 NaN     0.00
+1254    7810202    Quản trị nhà hàng và dịch vụ ăn uống   X03(TO-3,VA-1,CNCN-1)    7810202_X03        X03 NaN     0.00
+1255    7810202    Quản trị nhà hàng và dịch vụ ăn uống   X04(TO-3,VA-1,CNNN-1)    7810202_X04        X04 NaN     0.00
+1256    7810202    Quản trị nhà hàng và dịch vụ ăn uống   X05(TO-3,LI-1,KTPL-1)    7810202_X05        X05 NaN     0.00
+1257    7810202    Quản trị nhà hàng và dịch vụ ăn uống     X06(TO-3,LI-1,TI-1)    7810202_X06        X06 NaN     0.00
+1258    7810202    Quản trị nhà hàng và dịch vụ ăn uống   X07(TO-3,LI-1,CNCN-1)    7810202_X07        X07 NaN     0.00
+1259    7810202    Quản trị nhà hàng và dịch vụ ăn uống   X08(TO-3,LI-1,CNNN-1)    7810202_X08        X08 NaN     0.00
+1260    7810202    Quản trị nhà hàng và dịch vụ ăn uống   X09(TO-3,HO-1,KTPL-1)    7810202_X09        X09 NaN     0.00
+1261    7810202    Quản trị nhà hàng và dịch vụ ăn uống     X10(TO-3,HO-1,TI-1)    7810202_X10        X10 NaN     0.00
+1262    7810202    Quản trị nhà hàng và dịch vụ ăn uống   X11(TO-3,HO-1,CNCN-1)    7810202_X11        X11 NaN     0.00
+1263    7810202    Quản trị nhà hàng và dịch vụ ăn uống   X12(TO-3,HO-1,CNNN-1)    7810202_X12        X12 NaN     0.00
+1264    7810202    Quản trị nhà hàng và dịch vụ ăn uống   X13(TO-3,SI-1,KTPL-1)    7810202_X13        X13 NaN     0.00
+1265    7810202    Quản trị nhà hàng và dịch vụ ăn uống     X14(TO-3,SI-1,TI-1)    7810202_X14        X14 NaN     0.00
+1266    7810202    Quản trị nhà hàng và dịch vụ ăn uống   X15(TO-3,SI-1,CNCN-1)    7810202_X15        X15 NaN     0.00
+1267    7810202    Quản trị nhà hàng và dịch vụ ăn uống   X16(TO-3,SI-1,CNNN-1)    7810202_X16        X16 NaN     0.00
+1268    7810202    Quản trị nhà hàng và dịch vụ ăn uống   X17(TO-3,SU-1,KTPL-1)    7810202_X17        X17 NaN     0.00
+1269    7810202    Quản trị nhà hàng và dịch vụ ăn uống     X18(TO-3,SU-1,TI-1)    7810202_X18        X18 NaN     0.00
+1270    7810202    Quản trị nhà hàng và dịch vụ ăn uống   X19(TO-3,SU-1,CNCN-1)    7810202_X19        X19 NaN     0.00
+1271    7810202    Quản trị nhà hàng và dịch vụ ăn uống   X20(TO-3,SU-1,CNNN-1)    7810202_X20        X20 NaN     0.00
+1272    7810202    Quản trị nhà hàng và dịch vụ ăn uống   X21(TO-3,DI-1,KTPL-1)    7810202_X21        X21 NaN     0.00
+1273    7810202    Quản trị nhà hàng và dịch vụ ăn uống     X22(TO-3,DI-1,TI-1)    7810202_X22        X22 NaN     0.00
+1274    7810202    Quản trị nhà hàng và dịch vụ ăn uống   X23(TO-3,DI-1,CNCN-1)    7810202_X23        X23 NaN     0.00
+1275    7810202    Quản trị nhà hàng và dịch vụ ăn uống   X24(TO-3,DI-1,CNNN-1)    7810202_X24        X24 NaN     0.00
+1276    7810202    Quản trị nhà hàng và dịch vụ ăn uống   X25(TO-3,N1-1,KTPL-1)    7810202_X25        X25 NaN     0.00
+1277    7810202    Quản trị nhà hàng và dịch vụ ăn uống     X26(TO-3,N1-1,TI-1)    7810202_X26        X26 NaN     0.00
+1278    7810202    Quản trị nhà hàng và dịch vụ ăn uống   X27(TO-3,N1-1,CNCN-1)    7810202_X27        X27 NaN     0.00
+1279    7810202    Quản trị nhà hàng và dịch vụ ăn uống   X28(TO-3,N1-1,CNNN-1)    7810202_X28        X28 NaN     0.00
+1280    7810202    Quản trị nhà hàng và dịch vụ ăn uống   X53(TO-3,KTPL-1,TI-1)    7810202_X53        X53 NaN     0.00
+1281    7810202    Quản trị nhà hàng và dịch vụ ăn uống X54(TO-3,KTPL-1,CNCN-1)    7810202_X54        X54 NaN     0.00
+1282    7810202    Quản trị nhà hàng và dịch vụ ăn uống X55(TO-3,KTPL-1,CNNN-1)    7810202_X55        X55 NaN     0.00
+1283    7810202    Quản trị nhà hàng và dịch vụ ăn uống   X56(TO-3,TI-1,CNCN-1)    7810202_X56        X56 NaN     0.00
+1284    7810202    Quản trị nhà hàng và dịch vụ ăn uống   X57(TO-3,TI-1,CNNN-1)    7810202_X57        X57 NaN     0.00
+1285 7220201CLC                      Ngôn ngữ Anh (CLC)     A01(TO-3,LI-1,N1-4) 7220201CLC_A01        A01 NaN    -0.01
+1286 7220201CLC                      Ngôn ngữ Anh (CLC)     B08(TO-3,SI-1,N1-4) 7220201CLC_B08        B08 NaN     0.00
+1287 7220201CLC                      Ngôn ngữ Anh (CLC)     D01(TO-3,VA-3,N1-4) 7220201CLC_D01        D01 Gốc     0.00
+1288 7220201CLC                      Ngôn ngữ Anh (CLC)     D07(TO-3,HO-1,N1-4) 7220201CLC_D07        D07 NaN    -0.94
+1289 7220201CLC                      Ngôn ngữ Anh (CLC)     D09(TO-3,SU-1,N1-4) 7220201CLC_D09        D09 NaN     0.00
+1290 7220201CLC                      Ngôn ngữ Anh (CLC)     D10(TO-3,DI-1,N1-4) 7220201CLC_D10        D10 NaN     0.00
+1291 7220201CLC                      Ngôn ngữ Anh (CLC)     D11(VA-3,LI-1,N1-4) 7220201CLC_D11        D11 NaN     0.00
+1292 7220201CLC                      Ngôn ngữ Anh (CLC)     D12(VA-3,HO-1,N1-4) 7220201CLC_D12        D12 NaN     0.00
+1293 7220201CLC                      Ngôn ngữ Anh (CLC)     D13(VA-3,SI-1,N1-4) 7220201CLC_D13        D13 NaN     0.00
+1294 7220201CLC                      Ngôn ngữ Anh (CLC)     D14(VA-3,SU-1,N1-4) 7220201CLC_D14        D14 NaN     0.00
+1295 7220201CLC                      Ngôn ngữ Anh (CLC)     D15(VA-3,DI-1,N1-4) 7220201CLC_D15        D15 NaN     0.00
+1296 7220201CLC                      Ngôn ngữ Anh (CLC)   X25(TO-3,N1-4,KTPL-1) 7220201CLC_X25        X25 NaN     0.00
+1297 7220201CLC                      Ngôn ngữ Anh (CLC)     X26(TO-3,N1-4,TI-1) 7220201CLC_X26        X26 NaN     0.00
+1298 7220201CLC                      Ngôn ngữ Anh (CLC)   X27(TO-3,N1-4,CNCN-1) 7220201CLC_X27        X27 NaN     0.00
+1299 7220201CLC                      Ngôn ngữ Anh (CLC)   X28(TO-3,N1-4,CNNN-1) 7220201CLC_X28        X28 NaN     0.00
+1300 7220201CLC                      Ngôn ngữ Anh (CLC)   X78(VA-3,N1-4,KTPL-1) 7220201CLC_X78        X78 NaN     0.00
+1301 7220201CLC                      Ngôn ngữ Anh (CLC)     X79(VA-3,N1-4,TI-1) 7220201CLC_X79        X79 NaN     0.00
+1302 7220201CLC                      Ngôn ngữ Anh (CLC)   X80(VA-3,N1-4,CNCN-1) 7220201CLC_X80        X80 NaN     0.00
+1303 7220201CLC                      Ngôn ngữ Anh (CLC)   X81(VA-3,N1-4,CNNN-1) 7220201CLC_X81        X81 NaN     0.00
+1304 7340101CLC               Quản trị kinh doanh (CLC)     A00(TO-3,LI-1,HO-1) 7340101CLC_A00        A00 NaN     0.68
+1305 7340101CLC               Quản trị kinh doanh (CLC)     A01(TO-3,LI-1,N1-1) 7340101CLC_A01        A01 NaN    -0.01
+1306 7340101CLC               Quản trị kinh doanh (CLC)     A02(TO-3,LI-1,SI-1) 7340101CLC_A02        A02 NaN     0.00
+1307 7340101CLC               Quản trị kinh doanh (CLC)     A03(TO-3,LI-1,SU-1) 7340101CLC_A03        A03 NaN     0.00
+1308 7340101CLC               Quản trị kinh doanh (CLC)     A04(TO-3,LI-1,DI-1) 7340101CLC_A04        A04 NaN     0.00
+1309 7340101CLC               Quản trị kinh doanh (CLC)     A05(TO-3,HO-1,SU-1) 7340101CLC_A05        A05 NaN     0.00
+1310 7340101CLC               Quản trị kinh doanh (CLC)     A06(TO-3,HO-1,DI-1) 7340101CLC_A06        A06 NaN     0.00
+1311 7340101CLC               Quản trị kinh doanh (CLC)     A07(TO-3,SU-1,DI-1) 7340101CLC_A07        A07 NaN     0.00
+1312 7340101CLC               Quản trị kinh doanh (CLC)     B00(TO-3,HO-1,SI-1) 7340101CLC_B00        B00 NaN    -0.53
+1313 7340101CLC               Quản trị kinh doanh (CLC)     B01(TO-3,SI-1,SU-1) 7340101CLC_B01        B01 NaN     0.00
+1314 7340101CLC               Quản trị kinh doanh (CLC)     B02(TO-3,SI-1,DI-1) 7340101CLC_B02        B02 NaN     0.00
+1315 7340101CLC               Quản trị kinh doanh (CLC)     B03(TO-3,VA-1,SI-1) 7340101CLC_B03        B03 NaN     0.00
+1316 7340101CLC               Quản trị kinh doanh (CLC)     B08(TO-3,SI-1,N1-1) 7340101CLC_B08        B08 NaN     0.00
+1317 7340101CLC               Quản trị kinh doanh (CLC)     C01(TO-3,VA-1,LI-1) 7340101CLC_C01        C01 NaN     1.62
+1318 7340101CLC               Quản trị kinh doanh (CLC)     C02(TO-3,VA-1,HO-1) 7340101CLC_C02        C02 NaN     0.00
+1319 7340101CLC               Quản trị kinh doanh (CLC)     C03(TO-3,VA-1,SU-1) 7340101CLC_C03        C03 NaN     0.00
+1320 7340101CLC               Quản trị kinh doanh (CLC)     C04(TO-3,VA-1,DI-1) 7340101CLC_C04        C04 NaN     0.00
+1321 7340101CLC               Quản trị kinh doanh (CLC)     D01(TO-3,VA-1,N1-1) 7340101CLC_D01        D01 Gốc     0.00
+1322 7340101CLC               Quản trị kinh doanh (CLC)     D07(TO-3,HO-1,N1-1) 7340101CLC_D07        D07 NaN    -0.94
+1323 7340101CLC               Quản trị kinh doanh (CLC)     D09(TO-3,SU-1,N1-1) 7340101CLC_D09        D09 NaN     0.00
+1324 7340101CLC               Quản trị kinh doanh (CLC)     D10(TO-3,DI-1,N1-1) 7340101CLC_D10        D10 NaN     0.00
+1325 7340101CLC               Quản trị kinh doanh (CLC)   X01(TO-3,VA-1,KTPL-1) 7340101CLC_X01        X01 NaN     0.00
+1326 7340101CLC               Quản trị kinh doanh (CLC)     X02(TO-3,VA-1,TI-1) 7340101CLC_X02        X02 NaN     0.00
+1327 7340101CLC               Quản trị kinh doanh (CLC)   X03(TO-3,VA-1,CNCN-1) 7340101CLC_X03        X03 NaN     0.00
+1328 7340101CLC               Quản trị kinh doanh (CLC)   X04(TO-3,VA-1,CNNN-1) 7340101CLC_X04        X04 NaN     0.00
+1329 7340101CLC               Quản trị kinh doanh (CLC)   X05(TO-3,LI-1,KTPL-1) 7340101CLC_X05        X05 NaN     0.00
+1330 7340101CLC               Quản trị kinh doanh (CLC)     X06(TO-3,LI-1,TI-1) 7340101CLC_X06        X06 NaN     0.00
+1331 7340101CLC               Quản trị kinh doanh (CLC)   X07(TO-3,LI-1,CNCN-1) 7340101CLC_X07        X07 NaN     0.00
+1332 7340101CLC               Quản trị kinh doanh (CLC)   X08(TO-3,LI-1,CNNN-1) 7340101CLC_X08        X08 NaN     0.00
+1333 7340101CLC               Quản trị kinh doanh (CLC)   X09(TO-3,HO-1,KTPL-1) 7340101CLC_X09        X09 NaN     0.00
+1334 7340101CLC               Quản trị kinh doanh (CLC)     X10(TO-3,HO-1,TI-1) 7340101CLC_X10        X10 NaN     0.00
+1335 7340101CLC               Quản trị kinh doanh (CLC)   X11(TO-3,HO-1,CNCN-1) 7340101CLC_X11        X11 NaN     0.00
+1336 7340101CLC               Quản trị kinh doanh (CLC)   X12(TO-3,HO-1,CNNN-1) 7340101CLC_X12        X12 NaN     0.00
+1337 7340101CLC               Quản trị kinh doanh (CLC)   X13(TO-3,SI-1,KTPL-1) 7340101CLC_X13        X13 NaN     0.00
+1338 7340101CLC               Quản trị kinh doanh (CLC)     X14(TO-3,SI-1,TI-1) 7340101CLC_X14        X14 NaN     0.00
+1339 7340101CLC               Quản trị kinh doanh (CLC)   X15(TO-3,SI-1,CNCN-1) 7340101CLC_X15        X15 NaN     0.00
+1340 7340101CLC               Quản trị kinh doanh (CLC)   X16(TO-3,SI-1,CNNN-1) 7340101CLC_X16        X16 NaN     0.00
+1341 7340101CLC               Quản trị kinh doanh (CLC)   X17(TO-3,SU-1,KTPL-1) 7340101CLC_X17        X17 NaN     0.00
+1342 7340101CLC               Quản trị kinh doanh (CLC)     X18(TO-3,SU-1,TI-1) 7340101CLC_X18        X18 NaN     0.00
+1343 7340101CLC               Quản trị kinh doanh (CLC)   X19(TO-3,SU-1,CNCN-1) 7340101CLC_X19        X19 NaN     0.00
+1344 7340101CLC               Quản trị kinh doanh (CLC)   X20(TO-3,SU-1,CNNN-1) 7340101CLC_X20        X20 NaN     0.00
+1345 7340101CLC               Quản trị kinh doanh (CLC)   X21(TO-3,DI-1,KTPL-1) 7340101CLC_X21        X21 NaN     0.00
+1346 7340101CLC               Quản trị kinh doanh (CLC)     X22(TO-3,DI-1,TI-1) 7340101CLC_X22        X22 NaN     0.00
+1347 7340101CLC               Quản trị kinh doanh (CLC)   X23(TO-3,DI-1,CNCN-1) 7340101CLC_X23        X23 NaN     0.00
+1348 7340101CLC               Quản trị kinh doanh (CLC)   X24(TO-3,DI-1,CNNN-1) 7340101CLC_X24        X24 NaN     0.00
+1349 7340101CLC               Quản trị kinh doanh (CLC)   X25(TO-3,N1-1,KTPL-1) 7340101CLC_X25        X25 NaN     0.00
+1350 7340101CLC               Quản trị kinh doanh (CLC)     X26(TO-3,N1-1,TI-1) 7340101CLC_X26        X26 NaN     0.00
+1351 7340101CLC               Quản trị kinh doanh (CLC)   X27(TO-3,N1-1,CNCN-1) 7340101CLC_X27        X27 NaN     0.00
+1352 7340101CLC               Quản trị kinh doanh (CLC)   X28(TO-3,N1-1,CNNN-1) 7340101CLC_X28        X28 NaN     0.00
+1353 7340101CLC               Quản trị kinh doanh (CLC)   X53(TO-3,KTPL-1,TI-1) 7340101CLC_X53        X53 NaN     0.00
+1354 7340101CLC               Quản trị kinh doanh (CLC) X54(TO-3,KTPL-1,CNCN-1) 7340101CLC_X54        X54 NaN     0.00
+1355 7340101CLC               Quản trị kinh doanh (CLC) X55(TO-3,KTPL-1,CNNN-1) 7340101CLC_X55        X55 NaN     0.00
+1356 7340101CLC               Quản trị kinh doanh (CLC)   X56(TO-3,TI-1,CNCN-1) 7340101CLC_X56        X56 NaN     0.00
+1357 7340101CLC               Quản trị kinh doanh (CLC)   X57(TO-3,TI-1,CNNN-1) 7340101CLC_X57        X57 NaN     0.00
+1358 7340301CLC                           Kế toán (CLC)     A00(TO-3,LI-1,HO-1) 7340301CLC_A00        A00 NaN     0.68
+1359 7340301CLC                           Kế toán (CLC)     A01(TO-3,LI-1,N1-1) 7340301CLC_A01        A01 NaN    -0.01
+1360 7340301CLC                           Kế toán (CLC)     A02(TO-3,LI-1,SI-1) 7340301CLC_A02        A02 NaN     0.00
+1361 7340301CLC                           Kế toán (CLC)     A03(TO-3,LI-1,SU-1) 7340301CLC_A03        A03 NaN     0.00
+1362 7340301CLC                           Kế toán (CLC)     A04(TO-3,LI-1,DI-1) 7340301CLC_A04        A04 NaN     0.00
+1363 7340301CLC                           Kế toán (CLC)     A05(TO-3,HO-1,SU-1) 7340301CLC_A05        A05 NaN     0.00
+1364 7340301CLC                           Kế toán (CLC)     A06(TO-3,HO-1,DI-1) 7340301CLC_A06        A06 NaN     0.00
+1365 7340301CLC                           Kế toán (CLC)     A07(TO-3,SU-1,DI-1) 7340301CLC_A07        A07 NaN     0.00
+1366 7340301CLC                           Kế toán (CLC)     B00(TO-3,HO-1,SI-1) 7340301CLC_B00        B00 NaN    -0.53
+1367 7340301CLC                           Kế toán (CLC)     B01(TO-3,SI-1,SU-1) 7340301CLC_B01        B01 NaN     0.00
+1368 7340301CLC                           Kế toán (CLC)     B02(TO-3,SI-1,DI-1) 7340301CLC_B02        B02 NaN     0.00
+1369 7340301CLC                           Kế toán (CLC)     B03(TO-3,VA-1,SI-1) 7340301CLC_B03        B03 NaN     0.00
+1370 7340301CLC                           Kế toán (CLC)     B08(TO-3,SI-1,N1-1) 7340301CLC_B08        B08 NaN     0.00
+1371 7340301CLC                           Kế toán (CLC)     C01(TO-3,VA-1,LI-1) 7340301CLC_C01        C01 NaN     1.62
+1372 7340301CLC                           Kế toán (CLC)     C02(TO-3,VA-1,HO-1) 7340301CLC_C02        C02 NaN     0.00
+1373 7340301CLC                           Kế toán (CLC)     C03(TO-3,VA-1,SU-1) 7340301CLC_C03        C03 NaN     0.00
+1374 7340301CLC                           Kế toán (CLC)     C04(TO-3,VA-1,DI-1) 7340301CLC_C04        C04 NaN     0.00
+1375 7340301CLC                           Kế toán (CLC)     D01(TO-3,VA-1,N1-1) 7340301CLC_D01        D01 Gốc     0.00
+1376 7340301CLC                           Kế toán (CLC)     D07(TO-3,HO-1,N1-1) 7340301CLC_D07        D07 NaN    -0.94
+1377 7340301CLC                           Kế toán (CLC)     D09(TO-3,SU-1,N1-1) 7340301CLC_D09        D09 NaN     0.00
+1378 7340301CLC                           Kế toán (CLC)     D10(TO-3,DI-1,N1-1) 7340301CLC_D10        D10 NaN     0.00
+1379 7340301CLC                           Kế toán (CLC)   X01(TO-3,VA-1,KTPL-1) 7340301CLC_X01        X01 NaN     0.00
+1380 7340301CLC                           Kế toán (CLC)     X02(TO-3,VA-1,TI-1) 7340301CLC_X02        X02 NaN     0.00
+1381 7340301CLC                           Kế toán (CLC)   X03(TO-3,VA-1,CNCN-1) 7340301CLC_X03        X03 NaN     0.00
+1382 7340301CLC                           Kế toán (CLC)   X04(TO-3,VA-1,CNNN-1) 7340301CLC_X04        X04 NaN     0.00
+1383 7340301CLC                           Kế toán (CLC)   X05(TO-3,LI-1,KTPL-1) 7340301CLC_X05        X05 NaN     0.00
+1384 7340301CLC                           Kế toán (CLC)     X06(TO-3,LI-1,TI-1) 7340301CLC_X06        X06 NaN     0.00
+1385 7340301CLC                           Kế toán (CLC)   X07(TO-3,LI-1,CNCN-1) 7340301CLC_X07        X07 NaN     0.00
+1386 7340301CLC                           Kế toán (CLC)   X08(TO-3,LI-1,CNNN-1) 7340301CLC_X08        X08 NaN     0.00
+1387 7340301CLC                           Kế toán (CLC)   X09(TO-3,HO-1,KTPL-1) 7340301CLC_X09        X09 NaN     0.00
+1388 7340301CLC                           Kế toán (CLC)     X10(TO-3,HO-1,TI-1) 7340301CLC_X10        X10 NaN     0.00
+1389 7340301CLC                           Kế toán (CLC)   X11(TO-3,HO-1,CNCN-1) 7340301CLC_X11        X11 NaN     0.00
+1390 7340301CLC                           Kế toán (CLC)   X12(TO-3,HO-1,CNNN-1) 7340301CLC_X12        X12 NaN     0.00
+1391 7340301CLC                           Kế toán (CLC)   X13(TO-3,SI-1,KTPL-1) 7340301CLC_X13        X13 NaN     0.00
+1392 7340301CLC                           Kế toán (CLC)     X14(TO-3,SI-1,TI-1) 7340301CLC_X14        X14 NaN     0.00
+1393 7340301CLC                           Kế toán (CLC)   X15(TO-3,SI-1,CNCN-1) 7340301CLC_X15        X15 NaN     0.00
+1394 7340301CLC                           Kế toán (CLC)   X16(TO-3,SI-1,CNNN-1) 7340301CLC_X16        X16 NaN     0.00
+1395 7340301CLC                           Kế toán (CLC)   X17(TO-3,SU-1,KTPL-1) 7340301CLC_X17        X17 NaN     0.00
+1396 7340301CLC                           Kế toán (CLC)     X18(TO-3,SU-1,TI-1) 7340301CLC_X18        X18 NaN     0.00
+1397 7340301CLC                           Kế toán (CLC)   X19(TO-3,SU-1,CNCN-1) 7340301CLC_X19        X19 NaN     0.00
+1398 7340301CLC                           Kế toán (CLC)   X20(TO-3,SU-1,CNNN-1) 7340301CLC_X20        X20 NaN     0.00
+1399 7340301CLC                           Kế toán (CLC)   X21(TO-3,DI-1,KTPL-1) 7340301CLC_X21        X21 NaN     0.00
+1400 7340301CLC                           Kế toán (CLC)     X22(TO-3,DI-1,TI-1) 7340301CLC_X22        X22 NaN     0.00
+1401 7340301CLC                           Kế toán (CLC)   X23(TO-3,DI-1,CNCN-1) 7340301CLC_X23        X23 NaN     0.00
+1402 7340301CLC                           Kế toán (CLC)   X24(TO-3,DI-1,CNNN-1) 7340301CLC_X24        X24 NaN     0.00
+1403 7340301CLC                           Kế toán (CLC)   X25(TO-3,N1-1,KTPL-1) 7340301CLC_X25        X25 NaN     0.00
+1404 7340301CLC                           Kế toán (CLC)     X26(TO-3,N1-1,TI-1) 7340301CLC_X26        X26 NaN     0.00
+1405 7340301CLC                           Kế toán (CLC)   X27(TO-3,N1-1,CNCN-1) 7340301CLC_X27        X27 NaN     0.00
+1406 7340301CLC                           Kế toán (CLC)   X28(TO-3,N1-1,CNNN-1) 7340301CLC_X28        X28 NaN     0.00
+1407 7340301CLC                           Kế toán (CLC)   X53(TO-3,KTPL-1,TI-1) 7340301CLC_X53        X53 NaN     0.00
+1408 7340301CLC                           Kế toán (CLC) X54(TO-3,KTPL-1,CNCN-1) 7340301CLC_X54        X54 NaN     0.00
+1409 7340301CLC                           Kế toán (CLC) X55(TO-3,KTPL-1,CNNN-1) 7340301CLC_X55        X55 NaN     0.00
+1410 7340301CLC                           Kế toán (CLC)   X56(TO-3,TI-1,CNCN-1) 7340301CLC_X56        X56 NaN     0.00
+1411 7340301CLC                           Kế toán (CLC)   X57(TO-3,TI-1,CNNN-1) 7340301CLC_X57        X57 NaN     0.00
+1412 7480201CLC               Công nghệ thông tin (CLC)     A00(TO-5,LI-1,HO-1) 7480201CLC_A00        A00 NaN     0.68
+1413 7480201CLC               Công nghệ thông tin (CLC)     A01(TO-5,LI-1,N1-1) 7480201CLC_A01        A01 NaN    -0.01
+1414 7480201CLC               Công nghệ thông tin (CLC)     A02(TO-5,LI-1,SI-1) 7480201CLC_A02        A02 NaN     0.00
+1415 7480201CLC               Công nghệ thông tin (CLC)     A03(TO-5,LI-1,SU-1) 7480201CLC_A03        A03 NaN     0.00
+1416 7480201CLC               Công nghệ thông tin (CLC)     A04(TO-5,LI-1,DI-1) 7480201CLC_A04        A04 NaN     0.00
+1417 7480201CLC               Công nghệ thông tin (CLC)     A05(TO-5,HO-1,SU-1) 7480201CLC_A05        A05 NaN     0.00
+1418 7480201CLC               Công nghệ thông tin (CLC)     A06(TO-5,HO-1,DI-1) 7480201CLC_A06        A06 NaN     0.00
+1419 7480201CLC               Công nghệ thông tin (CLC)     A07(TO-5,SU-1,DI-1) 7480201CLC_A07        A07 NaN     0.00
+1420 7480201CLC               Công nghệ thông tin (CLC)     B00(TO-5,HO-1,SI-1) 7480201CLC_B00        B00 NaN    -0.53
+1421 7480201CLC               Công nghệ thông tin (CLC)     B01(TO-5,SI-1,SU-1) 7480201CLC_B01        B01 NaN     0.00
+1422 7480201CLC               Công nghệ thông tin (CLC)     B02(TO-5,SI-1,DI-1) 7480201CLC_B02        B02 NaN     0.00
+1423 7480201CLC               Công nghệ thông tin (CLC)     B03(TO-5,VA-1,SI-1) 7480201CLC_B03        B03 NaN     0.00
+1424 7480201CLC               Công nghệ thông tin (CLC)     B08(TO-5,SI-1,N1-1) 7480201CLC_B08        B08 NaN     0.00
+1425 7480201CLC               Công nghệ thông tin (CLC)     C01(TO-5,VA-1,LI-1) 7480201CLC_C01        C01 NaN     1.62
+1426 7480201CLC               Công nghệ thông tin (CLC)     C02(TO-5,VA-1,HO-1) 7480201CLC_C02        C02 NaN     0.00
+1427 7480201CLC               Công nghệ thông tin (CLC)     C03(TO-5,VA-1,SU-1) 7480201CLC_C03        C03 NaN     0.00
+1428 7480201CLC               Công nghệ thông tin (CLC)     C04(TO-5,VA-1,DI-1) 7480201CLC_C04        C04 NaN     0.00
+1429 7480201CLC               Công nghệ thông tin (CLC)     D01(TO-5,VA-1,N1-1) 7480201CLC_D01        D01 Gốc     0.00
+1430 7480201CLC               Công nghệ thông tin (CLC)     D07(TO-5,HO-1,N1-1) 7480201CLC_D07        D07 NaN    -0.94
+1431 7480201CLC               Công nghệ thông tin (CLC)     D09(TO-5,SU-1,N1-1) 7480201CLC_D09        D09 NaN     0.00
+1432 7480201CLC               Công nghệ thông tin (CLC)     D10(TO-5,DI-1,N1-1) 7480201CLC_D10        D10 NaN     0.00
+1433 7480201CLC               Công nghệ thông tin (CLC)   X01(TO-5,VA-1,KTPL-1) 7480201CLC_X01        X01 NaN     0.00
+1434 7480201CLC               Công nghệ thông tin (CLC)     X02(TO-5,VA-1,TI-3) 7480201CLC_X02        X02 NaN     0.00
+1435 7480201CLC               Công nghệ thông tin (CLC)   X03(TO-5,VA-1,CNCN-1) 7480201CLC_X03        X03 NaN     0.00
+1436 7480201CLC               Công nghệ thông tin (CLC)   X04(TO-5,VA-1,CNNN-1) 7480201CLC_X04        X04 NaN     0.00
+1437 7480201CLC               Công nghệ thông tin (CLC)   X05(TO-5,LI-1,KTPL-1) 7480201CLC_X05        X05 NaN     0.00
+1438 7480201CLC               Công nghệ thông tin (CLC)     X06(TO-5,LI-1,TI-3) 7480201CLC_X06        X06 NaN     0.00
+1439 7480201CLC               Công nghệ thông tin (CLC)   X07(TO-5,LI-1,CNCN-1) 7480201CLC_X07        X07 NaN     0.00
+1440 7480201CLC               Công nghệ thông tin (CLC)   X08(TO-5,LI-1,CNNN-1) 7480201CLC_X08        X08 NaN     0.00
+1441 7480201CLC               Công nghệ thông tin (CLC)   X09(TO-5,HO-1,KTPL-1) 7480201CLC_X09        X09 NaN     0.00
+1442 7480201CLC               Công nghệ thông tin (CLC)     X10(TO-5,HO-1,TI-3) 7480201CLC_X10        X10 NaN     0.00
+1443 7480201CLC               Công nghệ thông tin (CLC)   X11(TO-5,HO-1,CNCN-1) 7480201CLC_X11        X11 NaN     0.00
+1444 7480201CLC               Công nghệ thông tin (CLC)   X12(TO-5,HO-1,CNNN-1) 7480201CLC_X12        X12 NaN     0.00
+1445 7480201CLC               Công nghệ thông tin (CLC)   X13(TO-5,SI-1,KTPL-1) 7480201CLC_X13        X13 NaN     0.00
+1446 7480201CLC               Công nghệ thông tin (CLC)     X14(TO-5,SI-1,TI-3) 7480201CLC_X14        X14 NaN     0.00
+1447 7480201CLC               Công nghệ thông tin (CLC)   X15(TO-5,SI-1,CNCN-1) 7480201CLC_X15        X15 NaN     0.00
+1448 7480201CLC               Công nghệ thông tin (CLC)   X16(TO-5,SI-1,CNNN-1) 7480201CLC_X16        X16 NaN     0.00
+1449 7480201CLC               Công nghệ thông tin (CLC)   X17(TO-5,SU-1,KTPL-1) 7480201CLC_X17        X17 NaN     0.00
+1450 7480201CLC               Công nghệ thông tin (CLC)     X18(TO-5,SU-1,TI-3) 7480201CLC_X18        X18 NaN     0.00
+1451 7480201CLC               Công nghệ thông tin (CLC)   X19(TO-5,SU-1,CNCN-1) 7480201CLC_X19        X19 NaN     0.00
+1452 7480201CLC               Công nghệ thông tin (CLC)   X20(TO-5,SU-1,CNNN-1) 7480201CLC_X20        X20 NaN     0.00
+1453 7480201CLC               Công nghệ thông tin (CLC)   X21(TO-5,DI-1,KTPL-1) 7480201CLC_X21        X21 NaN     0.00
+1454 7480201CLC               Công nghệ thông tin (CLC)     X22(TO-5,DI-1,TI-3) 7480201CLC_X22        X22 NaN     0.00
+1455 7480201CLC               Công nghệ thông tin (CLC)   X23(TO-5,DI-1,CNCN-1) 7480201CLC_X23        X23 NaN     0.00
+1456 7480201CLC               Công nghệ thông tin (CLC)   X24(TO-5,DI-1,CNNN-1) 7480201CLC_X24        X24 NaN     0.00
+1457 7480201CLC               Công nghệ thông tin (CLC)   X25(TO-5,N1-1,KTPL-1) 7480201CLC_X25        X25 NaN     0.00
+1458 7480201CLC               Công nghệ thông tin (CLC)     X26(TO-5,N1-1,TI-3) 7480201CLC_X26        X26 NaN     0.00
+1459 7480201CLC               Công nghệ thông tin (CLC)   X27(TO-5,N1-1,CNCN-1) 7480201CLC_X27        X27 NaN     0.00
+1460 7480201CLC               Công nghệ thông tin (CLC)   X28(TO-5,N1-1,CNNN-1) 7480201CLC_X28        X28 NaN     0.00
+1461 7480201CLC               Công nghệ thông tin (CLC)   X53(TO-5,KTPL-1,TI-3) 7480201CLC_X53        X53 NaN     0.00
+1462 7480201CLC               Công nghệ thông tin (CLC) X54(TO-5,KTPL-1,CNCN-1) 7480201CLC_X54        X54 NaN     0.00
+1463 7480201CLC               Công nghệ thông tin (CLC) X55(TO-5,KTPL-1,CNNN-1) 7480201CLC_X55        X55 NaN     0.00
+1464 7480201CLC               Công nghệ thông tin (CLC)   X56(TO-5,TI-3,CNCN-1) 7480201CLC_X56        X56 NaN     0.00
+1465 7480201CLC               Công nghệ thông tin (CLC)   X57(TO-5,TI-3,CNNN-1) 7480201CLC_X57        X57 NaN     0.00
+

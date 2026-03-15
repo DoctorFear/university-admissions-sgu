@@ -1,0 +1,116 @@
+Bảng độ lệch điểm THPT
+
++----+--------+---------+--------+--------+--------+--------+--------+--------+--------+
+| STT| Hàng   | Tổ hợp  | Cột 1  | Cột 2  | Cột 3  | Cột 4  | Cột 5  | Cột 6  | Cột 7  |
+|    |        | gốc     | A00    | A01    | B00    | C00    | C01    | D01    | D07    |
++----+--------+---------+--------+--------+--------+--------+--------+--------+--------+
+| 1. | Hàng 1 | A00     |        | -0.69  | -1.21  | +2.32  | +0.94  | -0.68  | -1.62  |
+| 2. | Hàng 2 | A01     | +0.69  |        | -0.52  | +3.01  | +1.63  | +0.01  | -0.93  |
+| 3. | Hàng 3 | B00     | +1.21  | +0.52  |        | +3.53  | +2.15  | +0.53  | -0.41  |
+| 4. | Hàng 4 | C00     | -2.32  | -3.01  | -3.53  |        | -1.38  | -3.00  | -3.94  |
+| 5. | Hàng 5 | C01     | -0.94  | -1.63  | -2.15  | +1.38  |        | -1.62  | -2.56  |
+| 6. | Hàng 6 | D01     | +0.68  | -0.01  | -0.53  | +3.0   | +1.62  |        | -0.94  |
++----+--------+---------+--------+--------+--------+--------+--------+--------+--------+
+
+- Điểm của tổ hợp thuộc cột m được quy đổi về tổ hợp gốc ứng với hàng n bằng cách trừ mức điểm chênh lệch của cột m và hàng n tương ứng:
+
+  Ví dụ: Điểm của tổ hợp A01 là 20 điểm. Điểm quy đổi của tổ hợp A01 về tổ hợp gốc A00 xác định như sau:
+
+  + Bước 1: Xác định tổ hợp cần quy đổi A01 thuộc cột 2, tổ hợp gốc A00 thuộc hàng 1, mức điểm chênh lệch tương ứng của cột 2 so với hàng 1 là -0,69.
+
+  + Bước 2: Tính điểm của tổ hợp A01 quy đổi về tổ hợp gốc A00:
+    Điểm quy đổi = 20 - (- 0,69) = 20,69
+
+- Danh sách tổ hợp gốc tương ứng ngành, chương trình đào tạo được quy định tại Phụ lục đính kèm. Đối với các tổ hợp xét tuyển không có trong bảng quy định trên đây, mức điểm chênh lệch với tổ hợp gốc của ngành xét tuyển là 0 điểm.
+
+
+2.2. Quy tắc quy đổi tương đương giữa các phương thức
+
+- Trường thực hiện quy đổi điểm thi các môn V-SAT về thang điểm 10, điểm bài thi ĐGNL về thang điểm 30 của phương thức THPT dựa trên bảng bách phân vị tương đương như sau:
+
+  + Quy đổi tương đương điểm thi các môn V-SAT về thang điểm 10 của phương thức THPT: Sử dụng bảng bách phân vị tương đương tại Phụ lục I về Quy đổi điểm thi V-SAT và điểm thi tốt nghiệp THPT năm 2025 theo từng môn thi theo Công văn số 339/KTĐGQG-PTCCKTĐG ngày 21 tháng 7 năm 2025 của Trung tâm Khảo thí quốc gia và Đánh giá chất lượng giáo dục, Cục quản lý chất lượng, Bộ Giáo dục và Đào tạo.
+
+  + Quy đổi tương đương điểm bài thi ĐGNL về thang 30 của phương thức THPT: Sử dụng bảng bách phân vị tương đương của Đại học Quốc gia Thành phố Hồ Chí Minh (bổ sung sau).
+
+- Điểm thi x thuộc vùng [a, b] của phương thức V-SAT hoặc của phương thức ĐGNL được quy về phương thức THPT thành điểm y thuộc vùng [c, d] theo công thức sau:
+
+        y = c + ((x - a) / (b - a)) x (d - c)
+
+  trong đó [c, d] là vùng điểm của phương thức THPT tương ứng với vùng điểm [a, b] trong bảng bách phân vị tương ứng.
+
+
+3. Quy định về điểm xét tuyển
+
+Gọi:
+  - ĐTHXT là điểm tổ hợp xét tuyển đã được quy đổi tương đương về phương thức THPT;
+  - ĐTHGXT là điểm tổ hợp gốc xét tuyển;
+  - ĐC là điểm cộng;
+  - ĐUT là điểm ưu tiên.
+
+3.1. Điểm tổ hợp xét tuyển (ĐTHXT) đã được quy đổi tương đương về phương thức THPT
+
++ Đối với phương thức V-SAT:
+
+  ĐTHXT_V-SAT = [(d1 x w1 + d2 x w2 + d3 x w3) / W] x 3
+
+  trong đó,
+  - d1, d2, d3 lần lượt là điểm thi môn 1, môn 2, môn 3 trong tổ hợp xét tuyển (đã được quy về thang điểm 10 theo quy tắc tại mục 2).
+  - w1, w2, w3 lần lượt là hệ số của môn 1, môn 2, môn 3 trong tổ hợp xét tuyển.
+  - W = w1 + w2 + w3
+
++ Đối với phương thức ĐGNL:
+
+  ĐTHXT_ĐGNL = Điểm thi ĐGNL được quy đổi tương đương về thang 30 theo quy tắc tại mục 2.2
+
++ Đối với phương thức THPT:
+
+  ĐTHXT_THPT = [(d1 x w1 + d2 x w2 + d3 x w3) / W] x 3
+
+  trong đó,
+  - d1, d2, d3 lần lượt là điểm thi môn 1, môn 2, môn 3 trong tổ hợp xét tuyển.
+  - w1, w2, w3 lần lượt là hệ số của môn 1, môn 2, môn 3 trong tổ hợp xét tuyển.
+  - W = w1 + w2 + w3
+
+
+3.2. Điểm tổ hợp gốc xét tuyển (ĐTHGXT)
+
++ Đối với phương thức V-SAT:
+
+  ĐTHGXT_V-SAT = ĐTHXT_V-SAT được quy đổi tương đương về tổ hợp gốc theo quy định tại mục 2.1
+
++ Đối với phương thức ĐGNL:
+
+  ĐTHGXT_ĐGNL = ĐTHXT_ĐGNL
+
++ Đối với phương thức THPT:
+
+  ĐTHGXT_THPT = ĐTHXT_THPT được quy đổi tương đương về tổ hợp gốc theo quy định tại mục 2.1
+
+
+3.3. Điểm cộng (ĐC)
+
+- Điểm cộng (ĐC), bao gồm điểm cộng từ kết quả quy đổi chứng chỉ tiếng Anh và điểm cộng từ đạt điều kiện ưu tiên xét tuyển. Tổng điểm cộng của thí sinh không vượt quá 03 điểm theo thang 30.
+
+
+3.4. Điểm ưu tiên theo từng phương thức
+
+- ĐTHGXT theo từng phương thức là ĐTHGXT_V-SAT, ĐTHGXT_ĐGNL hoặc ĐTHGXT_THPT.
+
+- Điểm ưu tiên (ĐUT) theo từng phương thức tương ứng với ĐTHGXT của phương thức đó, bao gồm điểm ưu tiên đối tượng và điểm ưu tiên khu vực theo Điều 7 Quy chế tuyển sinh, và được xác định như sau:
+
+  + Thí sinh có (ĐTHGXT + ĐC) < 22,5 điểm:
+
+    ĐUT = MĐUT
+
+    với MĐUT là mức điểm ưu tiên theo quy định tại Điều 7 Quy chế tuyển sinh.
+
+  + Thí sinh có (ĐTHGXT + ĐC) >= 22,5 điểm:
+
+    ĐUT = [(30 - ĐTHXT - ĐC) / 7,5] x MĐUT
+
+
+3.5. Điểm xét tuyển theo từng phương thức
+
+  Điểm xét tuyển (kí hiệu là ĐXT) là căn cứ thực hiện xét tuyển và xác định thí sinh trúng tuyển vào một ngành, chương trình đào tạo. Điểm xét tuyển tối đa là 30 điểm và được tính như sau:
+
+    ĐXT = ĐTHGXT + ĐC + ĐUT
