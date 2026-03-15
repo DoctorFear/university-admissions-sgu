@@ -1,0 +1,54 @@
+--- Sheet: Sheet1 ---
+Unnamed: 0                                    DỰ KIẾN CHỈ TIÊU TUYỂN SINH NĂM 2025                                                Unnamed: 2    Unnamed: 3
+        TT                                                                 MÃ CTĐT                                                  TÊN CTĐT Chỉ tiêu chốt
+         1                                                                 7140114                                          Quản lý giáo dục            40
+         2                                                                 7140201                                          Giáo dục Mầm non           200
+         3                                                                 7140202                                         Giáo dục Tiểu học           200
+         4                                                                 7140205                                        Giáo dục chính trị            10
+         5                                                                 7140209                                          Sư phạm Toán học            40
+         6                                                                 7140211                                            Sư phạm Vật lý            10
+         7                                                                 7140212                                           Sư phạm Hoá học            10
+         8                                                                 7140213                                          Sư phạm Sinh học            10
+         9                                                                 7140217                                           Sư phạm Ngữ văn            50
+        10                                                                 7140218                                           Sư phạm Lịch sử            10
+        11                                                                 7140219                                            Sư phạm Địa lý            10
+        12                                                                 7140221                                           Sư phạm Âm nhạc            75
+        13                                                                 7140222                                          Sư phạm Mỹ thuật            75
+        14                                                                 7140231                                         Sư phạm Tiếng Anh           120
+        15                                                                 7140247                                 Sư phạm Khoa học tự nhiên            60
+        16                                                                 7140249                                  Sư phạm Lịch sử - Địa lý            40
+        17                                                                 7220201                                              Ngôn ngữ Anh           253
+        18                                                              7220201CLC        Ngôn ngữ Anh (Chương trình đào tạo chất lượng cao)           100
+        19                                                                 7229010                                                   Lịch sử            30
+        20                                                                 7310401                                                Tâm lý học           100
+        21                                                                 7310501                                                Địa lý học            30
+        22                                                                 7310601                                               Quốc tế học            80
+        23                                                                 7310630                                              Việt Nam học           140
+        24                                                                 7320201                                      Thông tin - Thư viện            30
+        25                                                                 7340101                                       Quản trị kinh doanh           360
+        26                                                              7340101CLC Quản trị kinh doanh (Chương trình đào tạo chất lượng cao)           100
+        27                                                                 7340120                                        Kinh doanh quốc tế           200
+        28                                                                 7340201                                     Tài chính - Ngân hàng           500
+        29                                                                 7340301                                                   Kế toán           380
+        30                                                              7340301CLC             Kế toán (Chương trình đào tạo chất lượng cao)            50
+        31                                                                 7340302                                                 Kiểm toán            60
+        32                                                                 7340406                                        Quản trị văn phòng            70
+        33                                                                 7380101                                                      Luật           210
+        34                                                                 7440301                                       Khoa học môi trường            30
+        35                                                                 7460108                                          Khoa học dữ liệu            80
+        36                                                                 7460112                                             Toán ứng dụng            90
+        37                                                                 7480103                                         Kỹ thuật phần mềm           110
+        38                                                                 7480107                                          Trí tuệ nhân tạo            80
+        39                                                                 7480201                                       Công nghệ thông tin           400
+        40                                                              7480201CLC Công nghệ thông tin (Chương trình đào tạo chất lượng cao)           350
+        41                                                                 7510301                          Công nghệ kỹ thuật điện, điện tử            45
+        42                                                                 7510302                   Công nghệ kỹ thuật điện tử – viễn thông            45
+        43                                                                 7510406                             Công nghệ kỹ thuật môi trường            30
+        44                                                                 7520201                                             Kỹ thuật điện            30
+        46                                                                 7520207          Kỹ thuật điện tử - viễn thông (Thiết kế vi mạch)            90
+        47                                                                 7810101                                                   Du lịch           120
+        48                                                                 7810202                      Quản trị nhà hàng và dịch vụ ăn uống            60
+       NaN                                                                     NaN                                                       NaN          5213
+       NaN                                                                     NaN                                                       NaN           NaN
+       NaN * Các ngành đào tạo giáo viên đã ghi đúng chỉ tiêu đăng kí với Bộ GD&ĐT                                                       NaN           NaN
+
