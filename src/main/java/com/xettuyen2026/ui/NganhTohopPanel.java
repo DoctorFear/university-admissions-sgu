@@ -47,12 +47,12 @@ public class NganhTohopPanel extends JPanel {
     }
 
     private JPanel createToolbar() {
-        JPanel toolbar = new JPanel(new BorderLayout(12, 0));
+        JPanel toolbar = new JPanel(new BorderLayout(8, 0));
         toolbar.setOpaque(false);
         toolbar.setPreferredSize(new Dimension(0, 48));
 
         // Left: Filter by nganh + search
-        JPanel leftPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 8, 6));
+        JPanel leftPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 6, 6));
         leftPanel.setOpaque(false);
 
         JLabel lblFilter = new JLabel("Ngành:");
@@ -61,18 +61,19 @@ public class NganhTohopPanel extends JPanel {
 
         cboFilterNganh = new JComboBox<>();
         cboFilterNganh.setFont(UIConstants.FONT_REGULAR);
-        cboFilterNganh.setPreferredSize(new Dimension(280, 34));
+        cboFilterNganh.setPreferredSize(new Dimension(200, 34));
         cboFilterNganh.addActionListener(e -> doFilter());
         leftPanel.add(cboFilterNganh);
 
-        searchBar = new SearchBar("Tìm theo mã tổ hợp...", e -> doSearch());
+        searchBar = new SearchBar("Tìm mã tổ hợp...", e -> doSearch());
+        searchBar.setPreferredSize(new Dimension(180, 34));
         leftPanel.add(searchBar);
 
         RoundedButton btnSearch = new RoundedButton(UIConstants.ICON_SEARCH + " Tìm", UIConstants.PRIMARY_LIGHT);
         btnSearch.addActionListener(e -> doSearch());
         leftPanel.add(btnSearch);
 
-        toolbar.add(leftPanel, BorderLayout.WEST);
+        toolbar.add(leftPanel, BorderLayout.CENTER);
 
         // Right: Action buttons
         JPanel rightPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 6, 6));
@@ -81,7 +82,7 @@ public class NganhTohopPanel extends JPanel {
         RoundedButton btnImport = new RoundedButton(UIConstants.ICON_IMPORT + " Import", new Color(0x00796B));
         btnImport.addActionListener(e -> doImport());
 
-        RoundedButton btnAdd = new RoundedButton(UIConstants.ICON_ADD + " Thêm mới", UIConstants.SUCCESS);
+        RoundedButton btnAdd = new RoundedButton(UIConstants.ICON_ADD + " Thêm", UIConstants.SUCCESS);
         btnAdd.addActionListener(e -> doAdd());
 
         RoundedButton btnEdit = new RoundedButton(UIConstants.ICON_EDIT + " Sửa", UIConstants.WARNING);
