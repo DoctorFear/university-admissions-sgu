@@ -43,7 +43,7 @@ public class ThiSinhPanel extends JPanel {
 
         searchBar = new SearchBar("Tìm theo CCCD hoặc họ tên...", e -> doSearch());
 
-        RoundedButton btnSearch = new RoundedButton(UIConstants.ICON_SEARCH + " Tìm kiếm", UIConstants.PRIMARY);
+        RoundedButton btnSearch = new RoundedButton(UIConstants.ICON_SEARCH + " Tìm kiếm", UIConstants.PRIMARY_LIGHT);
         btnSearch.addActionListener(e -> doSearch());
 
         leftPanel.add(searchBar);
