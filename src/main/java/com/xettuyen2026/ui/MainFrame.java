@@ -254,8 +254,8 @@ public class MainFrame extends JFrame {
         // Placeholder panels for other modules
         contentPanel.add(createPlaceholderPanel("Quản lý Người dùng", UIConstants.ICON_USER), "user");
         contentPanel.add(createPlaceholderPanel("Quản lý Ngành tuyển sinh", UIConstants.ICON_MAJOR), "nganh");
-        contentPanel.add(createPlaceholderPanel("Quản lý Tổ hợp môn", UIConstants.ICON_COMBO), "tohop");
-        contentPanel.add(createPlaceholderPanel("Quản lý Ngành - Tổ hợp", UIConstants.ICON_MAJOR_COMBO), "nganh_tohop");
+        contentPanel.add(new TohopPanel(), "tohop");
+        contentPanel.add(new NganhTohopPanel(), "nganh_tohop");
         contentPanel.add(createPlaceholderPanel("Quản lý Điểm cộng", UIConstants.ICON_BONUS), "diemcong");
         contentPanel.add(createPlaceholderPanel("Bảng quy đổi", UIConstants.ICON_CONVERT), "bangquydoi");
     }

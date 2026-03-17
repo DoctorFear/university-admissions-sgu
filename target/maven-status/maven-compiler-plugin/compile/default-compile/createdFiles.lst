@@ -24,6 +24,7 @@ com\xettuyen2026\service\BangQuydoiService.class
 com\xettuyen2026\ui\common\PaginatedTable$2.class
 com\xettuyen2026\ui\UserPanel.class
 com\xettuyen2026\ui\DiemThiPanel$3.class
+com\xettuyen2026\ui\NganhTohopPanel$1.class
 com\xettuyen2026\ui\NganhTohopPanel.class
 com\xettuyen2026\ui\MainFrame$1.class
 com\xettuyen2026\dao\BangQuydoiDAO.class
@@ -51,6 +52,7 @@ com\xettuyen2026\service\AdmissionService.class
 com\xettuyen2026\ui\common\PaginatedTable$1.class
 com\xettuyen2026\ui\common\ConfirmDialog.class
 com\xettuyen2026\config\AppConfig.class
+com\xettuyen2026\service\NganhTohopService$1.class
 com\xettuyen2026\ui\common\MessageHelper.class
 com\xettuyen2026\ui\DiemThiPanel$1.class
 com\xettuyen2026\dao\UserDAO.class
@@ -69,9 +71,11 @@ com\xettuyen2026\Main.class
 com\xettuyen2026\ui\DiemThiPanel.class
 com\xettuyen2026\ui\common\PaginatedTable.class
 com\xettuyen2026\config\HibernateConfig.class
+com\xettuyen2026\ui\TohopPanel$1.class
 com\xettuyen2026\ui\common\SearchBar$3.class
 com\xettuyen2026\ui\DashboardPanel$3.class
 com\xettuyen2026\service\XetTuyenService.class
+com\xettuyen2026\service\TohopService$1.class
 com\xettuyen2026\ui\NguyenVongPanel$3.class
 com\xettuyen2026\ui\common\PaginatedTable$3.class
 com\xettuyen2026\ui\LoginForm$2.class

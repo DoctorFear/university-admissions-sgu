@@ -55,7 +55,7 @@ public class NguyenVongPanel extends JPanel {
         JPanel row1 = new JPanel(new FlowLayout(FlowLayout.LEFT, 6, 4));
         row1.setOpaque(false);
         searchBar = new SearchBar("Tìm theo CCCD...", e -> doSearch());
-        RoundedButton btnSearch = new RoundedButton(UIConstants.ICON_SEARCH + " Tìm", UIConstants.PRIMARY);
+        RoundedButton btnSearch = new RoundedButton(UIConstants.ICON_SEARCH + " Tìm", UIConstants.PRIMARY_LIGHT);
         btnSearch.addActionListener(e -> doSearch());
         RoundedButton btnLoad = new RoundedButton("📋 Tải DS", UIConstants.PRIMARY);
         btnLoad.addActionListener(e -> loadData());

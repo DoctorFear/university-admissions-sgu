@@ -61,7 +61,7 @@ public final class UIConstants {
     public static final int CARD_RADIUS_LG   = 16;
     public static final int BUTTON_RADIUS    = 8;
     public static final int FIELD_RADIUS     = 8;
-    public static final int PAGE_SIZE        = 20;
+    public static final int PAGE_SIZE        = 18;
 
     // ── Emoji Icons for Menu  ─────────────────────────────────
     public static final String ICON_DASHBOARD  = "📊";
