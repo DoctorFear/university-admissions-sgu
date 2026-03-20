@@ -1,0 +1,15 @@
+# Eclipse / Spring Tools
+.metadata/
+.classpath
+.project
+.settings/
+*.launch
+
+# Maven build output
+target/
+src/main/resources/hibernate.cfg.xml
+
+# IDE khác
+.idea/
+*.iml
+
