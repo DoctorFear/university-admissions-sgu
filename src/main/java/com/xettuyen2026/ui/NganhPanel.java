@@ -1,7 +1,7 @@
 package com.xettuyen2026.ui;
 
 import com.xettuyen2026.entity.Nganh;
-import com.xettuyen2026.service.NganhService;
+import com.xettuyen2026.service.*;
 import com.xettuyen2026.ui.common.*;
  
 import javax.swing.*;
@@ -15,6 +15,7 @@ public class NganhPanel extends JPanel {
 	private PaginatedTable styledTable;
     private SearchBar searchBar;
     private final NganhService service;
+    private final TohopService tohopService;
     
     // Hien thi ds nganh 
     private List<Nganh> loadedEntities = new ArrayList<>();
@@ -28,6 +29,7 @@ public class NganhPanel extends JPanel {
     
     public NganhPanel() {
         service = new NganhService();
+        tohopService = new TohopService();
         setLayout(new BorderLayout(0, 12));
         setBackground(UIConstants.BG_MAIN);
         setBorder(BorderFactory.createEmptyBorder(16, 16, 16, 16));
@@ -210,7 +212,8 @@ public class NganhPanel extends JPanel {
     }
  
     private void doAdd() {
-        NganhDialog dlg = new NganhDialog(SwingUtilities.getWindowAncestor(this), null);
+    	NganhDialog dlg = new NganhDialog(
+    	        SwingUtilities.getWindowAncestor(this), null, getValidTohop());
         dlg.setVisible(true);
  
         if (dlg.isSaved()) {
@@ -235,7 +238,8 @@ public class NganhPanel extends JPanel {
         if (realIdx >= loadedEntities.size()) return;
  
         Nganh selected = loadedEntities.get(realIdx);
-        NganhDialog dlg = new NganhDialog(SwingUtilities.getWindowAncestor(this), selected);
+        NganhDialog dlg = new NganhDialog(
+        	    SwingUtilities.getWindowAncestor(this), selected, getValidTohop());
         dlg.setVisible(true);
  
         if (dlg.isSaved()) {
@@ -270,6 +274,14 @@ public class NganhPanel extends JPanel {
             } catch (Exception e) {
                 MessageHelper.showError(this, "Lỗi: " + e.getMessage());
             }
+        }
+    }
+    
+    private List<String> getValidTohop() {
+        try {
+            return service.getValidTohopCheck();
+        } catch (Exception e) {
+            return new ArrayList<>();
         }
     }
     

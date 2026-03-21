@@ -20,6 +20,7 @@ public class NganhDialog extends JDialog {
     private JTextField txtChiTieu;
     private JTextField txtDiemSan;
     private JTextField txtDiemTrungTuyen;
+    private java.util.List<String> validTohop;
  
     // Phuong thuc xet tuyen: checkbox + o sl đi kem
     private JCheckBox  chkThpt;
@@ -34,11 +35,12 @@ public class NganhDialog extends JDialog {
     private JCheckBox  chkTuyenThang;
     private JTextField txtSlXtt;
     
-    public NganhDialog(Window owner, Nganh existing) {
+    public NganhDialog(Window owner, Nganh existing, java.util.List<String> validTohop) {
         super(owner,
               existing == null ? "Thêm mới ngành tuyển sinh" : "Sửa thông tin ngành",
               ModalityType.APPLICATION_MODAL);
         this.entity = existing;
+        this.validTohop = validTohop; // thêm dòng này
         setSize(560, 580);
         setLocationRelativeTo(owner);
         setResizable(false);
@@ -298,6 +300,24 @@ public class NganhDialog extends JDialog {
             catch (NumberFormatException ex) {
                 warn("Điểm trúng tuyển không hợp lệ!");
                 txtDiemTrungTuyen.requestFocus();
+                return;
+            }
+        }
+        
+        // Parse To hop goc
+        if (!tohopGoc.isEmpty()) {
+            String[] tohops = tohopGoc.split("[,;\\s]+");
+            java.util.List<String> invalid = new java.util.ArrayList<>();
+            for (String th : tohops) {
+                String thTrim = th.trim().toUpperCase();
+                if (!thTrim.isEmpty() && !validTohop.contains(thTrim)) {
+                    invalid.add(thTrim);
+                }
+            }
+            if (!invalid.isEmpty()) {
+                warn("Tổ hợp không hợp lệ: " + String.join(", ", invalid)
+                   + "\nVui lòng chỉ nhập các tổ hợp đã được quản lý!");
+                txtTohopGoc.requestFocus();
                 return;
             }
         }

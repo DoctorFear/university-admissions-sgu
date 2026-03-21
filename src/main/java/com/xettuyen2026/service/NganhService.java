@@ -1,19 +1,22 @@
 package com.xettuyen2026.service;
 
-import com.xettuyen2026.dao.NganhDAO;
+import com.xettuyen2026.dao.*;
 import com.xettuyen2026.entity.Nganh;
 import com.xettuyen2026.util.ImportUtil;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class NganhService {
 	
 	private final NganhDAO nganhDAO;
+	private final TohopMonthiDAO tohopDAO;
 	
 	public NganhService() {
 		this.nganhDAO = new NganhDAO();
+		this.tohopDAO = new TohopMonthiDAO();
 	}
 	
 	// Xem va tim kiem nganh
@@ -89,5 +92,13 @@ public class NganhService {
 	    if (nganh.getnChitieu() == null || nganh.getnChitieu() < 0) {
 	        throw new RuntimeException("Chỉ tiêu không hợp lệ!");
 	    }
+	}
+	
+	// Lay thong tin nganh hop le
+	public List<String> getValidTohopCheck() {
+	    return tohopDAO.findAll()
+	        .stream()
+	        .map(t -> t.getMatohop().trim().toUpperCase())
+	        .collect(Collectors.toList());
 	}
 }
