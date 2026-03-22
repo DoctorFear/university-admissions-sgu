@@ -21,9 +21,14 @@ public class DiemThiXetTuyen {
     @Column(name = "d_phuongthuc", length = 10)
     private String dPhuongthuc;
 
+    // Mon bat buoc
     @Column(name = "`TO`", precision = 8, scale = 2)
     private BigDecimal to;
 
+    @Column(name = "VA", precision = 8, scale = 2)
+    private BigDecimal va;
+
+    // Mon tu chon KHTN
     @Column(name = "LI", precision = 8, scale = 2)
     private BigDecimal li;
 
@@ -33,21 +38,24 @@ public class DiemThiXetTuyen {
     @Column(name = "SI", precision = 8, scale = 2)
     private BigDecimal si;
 
+    // Mon tu chon KHXH
     @Column(name = "SU", precision = 8, scale = 2)
     private BigDecimal su;
 
     @Column(name = "DI", precision = 8, scale = 2)
     private BigDecimal di;
 
-    @Column(name = "VA", precision = 8, scale = 2)
-    private BigDecimal va;
+    @Column(name = "GDCD", precision = 8, scale = 2)
+    private BigDecimal gdcd;
 
+    // Ngoai ngu
     @Column(name = "N1_THI", precision = 8, scale = 2)
     private BigDecimal n1Thi;
 
     @Column(name = "N1_CC", precision = 8, scale = 2)
     private BigDecimal n1Cc;
 
+    // Mon khac
     @Column(name = "CNCN", precision = 8, scale = 2)
     private BigDecimal cncn;
 
@@ -60,16 +68,24 @@ public class DiemThiXetTuyen {
     @Column(name = "KTPL", precision = 8, scale = 2)
     private BigDecimal ktpl;
 
+    // Nang khieu - luu 2 mon thi + ma mon tuong ung
+    @Column(name = "NK_MON1", length = 20)
+    private String nkMon1;
+
+    @Column(name = "NK_DIEM1", precision = 8, scale = 2)
+    private BigDecimal nkDiem1;
+
+    @Column(name = "NK_MON2", length = 20)
+    private String nkMon2;
+
+    @Column(name = "NK_DIEM2", precision = 8, scale = 2)
+    private BigDecimal nkDiem2;
+
+    // DGNL
     @Column(name = "NL1", precision = 8, scale = 2)
     private BigDecimal nl1;
 
-    @Column(name = "NK1", precision = 8, scale = 2)
-    private BigDecimal nk1;
-
-    @Column(name = "NK2", precision = 8, scale = 2)
-    private BigDecimal nk2;
-
-    // Getters and Setters
+    // Getters & Setters
     public Integer getIddiemthi() { return iddiemthi; }
     public void setIddiemthi(Integer iddiemthi) { this.iddiemthi = iddiemthi; }
     public String getCccd() { return cccd; }
@@ -80,6 +96,8 @@ public class DiemThiXetTuyen {
     public void setdPhuongthuc(String dPhuongthuc) { this.dPhuongthuc = dPhuongthuc; }
     public BigDecimal getTo() { return to; }
     public void setTo(BigDecimal to) { this.to = to; }
+    public BigDecimal getVa() { return va; }
+    public void setVa(BigDecimal va) { this.va = va; }
     public BigDecimal getLi() { return li; }
     public void setLi(BigDecimal li) { this.li = li; }
     public BigDecimal getHo() { return ho; }
@@ -90,8 +108,8 @@ public class DiemThiXetTuyen {
     public void setSu(BigDecimal su) { this.su = su; }
     public BigDecimal getDi() { return di; }
     public void setDi(BigDecimal di) { this.di = di; }
-    public BigDecimal getVa() { return va; }
-    public void setVa(BigDecimal va) { this.va = va; }
+    public BigDecimal getGdcd() { return gdcd; }
+    public void setGdcd(BigDecimal gdcd) { this.gdcd = gdcd; }
     public BigDecimal getN1Thi() { return n1Thi; }
     public void setN1Thi(BigDecimal n1Thi) { this.n1Thi = n1Thi; }
     public BigDecimal getN1Cc() { return n1Cc; }
@@ -104,10 +122,14 @@ public class DiemThiXetTuyen {
     public void setTi(BigDecimal ti) { this.ti = ti; }
     public BigDecimal getKtpl() { return ktpl; }
     public void setKtpl(BigDecimal ktpl) { this.ktpl = ktpl; }
+    public String getNkMon1() { return nkMon1; }
+    public void setNkMon1(String nkMon1) { this.nkMon1 = nkMon1; }
+    public BigDecimal getNkDiem1() { return nkDiem1; }
+    public void setNkDiem1(BigDecimal nkDiem1) { this.nkDiem1 = nkDiem1; }
+    public String getNkMon2() { return nkMon2; }
+    public void setNkMon2(String nkMon2) { this.nkMon2 = nkMon2; }
+    public BigDecimal getNkDiem2() { return nkDiem2; }
+    public void setNkDiem2(BigDecimal nkDiem2) { this.nkDiem2 = nkDiem2; }
     public BigDecimal getNl1() { return nl1; }
     public void setNl1(BigDecimal nl1) { this.nl1 = nl1; }
-    public BigDecimal getNk1() { return nk1; }
-    public void setNk1(BigDecimal nk1) { this.nk1 = nk1; }
-    public BigDecimal getNk2() { return nk2; }
-    public void setNk2(BigDecimal nk2) { this.nk2 = nk2; }
 }
