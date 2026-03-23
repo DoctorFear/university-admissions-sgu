@@ -7,6 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 
@@ -27,10 +29,10 @@ public class User {
     @Column(name = "ho_ten", length = 100)
     private String hoTen;
 
-    @Column(unique = true, length = 100)
+    @Column(length = 100)
     private String email;
 
-    @Column(length = 20)
+    @Column(length = 10)
     private String role; // ADMIN, STAFF, USER
 
     @Column(nullable = false)
@@ -39,9 +41,9 @@ public class User {
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-    // @ManyToOne
-    // @JoinColumn(name = "group_id")
-    // private UserGroup group;
+    @ManyToOne
+    @JoinColumn(name = "group_id")
+    private UserGroup group;
 
     @PrePersist
     public void prePersist() {
@@ -49,6 +51,7 @@ public class User {
     }
 
     public Integer getId() { return id; }
+    public void setId(Integer id) { this.id = id; }
     public String getUsername() { return username; }
     public void setUsername(String username) { this.username = username; }
     public String getPassword() { return password; }
@@ -62,6 +65,6 @@ public class User {
     public boolean isEnabled() { return enabled; }
     public void setEnabled(boolean enabled) { this.enabled = enabled; }
     public LocalDateTime getCreatedAt() { return createdAt; }
-    // public UserGroup getGroup() { return group; }
-    // public void setGroup(UserGroup group) { this.group = group; }
+    public UserGroup getGroup() { return group; }
+    public void setGroup(UserGroup group) { this.group = group; }
 }

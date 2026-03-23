@@ -460,35 +460,36 @@ INSERT INTO `xt_bangquydoi` (`d_phuongthuc`, `d_tohop`, `d_mon`, `d_diema`, `d_d
 ('THPT', 'D01', NULL, 25.00,  26.99,  25.00, 25.00, 'THPT_D01_2',  '2');
 
 
--- DROP TABLE IF EXISTS `user_groups`;
+DROP TABLE IF EXISTS `user_groups`;
 
--- CREATE TABLE user_groups (
---     id INT AUTO_INCREMENT PRIMARY KEY,
---     ten_nhom VARCHAR(100) NOT NULL,         
---     ma_nhom VARCHAR(50) UNIQUE,              
---     loai_nhom VARCHAR(50),                
---     mo_ta TEXT,
---     parent_id INT,                        
---     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
---     FOREIGN KEY (parent_id) REFERENCES user_groups(id)
---         ON DELETE SET NULL
--- ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE user_groups (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    ten_nhom VARCHAR(100) NOT NULL,         
+    ma_nhom VARCHAR(50) UNIQUE,              
+    loai_nhom VARCHAR(50),                
+    mo_ta TEXT,
+    parent_id INT,                        
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    
+    FOREIGN KEY (parent_id) REFERENCES user_groups(id)
+        ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- -- Trường
--- INSERT INTO user_groups (ten_nhom, ma_nhom, loai_nhom)
--- VALUES ('Đại học Sài Gòn', 'SGU', 'truong');
+-- Trường
+INSERT INTO user_groups (ten_nhom, ma_nhom, loai_nhom)
+VALUES ('Đại học Sài Gòn', 'SGU', 'truong');
 
--- -- Khoa
--- INSERT INTO user_groups (ten_nhom, ma_nhom, loai_nhom, parent_id)
--- VALUES ('Khoa Công nghệ thông tin', 'CNTT', 'khoa', 1);
+-- Khoa
+INSERT INTO user_groups (ten_nhom, ma_nhom, loai_nhom, parent_id)
+VALUES ('Khoa Công nghệ thông tin', 'CNTT', 'khoa', 1);
 
--- -- Ngành
--- INSERT INTO user_groups (ten_nhom, ma_nhom, loai_nhom, parent_id)
--- VALUES ('Công nghệ thông tin', '7480201', 'nganh', 2);
+-- Ngành
+INSERT INTO user_groups (ten_nhom, ma_nhom, loai_nhom, parent_id)
+VALUES ('Công nghệ thông tin', '7480201', 'nganh', 2);
 
--- -- Phòng ban
--- INSERT INTO user_groups (ten_nhom, ma_nhom, loai_nhom)
--- VALUES ('Phòng tuyển sinh', 'PTS', 'phongban');
+-- Phòng ban
+INSERT INTO user_groups (ten_nhom, ma_nhom, loai_nhom)
+VALUES ('Phòng tuyển sinh', 'PTS', 'phongban');
 
 DROP TABLE IF EXISTS `users`;
 
@@ -500,7 +501,13 @@ CREATE TABLE users (
   email      VARCHAR(100),
   role       VARCHAR(10)  NOT NULL DEFAULT 'user',
   enabled    TINYINT(1)   DEFAULT 1,
-  created_at DATETIME     DEFAULT CURRENT_TIMESTAMP
+  created_at DATETIME     DEFAULT CURRENT_TIMESTAMP,
+  group_id INT,
+
+  CONSTRAINT fk_user_group
+    FOREIGN KEY (group_id)
+    REFERENCES user_groups(id)
+    ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Tạo tài khoản admin mặc định (password: Admin@123)

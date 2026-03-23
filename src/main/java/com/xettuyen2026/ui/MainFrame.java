@@ -1,14 +1,31 @@
 package com.xettuyen2026.ui;
 
-import com.xettuyen2026.ui.common.RoundedButton;
-import com.xettuyen2026.ui.common.UIConstants;
-
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
-import java.awt.geom.RoundRectangle2D;
+import java.awt.BorderLayout;
+import java.awt.CardLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridBagLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.LinkedHashMap;
 import java.util.Map;
+
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JSeparator;
+import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
+
+import com.xettuyen2026.ui.common.UIConstants;
 
 /**
  * MainFrame với sidebar navigation bên trái, header trên, content area trung tâm.
@@ -251,9 +268,9 @@ public class MainFrame extends JFrame {
         contentPanel.add(new DiemThiPanel(), "diemthi");
         contentPanel.add(new NguyenVongPanel(), "nguyenvong");
         contentPanel.add(new NganhPanel(), "nganh");
+        contentPanel.add(new UserPanel(), "user");
 
         // Placeholder panels for other modules
-        contentPanel.add(createPlaceholderPanel("Quản lý Người dùng", UIConstants.ICON_USER), "user");
         contentPanel.add(new TohopPanel(), "tohop");
         contentPanel.add(new NganhTohopPanel(), "nganh_tohop");
         contentPanel.add(createPlaceholderPanel("Quản lý Điểm cộng", UIConstants.ICON_BONUS), "diemcong");

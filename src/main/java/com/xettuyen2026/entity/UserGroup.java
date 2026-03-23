@@ -50,6 +50,7 @@ public class UserGroup {
     }
 
     public Integer getId() { return id; }
+    public void getId(Integer id) { this.id = id; }
     public String getTenNhom() { return tenNhom; }
     public void setTenNhom(String tenNhom) { this.tenNhom = tenNhom; }
     public String getMaNhom() { return maNhom; }

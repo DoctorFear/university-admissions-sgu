@@ -1,6 +1,8 @@
 package com.xettuyen2026.ui;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GradientPaint;
@@ -13,6 +15,7 @@ import java.awt.RenderingHints;
 import java.awt.geom.RoundRectangle2D;
 
 import javax.swing.BorderFactory;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -37,7 +40,7 @@ public class LoginForm extends JFrame {
     private JLabel lblError;
 
     public LoginForm() {
-        setTitle("Đăng nhập - Phần mềm Tuyển sinh SGU 2026");
+        setTitle("Đăng nhập - Phần mềm Tuyển sinh SGU");
         setSize(1280, 720);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -117,7 +120,7 @@ public class LoginForm extends JFrame {
         // ── Username ──
         gbc.gridy = 4;
         gbc.insets = new Insets(4, 40, 4, 40);
-        JLabel lblUser = new JLabel("👤  Tên đăng nhập");
+        JLabel lblUser = new JLabel("Tên đăng nhập");
         lblUser.setFont(UIConstants.FONT_BOLD);
         lblUser.setForeground(UIConstants.TEXT_PRIMARY);
         card.add(lblUser, gbc);
@@ -130,13 +133,16 @@ public class LoginForm extends JFrame {
         // ── Password ──
         gbc.gridy = 6;
         gbc.insets = new Insets(4, 40, 4, 40);
-        JLabel lblPass = new JLabel("🔒  Mật khẩu");
+        JLabel lblPass = new JLabel("Mật khẩu");
         lblPass.setFont(UIConstants.FONT_BOLD);
         lblPass.setForeground(UIConstants.TEXT_PRIMARY);
         card.add(lblPass, gbc);
 
         gbc.gridy = 7;
         gbc.insets = new Insets(0, 40, 16, 40);
+        JPanel passPanel = new JPanel(new BorderLayout(0, 6));
+        passPanel.setOpaque(false);
+
         txtPassword = new JPasswordField();
         txtPassword.setFont(UIConstants.FONT_REGULAR);
         txtPassword.setPreferredSize(new Dimension(0, 40));
@@ -144,7 +150,17 @@ public class LoginForm extends JFrame {
                 BorderFactory.createLineBorder(UIConstants.BORDER_LIGHT, 1, true),
                 BorderFactory.createEmptyBorder(4, 12, 4, 12)));
         txtPassword.addActionListener(e -> doLogin());
-        card.add(txtPassword, gbc);
+
+        JCheckBox chkShow = new JCheckBox("Hiện");
+        chkShow.setFont(UIConstants.FONT_SMALL);
+        chkShow.setOpaque(false);
+        chkShow.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        chkShow.addActionListener(e -> togglePassword(chkShow));
+
+        passPanel.add(txtPassword, BorderLayout.CENTER);
+        passPanel.add(chkShow, BorderLayout.SOUTH);
+
+        card.add(passPanel, gbc);
 
         // ── Error label ──
         gbc.gridy = 8;
@@ -223,5 +239,13 @@ public class LoginForm extends JFrame {
         //     MainFrame frame = new MainFrame(username);
         //     frame.setVisible(true);
         // });
+    }
+
+    private void togglePassword(JCheckBox chkShow) {
+        if (chkShow.isSelected()) {
+            txtPassword.setEchoChar((char) 0); // show
+        } else {
+            txtPassword.setEchoChar('•'); // hide
+        }
     }
 }
