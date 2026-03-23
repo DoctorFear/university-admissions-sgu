@@ -1,9 +1,10 @@
 package com.xettuyen2026;
 
-import com.xettuyen2026.ui.LoginForm;
-import com.formdev.flatlaf.FlatLightLaf;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 
-import javax.swing.*;
+import com.formdev.flatlaf.FlatLightLaf;
+import com.xettuyen2026.ui.LoginForm;
 
 public class Main {
     public static void main(String[] args) {

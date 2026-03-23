@@ -1,12 +1,30 @@
 package com.xettuyen2026.ui;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GradientPaint;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.RenderingHints;
+import java.awt.geom.RoundRectangle2D;
+
+import javax.swing.BorderFactory;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JSeparator;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
+
+import com.xettuyen2026.service.AuthService;
 import com.xettuyen2026.ui.common.RoundedButton;
 import com.xettuyen2026.ui.common.UIConstants;
-
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
-import java.awt.geom.RoundRectangle2D;
 
 /**
  * Màn hình Login - gradient background, centered white card.
@@ -182,13 +200,28 @@ public class LoginForm extends JFrame {
             return;
         }
 
-        // TODO: Implement proper auth
-        // For now, allow any login
+        AuthService authService = new AuthService();
+        var user = authService.login(username, password);
+
+        if (user == null) {
+            lblError.setText("Sai tài khoản hoặc mật khẩu!");
+            return;
+        }
+
         lblError.setText(" ");
         dispose();
+
         SwingUtilities.invokeLater(() -> {
-            MainFrame frame = new MainFrame(username);
+            MainFrame frame = new MainFrame(user.getUsername());
             frame.setVisible(true);
         });
+        // // TODO: Implement proper auth
+        // // For now, allow any login
+        // lblError.setText(" ");
+        // dispose();
+        // SwingUtilities.invokeLater(() -> {
+        //     MainFrame frame = new MainFrame(username);
+        //     frame.setVisible(true);
+        // });
     }
 }

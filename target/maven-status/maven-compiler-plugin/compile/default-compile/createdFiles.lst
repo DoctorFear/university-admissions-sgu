@@ -36,7 +36,9 @@ com\xettuyen2026\service\NganhTohopService.class
 com\xettuyen2026\ui\DiemThiPanel$2.class
 com\xettuyen2026\dao\ThiSinhDAO.class
 com\xettuyen2026\ui\NganhTohopDialog.class
+com\xettuyen2026\ui\NganhPanel$1.class
 com\xettuyen2026\ui\common\SearchBar$2.class
+com\xettuyen2026\entity\UserGroup.class
 com\xettuyen2026\service\NganhService.class
 com\xettuyen2026\ui\KetQuaXetTuyenPanel.class
 com\xettuyen2026\ui\DashboardPanel$4.class
@@ -45,6 +47,7 @@ com\xettuyen2026\util\ValidationUtil.class
 com\xettuyen2026\ui\DashboardPanel.class
 com\xettuyen2026\ui\NguyenVongPanel$1.class
 com\xettuyen2026\ui\NganhDialog.class
+com\xettuyen2026\util\ImportUtil$1.class
 com\xettuyen2026\dao\base\BaseDAO.class
 com\xettuyen2026\entity\NguyenVongXetTuyen.class
 com\xettuyen2026\service\NguyenVongImportService$1.class
@@ -90,11 +93,13 @@ com\xettuyen2026\ui\UserDialog.class
 com\xettuyen2026\dao\DiemCongDAO.class
 com\xettuyen2026\ui\DashboardPanel$2.class
 com\xettuyen2026\util\ExportUtil.class
+com\xettuyen2026\util\ImportUtil$RowMapper.class
 com\xettuyen2026\entity\BangQuydoi.class
 com\xettuyen2026\ui\common\SearchBar.class
 com\xettuyen2026\ui\DashboardPanel$1.class
 com\xettuyen2026\ui\LoginForm$3.class
 com\xettuyen2026\ui\NguyenVongPanel$4.class
+com\xettuyen2026\service\DiemThiService$ThongKe.class
 com\xettuyen2026\service\AuthService.class
 com\xettuyen2026\ui\KetQuaXetTuyenPanel$1.class
 com\xettuyen2026\dao\base\BaseDAO$QueryCustomizer.class

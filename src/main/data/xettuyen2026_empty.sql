@@ -458,3 +458,51 @@ INSERT INTO `xt_bangquydoi` (`d_phuongthuc`, `d_tohop`, `d_mon`, `d_diema`, `d_d
 ('THPT', 'A00', NULL, 25.00,  26.99,  25.00, 25.00, 'THPT_A00_2',  '2'),
 ('THPT', 'D01', NULL, 27.00,  30.00,  27.00, 27.00, 'THPT_D01_1',  '1'),
 ('THPT', 'D01', NULL, 25.00,  26.99,  25.00, 25.00, 'THPT_D01_2',  '2');
+
+
+-- DROP TABLE IF EXISTS `user_groups`;
+
+-- CREATE TABLE user_groups (
+--     id INT AUTO_INCREMENT PRIMARY KEY,
+--     ten_nhom VARCHAR(100) NOT NULL,         
+--     ma_nhom VARCHAR(50) UNIQUE,              
+--     loai_nhom VARCHAR(50),                
+--     mo_ta TEXT,
+--     parent_id INT,                        
+--     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+--     FOREIGN KEY (parent_id) REFERENCES user_groups(id)
+--         ON DELETE SET NULL
+-- ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- -- Trường
+-- INSERT INTO user_groups (ten_nhom, ma_nhom, loai_nhom)
+-- VALUES ('Đại học Sài Gòn', 'SGU', 'truong');
+
+-- -- Khoa
+-- INSERT INTO user_groups (ten_nhom, ma_nhom, loai_nhom, parent_id)
+-- VALUES ('Khoa Công nghệ thông tin', 'CNTT', 'khoa', 1);
+
+-- -- Ngành
+-- INSERT INTO user_groups (ten_nhom, ma_nhom, loai_nhom, parent_id)
+-- VALUES ('Công nghệ thông tin', '7480201', 'nganh', 2);
+
+-- -- Phòng ban
+-- INSERT INTO user_groups (ten_nhom, ma_nhom, loai_nhom)
+-- VALUES ('Phòng tuyển sinh', 'PTS', 'phongban');
+
+DROP TABLE IF EXISTS `users`;
+
+CREATE TABLE users (
+  id         INT AUTO_INCREMENT PRIMARY KEY,
+  username   VARCHAR(50)  NOT NULL UNIQUE,
+  password   VARCHAR(100) NOT NULL,
+  ho_ten     VARCHAR(100),
+  email      VARCHAR(100),
+  role       VARCHAR(10)  NOT NULL DEFAULT 'user',
+  enabled    TINYINT(1)   DEFAULT 1,
+  created_at DATETIME     DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Tạo tài khoản admin mặc định (password: Admin@123)
+INSERT INTO users (username, password, ho_ten, role)
+VALUES ('admin', '$2a$10$FH6Atf.0kfssxzYprGebFe5yRA2B4K.a83ZG/yzb1X7Gsxni17LPG', 'Quản trị viên', 'admin');

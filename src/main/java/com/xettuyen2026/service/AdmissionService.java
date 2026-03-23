@@ -1,11 +1,34 @@
 package com.xettuyen2026.service;
 
-import com.xettuyen2026.dao.*;
-import com.xettuyen2026.entity.*;
-
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.PriorityQueue;
+import java.util.Queue;
+import java.util.Set;
+
+import com.xettuyen2026.dao.BangQuydoiDAO;
+import com.xettuyen2026.dao.DiemCongDAO;
+import com.xettuyen2026.dao.DiemThiDAO;
+import com.xettuyen2026.dao.NganhDAO;
+import com.xettuyen2026.dao.NganhTohopDAO;
+import com.xettuyen2026.dao.NguyenVongDAO;
+import com.xettuyen2026.dao.ThiSinhDAO;
+import com.xettuyen2026.entity.BangQuydoi;
+import com.xettuyen2026.entity.DiemCongXetTuyen;
+import com.xettuyen2026.entity.DiemThiXetTuyen;
+import com.xettuyen2026.entity.Nganh;
+import com.xettuyen2026.entity.NganhTohop;
+import com.xettuyen2026.entity.NguyenVongXetTuyen;
+import com.xettuyen2026.entity.ThiSinh;
 
 /**
  * Service tính điểm + chạy thuật toán xét tuyển.
@@ -182,8 +205,8 @@ public class AdmissionService {
             case "CNCN": return d.getCncn() != null ? d.getCncn() : BigDecimal.ZERO;
             case "CNNN": return d.getCnnn() != null ? d.getCnnn() : BigDecimal.ZERO;
             case "KTPL": return d.getKtpl() != null ? d.getKtpl() : BigDecimal.ZERO;
-            case "NK1": return d.getNk1() != null ? d.getNk1() : BigDecimal.ZERO;
-            case "NK2": return d.getNk2() != null ? d.getNk2() : BigDecimal.ZERO;
+            // case "NK1": return d.getNk1() != null ? d.getNk1() : BigDecimal.ZERO;
+            // case "NK2": return d.getNk2() != null ? d.getNk2() : BigDecimal.ZERO;
             default: return BigDecimal.ZERO;
         }
     }
