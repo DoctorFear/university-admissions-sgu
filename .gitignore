@@ -13,3 +13,6 @@ src/main/resources/hibernate.cfg.xml
 .idea/
 *.iml
 
+docker-compose.yml
+.env
+

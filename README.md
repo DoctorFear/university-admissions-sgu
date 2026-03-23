@@ -187,7 +187,7 @@ CREATE TABLE users (
 
 -- Tạo tài khoản admin mặc định (password: Admin@123)
 INSERT INTO users (username, password, ho_ten, role)
-VALUES ('admin', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', 'Quản trị viên', 'admin');
+VALUES ('admin', '$2a$10$FH6Atf.0kfssxzYprGebFe5yRA2B4K.a83ZG/yzb1X7Gsxni17LPG', 'Quản trị viên', 'admin');
 ```
 
 > 💡 Password mặc định của tài khoản `admin` là `Admin@123`  
