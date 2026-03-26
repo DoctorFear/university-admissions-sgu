@@ -2,11 +2,31 @@ package com.xettuyen2026.ui;
 
 import com.xettuyen2026.entity.DiemThiXetTuyen;
 import com.xettuyen2026.service.DiemThiService;
-import com.xettuyen2026.ui.common.*;
+import com.xettuyen2026.ui.common.ConfirmDialog;
+import com.xettuyen2026.ui.common.MessageHelper;
+import com.xettuyen2026.ui.common.PaginatedTable;
+import com.xettuyen2026.ui.common.RoundedButton;
+import com.xettuyen2026.ui.common.SearchBar;
+import com.xettuyen2026.ui.common.UIConstants;
 
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.JFileChooser;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
+import javax.swing.JTable;
+import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableCellRenderer;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.io.File;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -16,28 +36,37 @@ import java.util.Map;
 
 public class DiemThiPanel extends JPanel {
 
-    private final DiemThiService service = new DiemThiService();
-
-    // Luu toan bo data theo phuong thuc de tinh stats co dinh
-    private final Map<String, List<DiemThiXetTuyen>> allDataMap = new HashMap<>();
-
-    // Cot hien thi theo tung phuong thuc
     private static final String[] COL_THPT = {
         "STT", "CCCD", "SBD",
-        "Toán", "Văn",
-        "Lý", "Hóa", "Sinh",
-        "Sử", "Địa", "GDCD",
-        "NN(Thi)", "NN(CC)",
-        "CN.CN", "CN.NN", "Tin", "KTPL",
-        "Môn NK1", "Điểm NK1", "Môn NK2", "Điểm NK2"
+        "Toán", "Văn", "Lý", "Hóa", "Sinh", "Sử", "Địa",
+        "GDCD", "Anh (thi)", "Anh (CC)",
+        "CNCN", "CNNN", "Tin", "KTPL",
+        "NK1", "NK2", "NK3", "NK4", "NK5", "NK6"
     };
-    private static final String[] COL_DGNL = {
-        "STT", "CCCD", "SBD", "Điểm ĐGNL"
+
+    private static final int[] WIDTH_THPT = {
+        60, 140, 110,
+        85, 85, 85, 85, 85, 85, 85,
+        85, 95, 95,
+        95, 95, 85, 85,
+        85, 85, 85, 85, 85, 85
     };
-    // TODO: cap nhat cot VSAT khi co thong tin tu thay
+
+    private static final String[] COL_DGNL = {"STT", "CCCD", "SBD", "Điểm ĐGNL"};
+    private static final int[] WIDTH_DGNL = {60, 250, 250, 292};
+
     private static final String[] COL_VSAT = {
-        "STT", "CCCD", "SBD"
+        "STT", "CCCD", "SBD",
+        "Toán", "Văn", "Lý", "Hóa", "Sinh", "Sử", "Địa", "Anh"
     };
+
+    private static final int[] WIDTH_VSAT = {
+        60, 140, 110,
+        85, 85, 85, 85, 85, 85, 85, 85
+    };
+
+    private final DiemThiService service = new DiemThiService();
+    private final Map<String, List<DiemThiXetTuyen>> allDataMap = new HashMap<>();
 
     public DiemThiPanel() {
         setLayout(new BorderLayout());
@@ -53,24 +82,26 @@ public class DiemThiPanel extends JPanel {
         JTabbedPane tabs = new JTabbedPane(JTabbedPane.TOP);
         tabs.setFont(UIConstants.FONT_BOLD);
         tabs.setBackground(Color.WHITE);
-        tabs.addTab("THPT",  createTabPanel("THPT",  COL_THPT));
-        tabs.addTab("DGNL",  createTabPanel("DGNL",  COL_DGNL));
-        tabs.addTab("V-SAT", createTabPanel("VSAT",  COL_VSAT));
+        tabs.addTab("THPT", createTabPanel(DiemThiService.PHUONG_THUC_THPT, COL_THPT, WIDTH_THPT));
+        tabs.addTab("DGNL", createTabPanel(DiemThiService.PHUONG_THUC_DGNL, COL_DGNL, WIDTH_DGNL));
+        tabs.addTab("V-SAT", createTabPanel(DiemThiService.PHUONG_THUC_VSAT, COL_VSAT, WIDTH_VSAT));
         add(tabs, BorderLayout.CENTER);
     }
 
-    private JPanel createTabPanel(String phuongThuc, String[] columns) {
+    private JPanel createTabPanel(String phuongThuc, String[] columns, int[] widths) {
         JPanel panel = new JPanel(new BorderLayout(0, 8));
         panel.setBackground(UIConstants.BG_MAIN);
         panel.setBorder(BorderFactory.createEmptyBorder(8, 0, 0, 0));
 
         PaginatedTable table = new PaginatedTable(columns);
-        SearchBar searchBar  = new SearchBar("Tìm theo CCCD hoặc tên môn...", null);
-        JLabel lblTB         = new JLabel("---");
-        JLabel lblCao        = new JLabel("---");
-        JLabel lblThap       = new JLabel("---");
+        table.enableHorizontalScroll(widths);
 
-        applyRenderer(table, phuongThuc);
+        SearchBar searchBar = new SearchBar("Tìm theo CCCD hoặc tên môn...", null);
+        JLabel lblTB = new JLabel("---");
+        JLabel lblCao = new JLabel("---");
+        JLabel lblThap = new JLabel("---");
+
+        applyRenderer(table);
         panel.add(buildToolbar(table, searchBar, phuongThuc, lblTB, lblCao, lblThap), BorderLayout.NORTH);
 
         JPanel content = new JPanel(new BorderLayout(12, 0));
@@ -79,51 +110,32 @@ public class DiemThiPanel extends JPanel {
         content.add(buildStatsPanel(lblTB, lblCao, lblThap), BorderLayout.EAST);
         panel.add(content, BorderLayout.CENTER);
 
-        // Load du lieu lan dau
         SwingUtilities.invokeLater(() -> loadData(table, phuongThuc, lblTB, lblCao, lblThap));
         return panel;
     }
 
-    // ─────────────────────────────────────────
-    // TOOLBAR
-    // ─────────────────────────────────────────
-
-    private JPanel buildToolbar(PaginatedTable table, SearchBar searchBar,
-                                String phuongThuc,
-                                JLabel lblTB, JLabel lblCao, JLabel lblThap) {
+    private JPanel buildToolbar(
+        PaginatedTable table,
+        SearchBar searchBar,
+        String phuongThuc,
+        JLabel lblTB,
+        JLabel lblCao,
+        JLabel lblThap
+    ) {
         JPanel toolbar = new JPanel(new BorderLayout(8, 0));
         toolbar.setOpaque(false);
         toolbar.setPreferredSize(new Dimension(0, 44));
 
-        // Search: theo CCCD hoac ten mon, stats co dinh theo toan bo data
         JPanel left = new JPanel(new FlowLayout(FlowLayout.LEFT, 6, 4));
         left.setOpaque(false);
-        searchBar.getTextField().addActionListener(e -> {
-            String kw = searchBar.getText().trim();
-            try {
-                if (kw.isEmpty()) {
-                    // Khong co keyword -> hien thi toan bo + stats toan bo
-                    List<DiemThiXetTuyen> all = allDataMap.getOrDefault(phuongThuc, new ArrayList<>());
-                    fillTable(table, all, phuongThuc);
-                    updateStats(all, phuongThuc, lblTB, lblCao, lblThap);
-                } else {
-                    // Co keyword -> loc bang + stats theo ket qua search
-                    List<DiemThiXetTuyen> result = service.search(kw, phuongThuc);
-                    fillTable(table, result, phuongThuc);
-                    updateStats(result, phuongThuc, lblTB, lblCao, lblThap);
-                }
-            } catch (Exception ex) {
-                MessageHelper.showError(this, "Lỗi tìm kiếm: " + ex.getMessage());
-            }
-        });
+        searchBar.getTextField().addActionListener(e -> doSearch(table, searchBar, phuongThuc, lblTB, lblCao, lblThap));
         left.add(searchBar);
         toolbar.add(left, BorderLayout.WEST);
 
-        // Action buttons
         JPanel right = new JPanel(new FlowLayout(FlowLayout.RIGHT, 6, 4));
         right.setOpaque(false);
 
-        RoundedButton btnImport = new RoundedButton(UIConstants.ICON_IMPORT + " Import Excel", new Color(0x00796B));
+        RoundedButton btnImport = new RoundedButton(UIConstants.ICON_IMPORT + " Import", new Color(0x00796B));
         btnImport.addActionListener(e -> doImport(table, phuongThuc, lblTB, lblCao, lblThap));
 
         RoundedButton btnAdd = new RoundedButton(UIConstants.ICON_ADD + " Thêm", UIConstants.SUCCESS);
@@ -143,193 +155,217 @@ public class DiemThiPanel extends JPanel {
         return toolbar;
     }
 
-    // ─────────────────────────────────────────
-    // ACTIONS
-    // ─────────────────────────────────────────
-
-    private void doAdd(PaginatedTable table, String phuongThuc,
-                       JLabel lblTB, JLabel lblCao, JLabel lblThap) {
-        if ("VSAT".equals(phuongThuc)) {
-            MessageHelper.showWarning(this, "Chức năng nhập điểm V-SAT chưa được hỗ trợ!");
-            return;
+    private void doSearch(
+        PaginatedTable table,
+        SearchBar searchBar,
+        String phuongThuc,
+        JLabel lblTB,
+        JLabel lblCao,
+        JLabel lblThap
+    ) {
+        String keyword = searchBar.getText().trim();
+        try {
+            List<DiemThiXetTuyen> list;
+            if (keyword.isEmpty()) {
+                list = allDataMap.getOrDefault(phuongThuc, new ArrayList<>());
+            } else {
+                list = service.search(keyword, phuongThuc);
+            }
+            fillTable(table, list, phuongThuc);
+            updateStats(list, phuongThuc, lblTB, lblCao, lblThap);
+        } catch (Exception ex) {
+            MessageHelper.showError(this, "Lỗi tìm kiếm: " + ex.getMessage());
         }
+    }
+
+    private void doAdd(PaginatedTable table, String phuongThuc, JLabel lblTB, JLabel lblCao, JLabel lblThap) {
         DiemThiDialog dlg = new DiemThiDialog(SwingUtilities.getWindowAncestor(this), null, phuongThuc);
         dlg.setVisible(true);
+
         if (dlg.isSaved()) {
             try {
                 service.save(dlg.getEntity());
-                MessageHelper.showSuccess(this, "Thêm điểm thi thành công!");
+                MessageHelper.showSuccess(this, "Thêm điểm thi thành công.");
                 loadData(table, phuongThuc, lblTB, lblCao, lblThap);
-            } catch (Exception e) {
-                MessageHelper.showError(this, "Lỗi: " + e.getMessage());
+            } catch (Exception ex) {
+                MessageHelper.showError(this, "Lỗi: " + ex.getMessage());
             }
         }
     }
 
-    private void doEdit(PaginatedTable table, String phuongThuc,
-                        JLabel lblTB, JLabel lblCao, JLabel lblThap) {
+    private void doEdit(PaginatedTable table, String phuongThuc, JLabel lblTB, JLabel lblCao, JLabel lblThap) {
         int row = table.getSelectedRow();
         if (row < 0) {
             MessageHelper.showWarning(this, "Vui lòng chọn một bản ghi để sửa.");
             return;
         }
-        if ("VSAT".equals(phuongThuc)) {
-            MessageHelper.showWarning(this, "Chức năng sửa điểm V-SAT chưa được hỗ trợ!");
+
+        String cccd = String.valueOf(table.getTable().getValueAt(row, 1));
+        DiemThiXetTuyen selected = service.findByCccdAndPhuongThuc(cccd, phuongThuc);
+        if (selected == null) {
+            MessageHelper.showWarning(this, "Không tìm thấy bản ghi điểm thi cần sửa.");
             return;
         }
-        String cccd = table.getTable().getValueAt(row, 1).toString();
-        DiemThiXetTuyen selected = service.findByCccd(cccd);
-        if (selected == null) return;
 
         DiemThiDialog dlg = new DiemThiDialog(SwingUtilities.getWindowAncestor(this), selected, phuongThuc);
         dlg.setVisible(true);
+
         if (dlg.isSaved()) {
             try {
                 service.update(dlg.getEntity());
-                MessageHelper.showSuccess(this, "Cập nhật điểm thi thành công!");
+                MessageHelper.showSuccess(this, "Cập nhật điểm thi thành công.");
                 loadData(table, phuongThuc, lblTB, lblCao, lblThap);
-            } catch (Exception e) {
-                MessageHelper.showError(this, "Lỗi: " + e.getMessage());
+            } catch (Exception ex) {
+                MessageHelper.showError(this, "Lỗi: " + ex.getMessage());
             }
         }
     }
 
-    private void doDelete(PaginatedTable table, String phuongThuc,
-                          JLabel lblTB, JLabel lblCao, JLabel lblThap) {
+    private void doDelete(PaginatedTable table, String phuongThuc, JLabel lblTB, JLabel lblCao, JLabel lblThap) {
         int row = table.getSelectedRow();
         if (row < 0) {
             MessageHelper.showWarning(this, "Vui lòng chọn một bản ghi để xóa.");
             return;
         }
-        String cccd = table.getTable().getValueAt(row, 1).toString();
-        DiemThiXetTuyen selected = service.findByCccd(cccd);
-        if (selected == null) return;
 
-        if (ConfirmDialog.show(this, "Xóa điểm thi của CCCD: " + cccd + "?")) {
+        String cccd = String.valueOf(table.getTable().getValueAt(row, 1));
+        DiemThiXetTuyen selected = service.findByCccdAndPhuongThuc(cccd, phuongThuc);
+        if (selected == null) {
+            MessageHelper.showWarning(this, "Không tìm thấy bản ghi điểm thi cần xóa.");
+            return;
+        }
+
+        if (ConfirmDialog.show(this, "Xóa điểm thi của CCCD: " + cccd + " ở phương thức " + phuongThuc + "?")) {
             try {
                 service.delete(selected);
-                MessageHelper.showSuccess(this, "Đã xóa thành công!");
+                MessageHelper.showSuccess(this, "Đã xóa thành công.");
                 loadData(table, phuongThuc, lblTB, lblCao, lblThap);
-            } catch (Exception e) {
-                MessageHelper.showError(this, "Lỗi: " + e.getMessage());
+            } catch (Exception ex) {
+                MessageHelper.showError(this, "Lỗi: " + ex.getMessage());
             }
         }
     }
 
-    private void doImport(PaginatedTable table, String phuongThuc,
-                          JLabel lblTB, JLabel lblCao, JLabel lblThap) {
-        if ("VSAT".equals(phuongThuc)) {
-            MessageHelper.showWarning(this, "Chức năng import điểm V-SAT chưa được hỗ trợ!");
-            return;
-        }
+    private void doImport(PaginatedTable table, String phuongThuc, JLabel lblTB, JLabel lblCao, JLabel lblThap) {
         JFileChooser chooser = new JFileChooser();
-        chooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Excel Files (*.xlsx)", "xlsx"));
+        chooser.setFileFilter(new FileNameExtensionFilter("Excel Files (*.xlsx)", "xlsx"));
         chooser.setDialogTitle("Chọn file Excel import điểm " + phuongThuc);
+
         if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             File file = chooser.getSelectedFile();
             try {
                 int count = service.importFromExcel(file, phuongThuc);
-                MessageHelper.showSuccess(this, "Import thành công " + count + " bản ghi!");
+                MessageHelper.showSuccess(this, "Import thành công " + count + " bản ghi.");
                 loadData(table, phuongThuc, lblTB, lblCao, lblThap);
-            } catch (Exception e) {
-                MessageHelper.showError(this, "Lỗi import: " + e.getMessage());
+            } catch (Exception ex) {
+                MessageHelper.showError(this, "Lỗi import: " + ex.getMessage());
             }
         }
     }
 
-    // ─────────────────────────────────────────
-    // DATA
-    // ─────────────────────────────────────────
-
-    // Load toan bo data, cap nhat allDataMap va stats
-    private void loadData(PaginatedTable table, String phuongThuc,
-                          JLabel lblTB, JLabel lblCao, JLabel lblThap) {
+    private void loadData(PaginatedTable table, String phuongThuc, JLabel lblTB, JLabel lblCao, JLabel lblThap) {
         try {
             List<DiemThiXetTuyen> list = service.findByPhuongThuc(phuongThuc);
             allDataMap.put(phuongThuc, list);
             fillTable(table, list, phuongThuc);
             updateStats(list, phuongThuc, lblTB, lblCao, lblThap);
-        } catch (Exception e) {
-            e.printStackTrace();
-            MessageHelper.showError(this, "Không thể tải dữ liệu: " + e.getMessage());
+        } catch (Exception ex) {
+            MessageHelper.showError(this, "Không thể tải dữ liệu: " + ex.getMessage());
         }
     }
 
-    // Dien du lieu vao bang - thu tu phai khop voi COL tuong ung
-    private void fillTable(PaginatedTable table,
-                           List<DiemThiXetTuyen> list, String phuongThuc) {
-        java.util.List<Object[]> rows = new java.util.ArrayList<>();
+    private void fillTable(PaginatedTable table, List<DiemThiXetTuyen> list, String phuongThuc) {
+        List<Object[]> rows = new ArrayList<>();
         int stt = 1;
+
         for (DiemThiXetTuyen d : list) {
-            if ("DGNL".equals(phuongThuc)) {
+            if (DiemThiService.PHUONG_THUC_DGNL.equals(phuongThuc)) {
                 rows.add(new Object[]{
-                    stt++, d.getCccd(), nvlStr(d.getSobaodanh()),
+                    stt++,
+                    d.getCccd(),
+                    nvlStr(d.getSobaodanh()),
                     fmt(d.getNl1())
                 });
-            } else if ("VSAT".equals(phuongThuc)) {
-                // TODO: cap nhat khi co cau truc diem VSAT tu thay
-                rows.add(new Object[]{ stt++, d.getCccd(), nvlStr(d.getSobaodanh()) });
-            } else { // THPT
+            } else if (DiemThiService.PHUONG_THUC_VSAT.equals(phuongThuc)) {
                 rows.add(new Object[]{
-                    stt++,                      // STT
-                    d.getCccd(),                // CCCD
-                    nvlStr(d.getSobaodanh()),   // SBD
-                    fmt(d.getTo()),             // Toan
-                    fmt(d.getVa()),             // Van
-                    fmt(d.getLi()),             // Ly
-                    fmt(d.getHo()),             // Hoa
-                    fmt(d.getSi()),             // Sinh
-                    fmt(d.getSu()),             // Su
-                    fmt(d.getDi()),             // Dia
-                    fmt(d.getGdcd()),           // GDCD
-                    fmt(d.getN1Thi()),          // NN(Thi)
-                    fmt(d.getN1Cc()),           // NN(CC)
-                    fmt(d.getCncn()),           // CN.CN
-                    fmt(d.getCnnn()),           // CN.NN
-                    fmt(d.getTi()),             // Tin
-                    fmt(d.getKtpl()),           // KTPL
-                    nvlStr(d.getNkMon1()),      // Mon NK1
-                    fmt(d.getNkDiem1()),        // Diem NK1
-                    nvlStr(d.getNkMon2()),      // Mon NK2
-                    fmt(d.getNkDiem2())         // Diem NK2
+                    stt++,
+                    d.getCccd(),
+                    nvlStr(d.getSobaodanh()),
+                    fmt(d.getTo()),
+                    fmt(d.getVa()),
+                    fmt(d.getLi()),
+                    fmt(d.getHo()),
+                    fmt(d.getSi()),
+                    fmt(d.getSu()),
+                    fmt(d.getDi()),
+                    fmt(d.getN1Thi())
+                });
+            } else {
+                rows.add(new Object[]{
+                    stt++,
+                    d.getCccd(),
+                    nvlStr(d.getSobaodanh()),
+                    fmt(d.getTo()),
+                    fmt(d.getVa()),
+                    fmt(d.getLi()),
+                    fmt(d.getHo()),
+                    fmt(d.getSi()),
+                    fmt(d.getSu()),
+                    fmt(d.getDi()),
+                    fmt(d.getGdcd()),
+                    fmt(d.getN1Thi()),
+                    fmt(d.getN1Cc()),
+                    fmt(d.getCncn()),
+                    fmt(d.getCnnn()),
+                    fmt(d.getTi()),
+                    fmt(d.getKtpl()),
+                    fmt(d.getNk1()),
+                    fmt(d.getNk2()),
+                    fmt(d.getNk3()),
+                    fmt(d.getNk4()),
+                    fmt(d.getNk5()),
+                    fmt(d.getNk6())
                 });
             }
         }
+
         table.setData(rows);
     }
 
-    // Stats luon tinh tren toan bo data (allDataMap), khong doi khi search
-    private void updateStats(List<DiemThiXetTuyen> list, String phuongThuc,
-                             JLabel lblTB, JLabel lblCao, JLabel lblThap) {
+    private void updateStats(List<DiemThiXetTuyen> list, String phuongThuc, JLabel lblTB, JLabel lblCao, JLabel lblThap) {
         DiemThiService.ThongKe tk = service.thongKe(list, phuongThuc);
-        lblTB.setText(tk.diemTB     != null ? tk.diemTB.toPlainString()   : "---");
-        lblCao.setText(tk.caoNhat   != null ? tk.caoNhat.toPlainString()  : "---");
-        lblThap.setText(tk.thapNhat != null ? tk.thapNhat.toPlainString() : "---");
+        lblTB.setText(tk.diemTB != null ? tk.diemTB.stripTrailingZeros().toPlainString() : "---");
+        lblCao.setText(tk.caoNhat != null ? tk.caoNhat.stripTrailingZeros().toPlainString() : "---");
+        lblThap.setText(tk.thapNhat != null ? tk.thapNhat.stripTrailingZeros().toPlainString() : "---");
     }
 
-    // ─────────────────────────────────────────
-    // UI HELPERS
-    // ─────────────────────────────────────────
-
-    // Renderer: do neu diem = 0, xam neu "---", den neu co diem
-    private void applyRenderer(PaginatedTable table, String phuongThuc) {
+    private void applyRenderer(PaginatedTable table) {
         table.getTable().setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
             @Override
-            public Component getTableCellRendererComponent(JTable t, Object value,
-                    boolean sel, boolean focus, int row, int col) {
-                Component c = super.getTableCellRendererComponent(t, value, sel, focus, row, col);
-                if (!sel) c.setBackground(row % 2 == 0 ? UIConstants.ROW_ODD : UIConstants.ROW_EVEN);
-                setHorizontalAlignment(col >= 2 ? SwingConstants.CENTER : SwingConstants.LEFT);
+            public Component getTableCellRendererComponent(
+                JTable t,
+                Object value,
+                boolean selected,
+                boolean focus,
+                int row,
+                int col
+            ) {
+                Component c = super.getTableCellRendererComponent(t, value, selected, focus, row, col);
+                if (!selected) {
+                    c.setBackground(row % 2 == 0 ? UIConstants.ROW_ODD : UIConstants.ROW_EVEN);
+                }
+                setHorizontalAlignment(col >= 1 ? SwingConstants.CENTER : SwingConstants.LEFT);
                 ((JLabel) c).setBorder(BorderFactory.createEmptyBorder(0, 6, 0, 6));
+
                 if (col >= 3 && value != null) {
-                    String val = value.toString().trim();
-                    if ("0.00".equals(val) || "0".equals(val)) {
-                        c.setForeground(UIConstants.DANGER);
-                    } else if ("---".equals(val)) {
+                    String text = value.toString().trim();
+                    if ("---".equals(text)) {
                         c.setForeground(UIConstants.TEXT_SECONDARY);
                     } else {
                         c.setForeground(UIConstants.TEXT_PRIMARY);
                     }
+                } else {
+                    c.setForeground(UIConstants.TEXT_PRIMARY);
                 }
                 return c;
             }
@@ -338,13 +374,14 @@ public class DiemThiPanel extends JPanel {
 
     private JPanel wrapCard(JPanel content) {
         JPanel card = new JPanel(new BorderLayout()) {
-            @Override protected void paintComponent(Graphics g) {
+            @Override
+            protected void paintComponent(Graphics g) {
                 Graphics2D g2 = (Graphics2D) g.create();
                 g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
                 g2.setColor(new Color(0, 0, 0, 10));
-                g2.fillRoundRect(2, 2, getWidth()-2, getHeight()-2, 16, 16);
+                g2.fillRoundRect(2, 2, getWidth() - 2, getHeight() - 2, 16, 16);
                 g2.setColor(Color.WHITE);
-                g2.fillRoundRect(0, 0, getWidth()-2, getHeight()-2, 16, 16);
+                g2.fillRoundRect(0, 0, getWidth() - 2, getHeight() - 2, 16, 16);
                 g2.dispose();
             }
         };
@@ -356,48 +393,57 @@ public class DiemThiPanel extends JPanel {
 
     private JPanel buildStatsPanel(JLabel lblTB, JLabel lblCao, JLabel lblThap) {
         JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        panel.setPreferredSize(new Dimension(180, 0));
+        panel.setLayout(new javax.swing.BoxLayout(panel, javax.swing.BoxLayout.Y_AXIS));
+        panel.setPreferredSize(new Dimension(190, 0));
         panel.setOpaque(false);
-        panel.add(makeStat("Điểm TB",   lblTB,   UIConstants.STAT_BLUE));
-        panel.add(Box.createVerticalStrut(8));
-        panel.add(makeStat("Cao nhất",  lblCao,  UIConstants.STAT_GREEN));
-        panel.add(Box.createVerticalStrut(8));
+        panel.add(makeStat("Điểm TB", lblTB, UIConstants.STAT_BLUE));
+        panel.add(javax.swing.Box.createVerticalStrut(8));
+        panel.add(makeStat("Cao nhất", lblCao, UIConstants.STAT_GREEN));
+        panel.add(javax.swing.Box.createVerticalStrut(8));
         panel.add(makeStat("Thấp nhất", lblThap, UIConstants.STAT_ORANGE));
-        panel.add(Box.createVerticalGlue());
+        panel.add(javax.swing.Box.createVerticalGlue());
         return panel;
     }
 
-    private JPanel makeStat(String label, JLabel valLbl, Color color) {
+    private JPanel makeStat(String label, JLabel valueLabel, Color color) {
         JPanel card = new JPanel() {
-            @Override protected void paintComponent(Graphics g) {
+            @Override
+            protected void paintComponent(Graphics g) {
                 Graphics2D g2 = (Graphics2D) g.create();
                 g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
                 g2.setColor(Color.WHITE);
                 g2.fillRoundRect(0, 0, getWidth(), getHeight(), 16, 16);
                 g2.setColor(UIConstants.BORDER_LIGHT);
-                g2.drawRoundRect(0, 0, getWidth()-1, getHeight()-1, 16, 16);
+                g2.drawRoundRect(0, 0, getWidth() - 1, getHeight() - 1, 16, 16);
                 g2.dispose();
             }
         };
         card.setOpaque(false);
-        card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
+        card.setLayout(new javax.swing.BoxLayout(card, javax.swing.BoxLayout.Y_AXIS));
         card.setBorder(BorderFactory.createEmptyBorder(12, 14, 12, 14));
-        card.setMaximumSize(new Dimension(180, 80));
-        valLbl.setFont(new Font("Segoe UI", Font.BOLD, 22));
-        valLbl.setForeground(color);
-        valLbl.setAlignmentX(Component.LEFT_ALIGNMENT);
+        card.setMaximumSize(new Dimension(190, 80));
+
+        valueLabel.setFont(UIConstants.FONT_STAT_NUM);
+        valueLabel.setForeground(color);
+        valueLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+
         JLabel lbl = new JLabel(label);
         lbl.setFont(UIConstants.FONT_SMALL);
         lbl.setForeground(UIConstants.TEXT_SECONDARY);
         lbl.setAlignmentX(Component.LEFT_ALIGNMENT);
-        card.add(valLbl);
+
+        card.add(valueLabel);
         card.add(lbl);
         return card;
     }
 
-    private String fmt(BigDecimal v) {
-        return v != null && v.compareTo(BigDecimal.ZERO) != 0 ? v.toPlainString() : "---";
+    private String fmt(BigDecimal value) {
+        return value != null && value.compareTo(BigDecimal.ZERO) != 0
+            ? value.stripTrailingZeros().toPlainString()
+            : "---";
     }
-    private String nvlStr(String s) { return s != null ? s : ""; }
+
+    private String nvlStr(String value) {
+        return value != null ? value : "";
+    }
 }
