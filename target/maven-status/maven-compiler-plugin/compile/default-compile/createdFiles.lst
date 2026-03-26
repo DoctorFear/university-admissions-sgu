@@ -37,6 +37,7 @@ com\xettuyen2026\ui\DiemThiPanel$2.class
 com\xettuyen2026\dao\ThiSinhDAO.class
 com\xettuyen2026\ui\NganhTohopDialog.class
 com\xettuyen2026\ui\NganhPanel$1.class
+com\xettuyen2026\ui\UserPanel$1.class
 com\xettuyen2026\ui\common\SearchBar$2.class
 com\xettuyen2026\entity\UserGroup.class
 com\xettuyen2026\service\NganhService.class

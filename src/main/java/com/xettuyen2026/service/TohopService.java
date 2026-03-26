@@ -10,6 +10,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
+import java.util.regex.*;
 
 public class TohopService {
 
@@ -42,6 +43,8 @@ public class TohopService {
      */
     public int importFromTohopMonFile(File file) throws IOException {
         Map<String, TohopMonthi> tohopMap = new LinkedHashMap<>();
+        // Regex matches: A00(TO-3,LI-3,HO-1) — captures maTohop and 3 subjects
+        Pattern pattern = Pattern.compile("(\\w+)\\((\\w+)-(\\d+),(\\w+)-(\\d+),(\\w+)-(\\d+)\\)");
 
         try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8))) {
             String line;
@@ -56,42 +59,22 @@ public class TohopService {
                     continue;
                 }
 
-                // Parse: STT MANGANH TEN_NGANHCHUAN MA_TO_HOP(MON-HS,...) tb_keys TEN_TO_HOP Gốc Độ_lệch
-                String[] parts = line.split("\\s{2,}");
-                if (parts.length < 5) continue;
+                Matcher matcher = pattern.matcher(line);
+                if (!matcher.find()) continue;
 
-                // Find field containing parenthesis — that's MA_TO_HOP
-                String maToHopField = null;
-                for (String part : parts) {
-                    if (part.contains("(") && part.contains(")")) {
-                        maToHopField = part.trim();
-                        break;
-                    }
-                }
-                if (maToHopField == null) continue;
-
-                // Parse: "A00(TO-3,LI-3,HO-1)" -> maTohop="A00", subjects=[TO,LI,HO]
-                int parenIdx = maToHopField.indexOf('(');
-                String maTohop = maToHopField.substring(0, parenIdx).trim();
-                String subjectsStr = maToHopField.substring(parenIdx + 1, maToHopField.indexOf(')'));
-                String[] subjectParts = subjectsStr.split(",");
-
-                if (subjectParts.length < 3) continue;
+                String maTohop = matcher.group(1);
                 if (tohopMap.containsKey(maTohop)) continue;
 
-                String mon1 = subjectParts[0].split("-")[0].trim();
-                String mon2 = subjectParts[1].split("-")[0].trim();
-                String mon3 = subjectParts[2].split("-")[0].trim();
-
-                // Find TEN_TO_HOP from the parts after tb_keys
-                String tenTohop = maTohop; // default
+                String mon1 = matcher.group(2);
+                String mon2 = matcher.group(4);
+                String mon3 = matcher.group(6);
 
                 TohopMonthi th = new TohopMonthi();
                 th.setMatohop(maTohop);
                 th.setMon1(mon1);
                 th.setMon2(mon2);
                 th.setMon3(mon3);
-                th.setTentohop(tenTohop);
+                th.setTentohop(maTohop);
                 tohopMap.put(maTohop, th);
             }
         }
@@ -111,11 +94,13 @@ public class TohopService {
     }
 
     /**
-     * Import tổ hợp môn từ file Excel (.xlsx/.xls).
-     * Cột: matohop, mon1, mon2, mon3, tentohop
+     * Import tổ hợp môn từ file Excel (.xlsx/.xls) — file tohopmon.xlsx.
+     * Cột trong file: STT(0), MANGANH(1), TEN_NGANHCHUAN(2), MA_TO_HOP(3), tb_keys(4), TEN_TO_HOP(5), Gốc(6), Độ lệch(7)
+     * Trích xuất mã tổ hợp duy nhất từ cột MA_TO_HOP có dạng "A00(TO-3,LI-3,HO-1)".
      */
     public int importFromExcel(File file) throws IOException {
         Map<String, TohopMonthi> tohopMap = new LinkedHashMap<>();
+        Pattern pattern = Pattern.compile("(\\w+)\\((\\w+)-(\\d+),(\\w+)-(\\d+),(\\w+)-(\\d+)\\)");
 
         try (FileInputStream fis = new FileInputStream(file);
              Workbook workbook = file.getName().toLowerCase().endsWith(".xlsx")
@@ -130,14 +115,22 @@ public class TohopService {
                     continue;
                 }
 
-                String maTohop = getCellString(row, 0);
-                if (maTohop.isEmpty()) continue;
+                // Cột 3: MA_TO_HOP dạng "B03(TO-3,VA-3,SI-1)"
+                String maToHopRaw = getCellString(row, 3);
+                if (maToHopRaw.isEmpty()) continue;
+
+                Matcher matcher = pattern.matcher(maToHopRaw);
+                if (!matcher.find()) continue;
+
+                String maTohop = matcher.group(1);
                 if (tohopMap.containsKey(maTohop)) continue;
 
-                String mon1 = getCellString(row, 1);
-                String mon2 = getCellString(row, 2);
-                String mon3 = getCellString(row, 3);
-                String tenTohop = getCellString(row, 4);
+                String mon1 = matcher.group(2);
+                String mon2 = matcher.group(4);
+                String mon3 = matcher.group(6);
+
+                // Cột 5: TEN_TO_HOP
+                String tenTohop = getCellString(row, 5);
                 if (tenTohop.isEmpty()) tenTohop = maTohop;
 
                 TohopMonthi th = new TohopMonthi();
