@@ -48,6 +48,35 @@ public class ImportUtil {
         return result;
     }
 	
+	
+	public static <T> List<T> readExcel(File file, String sheetName, RowMapper<T> mapper) throws Exception {
+	    List<T> result = new ArrayList<>();
+
+	    try (FileInputStream fis = new FileInputStream(file);
+	         Workbook workbook = new XSSFWorkbook(fis)) {
+
+	        // Lấy sheet theo tên
+	        Sheet sheet = workbook.getSheet(sheetName);
+	        if (sheet == null) {
+	            throw new RuntimeException("Không tìm thấy sheet: " + sheetName);
+	        }
+
+	        for (int i = 1; i <= sheet.getLastRowNum(); i++) {
+	            Row row = sheet.getRow(i);
+	            if (row == null) continue;
+
+	            // Bỏ qua dòng trống
+	            if (isRowEmpty(row)) continue;
+
+	            T entity = mapper.map(row);
+	            if (entity != null) result.add(entity);
+	        }
+	    }
+
+	    return result;
+	}
+
+	
 	// CELL HELPERS - Dung trong lambda cua Service
 	public static String getString(Row row, int col) {
         Cell cell = row.getCell(col);
