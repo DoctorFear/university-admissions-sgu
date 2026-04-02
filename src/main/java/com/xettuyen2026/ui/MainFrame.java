@@ -274,7 +274,7 @@ public class MainFrame extends JFrame {
         contentPanel.add(new TohopPanel(), "tohop");
         contentPanel.add(new NganhTohopPanel(), "nganh_tohop");
         contentPanel.add(createPlaceholderPanel("Quản lý Điểm cộng", UIConstants.ICON_BONUS), "diemcong");
-        contentPanel.add(createPlaceholderPanel("Bảng quy đổi", UIConstants.ICON_CONVERT), "bangquydoi");
+        contentPanel.add(new BangQuydoiPanel(), "bangquydoi");
     }
 
     private JPanel createPlaceholderPanel(String title, String icon) {

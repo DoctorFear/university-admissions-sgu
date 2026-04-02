@@ -8,9 +8,15 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "xt_diemthixettuyen")
+@Table(
+    name = "xt_diemthixettuyen",
+    uniqueConstraints = {
+        @UniqueConstraint(name = "uk_diemthi_cccd_pt", columnNames = {"cccd", "d_phuongthuc"})
+    }
+)
 public class DiemThiXetTuyen {
 
     @Id
@@ -18,7 +24,7 @@ public class DiemThiXetTuyen {
     @Column(name = "iddiemthi")
     private Integer iddiemthi;
 
-    @Column(name = "cccd", nullable = false, length = 20, unique = true)
+    @Column(name = "cccd", nullable = false, length = 20)
     private String cccd;
 
     @Column(name = "sobaodanh", length = 45)
@@ -74,18 +80,24 @@ public class DiemThiXetTuyen {
     @Column(name = "KTPL", precision = 8, scale = 2)
     private BigDecimal ktpl;
 
-    // Nang khieu - luu 2 mon thi + ma mon tuong ung
-    @Column(name = "NK_MON1", length = 20)
-    private String nkMon1;
+    // Nang khieu - NK1 den NK6
+    @Column(name = "NK1", precision = 8, scale = 2)
+    private BigDecimal nk1;
 
-    @Column(name = "NK_DIEM1", precision = 8, scale = 2)
-    private BigDecimal nkDiem1;
+    @Column(name = "NK2", precision = 8, scale = 2)
+    private BigDecimal nk2;
 
-    @Column(name = "NK_MON2", length = 20)
-    private String nkMon2;
+    @Column(name = "NK3", precision = 8, scale = 2)
+    private BigDecimal nk3;
 
-    @Column(name = "NK_DIEM2", precision = 8, scale = 2)
-    private BigDecimal nkDiem2;
+    @Column(name = "NK4", precision = 8, scale = 2)
+    private BigDecimal nk4;
+
+    @Column(name = "NK5", precision = 8, scale = 2)
+    private BigDecimal nk5;
+
+    @Column(name = "NK6", precision = 8, scale = 2)
+    private BigDecimal nk6;
 
     // DGNL
     @Column(name = "NL1", precision = 8, scale = 2)
@@ -128,14 +140,18 @@ public class DiemThiXetTuyen {
     public void setTi(BigDecimal ti) { this.ti = ti; }
     public BigDecimal getKtpl() { return ktpl; }
     public void setKtpl(BigDecimal ktpl) { this.ktpl = ktpl; }
-    public String getNkMon1() { return nkMon1; }
-    public void setNkMon1(String nkMon1) { this.nkMon1 = nkMon1; }
-    public BigDecimal getNkDiem1() { return nkDiem1; }
-    public void setNkDiem1(BigDecimal nkDiem1) { this.nkDiem1 = nkDiem1; }
-    public String getNkMon2() { return nkMon2; }
-    public void setNkMon2(String nkMon2) { this.nkMon2 = nkMon2; }
-    public BigDecimal getNkDiem2() { return nkDiem2; }
-    public void setNkDiem2(BigDecimal nkDiem2) { this.nkDiem2 = nkDiem2; }
+    public BigDecimal getNk1() { return nk1; }
+    public void setNk1(BigDecimal nkDiem1) { this.nk1 = nkDiem1; }
+    public BigDecimal getNk2() { return nk2; }
+    public void setNk2(BigDecimal nkDiem2) { this.nk2 = nkDiem2; }
+    public BigDecimal getNk3() { return nk3; }
+    public void setNk3(BigDecimal nkDiem3) { this.nk3 = nkDiem3; }
+    public BigDecimal getNk4() { return nk4; }
+    public void setNk4(BigDecimal nkDiem4) { this.nk4 = nkDiem4; }
+    public BigDecimal getNk5() { return nk5; }
+    public void setNk5(BigDecimal nkDiem5) { this.nk5 = nkDiem5; }
+    public BigDecimal getNk6() { return nk6; }
+    public void setNk6(BigDecimal nkDiem6) { this.nk6 = nkDiem6; }
     public BigDecimal getNl1() { return nl1; }
     public void setNl1(BigDecimal nl1) { this.nl1 = nl1; }
 }

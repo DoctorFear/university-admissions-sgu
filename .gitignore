@@ -16,3 +16,6 @@ src/main/resources/hibernate.cfg.xml
 docker-compose.yml
 .env
 
+target/classes/hibernate.cfg.xml
+/src/main/resources
+/target/classes

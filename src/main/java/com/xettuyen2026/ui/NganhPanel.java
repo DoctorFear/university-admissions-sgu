@@ -26,6 +26,10 @@ public class NganhPanel extends JPanel {
             "Chỉ tiêu", "Điểm sàn", "Điểm T.Tuyển",
             "T.Thẳng", "ĐGNL", "THPT", "V-SAT"
         };
+
+    private static final int[] COLUMN_WIDTHS = {
+            60, 110, 260, 100, 90, 95, 110, 90, 90, 90, 90
+        };
     
     public NganhPanel() {
         service = new NganhService();
@@ -124,6 +128,7 @@ public class NganhPanel extends JPanel {
         card.setBorder(BorderFactory.createEmptyBorder(12, 16, 12, 16));
  
         styledTable = new PaginatedTable(COLUMNS);
+        styledTable.setPreferredColumnWidths(COLUMN_WIDTHS);
         card.add(styledTable, BorderLayout.CENTER);
  
         // Load dữ liệu sau khi UI xong
@@ -177,19 +182,15 @@ public class NganhPanel extends JPanel {
     // --------------------
     
     private void doSearch() {
-        String keyword = searchBar.getText().trim().toLowerCase();
-        if (keyword.isEmpty()) {
-            loadedEntities = new ArrayList<>(allEntities);
-        } else {
-            loadedEntities = new ArrayList<>();
-            for (Nganh n : allEntities) {
-                boolean match =
-                    (n.getManganh() != null && n.getManganh().toLowerCase().contains(keyword)) ||
-                    (n.getTennganh() != null && n.getTennganh().toLowerCase().contains(keyword));
-                if (match) loadedEntities.add(n);
-            }
+        try {
+            String keyword = searchBar.getText().trim();
+            loadedEntities = keyword.isEmpty()
+                ? new ArrayList<>(allEntities)
+                : new ArrayList<>(service.search(keyword));
+            displayEntities(loadedEntities);
+        } catch (Exception e) {
+            MessageHelper.showError(this, "Lỗi tìm kiếm: " + e.getMessage());
         }
-        displayEntities(loadedEntities);
     }
  
     private void doImport() {

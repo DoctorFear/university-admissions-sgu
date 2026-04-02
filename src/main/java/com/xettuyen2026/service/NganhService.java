@@ -5,8 +5,11 @@ import com.xettuyen2026.entity.Nganh;
 import com.xettuyen2026.util.ImportUtil;
 
 import java.io.File;
+import java.text.Normalizer;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 public class NganhService {
@@ -30,7 +33,15 @@ public class NganhService {
         if (keyword == null || keyword.trim().isEmpty()) {
             return findAll();
         }
-        return nganhDAO.search(keyword.trim());
+
+        String normalizedKeyword = normalize(keyword);
+        return findAll().stream()
+            .filter(n -> matches(n, normalizedKeyword))
+            .sorted(Comparator
+                .comparingInt((Nganh n) -> getBestRank(n, normalizedKeyword))
+                .thenComparing(n -> normalize(n.getTennganh()))
+                .thenComparing(n -> normalize(n.getManganh())))
+            .collect(Collectors.toList());
     }
 	
 	// Them moi nganh
@@ -101,4 +112,51 @@ public class NganhService {
 	        .map(t -> t.getMatohop().trim().toUpperCase())
 	        .collect(Collectors.toList());
 	}
+
+    private boolean matches(Nganh nganh, String keyword) {
+        return containsNormalized(nganh.getManganh(), keyword)
+            || containsNormalized(nganh.getTennganh(), keyword);
+    }
+
+    private int getBestRank(Nganh nganh, String keyword) {
+        int maRank = getMatchRank(nganh.getManganh(), keyword);
+        int tenRank = getMatchRank(nganh.getTennganh(), keyword);
+        return Math.min(maRank, tenRank);
+    }
+
+    private int getMatchRank(String source, String keyword) {
+        String normalizedSource = normalize(source);
+        if (normalizedSource.isEmpty() || keyword.isEmpty()) {
+            return Integer.MAX_VALUE;
+        }
+
+        int index = normalizedSource.indexOf(keyword);
+        if (index < 0) {
+            return Integer.MAX_VALUE;
+        }
+        if (index == 0) {
+            return 0;
+        }
+        if (normalizedSource.charAt(index - 1) == ' ') {
+            return 1;
+        }
+        return 2;
+    }
+
+    private boolean containsNormalized(String source, String keyword) {
+        return !normalize(source).isEmpty() && normalize(source).contains(keyword);
+    }
+
+    private String normalize(String value) {
+        if (value == null) {
+            return "";
+        }
+        return Normalizer.normalize(value, Normalizer.Form.NFD)
+            .replaceAll("\\p{M}+", "")
+            .replace('đ', 'd')
+            .replace('Đ', 'D')
+            .toLowerCase(Locale.ROOT)
+            .trim()
+            .replaceAll("\\s+", " ");
+    }
 }

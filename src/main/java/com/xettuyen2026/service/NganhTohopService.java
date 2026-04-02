@@ -1,6 +1,8 @@
 package com.xettuyen2026.service;
 
+import com.xettuyen2026.dao.NganhDAO;
 import com.xettuyen2026.dao.NganhTohopDAO;
+import com.xettuyen2026.entity.Nganh;
 import com.xettuyen2026.entity.NganhTohop;
 
 import org.apache.poi.ss.usermodel.*;
@@ -11,10 +13,12 @@ import java.io.*;
 import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
+import java.util.regex.*;
 
 public class NganhTohopService {
 
     private final NganhTohopDAO dao = new NganhTohopDAO();
+    private final NganhDAO nganhDAO = new NganhDAO();
 
     public List<NganhTohop> findAll() {
         return dao.findAll();
@@ -55,6 +59,15 @@ public class NganhTohopService {
      */
     public int importFromTohopMonFile(File file) throws IOException {
         List<NganhTohop> toImport = new ArrayList<>();
+        Map<String, String> nganhNames = new LinkedHashMap<>();
+        // Regex to extract maNganh (7 digits, optionally CLC)
+        Pattern maNganhPattern = Pattern.compile("\\b(\\d{7}(?:CLC)?)\\b");
+        // Regex to extract TEN_NGANHCHUAN (text between maNganh and MA_TO_HOP)
+        Pattern tenNganhPattern = Pattern.compile("\\d{7}(?:CLC)?\\s+(.+?)\\s+\\w+\\(");
+        // Regex to extract MA_TO_HOP with subjects: A00(TO-3,LI-3,HO-1)
+        Pattern maToHopPattern = Pattern.compile("(\\w+)\\((\\w+)-(\\d+),(\\w+)-(\\d+),(\\w+)-(\\d+)\\)");
+        // Regex to extract doLech (last decimal number in line)
+        Pattern doLechPattern = Pattern.compile("(-?\\d+\\.\\d+)\\s*$");
 
         try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8))) {
             String line;
@@ -69,55 +82,36 @@ public class NganhTohopService {
                     continue;
                 }
 
-                String[] parts = line.split("\\s{2,}");
-                if (parts.length < 5) continue;
+                // Extract maNganh
+                Matcher maNganhMatcher = maNganhPattern.matcher(line);
+                if (!maNganhMatcher.find()) continue;
+                String maNganh = maNganhMatcher.group(1);
 
-                // Extract MANGANH (second field after STT)
-                String maNganh = null;
-                String maToHopField = null;
-                String tbKeys = null;
-                String doLechStr = null;
-
-                // Parse fields
-                for (int i = 0; i < parts.length; i++) {
-                    String p = parts[i].trim();
-                    if (i == 0) continue; // STT
-                    if (maNganh == null && p.matches("\\d{7}(CLC)?")) {
-                        maNganh = p;
-                        continue;
-                    }
-                    if (maToHopField == null && p.contains("(") && p.contains(")")) {
-                        maToHopField = p;
-                        continue;
-                    }
-                    if (tbKeys == null && p.contains("_") && p.matches("\\d{7}(CLC)?_.*")) {
-                        tbKeys = p;
-                        continue;
+                // Extract tenNganh
+                if (!nganhNames.containsKey(maNganh)) {
+                    Matcher tenMatcher = tenNganhPattern.matcher(line);
+                    if (tenMatcher.find()) {
+                        nganhNames.put(maNganh, tenMatcher.group(1).trim());
                     }
                 }
-                if (maNganh == null || maToHopField == null) continue;
 
-                // Parse MA_TO_HOP field: "A00(TO-3,LI-3,HO-1)"
-                int parenIdx = maToHopField.indexOf('(');
-                String maTohop = maToHopField.substring(0, parenIdx).trim();
-                String subjectsStr = maToHopField.substring(parenIdx + 1, maToHopField.indexOf(')'));
-                String[] subjectParts = subjectsStr.split(",");
-                if (subjectParts.length < 3) continue;
+                // Extract MA_TO_HOP with subjects and coefficients
+                Matcher maToHopMatcher = maToHopPattern.matcher(line);
+                if (!maToHopMatcher.find()) continue;
 
-                String mon1 = subjectParts[0].split("-")[0].trim();
-                byte hs1 = Byte.parseByte(subjectParts[0].split("-")[1].trim());
-                String mon2 = subjectParts[1].split("-")[0].trim();
-                byte hs2 = Byte.parseByte(subjectParts[1].split("-")[1].trim());
-                String mon3 = subjectParts[2].split("-")[0].trim();
-                byte hs3 = Byte.parseByte(subjectParts[2].split("-")[1].trim());
+                String maTohop = maToHopMatcher.group(1);
+                String mon1 = maToHopMatcher.group(2);
+                byte hs1 = Byte.parseByte(maToHopMatcher.group(3));
+                String mon2 = maToHopMatcher.group(4);
+                byte hs2 = Byte.parseByte(maToHopMatcher.group(5));
+                String mon3 = maToHopMatcher.group(6);
+                byte hs3 = Byte.parseByte(maToHopMatcher.group(7));
 
-                // Parse Độ lệch (last numeric field)
+                // Extract doLech (last decimal number in line)
                 BigDecimal doLech = BigDecimal.ZERO;
-                String lastField = parts[parts.length - 1].trim();
-                try {
-                    doLech = new BigDecimal(lastField);
-                } catch (NumberFormatException e) {
-                    // ignore
+                Matcher doLechMatcher = doLechPattern.matcher(line);
+                if (doLechMatcher.find()) {
+                    doLech = new BigDecimal(doLechMatcher.group(1));
                 }
 
                 String key = maNganh + "_" + maTohop;
@@ -138,6 +132,9 @@ public class NganhTohopService {
             }
         }
 
+        // Auto-create ngành nếu chưa tồn tại
+        autoCreateNganh(nganhNames);
+
         // Filter out existing records
         List<NganhTohop> newRecords = new ArrayList<>();
         for (NganhTohop nt : toImport) {
@@ -154,11 +151,14 @@ public class NganhTohopService {
     }
 
     /**
-     * Import ngành-tổ hợp từ file Excel (.xlsx/.xls).
-     * Cột: manganh, matohop, th_mon1, hsmon1, th_mon2, hsmon2, th_mon3, hsmon3, dolech
+     * Import ngành-tổ hợp từ file Excel (.xlsx/.xls) — file tohopmon.xlsx.
+     * Cột trong file: STT(0), MANGANH(1), TEN_NGANHCHUAN(2), MA_TO_HOP(3), tb_keys(4), TEN_TO_HOP(5), Gốc(6), Độ lệch(7)
+     * Trích xuất mã ngành, tổ hợp, môn + hệ số từ cột MA_TO_HOP dạng "A00(TO-3,LI-3,HO-1)".
      */
     public int importFromExcel(File file) throws IOException {
         List<NganhTohop> toImport = new ArrayList<>();
+        Map<String, String> nganhNames = new LinkedHashMap<>();
+        Pattern maToHopPattern = Pattern.compile("(\\w+)\\((\\w+)-(\\d+),(\\w+)-(\\d+),(\\w+)-(\\d+)\\)");
 
         try (FileInputStream fis = new FileInputStream(file);
              Workbook workbook = file.getName().toLowerCase().endsWith(".xlsx")
@@ -173,19 +173,34 @@ public class NganhTohopService {
                     continue; // skip header row
                 }
 
-                String maNganh = getCellString(row, 0);
-                String maTohop = getCellString(row, 1);
-                if (maNganh.isEmpty() || maTohop.isEmpty()) continue;
+                // Cột 1: MANGANH
+                String maNganh = getCellString(row, 1);
+                if (maNganh.isEmpty()) continue;
 
-                String mon1 = getCellString(row, 2);
-                byte hs1 = (byte) getCellNumeric(row, 3);
-                String mon2 = getCellString(row, 4);
-                byte hs2 = (byte) getCellNumeric(row, 5);
-                String mon3 = getCellString(row, 6);
-                byte hs3 = (byte) getCellNumeric(row, 7);
+                // Cột 2: TEN_NGANHCHUAN — thu thập tên ngành
+                String tenNganh = getCellString(row, 2);
+                if (!tenNganh.isEmpty() && !nganhNames.containsKey(maNganh)) {
+                    nganhNames.put(maNganh, tenNganh);
+                }
 
+                // Cột 3: MA_TO_HOP dạng "B03(TO-3,VA-3,SI-1)"
+                String maToHopRaw = getCellString(row, 3);
+                if (maToHopRaw.isEmpty()) continue;
+
+                Matcher matcher = maToHopPattern.matcher(maToHopRaw);
+                if (!matcher.find()) continue;
+
+                String maTohop = matcher.group(1);
+                String mon1 = matcher.group(2);
+                byte hs1 = Byte.parseByte(matcher.group(3));
+                String mon2 = matcher.group(4);
+                byte hs2 = Byte.parseByte(matcher.group(5));
+                String mon3 = matcher.group(6);
+                byte hs3 = Byte.parseByte(matcher.group(7));
+
+                // Cột 7: Độ lệch
                 BigDecimal doLech = BigDecimal.ZERO;
-                double doLechVal = getCellNumeric(row, 8);
+                double doLechVal = getCellNumeric(row, 7);
                 if (doLechVal != 0) {
                     doLech = BigDecimal.valueOf(doLechVal);
                 }
@@ -196,17 +211,20 @@ public class NganhTohopService {
                 nt.setManganh(maNganh);
                 nt.setMatohop(maTohop);
                 nt.setThMon1(mon1.toUpperCase());
-                nt.setHsmon1(hs1 == 0 ? 1 : hs1);
+                nt.setHsmon1(hs1);
                 nt.setThMon2(mon2.toUpperCase());
-                nt.setHsmon2(hs2 == 0 ? 1 : hs2);
+                nt.setHsmon2(hs2);
                 nt.setThMon3(mon3.toUpperCase());
-                nt.setHsmon3(hs3 == 0 ? 1 : hs3);
+                nt.setHsmon3(hs3);
                 nt.setTbKeys(key);
                 nt.setDolech(doLech);
                 setSubjectFlags(nt);
                 toImport.add(nt);
             }
         }
+
+        // Auto-create ngành nếu chưa tồn tại
+        autoCreateNganh(nganhNames);
 
         List<NganhTohop> newRecords = new ArrayList<>();
         for (NganhTohop nt : toImport) {
@@ -220,6 +238,23 @@ public class NganhTohopService {
             dao.saveAll(newRecords);
         }
         return newRecords.size();
+    }
+
+    /**
+     * Tự động tạo ngành trong bảng xt_nganh nếu chưa tồn tại.
+     */
+    private void autoCreateNganh(Map<String, String> nganhNames) {
+        for (Map.Entry<String, String> entry : nganhNames.entrySet()) {
+            String maNganh = entry.getKey();
+            String tenNganh = entry.getValue();
+            if (!nganhDAO.existsByMaNganh(maNganh)) {
+                Nganh nganh = new Nganh();
+                nganh.setManganh(maNganh);
+                nganh.setTennganh(tenNganh);
+                nganh.setnChitieu(0);
+                nganhDAO.save(nganh);
+            }
+        }
     }
 
     private String getCellString(Row row, int col) {

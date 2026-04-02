@@ -266,9 +266,8 @@ xettuyen2026/
 │   ├── service/                   ← Business logic
 │   ├── ui/                        ← Giao diện Swing
 │   │   ├── common/                ← Component dùng lại (bảng, dialog...)
-│   │   ├── thisinh/               ← Màn hình quản lý thí sinh
-│   │   ├── nganh/                 ← Màn hình quản lý ngành
-│   │   └── ...
+│   │   ├── nganhPanel.java        ← Màn hình quản lý ngành
+│   │   └── thisinhPanel.java			← Màn hình quản lý thi sinh
 │   └── util/                      ← Tiện ích (import Excel, mã hóa...)
 ├── src/main/resources/
 │   ├── hibernate.cfg.xml.example  ← Mẫu cấu hình DB (commit)
@@ -346,3 +345,16 @@ A: Chạy lại câu SQL tạo bảng `users` ở Bước 3 phần Cấu hình d
 
 **Q: Quên password MySQL?**  
 A: Xem hướng dẫn reset tại https://dev.mysql.com/doc/refman/8.0/en/resetting-permissions.html
+
+**Q: Cách áp dụng scroll ngang khi có quá nhiều cột dữ liệu?**  
+A: Huong dan ap dung scroll ngang cho cac panel khac (khong sua trong dot nay):
+   - Bang dung chung da ho tro san trong:
+     src/main/java/com/xettuyen2026/ui/common/PaginatedTable.java
+   - Chi can sau khi tao bang:
+     PaginatedTable styledTable = new PaginatedTable(COLUMNS);
+     styledTable.enableHorizontalScroll(COLUMN_WIDTHS);
+   - Trong do COLUMN_WIDTHS la mang int[] chua do rong tung cot theo dung thu tu hien thi.
+   - Khong can doi mau sac hay sua renderer rieng neu chi muon co scroll ngang.
+   - Vi du:
+     private static final int[] COLUMN_WIDTHS = {60, 120, 240, 100, 100, 100};
+   - Neu bang it cot thi co the khong can goi ham nay.
