@@ -1,7 +1,15 @@
 package com.xettuyen2026.entity;
 
-import jakarta.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "xt_thisinhxettuyen25")
@@ -50,6 +58,9 @@ public class ThiSinh {
 
     @Column(name = "khu_vuc", length = 45)
     private String khuVuc;
+    
+    @OneToMany(mappedBy = "thiSinh")
+    private List<ThiSinhToHop> danhSachToHop;
 
     // Getters and Setters
     public Integer getIdthisinh() { return idthisinh; }
@@ -80,4 +91,6 @@ public class ThiSinh {
     public void setDoiTuong(String doiTuong) { this.doiTuong = doiTuong; }
     public String getKhuVuc() { return khuVuc; }
     public void setKhuVuc(String khuVuc) { this.khuVuc = khuVuc; }
+    public List<ThiSinhToHop> getDanhSachToHop() { return danhSachToHop; }
+    public void setDanhSachThiSinh(List<ThiSinhToHop> danhSachToHop) { this.danhSachToHop = danhSachToHop; }
 }

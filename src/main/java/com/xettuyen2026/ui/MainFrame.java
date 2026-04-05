@@ -269,11 +269,9 @@ public class MainFrame extends JFrame {
         contentPanel.add(new NguyenVongPanel(), "nguyenvong");
         contentPanel.add(new NganhPanel(), "nganh");
         contentPanel.add(new UserPanel(), "user");
-
-        // Placeholder panels for other modules
         contentPanel.add(new TohopPanel(), "tohop");
         contentPanel.add(new NganhTohopPanel(), "nganh_tohop");
-        contentPanel.add(createPlaceholderPanel("Quản lý Điểm cộng", UIConstants.ICON_BONUS), "diemcong");
+        contentPanel.add(new DiemCongPanel(), "diemcong");
         contentPanel.add(new BangQuydoiPanel(), "bangquydoi");
     }
 
