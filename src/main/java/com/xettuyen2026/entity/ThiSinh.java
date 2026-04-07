@@ -92,5 +92,5 @@ public class ThiSinh {
     public String getKhuVuc() { return khuVuc; }
     public void setKhuVuc(String khuVuc) { this.khuVuc = khuVuc; }
     public List<ThiSinhToHop> getDanhSachToHop() { return danhSachToHop; }
-    public void setDanhSachThiSinh(List<ThiSinhToHop> danhSachToHop) { this.danhSachToHop = danhSachToHop; }
+    public void setDanhSachToHop(List<ThiSinhToHop> danhSachToHop) { this.danhSachToHop = danhSachToHop; }
 }

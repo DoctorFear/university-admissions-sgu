@@ -7,6 +7,7 @@ import org.hibernate.Session;
 import com.xettuyen2026.config.HibernateConfig;
 import com.xettuyen2026.dao.base.BaseDAO;
 import com.xettuyen2026.entity.DiemCongXetTuyen;
+import com.xettuyen2026.entity.ThiSinhToHop;
 
 public class DiemCongDAO extends BaseDAO<DiemCongXetTuyen> {
     
@@ -40,6 +41,17 @@ public class DiemCongDAO extends BaseDAO<DiemCongXetTuyen> {
             if (d != null) session.remove(d);
 
             tx.commit();
+        }
+    }
+
+    public List<ThiSinhToHop> findToHopByCccd(String cccd) {
+        try (Session session = HibernateConfig.getSessionFactory().openSession()) {
+            return session.createQuery(
+                "select t from ThiSinhToHop t " +
+                "join fetch t.nganhTohop n " +
+                "where t.thiSinh.cccd = :cccd",
+                ThiSinhToHop.class
+            ).setParameter("cccd", cccd).getResultList();
         }
     }
 }

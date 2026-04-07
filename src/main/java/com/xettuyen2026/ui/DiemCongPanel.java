@@ -29,7 +29,7 @@ public class DiemCongPanel extends JPanel{
     final DiemCongDAO service;
     final DiemCongService logic;
     private PaginatedTable styledTable;
-    private SearchBar searchBar;
+    protected SearchBar searchBar;
     private List<DiemCongXetTuyen> diemcongList = new ArrayList<>();
 
     private static final String[] COLUMNS = {
@@ -61,8 +61,11 @@ public class DiemCongPanel extends JPanel{
 
         RoundedButton btnSearch = new RoundedButton(UIConstants.ICON_SEARCH + " Tìm kiếm", UIConstants.PRIMARY_LIGHT);
         btnSearch.addActionListener(e -> doSearch());
+        RoundedButton btnReset = new RoundedButton(UIConstants.ICON_SEARCH + " Reset", UIConstants.PRIMARY_LIGHT);
+        btnReset.addActionListener(e -> doReset());
 
         leftPanel.add(searchBar);
+        leftPanel.add(btnReset);
         leftPanel.add(btnSearch);
         toolbar.add(leftPanel, BorderLayout.WEST);
 
@@ -124,13 +127,13 @@ public class DiemCongPanel extends JPanel{
             for (DiemCongXetTuyen d : diemcongList) {
                 rows.add(new Object[]{
                     d.getTsCccd(),
+                    d.getDiemTong(),
                     d.getManganh(),
                     d.getMatohop(),
                     d.getPhuongthuc(),
+                    d.getGhichu(),
                     d.getDiemCC(),
                     d.getDiemUtxt(),
-                    d.getDiemTong(),
-                    d.getGhichu(),
                     d.getDcKeys()
                 });
             }
@@ -191,7 +194,8 @@ public class DiemCongPanel extends JPanel{
 
         for (DiemCongXetTuyen d : diemcongList) {
             if (d.getTsCccd().toLowerCase().contains(keyword)
-                    || (d.getManganh() != null && d.getManganh().toLowerCase().contains(keyword))) {
+                || safe(d.getManganh()).toLowerCase().contains(keyword)
+                || safe(d.getMatohop()).toLowerCase().contains(keyword)) {
 
                 rows.add(new Object[]{
                     d.getTsCccd(),
@@ -211,20 +215,48 @@ public class DiemCongPanel extends JPanel{
     
     private void doImport() {
         try {
+            javax.swing.JFileChooser chooser = new javax.swing.JFileChooser();
+            int result = chooser.showOpenDialog(this);
+
+            if (result != javax.swing.JFileChooser.APPROVE_OPTION) return;
+
+            java.io.File file = chooser.getSelectedFile();
+
+            String[] options = {"Chứng chỉ (Tiếng Anh)", "Thí sinh", "Ưu tiên"};
+            int type = javax.swing.JOptionPane.showOptionDialog(
+                this,
+                "Chọn loại dữ liệu import",
+                "Import",
+                javax.swing.JOptionPane.DEFAULT_OPTION,
+                javax.swing.JOptionPane.QUESTION_MESSAGE,
+                null,
+                options,
+                options[0]
+            );
+
             DiemCongService serv = new DiemCongService();
 
-            serv.importAll(
-                "D:\\Ds quy doi tieng Anh.xlsx",
-                "D:\\Ds thi sinh.xlsx",
-                "D:\\Uu tien xet tuyen.xlsx"
-            );
+            switch (type) {
+                case 0 -> serv.importTiengAnh(file.getAbsolutePath());
+                case 1 -> serv.importThiSinh(file.getAbsolutePath());
+                case 2 -> serv.importUuTien(file.getAbsolutePath());
+                default -> { return; }
+            }
 
             MessageHelper.showSuccess(this, "Import thành công");
             loadData();
 
         } catch (Exception e) {
-            e.printStackTrace();
             MessageHelper.showError(this, "Lỗi import: " + e.getMessage());
         }
+    }
+
+    private String safe(String s) {
+        return s == null ? "" : s.trim();
+    }
+
+    private void doReset() {
+        searchBar.setText("");
+        loadData();
     }
 }

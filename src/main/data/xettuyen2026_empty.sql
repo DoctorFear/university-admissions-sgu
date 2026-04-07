@@ -383,16 +383,16 @@ INSERT INTO `xt_nganh_tohop` (`manganh`, `matohop`, `th_mon1`, `hsmon1`, `th_mon
 
 -- xt_thisinhxettuyen25
 INSERT INTO `xt_thisinhxettuyen25` (`cccd`, `sobaodanh`, `ho`, `ten`, `ngay_sinh`, `dien_thoai`, `password`, `gioi_tinh`, `email`, `noi_sinh`, `updated_at`, `doi_tuong`, `khu_vuc`) VALUES
-('001207004846', '24001001', 'Nguyễn Văn', 'An',    '01/01/2007', '0901234561', '123456', 'Nam',  'an.nguyen@email.com',   'Hà Nội',     '2026-03-01', '01', 'KV1'),
-('001207004848', '24001002', 'Trần Thị',   'Bình',  '02/02/2007', '0901234562', '123456', 'Nữ',   'binh.tran@email.com',   'Hà Nội',     '2026-03-01', '01', 'KV2'),
-('001207005157', '24001003', 'Lê Thị',     'Chi',   '03/03/2007', '0901234563', '123456', 'Nữ',   'chi.le@email.com',      'Hải Phòng',  '2026-03-01', '00', 'KV2NT'),
-('001207008593', '24001004', 'Phạm Văn',   'Dũng',  '04/04/2007', '0901234564', '123456', 'Nam',  'dung.pham@email.com',   'Nam Định',   '2026-03-01', '02', 'KV3'),
-('001207008630', '24001005', 'Hoàng Thị',  'Em',    '05/05/2007', '0901234565', '123456', 'Nữ',   'em.hoang@email.com',    'Nghệ An',    '2026-03-01', '00', 'KV1'),
-('001207009704', '24001006', 'Vũ Văn',     'Phúc',  '06/06/2007', '0901234566', '123456', 'Nam',  'phuc.vu@email.com',     'Hà Nội',     '2026-03-01', '01', 'KV2NT'),
-('001207011458', '24001007', 'Đặng Thị',   'Giang', '07/07/2007', '0901234567', '123456', 'Nữ',   'giang.dang@email.com',  'Thái Bình',  '2026-03-01', '00', 'KV2'),
-('001207012341', '24001008', 'Bùi Văn',    'Hải',   '08/08/2007', '0901234568', '123456', 'Nam',  'hai.bui@email.com',     'Hà Nam',     '2026-03-01', '00', 'KV1'),
-('001207012439', '24001009', 'Ngô Thị',    'Lan',   '09/09/2007', '0901234569', '123456', 'Nữ',   'lan.ngo@email.com',     'TP.HCM',     '2026-03-01', '01', 'KV3'),
-('001207012684', '24001010', 'Đinh Văn',   'Minh',  '10/10/2007', '0901234570', '123456', 'Nam',  'minh.dinh@email.com',   'Đà Nẵng',    '2026-03-01', '00', 'KV2NT');
+('TS_12077', '24001001', 'Nguyễn Văn', 'An',    '01/01/2007', '0901234561', '123456', 'Nam',  'an.nguyen@email.com',   'Hà Nội',     '2026-03-01', '01', 'KV1'),
+('TS_8814', '24001002', 'Trần Thị',   'Bình',  '02/02/2007', '0901234562', '123456', 'Nữ',   'binh.tran@email.com',   'Hà Nội',     '2026-03-01', '01', 'KV2'),
+('TS_3273', '24001003', 'Lê Thị',     'Chi',   '03/03/2007', '0901234563', '123456', 'Nữ',   'chi.le@email.com',      'Hải Phòng',  '2026-03-01', '00', 'KV2NT'),
+('TS_18436', '24001004', 'Phạm Văn',   'Dũng',  '04/04/2007', '0901234564', '123456', 'Nam',  'dung.pham@email.com',   'Nam Định',   '2026-03-01', '02', 'KV3'),
+('TS_2574', '24001005', 'Hoàng Thị',  'Em',    '05/05/2007', '0901234565', '123456', 'Nữ',   'em.hoang@email.com',    'Nghệ An',    '2026-03-01', '00', 'KV1'),
+('TS_15925', '24001006', 'Vũ Văn',     'Phúc',  '06/06/2007', '0901234566', '123456', 'Nam',  'phuc.vu@email.com',     'Hà Nội',     '2026-03-01', '01', 'KV2NT'),
+('TS_36668', '24001007', 'Đặng Thị',   'Giang', '07/07/2007', '0901234567', '123456', 'Nữ',   'giang.dang@email.com',  'Thái Bình',  '2026-03-01', '00', 'KV2'),
+('TS_25899', '24001008', 'Bùi Văn',    'Hải',   '08/08/2007', '0901234568', '123456', 'Nam',  'hai.bui@email.com',     'Hà Nam',     '2026-03-01', '00', 'KV1'),
+('TS_30137', '24001009', 'Ngô Thị',    'Lan',   '09/09/2007', '0901234569', '123456', 'Nữ',   'lan.ngo@email.com',     'TP.HCM',     '2026-03-01', '01', 'KV3'),
+('TS_1194', '24001010', 'Đinh Văn',   'Minh',  '10/10/2007', '0901234570', '123456', 'Nam',  'minh.dinh@email.com',   'Đà Nẵng',    '2026-03-01', '00', 'KV2NT');
 
 -- xt_diemthixettuyen
 INSERT INTO `xt_diemthixettuyen` (`cccd`, `sobaodanh`, `d_phuongthuc`, `TO`, `LI`, `HO`, `SI`, `SU`, `DI`, `VA`, `GDCD`, `N1_THI`, `N1_CC`, `CNCN`, `CNNN`, `TI`, `KTPL`, `NK1`, `NK2`,`NK3`,`NK4`,`NK5`,`NK6`,`NL1`) VALUES
@@ -458,6 +458,7 @@ INSERT INTO `xt_bangquydoi` (`d_phuongthuc`, `d_tohop`, `d_mon`, `d_diema`, `d_d
 ('DGNL', 'A01', NULL, 913.00, 918.00, 23.55, 23.75, 'DGNL_A01_12', '12');
 
 
+-- Testing
 DROP TABLE IF EXISTS `user_groups`;
 
 CREATE TABLE user_groups (
@@ -511,3 +512,34 @@ CREATE TABLE users (
 -- Tạo tài khoản admin mặc định (password: Admin@123)
 INSERT INTO users (username, password, ho_ten, role)
 VALUES ('admin', '$2a$10$FH6Atf.0kfssxzYprGebFe5yRA2B4K.a83ZG/yzb1X7Gsxni17LPG', 'Quản trị viên', 'admin');
+
+DROP TABLE IF EXISTS `xt_thisinh_tohop`;
+
+CREATE TABLE `xt_thisinh_tohop` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `idthisinh` int NOT NULL,
+  `nganh_tohop_id` int NOT NULL,
+  `diem_mon1` float DEFAULT NULL,
+  `diem_mon2` float DEFAULT NULL,
+  `diem_mon3` float DEFAULT NULL,
+  `tong_diem` float DEFAULT NULL,
+  `loai_diem` varchar(45) DEFAULT NULL,
+
+  PRIMARY KEY (`id`),
+
+  CONSTRAINT `fk_tstohop_thisinh`
+    FOREIGN KEY (`idthisinh`)
+    REFERENCES `xt_thisinhxettuyen25` (`idthisinh`)
+    ON DELETE CASCADE,
+
+  CONSTRAINT `fk_tstohop_nganh_tohop`
+    FOREIGN KEY (`nganh_tohop_id`)
+    REFERENCES `xt_nganh_tohop` (`id`)
+    ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+INSERT INTO xt_thisinh_tohop (idthisinh, nganh_tohop_id)
+SELECT ts.idthisinh, nt.id
+FROM xt_thisinhxettuyen25 ts
+JOIN xt_nganh_tohop nt
+LIMIT 50;

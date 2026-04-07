@@ -32,7 +32,7 @@ private boolean saved = false;
         super(owner, existing == null ? "Thêm điểm cộng" : "Sửa điểm cộng", ModalityType.APPLICATION_MODAL);
         this.entity = existing;
 
-        setSize(420, 340);
+        setSize(420, 500);
         setLocationRelativeTo(owner);
         setResizable(false);
 
@@ -58,6 +58,7 @@ private boolean saved = false;
 
         int row = 0;
 
+        
         txtCccd = addField(form, gbc, row++, "CCCD *");
         txtManganh = addField(form, gbc, row++, "Mã ngành");
         txtMatohop = addField(form, gbc, row++, "Mã tổ hợp");
@@ -115,6 +116,11 @@ private boolean saved = false;
     
     private void doSave() {
         if (entity == null) entity = new DiemCongXetTuyen();
+
+        if (txtCccd.getText().isBlank()) {
+            MessageHelper.showError(this, "CCCD bắt buộc");
+            return;
+        }
 
         try {
             entity.setTsCccd(txtCccd.getText().trim());

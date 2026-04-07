@@ -3,123 +3,159 @@ package com.xettuyen2026.service;
 import java.io.FileInputStream;
 import java.math.BigDecimal;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
-import org.apache.poi.sl.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.xettuyen2026.dao.DiemCongDAO;
 import com.xettuyen2026.entity.DiemCongXetTuyen;
+import com.xettuyen2026.entity.NganhTohop;
+import com.xettuyen2026.entity.ThiSinhToHop;
 
 public class DiemCongService {
     private final DiemCongDAO dao = new DiemCongDAO();
 
     public void importAll(String fileAnh, String fileThiSinh, String fileUuTien) throws Exception {
 
-        Map<String, BigDecimal> mapTiengAnh = loadTiengAnh(fileAnh);
-        Map<String, BigDecimal> mapUuTienKV_DT = loadThiSinh(fileThiSinh);
-        Map<String, BigDecimal> mapUuTienXT = loadUuTienXT(fileUuTien);
+        Map<String, DiemCongXetTuyen> map = new HashMap<>();
 
-        // merge tất cả theo CCCD
-        Map<String, BigDecimal> finalMap = new HashMap<>();
+        loadTiengAnh(fileAnh, map);
+        loadThiSinh(fileThiSinh, map);
+        loadUuTienXT(fileUuTien, map);
 
-        merge(finalMap, mapTiengAnh);
-        merge(finalMap, mapUuTienKV_DT);
-        merge(finalMap, mapUuTienXT);
+        for (DiemCongXetTuyen d : map.values()) {
+            prepare(d);
 
-        // save DB
-        for (String cccd : finalMap.keySet()) {
-            DiemCongXetTuyen d = new DiemCongXetTuyen();
-            d.setTsCccd(cccd);
-            d.setDiemUtxt(finalMap.get(cccd));
-
-            logic.prepare(d);
-            dao.save(d);
+            DiemCongXetTuyen existed = dao.findByKey(d.getDcKeys());
+            if (existed == null) {
+                dao.save(d);
+            } else {
+                existed.setDiemCC(d.getDiemCC());
+                existed.setDiemUtxt(d.getDiemUtxt());
+                existed.setDiemTong(d.getDiemTong());
+                existed.setGhichu(d.getGhichu());
+                dao.update(existed);
+            }
         }
     }
 
-    private Map<String, BigDecimal> loadTiengAnh(String path) throws Exception {
-        Map<String, BigDecimal> map = new HashMap<>();
+    private void loadTiengAnh(String path, Map<String, DiemCongXetTuyen> map) throws Exception {
 
-        Workbook wb = new XSSFWorkbook(new FileInputStream(path));
-        Sheet sheet = wb.getSheetAt(0);
+        try (FileInputStream fis = new FileInputStream(path);
+            Workbook wb = new XSSFWorkbook(fis)) {
+            Sheet sheet = wb.getSheetAt(0);
 
-        for (Row row : sheet) {
-            if (row.getRowNum() == 0) continue;
+            for (Row row : sheet) {
+                if (row.getRowNum() == 0) continue;
 
-            String cccd = getString(row.getCell(0));
-            BigDecimal diem = getNumber(row.getCell(1)); // cột điểm cộng
+                String cccd = getString(row.getCell(1));
+                BigDecimal diem = getNumber(row.getCell(5));
+                String note = getString(row.getCell(2));
 
-            map.put(cccd, diem);
+                List<ThiSinhToHop> ds = dao.findToHopByCccd(cccd);
+
+                System.out.println("CCCD: " + cccd + ", tohop size: " + ds.size());
+
+                for (ThiSinhToHop th : ds) {
+                    var n = th.getNganhTohop();
+
+                    DiemCongXetTuyen d = getOrCreate(map, cccd, n.getManganh(), n.getMatohop());
+
+                    d.setDiemCC(d.getDiemCC().add(diem));
+                    d.setGhichu(note);
+                }
+            }
         }
-
-        wb.close();
-        return map;
     }
 
-    private Map<String, BigDecimal> loadThiSinh(String path) throws Exception {
-        Map<String, BigDecimal> map = new HashMap<>();
+    private void loadUuTienXT(String path, Map<String, DiemCongXetTuyen> map) throws Exception {
 
-        // bảng quy đổi hardcode (theo bạn cung cấp)
-        Map<String, BigDecimal> rule = new HashMap<>();
-        rule.put("01_1", new BigDecimal("0.75"));
-        rule.put("02_2NT", new BigDecimal("0.5"));
-        rule.put("03_2", new BigDecimal("0.25"));
-        rule.put("04_3", BigDecimal.ZERO);
-
-        Workbook wb = new XSSFWorkbook(new FileInputStream(path));
-        Sheet sheet = wb.getSheetAt(0);
-
-        for (Row row : sheet) {
-            if (row.getRowNum() == 0) continue;
-
-            String cccd = getString(row.getCell(0));
-            String dtut = getString(row.getCell(1));
-            String kvut = getString(row.getCell(2));
-
-            String key = dtut + "_" + kvut;
-            BigDecimal diem = rule.getOrDefault(key, BigDecimal.ZERO);
-
-            map.put(cccd, diem);
+        try (FileInputStream fis = new FileInputStream(path);
+             Workbook wb = new XSSFWorkbook(fis)) {
+            Sheet sheet = wb.getSheetAt(0);
+            
+            for (Row row : sheet) {
+                if (row.getRowNum() == 0) continue;
+                
+                String cccd = getString(row.getCell(1));
+                String maMon = getString(row.getCell(4));
+                BigDecimal dat = getNumber(row.getCell(6));
+                BigDecimal khong = getNumber(row.getCell(7));
+                
+                List<ThiSinhToHop> ds = dao.findToHopByCccd(cccd);
+                System.out.println("CCCD: " + cccd + ", tohop size: " + ds.size());
+                
+                for (ThiSinhToHop th : ds) {
+                    var n = th.getNganhTohop();
+                    
+                    boolean match = checkMon(n, maMon);
+                    BigDecimal diem = match ? dat : khong;
+                    
+                    DiemCongXetTuyen d = getOrCreate(map, cccd, n.getManganh(), n.getMatohop());
+                    
+                    d.setDiemCC(d.getDiemCC().add(diem));
+                }
+            }
         }
-
-        wb.close();
-        return map;
     }
 
-    private Map<String, BigDecimal> loadUuTienXT(String path) throws Exception {
-        Map<String, BigDecimal> map = new HashMap<>();
+    private static final Set<String> DTUT_2 = Set.of("01", "02", "03", "04", "05");
+    private static final Set<String> DTUT_1 = Set.of("06", "07");
 
-        Workbook wb = new XSSFWorkbook(new FileInputStream(path));
-        Sheet sheet = wb.getSheetAt(0);
+    private BigDecimal mapUuTien(String dtut, String kvut) {
+        BigDecimal diemCong = BigDecimal.ZERO;
 
-        for (Row row : sheet) {
-            if (row.getRowNum() == 0) continue;
-
-            String cccd = getString(row.getCell(0));
-
-            BigDecimal diemDatGiai = getNumber(row.getCell(1));
-            BigDecimal diemKhongDat = getNumber(row.getCell(2));
-
-            // TODO: nếu bạn có tổ hợp → so sánh ở đây
-            // tạm thời lấy max
-            BigDecimal diem = diemDatGiai.max(diemKhongDat);
-
-            map.put(cccd, diem);
+        if (dtut != null && dtut.length() >= 2) {
+            dtut = dtut.substring(0, 2);
         }
 
-        wb.close();
-        return map;
-    }
+        if (DTUT_2.contains(dtut)) {
+            diemCong = diemCong.add(BigDecimal.valueOf(2));
+        } else if (DTUT_1.contains(dtut)) {
+            diemCong = diemCong.add(BigDecimal.valueOf(1));
+        }
 
-    private void merge(Map<String, BigDecimal> target, Map<String, BigDecimal> source) {
-        for (String key : source.keySet()) {
-            target.put(
-                key,
-                target.getOrDefault(key, BigDecimal.ZERO).add(source.get(key))
-            );
+        switch (kvut) {
+            case "1" -> diemCong = diemCong.add(BigDecimal.valueOf(0.75));
+            case "2NT" -> diemCong = diemCong.add(BigDecimal.valueOf(0.5));
+            case "2" -> diemCong = diemCong.add(BigDecimal.valueOf(0.25));
+        }
+
+        return diemCong;
+    }
+    private void loadThiSinh(String path, Map<String, DiemCongXetTuyen> map) throws Exception {
+
+        try (FileInputStream fis = new FileInputStream(path);
+             Workbook wb = new XSSFWorkbook(fis)) {
+            Sheet sheet = wb.getSheetAt(0);
+            
+            for (Row row : sheet) {
+                if (row.getRowNum() == 0) continue;
+                
+                String cccd = getString(row.getCell(1));
+                String dtut = getString(row.getCell(5));
+                String kvut = getString(row.getCell(6));
+                
+                BigDecimal diem = mapUuTien(dtut, kvut);
+                
+                List<ThiSinhToHop> ds = dao.findToHopByCccd(cccd);
+                System.out.println("CCCD: " + cccd + ", tohop size: " + ds.size());
+                
+                for (ThiSinhToHop th : ds) {
+                    var n = th.getNganhTohop();
+                    
+                    DiemCongXetTuyen d = getOrCreate(map, cccd, n.getManganh(), n.getMatohop());
+                    
+                    d.setDiemUtxt(d.getDiemUtxt().add(diem));
+                }
+            }
         }
     }
 
@@ -144,14 +180,11 @@ public class DiemCongService {
     }
 
     public void prepare(DiemCongXetTuyen d) {
-        // null safety
         BigDecimal cc = d.getDiemCC() == null ? BigDecimal.ZERO : d.getDiemCC();
         BigDecimal ut = d.getDiemUtxt() == null ? BigDecimal.ZERO : d.getDiemUtxt();
 
-        // tính tổng
         d.setDiemTong(cc.add(ut));
 
-        // tạo key duy nhất
         String key = String.format("%s_%s_%s",
                 safe(d.getTsCccd()),
                 safe(d.getManganh()),
@@ -163,5 +196,77 @@ public class DiemCongService {
 
     private String safe(String s) {
         return s == null ? "" : s.trim();
+    }
+
+    private String buildKey(DiemCongXetTuyen d) {
+        return d.getTsCccd() + "_" + d.getManganh() + "_" + d.getMatohop();
+    }
+
+    private DiemCongXetTuyen getOrCreate(Map<String, DiemCongXetTuyen> map, String cccd, String manganh, String matohop) {
+        String key = cccd + "_" + manganh + "_" + matohop;
+
+        return map.computeIfAbsent(key, k -> {
+            DiemCongXetTuyen d = new DiemCongXetTuyen();
+            d.setTsCccd(cccd);
+            d.setManganh(manganh);
+            d.setMatohop(matohop);
+            d.setDiemCC(BigDecimal.ZERO);
+            d.setDiemUtxt(BigDecimal.ZERO);
+            return d;
+        });
+    }
+
+    private boolean checkMon(NganhTohop n, String maMon) {
+        if (n == null || maMon == null || maMon.isBlank()) return false;
+
+        return switch (maMon.trim().toUpperCase()) {
+            case "N1" -> Boolean.TRUE.equals(n.getN1());
+            case "TO" -> Boolean.TRUE.equals(n.getTo());
+            case "LI" -> Boolean.TRUE.equals(n.getLi());
+            case "HO" -> Boolean.TRUE.equals(n.getHo());
+            case "SI" -> Boolean.TRUE.equals(n.getSi());
+            case "VA" -> Boolean.TRUE.equals(n.getVa());
+            case "SU" -> Boolean.TRUE.equals(n.getSu());
+            case "DI" -> Boolean.TRUE.equals(n.getDi());
+            case "TI" -> Boolean.TRUE.equals(n.getTi());
+            case "KTPL" -> Boolean.TRUE.equals(n.getKtpl());
+            case "KHAC" -> Boolean.TRUE.equals(n.getKhac());
+            default -> false;
+        };
+    }
+
+    public void importTiengAnh(String path) throws Exception {
+        Map<String, DiemCongXetTuyen> map = new HashMap<>();
+        loadTiengAnh(path, map);
+        saveAll(map);
+    }
+
+    public void importThiSinh(String path) throws Exception {
+        Map<String, DiemCongXetTuyen> map = new HashMap<>();
+        loadThiSinh(path, map);
+        saveAll(map);
+    }
+
+    public void importUuTien(String path) throws Exception {
+        Map<String, DiemCongXetTuyen> map = new HashMap<>();
+        loadUuTienXT(path, map);
+        saveAll(map);
+    }
+
+    private void saveAll(Map<String, DiemCongXetTuyen> map) {
+        for (DiemCongXetTuyen d : map.values()) {
+            prepare(d);
+
+            DiemCongXetTuyen existed = dao.findByKey(d.getDcKeys());
+            if (existed == null) {
+                dao.save(d);
+            } else {
+                existed.setDiemCC(d.getDiemCC());
+                existed.setDiemUtxt(d.getDiemUtxt());
+                existed.setDiemTong(d.getDiemTong());
+                existed.setGhichu(d.getGhichu());
+                dao.update(existed);
+            }
+        }
     }
 }

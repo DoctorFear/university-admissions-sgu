@@ -31,5 +31,6 @@
         <mapping class="com.xettuyen2026.entity.BangQuydoi"/>
         <mapping class="com.xettuyen2026.entity.User"/>
         <mapping class="com.xettuyen2026.entity.UserGroup"/>
+        <mapping class="com.xettuyen2026.entity.ThiSinhToHop"/>
     </session-factory>
 </hibernate-configuration>
