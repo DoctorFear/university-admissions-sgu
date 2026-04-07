@@ -11,8 +11,8 @@
         <property name="hibernate.connection.url">
             jdbc:mysql://localhost:3306/xettuyen2026?useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=Asia/Ho_Chi_Minh
         </property>
-        <property name="hibernate.connection.username">root</property>
-        <property name="hibernate.connection.password"></property>
+        <property name="hibernate.connection.username">appuser</property>
+        <property name="hibernate.connection.password">app123</property>
 
         <property name="hibernate.dialect">
             org.hibernate.dialect.MySQLDialect
@@ -31,5 +31,6 @@
         <mapping class="com.xettuyen2026.entity.BangQuydoi"/>
         <mapping class="com.xettuyen2026.entity.User"/>
         <mapping class="com.xettuyen2026.entity.UserGroup"/>
+        <mapping class="com.xettuyen2026.entity.ThiSinhToHop"/>
     </session-factory>
 </hibernate-configuration>

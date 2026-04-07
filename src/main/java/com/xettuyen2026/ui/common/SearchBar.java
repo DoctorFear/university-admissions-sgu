@@ -1,9 +1,21 @@
 package com.xettuyen2026.ui.common;
 
-import javax.swing.*;
-import javax.swing.border.*;
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.BasicStroke;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+
+import javax.swing.BorderFactory;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 /**
  * SearchBar với icon kính lúp, placeholder, border focus.
@@ -76,4 +88,8 @@ public class SearchBar extends JPanel {
     public String getText() { return textField.getText().trim(); }
     public void clear() { textField.setText(""); }
     public JTextField getTextField() { return textField; }
+
+    public void setText(String string) {
+        textField.setText(string); 
+    }
 }

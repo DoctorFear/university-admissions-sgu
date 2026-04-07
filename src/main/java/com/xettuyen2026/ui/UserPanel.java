@@ -54,7 +54,7 @@ public class UserPanel extends JPanel {
         JPanel leftPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 8, 6));
         leftPanel.setOpaque(false);
 
-        searchBar = new SearchBar("Tìm theo CCCD hoặc họ tên...", e -> doSearch());
+        searchBar = new SearchBar("Tìm kiếm người dùng", e -> doSearch());
 
         RoundedButton btnSearch = new RoundedButton(UIConstants.ICON_SEARCH + " Tìm kiếm", UIConstants.PRIMARY_LIGHT);
         btnSearch.addActionListener(e -> doSearch());
@@ -130,7 +130,7 @@ public class UserPanel extends JPanel {
             styledTable.setData(rows);
         } catch (Exception e) {
             System.err.println(e);
-            MessageHelper.showError(this, "Không thể tải dữ liệu thí sinh: " + e.getMessage());
+            MessageHelper.showError(this, "Không thể tải dữ liệu người dùng: " + e.getMessage());
         }
     }
 

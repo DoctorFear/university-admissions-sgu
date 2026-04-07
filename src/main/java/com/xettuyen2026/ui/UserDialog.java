@@ -51,7 +51,7 @@ public class UserDialog extends JDialog {
         main.setBorder(BorderFactory.createEmptyBorder(16, 20, 12, 20));
         main.setBackground(Color.WHITE);
 
-        JLabel title = new JLabel(entity == null ? "➕ Thêm User" : "✏️ Sửa User");
+        JLabel title = new JLabel(entity == null ? "Thêm User" : "Sửa User");
         title.setFont(UIConstants.FONT_TITLE);
         title.setForeground(UIConstants.PRIMARY);
         main.add(title, BorderLayout.NORTH);
