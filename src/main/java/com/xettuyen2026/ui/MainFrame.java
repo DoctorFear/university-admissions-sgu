@@ -19,8 +19,10 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
@@ -99,7 +101,14 @@ public class MainFrame extends JFrame {
         brandPanel.setBorder(BorderFactory.createEmptyBorder(20, 16, 16, 16));
         brandPanel.setMaximumSize(new Dimension(UIConstants.SIDEBAR_WIDTH, 80));
 
-        JLabel lblBrand = new JLabel("🎓  SGU Tuyển sinh");
+        JLabel lblBrand = new JLabel("SGU Tuyển sinh");
+        javax.swing.Icon brandIcon = UIConstants.getIcon(UIConstants.ICON_STUDENT, 20, 20);
+        if (brandIcon != null) {
+            lblBrand.setIcon(brandIcon);
+            lblBrand.setIconTextGap(8);
+        } else {
+            lblBrand.setText("🎓  SGU Tuyển sinh");
+        }
         lblBrand.setFont(new Font("Segoe UI", Font.BOLD, 16));
         lblBrand.setForeground(Color.WHITE);
         lblBrand.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -176,7 +185,11 @@ public class MainFrame extends JFrame {
         panel.setCursor(new Cursor(Cursor.HAND_CURSOR));
         panel.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 12));
 
-        JLabel lbl = new JLabel(icon + "   " + text);
+        JLabel lbl = new JLabel(text);
+        if (icon != null && !icon.isEmpty()) {
+            lbl.setIcon(UIConstants.getIcon(icon, 20, 20));
+            lbl.setIconTextGap(12);
+        }
         lbl.setFont(UIConstants.FONT_MENU);
         lbl.setForeground(new Color(255, 255, 255, 210));
         panel.add(lbl, BorderLayout.CENTER);
@@ -245,8 +258,14 @@ public class MainFrame extends JFrame {
         JPanel userPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 8, 10));
         userPanel.setOpaque(false);
 
-        JLabel lblUserIcon = new JLabel("👤");
-        lblUserIcon.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 18));
+        JLabel lblUserIcon = new JLabel();
+        javax.swing.Icon uIcon = UIConstants.getIcon(UIConstants.ICON_USER, 20, 20);
+        if (uIcon != null) {
+            lblUserIcon.setIcon(uIcon);
+        } else {
+            lblUserIcon.setText("👤");
+            lblUserIcon.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 18));
+        }
 
         JLabel lblUsername = new JLabel(currentUser);
         lblUsername.setFont(UIConstants.FONT_BOLD);
@@ -254,6 +273,19 @@ public class MainFrame extends JFrame {
 
         userPanel.add(lblUserIcon);
         userPanel.add(lblUsername);
+
+        JPopupMenu popupMenu = new JPopupMenu();
+        JMenuItem logoutItem = new JMenuItem("Đăng xuất");
+        logoutItem.addActionListener(e -> doLogout());
+        popupMenu.add(logoutItem);
+
+        userPanel.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        userPanel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                popupMenu.show(userPanel, 0, userPanel.getHeight());
+            }
+        });
 
         header.add(userPanel, BorderLayout.EAST);
         return header;

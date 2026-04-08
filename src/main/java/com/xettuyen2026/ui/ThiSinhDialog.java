@@ -1,5 +1,6 @@
 package com.xettuyen2026.ui;
 
+import com.xettuyen2026.dao.ThiSinhDAO;
 import com.xettuyen2026.entity.ThiSinh;
 import com.xettuyen2026.ui.common.RoundedButton;
 import com.xettuyen2026.ui.common.UIConstants;
@@ -104,7 +105,7 @@ public class ThiSinhDialog extends JDialog {
         RoundedButton btnCancel = new RoundedButton("Hủy", new Color(0x757575));
         btnCancel.addActionListener(e -> dispose());
 
-        RoundedButton btnSave = new RoundedButton("💾 Lưu", UIConstants.PRIMARY);
+        RoundedButton btnSave = new RoundedButton("Lưu", UIConstants.PRIMARY);
         btnSave.addActionListener(e -> doSave());
 
         btnPanel.add(btnCancel);
@@ -149,13 +150,40 @@ public class ThiSinhDialog extends JDialog {
     }
 
     private void doSave() {
-        if (txtCccd.getText().trim().isEmpty() || txtHo.getText().trim().isEmpty() || txtTen.getText().trim().isEmpty()) {
+        String cccd = txtCccd.getText().trim();
+        String ho   = txtHo.getText().trim();
+        String ten  = txtTen.getText().trim();
+        if (cccd.isEmpty() || ho.isEmpty() || ten.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập CCCD, Họ, Tên!", "Thiếu thông tin", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        // TODO: Save via DAO
-        saved = true;
-        dispose();
+        try {
+            ThiSinhDAO dao = new ThiSinhDAO();
+            boolean isNew = (thiSinh == null);
+            if (isNew) thiSinh = new ThiSinh();
+
+            thiSinh.setCccd(cccd);
+            thiSinh.setHo(ho);
+            thiSinh.setTen(ten);
+            thiSinh.setSobaodanh(txtSbd.getText().trim().isEmpty() ? null : txtSbd.getText().trim());
+            thiSinh.setNgaySinh(txtNgaySinh.getText().trim().isEmpty() ? null : txtNgaySinh.getText().trim());
+            thiSinh.setGioiTinh((String) cboGioiTinh.getSelectedItem());
+            thiSinh.setDienThoai(txtDienThoai.getText().trim().isEmpty() ? null : txtDienThoai.getText().trim());
+            thiSinh.setEmail(txtEmail.getText().trim().isEmpty() ? null : txtEmail.getText().trim());
+            thiSinh.setNoiSinh(txtNoiSinh.getText().trim().isEmpty() ? null : txtNoiSinh.getText().trim());
+            thiSinh.setKhuVuc((String) cboKhuVuc.getSelectedItem());
+            thiSinh.setDoiTuong((String) cboDoiTuong.getSelectedItem());
+            thiSinh.setUpdatedAt(java.time.LocalDate.now());
+
+            if (isNew) dao.save(thiSinh);
+            else       dao.update(thiSinh);
+
+            saved = true;
+            dispose();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Lỗi lưu thí sinh:\n" + e.getMessage(),
+                    "Lỗi", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     public boolean isSaved() { return saved; }

@@ -62,7 +62,7 @@ public class KetQuaXetTuyenPanel extends JPanel {
         }
         selectPanel.add(cboNganh);
 
-        RoundedButton btnView = new RoundedButton("📊 Xem kết quả", UIConstants.PRIMARY);
+        RoundedButton btnView = new RoundedButton(UIConstants.ICON_DASHBOARD + " Xem kết quả", UIConstants.PRIMARY);
         btnView.addActionListener(e -> loadResults());
         selectPanel.add(btnView);
 

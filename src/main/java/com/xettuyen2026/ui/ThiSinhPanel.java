@@ -2,21 +2,25 @@ package com.xettuyen2026.ui;
 
 import com.xettuyen2026.dao.ThiSinhDAO;
 import com.xettuyen2026.entity.ThiSinh;
+import com.xettuyen2026.service.ThiSinhImportService;
 import com.xettuyen2026.ui.common.*;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Quản lý Thí sinh - toolbar, search, table phân trang, dialog thêm/sửa.
+ * Quản lý Thí sinh — toolbar, search, table phân trang, CRUD + import Excel.
  */
 public class ThiSinhPanel extends JPanel {
 
     private PaginatedTable styledTable;
     private SearchBar searchBar;
     private ThiSinhDAO dao;
+    private List<ThiSinh> loadedEntities = new ArrayList<>();
 
     private static final String[] COLUMNS = {
         "STT", "CCCD", "Số báo danh", "Họ", "Tên", "Ngày sinh",
@@ -32,6 +36,8 @@ public class ThiSinhPanel extends JPanel {
         add(createTableCard(), BorderLayout.CENTER);
     }
 
+    // ── Toolbar ────────────────────────────────────────────────────────────────
+
     private JPanel createToolbar() {
         JPanel toolbar = new JPanel(new BorderLayout(12, 0));
         toolbar.setOpaque(false);
@@ -40,12 +46,9 @@ public class ThiSinhPanel extends JPanel {
         // Left: Search
         JPanel leftPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 8, 6));
         leftPanel.setOpaque(false);
-
         searchBar = new SearchBar("Tìm theo CCCD hoặc họ tên...", e -> doSearch());
-
         RoundedButton btnSearch = new RoundedButton(UIConstants.ICON_SEARCH + " Tìm kiếm", UIConstants.PRIMARY_LIGHT);
         btnSearch.addActionListener(e -> doSearch());
-
         leftPanel.add(searchBar);
         leftPanel.add(btnSearch);
         toolbar.add(leftPanel, BorderLayout.WEST);
@@ -75,6 +78,8 @@ public class ThiSinhPanel extends JPanel {
         return toolbar;
     }
 
+    // ── Table card ─────────────────────────────────────────────────────────────
+
     private JPanel createTableCard() {
         JPanel card = new JPanel(new BorderLayout()) {
             @Override
@@ -94,84 +99,118 @@ public class ThiSinhPanel extends JPanel {
         styledTable = new PaginatedTable(COLUMNS);
         card.add(styledTable, BorderLayout.CENTER);
 
-        // Auto-load on first show
         SwingUtilities.invokeLater(this::loadData);
-
         return card;
     }
 
+    // ── Data ───────────────────────────────────────────────────────────────────
+
     private void loadData() {
         try {
-            List<ThiSinh> list = dao.findAll();
-            List<Object[]> rows = new ArrayList<>();
-            int stt = 1;
-            for (ThiSinh ts : list) {
-                rows.add(new Object[]{
-                    stt++,
-                    ts.getCccd(),
-                    ts.getSobaodanh(),
-                    ts.getHo(),
-                    ts.getTen(),
-                    ts.getNgaySinh(),
-                    ts.getGioiTinh(),
-                    ts.getDienThoai(),
-                    ts.getEmail(),
-                    ts.getKhuVuc(),
-                    ts.getDoiTuong()
-                });
-            }
-            styledTable.setData(rows);
+            loadedEntities = dao.findAll();
+            styledTable.setData(toRows(loadedEntities));
         } catch (Exception e) {
             e.printStackTrace();
-            MessageHelper.showError(this, "Không thể tải dữ liệu thí sinh: " + e.getMessage());
+            MessageHelper.showError(this, "Không thể tải dữ liệu thí sinh:\n" + e.getMessage());
         }
     }
 
+    private List<Object[]> toRows(List<ThiSinh> list) {
+        List<Object[]> rows = new ArrayList<>();
+        int stt = 1;
+        for (ThiSinh ts : list) {
+            rows.add(new Object[]{
+                stt++,
+                ts.getCccd(),
+                ts.getSobaodanh(),
+                ts.getHo(),
+                ts.getTen(),
+                ts.getNgaySinh(),
+                ts.getGioiTinh(),
+                ts.getDienThoai(),
+                ts.getEmail(),
+                ts.getKhuVuc(),
+                ts.getDoiTuong()
+            });
+        }
+        return rows;
+    }
+
     private void doSearch() {
-        String keyword = searchBar.getText();
+        String keyword = searchBar.getText().trim();
         if (keyword.isEmpty()) {
             loadData();
             return;
         }
         try {
-            List<ThiSinh> list = dao.findAll(); // use findAll and filter in app
-            List<Object[]> rows = new ArrayList<>();
-            int stt = 1;
-            String kw = keyword.toLowerCase();
-            for (ThiSinh ts : list) {
-                boolean match = (ts.getCccd() != null && ts.getCccd().toLowerCase().contains(kw))
-                    || (ts.getHo() != null && ts.getHo().toLowerCase().contains(kw))
-                    || (ts.getTen() != null && ts.getTen().toLowerCase().contains(kw));
-                if (match) {
-                    rows.add(new Object[]{
-                        stt++, ts.getCccd(), ts.getSobaodanh(), ts.getHo(), ts.getTen(),
-                        ts.getNgaySinh(), ts.getGioiTinh(), ts.getDienThoai(),
-                        ts.getEmail(), ts.getKhuVuc(), ts.getDoiTuong()
-                    });
-                }
-            }
-            styledTable.setData(rows);
+            loadedEntities = dao.search(keyword);
+            styledTable.setData(toRows(loadedEntities));
         } catch (Exception e) {
-            MessageHelper.showError(this, "Lỗi tìm kiếm: " + e.getMessage());
+            MessageHelper.showError(this, "Lỗi tìm kiếm:\n" + e.getMessage());
         }
     }
 
+    // ── Import Excel ───────────────────────────────────────────────────────────
+
     private void doImport() {
-        ImportDialog dlg = new ImportDialog(SwingUtilities.getWindowAncestor(this));
-        dlg.setVisible(true);
-        if (dlg.isConfirmed() && dlg.getSelectedFile() != null) {
-            MessageHelper.showInfo(this, "Import file: " + dlg.getSelectedFile().getName()
-                    + "\n(Chức năng import sẽ xử lý file thực tế ở service layer)");
-            loadData();
-        }
+        JFileChooser chooser = new JFileChooser();
+        chooser.setFileFilter(new FileNameExtensionFilter("Excel Files (.xlsx)", "xlsx"));
+        chooser.setDialogTitle("Chọn file Excel danh sách thí sinh");
+        // Mở thẳng thư mục data của dự án nếu có
+        File dataDir = new File("src/main/data");
+        if (dataDir.exists()) chooser.setCurrentDirectory(dataDir);
+
+        if (chooser.showOpenDialog(this) != JFileChooser.APPROVE_OPTION) return;
+
+        File file = chooser.getSelectedFile();
+        SwingWorker<ThiSinhImportService.ImportResult, Void> worker = new SwingWorker<>() {
+            @Override
+            protected ThiSinhImportService.ImportResult doInBackground() throws Exception {
+                return new ThiSinhImportService().importFromExcel(file);
+            }
+
+            @Override
+            protected void done() {
+                try {
+                    ThiSinhImportService.ImportResult r = get();
+
+                    StringBuilder msg = new StringBuilder();
+                    msg.append("Import hoàn tất!\n");
+                    msg.append("✅ Thêm mới : ").append(r.insertCount).append(" bản ghi\n");
+                    msg.append("🔄 Cập nhật : ").append(r.updateCount).append(" bản ghi\n");
+                    msg.append("⏭️ Bỏ qua  : ").append(r.skipCount).append(" dòng\n");
+                    msg.append("❌ Lỗi     : ").append(r.errorCount).append(" dòng");
+
+                    if (!r.errors.isEmpty()) {
+                        msg.append("\n\nChi tiết lỗi:\n");
+                        int show = Math.min(8, r.errors.size());
+                        for (int i = 0; i < show; i++) msg.append("• ").append(r.errors.get(i)).append("\n");
+                        if (r.errors.size() > show)
+                            msg.append("... và ").append(r.errors.size() - show).append(" lỗi khác.");
+                    }
+
+                    if (r.errorCount == 0) {
+                        MessageHelper.showSuccess(ThiSinhPanel.this, msg.toString());
+                    } else {
+                        MessageHelper.showInfo(ThiSinhPanel.this, msg.toString());
+                    }
+
+                } catch (Exception e) {
+                    MessageHelper.showError(ThiSinhPanel.this, "Lỗi import:\n" + e.getMessage());
+                } finally {
+                    loadData();
+                }
+            }
+        };
+        worker.execute();
     }
+
+    // ── CRUD ───────────────────────────────────────────────────────────────────
 
     private void doAdd() {
         ThiSinhDialog dlg = new ThiSinhDialog(SwingUtilities.getWindowAncestor(this), null);
         dlg.setVisible(true);
-        if (dlg.isSaved()) {
-            loadData();
-        }
+        if (dlg.isSaved()) loadData();
     }
 
     private void doEdit() {
@@ -181,16 +220,11 @@ public class ThiSinhPanel extends JPanel {
             return;
         }
         int realIdx = styledTable.getRealIndex(row);
-        List<Object[]> data = styledTable.getAllData();
-        String cccd = (String) data.get(realIdx)[1];
-
-        ThiSinh ts = dao.findByCccd(cccd);
-        if (ts != null) {
+        if (realIdx >= 0 && realIdx < loadedEntities.size()) {
+            ThiSinh ts = loadedEntities.get(realIdx);
             ThiSinhDialog dlg = new ThiSinhDialog(SwingUtilities.getWindowAncestor(this), ts);
             dlg.setVisible(true);
-            if (dlg.isSaved()) {
-                loadData();
-            }
+            if (dlg.isSaved()) loadData();
         }
     }
 
@@ -200,9 +234,20 @@ public class ThiSinhPanel extends JPanel {
             MessageHelper.showWarning(this, "Vui lòng chọn một thí sinh để xóa.");
             return;
         }
-        if (ConfirmDialog.show(this, "Bạn có chắc muốn xóa thí sinh này?")) {
-            MessageHelper.showSuccess(this, "Đã xóa thí sinh.");
-            loadData();
+        int realIdx = styledTable.getRealIndex(row);
+        if (realIdx < 0 || realIdx >= loadedEntities.size()) return;
+
+        ThiSinh ts = loadedEntities.get(realIdx);
+        String label = (ts.getHo() != null ? ts.getHo() + " " : "") + (ts.getTen() != null ? ts.getTen() : ts.getCccd());
+
+        if (ConfirmDialog.show(this, "Bạn có chắc muốn xóa thí sinh:\n" + label + "?")) {
+            try {
+                dao.delete(ts);
+                MessageHelper.showSuccess(this, "Đã xóa thí sinh " + label + ".");
+                loadData();
+            } catch (Exception e) {
+                MessageHelper.showError(this, "Lỗi xóa thí sinh:\n" + e.getMessage());
+            }
         }
     }
 }

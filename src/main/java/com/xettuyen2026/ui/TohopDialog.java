@@ -63,7 +63,7 @@ public class TohopDialog extends JDialog {
         RoundedButton btnCancel = new RoundedButton("Hủy", new Color(0x757575));
         btnCancel.addActionListener(e -> dispose());
 
-        RoundedButton btnSave = new RoundedButton("💾 Lưu", UIConstants.PRIMARY);
+        RoundedButton btnSave = new RoundedButton("Lưu", UIConstants.PRIMARY);
         btnSave.addActionListener(e -> doSave());
 
         btnPanel.add(btnCancel);

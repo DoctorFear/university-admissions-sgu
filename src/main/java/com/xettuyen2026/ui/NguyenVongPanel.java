@@ -57,7 +57,7 @@ public class NguyenVongPanel extends JPanel {
         searchBar = new SearchBar("Tìm theo CCCD...", e -> doSearch());
         RoundedButton btnSearch = new RoundedButton(UIConstants.ICON_SEARCH + " Tìm", UIConstants.PRIMARY_LIGHT);
         btnSearch.addActionListener(e -> doSearch());
-        RoundedButton btnLoad = new RoundedButton("📋 Tải DS", UIConstants.PRIMARY);
+        RoundedButton btnLoad = new RoundedButton(UIConstants.ICON_DOWNLOAD + " Tải DS", UIConstants.PRIMARY);
         btnLoad.addActionListener(e -> loadData());
         row1.add(searchBar);
         row1.add(btnSearch);
@@ -85,10 +85,10 @@ public class NguyenVongPanel extends JPanel {
         sep.setPreferredSize(new Dimension(2, 24));
         sep.setForeground(UIConstants.BORDER_LIGHT);
 
-        RoundedButton btnCalc = new RoundedButton("🧮 Tính điểm ĐXT", new Color(0x6A1B9A));
+        RoundedButton btnCalc = new RoundedButton(UIConstants.ICON_CALCULATE + " Tính điểm ĐXT", new Color(0x6A1B9A));
         btnCalc.addActionListener(e -> calculateScores());
 
-        RoundedButton btnRun = new RoundedButton("🚀 Chạy xét tuyển", UIConstants.STAT_GREEN);
+        RoundedButton btnRun = new RoundedButton(UIConstants.ICON_EXECUTE + " Chạy xét tuyển", UIConstants.STAT_GREEN);
         btnRun.addActionListener(e -> runAdmission());
 
         row2.add(btnImport);
@@ -136,11 +136,11 @@ public class NguyenVongPanel extends JPanel {
                     if ("yes".equals(val)) {
                         c.setForeground(UIConstants.SUCCESS);
                         ((JLabel) c).setFont(UIConstants.FONT_BOLD);
-                        ((JLabel) c).setText("✅ Trúng tuyển");
-                    } else if ("duolaar".equals(val)) {
+                        ((JLabel) c).setText("Trúng tuyển");
+                    } else if ("duoisan".equals(val)) {
                         c.setForeground(UIConstants.DANGER);
                         ((JLabel) c).setFont(UIConstants.FONT_BOLD);
-                        ((JLabel) c).setText("❌ Rớt");
+                        ((JLabel) c).setText("Rớt");
                     } else {
                         c.setForeground(UIConstants.TEXT_SECONDARY);
                     }

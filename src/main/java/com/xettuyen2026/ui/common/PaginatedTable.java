@@ -27,10 +27,8 @@ public class PaginatedTable extends JPanel {
     private final JScrollPane scrollPane;
 
     private final JLabel lblPageInfo;
-    private final JButton btnFirst;
     private final JButton btnPrev;
     private final JButton btnNext;
-    private final JButton btnLast;
     private final JComboBox<Integer> cboPageSize;
     private final JComboBox<Integer> cboPage;
 
@@ -59,7 +57,7 @@ public class PaginatedTable extends JPanel {
         table.setSelectionBackground(new Color(0xBBDEFB));
         table.setSelectionForeground(UIConstants.TEXT_PRIMARY);
         table.setIntercellSpacing(new Dimension(0, 0));
-        table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         table.setFillsViewportHeight(true);
 
         JTableHeader header = table.getTableHeader();
@@ -143,7 +141,6 @@ public class PaginatedTable extends JPanel {
         JPanel rightPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 6, 0));
         rightPanel.setOpaque(false);
 
-        btnFirst = makePagBtn("<< Đầu");
         btnPrev = makePagBtn("< Trước");
         lblPageInfo = new JLabel("Trang 1/1");
         lblPageInfo.setFont(UIConstants.FONT_REGULAR);
@@ -162,20 +159,15 @@ public class PaginatedTable extends JPanel {
             }
         });
         btnNext = makePagBtn("Tiếp >");
-        btnLast = makePagBtn("Cuối >>");
 
-        btnFirst.addActionListener(e -> goToPage(1));
         btnPrev.addActionListener(e -> goToPage(currentPage - 1));
         btnNext.addActionListener(e -> goToPage(currentPage + 1));
-        btnLast.addActionListener(e -> goToPage(totalPages));
 
-        rightPanel.add(btnFirst);
         rightPanel.add(btnPrev);
         rightPanel.add(lblPageInfo);
         rightPanel.add(lblJump);
         rightPanel.add(cboPage);
         rightPanel.add(btnNext);
-        rightPanel.add(btnLast);
 
         paginationPanel.add(rightPanel, BorderLayout.EAST);
         add(paginationPanel, BorderLayout.SOUTH);
@@ -234,6 +226,8 @@ public class PaginatedTable extends JPanel {
         if (widths == null) {
             return;
         }
+        
+        table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
         TableColumnModel columnModel = table.getColumnModel();
         int totalWidth = 0;
@@ -286,10 +280,8 @@ public class PaginatedTable extends JPanel {
         updatingControls = true;
 
         lblPageInfo.setText("Trang " + currentPage + "/" + totalPages + " (" + allData.size() + " dòng)");
-        btnFirst.setEnabled(currentPage > 1);
         btnPrev.setEnabled(currentPage > 1);
         btnNext.setEnabled(currentPage < totalPages);
-        btnLast.setEnabled(currentPage < totalPages);
 
         cboPage.removeAllItems();
         for (int i = 1; i <= totalPages; i++) {

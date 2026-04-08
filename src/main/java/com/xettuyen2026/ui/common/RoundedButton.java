@@ -22,8 +22,18 @@ public class RoundedButton extends JButton {
     }
 
     public RoundedButton(String text, Color bgColor) {
-        super(text);
+        super();
         this.bgColor = bgColor;
+        
+        String parsedText = text;
+        if (text != null && text.contains(".png")) {
+            int extIdx = text.indexOf(".png");
+            String iconName = text.substring(0, extIdx + 4).trim();
+            parsedText = text.substring(extIdx + 4).trim();
+            setIcon(UIConstants.getIcon(iconName, 18, 18));
+            setIconTextGap(8);
+        }
+        setText(parsedText);
         this.hoverColor = brighten(bgColor, 0.15f);
         this.pressColor = darken(bgColor, 0.1f);
 

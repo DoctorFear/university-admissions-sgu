@@ -38,7 +38,7 @@ public class ImportDialog extends JDialog {
         lblFileName.setFont(UIConstants.FONT_REGULAR);
         lblFileName.setForeground(UIConstants.TEXT_SECONDARY);
 
-        RoundedButton btnChoose = new RoundedButton("📂 Chọn file...", UIConstants.PRIMARY);
+        RoundedButton btnChoose = new RoundedButton("Chọn file...", UIConstants.PRIMARY);
         btnChoose.setPreferredSize(new Dimension(130, 34));
         btnChoose.addActionListener(e -> chooseFile());
 
@@ -69,7 +69,7 @@ public class ImportDialog extends JDialog {
         RoundedButton btnCancel = new RoundedButton("Hủy", new Color(0x757575));
         btnCancel.addActionListener(e -> dispose());
 
-        RoundedButton btnImport = new RoundedButton("📥 Import", UIConstants.SUCCESS);
+        RoundedButton btnImport = new RoundedButton(UIConstants.ICON_IMPORT + " Import", UIConstants.SUCCESS);
         btnImport.addActionListener(e -> { confirmed = true; dispose(); });
 
         bottomPanel.add(btnCancel);
