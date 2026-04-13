@@ -1,12 +1,17 @@
 package com.xettuyen2026.dao;
 
 import com.xettuyen2026.config.HibernateConfig;
+import com.xettuyen2026.dao.base.BaseDAO;
 import com.xettuyen2026.entity.ThiSinh;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import java.util.List;
 
-public class ThiSinhDAO {
+public class ThiSinhDAO extends BaseDAO<ThiSinh> {
+
+    public ThiSinhDAO() {
+        super(ThiSinh.class);
+    }
 
     public List<ThiSinh> findAll() {
         try (Session session = HibernateConfig.getSessionFactory().openSession()) {
@@ -15,11 +20,20 @@ public class ThiSinhDAO {
     }
 
     public ThiSinh findByCccd(String cccd) {
-        try (Session session = HibernateConfig.getSessionFactory().openSession()) {
-            return session.createQuery("from ThiSinh t where t.cccd = :cccd", ThiSinh.class)
-                    .setParameter("cccd", cccd)
-                    .uniqueResult();
-        }
+        return queryOne("FROM ThiSinh t WHERE t.cccd = :cccd",
+                q -> q.setParameter("cccd", cccd));
+    }
+
+    public boolean existsByCccd(String cccd) {
+        long count = countQuery("SELECT COUNT(*) FROM ThiSinh t WHERE t.cccd = :cccd",
+                q -> q.setParameter("cccd", cccd));
+        return count > 0;
+    }
+
+    public List<ThiSinh> searchByKeyword(String keyword) {
+        String kw = "%" + keyword.toLowerCase() + "%";
+        return query("FROM ThiSinh t WHERE LOWER(t.cccd) LIKE :kw OR LOWER(t.ho) LIKE :kw OR LOWER(t.ten) LIKE :kw",
+                q -> q.setParameter("kw", kw));
     }
 
     /** Tìm kiếm theo CCCD, họ tên (LIKE, case-insensitive). */
@@ -33,16 +47,6 @@ public class ThiSinhDAO {
                     ThiSinh.class)
                 .setParameter("kw", kw)
                 .list();
-        }
-    }
-
-    public boolean existsByCccd(String cccd) {
-        try (Session session = HibernateConfig.getSessionFactory().openSession()) {
-            Long count = session.createQuery(
-                    "select count(*) from ThiSinh t where t.cccd = :cccd", Long.class)
-                .setParameter("cccd", cccd)
-                .uniqueResult();
-            return count != null && count > 0;
         }
     }
 
