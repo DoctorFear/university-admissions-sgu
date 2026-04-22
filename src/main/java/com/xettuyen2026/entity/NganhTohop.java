@@ -1,14 +1,12 @@
 package com.xettuyen2026.entity;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -83,9 +81,6 @@ public class NganhTohop {
     @Column(name = "dolech", precision = 6, scale = 2)
     private BigDecimal dolech;
 
-    @OneToMany(mappedBy = "nganhTohop")
-    private List<ThiSinhToHop> danhSachThiSinh;
-
     // Getters and Setters
     public Integer getId() { return id; }
     public void setId(Integer id) { this.id = id; }
@@ -131,6 +126,4 @@ public class NganhTohop {
     public void setKtpl(Boolean ktpl) { this.ktpl = ktpl; }
     public BigDecimal getDolech() { return dolech; }
     public void setDolech(BigDecimal dolech) { this.dolech = dolech; }
-    public List<ThiSinhToHop> getDanhSachThiSinh() { return danhSachThiSinh; }
-    public void setDanhSachThiSinh(List<ThiSinhToHop> danhSachThiSinh) { this.danhSachThiSinh = danhSachThiSinh; }
 }

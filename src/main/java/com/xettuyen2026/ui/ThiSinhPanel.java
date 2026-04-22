@@ -1,18 +1,5 @@
 package com.xettuyen2026.ui;
 
-import com.xettuyen2026.entity.ThiSinh;
-import com.xettuyen2026.service.ThiSinhService;
-import com.xettuyen2026.ui.common.ConfirmDialog;
-import com.xettuyen2026.ui.common.MessageHelper;
-import com.xettuyen2026.ui.common.PaginatedTable;
-import com.xettuyen2026.ui.common.RoundedButton;
-import com.xettuyen2026.ui.common.SearchBar;
-import com.xettuyen2026.ui.common.UIConstants;
-
-import javax.swing.BorderFactory;
-import javax.swing.JFileChooser;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -23,6 +10,20 @@ import java.awt.RenderingHints;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.BorderFactory;
+import javax.swing.JFileChooser;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+
+import com.xettuyen2026.entity.ThiSinh;
+import com.xettuyen2026.service.ThiSinhService;
+import com.xettuyen2026.ui.common.ConfirmDialog;
+import com.xettuyen2026.ui.common.MessageHelper;
+import com.xettuyen2026.ui.common.PaginatedTable;
+import com.xettuyen2026.ui.common.RoundedButton;
+import com.xettuyen2026.ui.common.SearchBar;
+import com.xettuyen2026.ui.common.UIConstants;
 
 /**
  * Quản lý Thí sinh - toolbar, search, table phân trang, CRUD + import Excel.
@@ -111,13 +112,13 @@ public class ThiSinhPanel extends JPanel {
 
     private void loadData() {
         try {
-            if (!triedAutoLoadFromDataFile) {
-                triedAutoLoadFromDataFile = true;
-                int imported = service.importDefaultDataFileIfPresent();
-                if (imported > 0) {
-                    MessageHelper.showInfo(this, "Đã tự nạp " + imported + " thí sinh từ file Ds thi sinh.xlsx trong thư mục data.");
-                }
-            }
+            // if (!triedAutoLoadFromDataFile) {
+            //     triedAutoLoadFromDataFile = true;
+            //     int imported = service.importDefaultDataFileIfPresent();
+            //     if (imported > 0) {
+            //         MessageHelper.showInfo(this, "Đã tự nạp " + imported + " thí sinh từ file Ds thi sinh.xlsx trong thư mục data.");
+            //     }
+            // }
             displayList(service.findAll());
         } catch (Exception e) {
             e.printStackTrace();

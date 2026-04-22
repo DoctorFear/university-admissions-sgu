@@ -91,7 +91,7 @@ DROP TABLE IF EXISTS `xt_diemthixettuyen`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `xt_diemthixettuyen` (
   `iddiemthi` int NOT NULL AUTO_INCREMENT,
-  `cccd` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `cccd` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb3_unicode_ci NOT NULL,
   `sobaodanh` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
   `d_phuongthuc` varchar(10) DEFAULT NULL,   /*1: THPT, 4: DGNL, 5: VSAT*/
   `TO` decimal(8,2) DEFAULT '0.00',
@@ -176,13 +176,13 @@ CREATE TABLE `xt_nganh_tohop` (
   `id` int NOT NULL AUTO_INCREMENT,
   `manganh` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
   `matohop` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
-  `th_mon1` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `th_mon1` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   `hsmon1` tinyint DEFAULT NULL,
   `th_mon2` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   `hsmon2` tinyint DEFAULT NULL,
   `th_mon3` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   `hsmon3` tinyint DEFAULT NULL,
-  `tb_keys` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT 'manganh_matohop',
+  `tb_keys` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL COMMENT 'manganh_matohop',
   `N1` tinyint(1) DEFAULT NULL,
   `TO` tinyint(1) DEFAULT NULL,
   `LI` tinyint(1) DEFAULT NULL,
@@ -252,7 +252,7 @@ DROP TABLE IF EXISTS `xt_thisinhxettuyen25`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `xt_thisinhxettuyen25` (
   `idthisinh` int NOT NULL AUTO_INCREMENT,
-  `cccd` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `cccd` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   `sobaodanh` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
   `ho` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   `ten` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,

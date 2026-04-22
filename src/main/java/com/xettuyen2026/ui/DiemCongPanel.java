@@ -216,6 +216,7 @@ public class DiemCongPanel extends JPanel{
     private void doImport() {
         try {
             javax.swing.JFileChooser chooser = new javax.swing.JFileChooser();
+            chooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Excel Files (*.xlsx, *.xls)", "xlsx", "xls"));
             int result = chooser.showOpenDialog(this);
 
             if (result != javax.swing.JFileChooser.APPROVE_OPTION) return;

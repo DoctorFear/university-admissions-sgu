@@ -21,6 +21,9 @@ import com.xettuyen2026.entity.ThiSinhToHop;
 
 public class DiemCongService {
     private final DiemCongDAO dao = new DiemCongDAO();
+    private static final String TYPE_THI_SINH = "THI_SINH";
+    private static final String TYPE_TIENG_ANH = "TIENG_ANH";
+    private static final String TYPE_UU_TIEN = "UU_TIEN";
 
     public void importAll(String fileAnh, String fileThiSinh, String fileUuTien) throws Exception {
 
@@ -47,9 +50,9 @@ public class DiemCongService {
     }
 
     private void loadTiengAnh(String path, Map<String, DiemCongXetTuyen> map) throws Exception {
-
         try (FileInputStream fis = new FileInputStream(path);
             Workbook wb = new XSSFWorkbook(fis)) {
+
             Sheet sheet = wb.getSheetAt(0);
 
             for (Row row : sheet) {
@@ -57,50 +60,56 @@ public class DiemCongService {
 
                 String cccd = getString(row.getCell(1));
                 BigDecimal diem = getNumber(row.getCell(5));
-                String note = getString(row.getCell(2));
 
-                List<ThiSinhToHop> ds = dao.findToHopByCccd(cccd);
+                List<Object[]> ds = dao.findNguyenVongAndToHopByCccd(cccd);
 
-                System.out.println("CCCD: " + cccd + ", tohop size: " + ds.size());
+                for (Object[] item : ds) {
+                    NganhTohop n = (NganhTohop) item[1];
 
-                for (ThiSinhToHop th : ds) {
-                    var n = th.getNganhTohop();
-
-                    DiemCongXetTuyen d = getOrCreate(map, cccd, n.getManganh(), n.getMatohop());
+                    DiemCongXetTuyen d = getOrCreate(
+                        map,
+                        cccd,
+                        n.getManganh(),
+                        n.getMatohop()
+                    );
 
                     d.setDiemCC(d.getDiemCC().add(diem));
-                    d.setGhichu(note);
+                    appendNote(d, TYPE_TIENG_ANH);
                 }
             }
         }
     }
 
     private void loadUuTienXT(String path, Map<String, DiemCongXetTuyen> map) throws Exception {
-
         try (FileInputStream fis = new FileInputStream(path);
-             Workbook wb = new XSSFWorkbook(fis)) {
-            Sheet sheet = wb.getSheetAt(0);
-            
+            Workbook wb = new XSSFWorkbook(fis)) {
+
+            Sheet sheet = wb.getSheetAt(1);
+
             for (Row row : sheet) {
                 if (row.getRowNum() == 0) continue;
-                
+
                 String cccd = getString(row.getCell(1));
                 String maMon = getString(row.getCell(4));
                 BigDecimal dat = getNumber(row.getCell(6));
                 BigDecimal khong = getNumber(row.getCell(7));
-                
-                List<ThiSinhToHop> ds = dao.findToHopByCccd(cccd);
-                System.out.println("CCCD: " + cccd + ", tohop size: " + ds.size());
-                
-                for (ThiSinhToHop th : ds) {
-                    var n = th.getNganhTohop();
-                    
-                    boolean match = checkMon(n, maMon);
-                    BigDecimal diem = match ? dat : khong;
-                    
-                    DiemCongXetTuyen d = getOrCreate(map, cccd, n.getManganh(), n.getMatohop());
-                    
+
+                List<Object[]> ds = dao.findNguyenVongAndToHopByCccd(cccd);
+
+                for (Object[] item : ds) {
+                    NganhTohop n = (NganhTohop) item[1];
+
+                    BigDecimal diem = checkMon(n, maMon) ? dat : khong;
+
+                    DiemCongXetTuyen d = getOrCreate(
+                        map,
+                        cccd,
+                        n.getManganh(),
+                        n.getMatohop()
+                    );
+
                     d.setDiemCC(d.getDiemCC().add(diem));
+                    appendNote(d, TYPE_UU_TIEN);
                 }
             }
         }
@@ -131,29 +140,34 @@ public class DiemCongService {
         return diemCong;
     }
     private void loadThiSinh(String path, Map<String, DiemCongXetTuyen> map) throws Exception {
-
         try (FileInputStream fis = new FileInputStream(path);
-             Workbook wb = new XSSFWorkbook(fis)) {
+            Workbook wb = new XSSFWorkbook(fis)) {
+
             Sheet sheet = wb.getSheetAt(0);
-            
+
             for (Row row : sheet) {
                 if (row.getRowNum() == 0) continue;
-                
+
                 String cccd = getString(row.getCell(1));
                 String dtut = getString(row.getCell(5));
                 String kvut = getString(row.getCell(6));
-                
+
                 BigDecimal diem = mapUuTien(dtut, kvut);
-                
-                List<ThiSinhToHop> ds = dao.findToHopByCccd(cccd);
-                System.out.println("CCCD: " + cccd + ", tohop size: " + ds.size());
-                
-                for (ThiSinhToHop th : ds) {
-                    var n = th.getNganhTohop();
-                    
-                    DiemCongXetTuyen d = getOrCreate(map, cccd, n.getManganh(), n.getMatohop());
-                    
+
+                List<Object[]> ds = dao.findNguyenVongAndToHopByCccd(cccd);
+
+                for (Object[] item : ds) {
+                    NganhTohop n = (NganhTohop) item[1];
+
+                    DiemCongXetTuyen d = getOrCreate(
+                        map,
+                        cccd,
+                        n.getManganh(),
+                        n.getMatohop()
+                    );
+
                     d.setDiemUtxt(d.getDiemUtxt().add(diem));
+                    appendNote(d, TYPE_THI_SINH);
                 }
             }
         }
@@ -258,15 +272,47 @@ public class DiemCongService {
             prepare(d);
 
             DiemCongXetTuyen existed = dao.findByKey(d.getDcKeys());
+
             if (existed == null) {
                 dao.save(d);
             } else {
-                existed.setDiemCC(d.getDiemCC());
-                existed.setDiemUtxt(d.getDiemUtxt());
-                existed.setDiemTong(d.getDiemTong());
-                existed.setGhichu(d.getGhichu());
+                BigDecimal oldCC = existed.getDiemCC() == null
+                        ? BigDecimal.ZERO
+                        : existed.getDiemCC();
+
+                BigDecimal oldUT = existed.getDiemUtxt() == null
+                        ? BigDecimal.ZERO
+                        : existed.getDiemUtxt();
+
+                BigDecimal newCC = d.getDiemCC() == null
+                        ? BigDecimal.ZERO
+                        : d.getDiemCC();
+
+                BigDecimal newUT = d.getDiemUtxt() == null
+                        ? BigDecimal.ZERO
+                        : d.getDiemUtxt();
+
+                existed.setDiemCC(oldCC.add(newCC));
+                existed.setDiemUtxt(oldUT.add(newUT));
+
+                existed.setDiemTong(
+                        existed.getDiemCC().add(existed.getDiemUtxt())
+                );
+
+                if (d.getGhichu() != null && !d.getGhichu().isBlank()) {
+                    existed.setGhichu(d.getGhichu());
+                }
+
                 dao.update(existed);
             }
+        }
+    }
+
+    private void appendNote(DiemCongXetTuyen d, String type) {
+        if (d.getGhichu() == null || d.getGhichu().isBlank()) {
+            d.setGhichu(type);
+        } else if (!d.getGhichu().contains(type)) {
+            d.setGhichu(d.getGhichu() + "," + type);
         }
     }
 }

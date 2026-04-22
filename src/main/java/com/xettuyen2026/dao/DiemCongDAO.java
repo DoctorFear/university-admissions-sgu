@@ -54,4 +54,18 @@ public class DiemCongDAO extends BaseDAO<DiemCongXetTuyen> {
             ).setParameter("cccd", cccd).getResultList();
         }
     }
+
+    public List<Object[]> findNguyenVongAndToHopByCccd(String cccd) {
+        try (Session session = HibernateConfig.getSessionFactory().openSession()) {
+            return session.createQuery(
+                "select nv, nt " +
+                "from NguyenVongXetTuyen nv, NganhTohop nt " +
+                "where nv.nnCccd = :cccd " +
+                "and nv.nvManganh = nt.manganh",
+                Object[].class
+            )
+            .setParameter("cccd", cccd)
+            .getResultList();
+        }
+    }
 }
