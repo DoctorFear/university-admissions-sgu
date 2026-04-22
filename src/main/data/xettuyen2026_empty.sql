@@ -324,139 +324,139 @@ UNLOCK TABLES;
 -- ============================================================
 
 -- xt_tohop_monthi
-INSERT INTO `xt_tohop_monthi` (`matohop`, `mon1`, `mon2`, `mon3`, `tentohop`) VALUES
-('A00', 'TO', 'LI', 'HO', 'Toán, Vật lý, Hóa học'),
-('A01', 'TO', 'LI', 'N1', 'Toán, Vật lý, Tiếng Anh'),
-('B00', 'TO', 'HO', 'SI', 'Toán, Hóa học, Sinh học'),
-('B03', 'TO', 'VA', 'SI', 'Toán, Ngữ văn, Sinh học'),
-('C00', 'VA', 'DI', 'SU', 'Ngữ văn, Lịch sử, Địa lí'),
-('C01', 'TO', 'VA', 'HO', 'Toán, Ngữ văn, Hóa học'),
-('C02', 'TO', 'VA', 'N1', 'Toán, Ngữ văn, Tiếng Anh'),
-('C03', 'TO', 'VA', 'SU', 'Toán, Lịch sử, Ngữ văn'),
-('C04', 'TO', 'VA', 'DI', 'Toán, Địa lí, Ngữ văn'),
-('C19', 'VA', 'SU', 'GD', 'Văn - Sử - GDCD'),
-('D01', 'TO', 'VA', 'N1', 'Toán, Tiếng Anh, Ngữ văn'),
-('H00', 'VA', 'NK3', 'NK4', 'Ngữ văn, Hình hoa, Trang trí'),
-('M01', 'VA', 'NK1', 'NK2', 'Ngữ văn, Kể chuyện - Đọc diễn cảm, Hát - Nhạc'),
-('M02', 'VA', 'NK1', 'NK2', 'Ngữ văn, Kể chuyện - Đọc diễn cảm, Hát - Nhạc'),
-('N01', 'VA', 'NK5', 'NK6', 'Ngữ văn, Hát - Nhạc cụ, Xướng âm - Thẩm âm');
+-- INSERT INTO `xt_tohop_monthi` (`matohop`, `mon1`, `mon2`, `mon3`, `tentohop`) VALUES
+-- ('A00', 'TO', 'LI', 'HO', 'Toán, Vật lý, Hóa học'),
+-- ('A01', 'TO', 'LI', 'N1', 'Toán, Vật lý, Tiếng Anh'),
+-- ('B00', 'TO', 'HO', 'SI', 'Toán, Hóa học, Sinh học'),
+-- ('B03', 'TO', 'VA', 'SI', 'Toán, Ngữ văn, Sinh học'),
+-- ('C00', 'VA', 'DI', 'SU', 'Ngữ văn, Lịch sử, Địa lí'),
+-- ('C01', 'TO', 'VA', 'HO', 'Toán, Ngữ văn, Hóa học'),
+-- ('C02', 'TO', 'VA', 'N1', 'Toán, Ngữ văn, Tiếng Anh'),
+-- ('C03', 'TO', 'VA', 'SU', 'Toán, Lịch sử, Ngữ văn'),
+-- ('C04', 'TO', 'VA', 'DI', 'Toán, Địa lí, Ngữ văn'),
+-- ('C19', 'VA', 'SU', 'GD', 'Văn - Sử - GDCD'),
+-- ('D01', 'TO', 'VA', 'N1', 'Toán, Tiếng Anh, Ngữ văn'),
+-- ('H00', 'VA', 'NK3', 'NK4', 'Ngữ văn, Hình hoa, Trang trí'),
+-- ('M01', 'VA', 'NK1', 'NK2', 'Ngữ văn, Kể chuyện - Đọc diễn cảm, Hát - Nhạc'),
+-- ('M02', 'VA', 'NK1', 'NK2', 'Ngữ văn, Kể chuyện - Đọc diễn cảm, Hát - Nhạc'),
+-- ('N01', 'VA', 'NK5', 'NK6', 'Ngữ văn, Hát - Nhạc cụ, Xướng âm - Thẩm âm');
 
--- xt_nganh
-INSERT INTO `xt_nganh` (`manganh`, `tennganh`, `n_tohopgoc`, `n_chitieu`, `n_diemsan`) VALUES
-('7140114', 'Quản lý giáo dục',       'D01', 40,  17.00),
-('7140201', 'Giáo dục Mầm non',        'M01', 200, 20.00),
-('7140202', 'Giáo dục Tiểu học',       'C01', 200, 21.00),
-('7140205', 'Giáo dục chính trị',      'C01', 10,  23.00),
-('7140209', 'Sư phạm Toán học',        'A00', 40,  24.50),
-('7140211', 'Sư phạm Vật lý',          'A00', 10,  24.00),
-('7140212', 'Sư phạm Hóa học',         'A00', 10,  24.00),
-('7140213', 'Sư phạm Sinh học',        'B00', 10,  23.00),
-('7140217', 'Sư phạm Ngữ văn',         'C01', 50,  24.00),
-('7140215', 'Sư phạm Lịch sử',         'C00', 10,  25.00),
-('7310401', 'Luật',                    'C01', 80,  22.00),
-('7340101', 'Quản trị kinh doanh',     'A00', 120, 20.00),
-('7380101', 'Luật Kinh tế',            'C01', 60,  21.50),
-('7480201', 'Công nghệ thông tin',     'A00', 100, 21.00),
-('7510301', 'Công nghệ kỹ thuật điện', 'A00', 60,  18.00),
-('7510302', 'Kỹ thuật điện tử',        'A00', 60,  18.00),
-('7610302', 'Thú y',                   'B00', 50,  18.00);
+-- -- xt_nganh
+-- INSERT INTO `xt_nganh` (`manganh`, `tennganh`, `n_tohopgoc`, `n_chitieu`, `n_diemsan`) VALUES
+-- ('7140114', 'Quản lý giáo dục',       'D01', 40,  17.00),
+-- ('7140201', 'Giáo dục Mầm non',        'M01', 200, 20.00),
+-- ('7140202', 'Giáo dục Tiểu học',       'C01', 200, 21.00),
+-- ('7140205', 'Giáo dục chính trị',      'C01', 10,  23.00),
+-- ('7140209', 'Sư phạm Toán học',        'A00', 40,  24.50),
+-- ('7140211', 'Sư phạm Vật lý',          'A00', 10,  24.00),
+-- ('7140212', 'Sư phạm Hóa học',         'A00', 10,  24.00),
+-- ('7140213', 'Sư phạm Sinh học',        'B00', 10,  23.00),
+-- ('7140217', 'Sư phạm Ngữ văn',         'C01', 50,  24.00),
+-- ('7140215', 'Sư phạm Lịch sử',         'C00', 10,  25.00),
+-- ('7310401', 'Luật',                    'C01', 80,  22.00),
+-- ('7340101', 'Quản trị kinh doanh',     'A00', 120, 20.00),
+-- ('7380101', 'Luật Kinh tế',            'C01', 60,  21.50),
+-- ('7480201', 'Công nghệ thông tin',     'A00', 100, 21.00),
+-- ('7510301', 'Công nghệ kỹ thuật điện', 'A00', 60,  18.00),
+-- ('7510302', 'Kỹ thuật điện tử',        'A00', 60,  18.00),
+-- ('7610302', 'Thú y',                   'B00', 50,  18.00);
 
--- xt_nganh_tohop
-INSERT INTO `xt_nganh_tohop` (`manganh`, `matohop`, `th_mon1`, `hsmon1`, `th_mon2`, `hsmon2`, `th_mon3`, `hsmon3`, `tb_keys`, `N1`, `TO`, `LI`, `HO`, `SI`, `VA`, `SU`, `DI`, `TI`, `dolech`) VALUES
-('7140114', 'B03', 'TO', 3, 'VA', 3, 'SI', 1, '7140114_B03', 0, 1, 0, 0, 1, 1, 0, 0, 0, 0.00),
-('7140114', 'C01', 'TO', 3, 'VA', 3, 'HO', 1, '7140114_C01', 0, 1, 0, 1, 0, 1, 0, 0, 0, 0.00),
-('7140114', 'C02', 'TO', 3, 'VA', 3, 'N1', 1, '7140114_C02', 1, 1, 0, 0, 0, 1, 0, 0, 0, 0.00),
-('7140114', 'C03', 'TO', 3, 'VA', 3, 'SU', 1, '7140114_C03', 0, 1, 0, 0, 0, 1, 1, 0, 0, 0.00),
-('7140114', 'C04', 'TO', 3, 'VA', 3, 'DI', 1, '7140114_C04', 0, 1, 0, 0, 0, 1, 0, 1, 0, 0.00),
-('7140114', 'D01', 'TO', 3, 'VA', 3, 'N1', 1, '7140114_D01', 1, 1, 0, 0, 0, 1, 0, 0, 0, 0.00),
-('7140209', 'A00', 'TO', 3, 'LI', 3, 'HO', 1, '7140209_A00', 0, 1, 1, 1, 0, 0, 0, 0, 0, 0.00),
-('7140209', 'A01', 'TO', 3, 'LI', 3, 'N1', 1, '7140209_A01', 1, 1, 1, 0, 0, 0, 0, 0, 0, 0.00),
-('7140209', 'D01', 'TO', 3, 'VA', 3, 'N1', 1, '7140209_D01', 1, 1, 0, 0, 0, 1, 0, 0, 0, 0.00),
-('7480201', 'A00', 'TO', 3, 'LI', 3, 'HO', 1, '7480201_A00', 0, 1, 1, 1, 0, 0, 0, 0, 0, 0.00),
-('7480201', 'A01', 'TO', 3, 'LI', 3, 'N1', 1, '7480201_A01', 1, 1, 1, 0, 0, 0, 0, 0, 0, 0.00),
-('7480201', 'D01', 'TO', 3, 'VA', 3, 'N1', 1, '7480201_D01', 1, 1, 0, 0, 0, 1, 0, 0, 0, 0.00),
-('7340101', 'A00', 'TO', 3, 'LI', 3, 'HO', 1, '7340101_A00', 0, 1, 1, 1, 0, 0, 0, 0, 0, 0.00),
-('7340101', 'B00', 'TO', 3, 'HO', 3, 'SI', 1, '7340101_B00', 0, 1, 0, 1, 1, 0, 0, 0, 0, 0.00),
-('7340101', 'D01', 'TO', 3, 'VA', 3, 'N1', 1, '7340101_D01', 1, 1, 0, 0, 0, 1, 0, 0, 0, 0.00),
-('7310401', 'C01', 'TO', 3, 'VA', 3, 'HO', 1, '7310401_C01', 0, 1, 0, 1, 0, 1, 0, 0, 0, 0.00),
-('7310401', 'D01', 'TO', 3, 'VA', 3, 'N1', 1, '7310401_D01', 1, 1, 0, 0, 0, 1, 0, 0, 0, 0.00),
-('7610302', 'B00', 'TO', 3, 'HO', 3, 'SI', 1, '7610302_B00', 0, 1, 0, 1, 1, 0, 0, 0, 0, 0.00);
+-- -- xt_nganh_tohop
+-- INSERT INTO `xt_nganh_tohop` (`manganh`, `matohop`, `th_mon1`, `hsmon1`, `th_mon2`, `hsmon2`, `th_mon3`, `hsmon3`, `tb_keys`, `N1`, `TO`, `LI`, `HO`, `SI`, `VA`, `SU`, `DI`, `TI`, `dolech`) VALUES
+-- ('7140114', 'B03', 'TO', 3, 'VA', 3, 'SI', 1, '7140114_B03', 0, 1, 0, 0, 1, 1, 0, 0, 0, 0.00),
+-- ('7140114', 'C01', 'TO', 3, 'VA', 3, 'HO', 1, '7140114_C01', 0, 1, 0, 1, 0, 1, 0, 0, 0, 0.00),
+-- ('7140114', 'C02', 'TO', 3, 'VA', 3, 'N1', 1, '7140114_C02', 1, 1, 0, 0, 0, 1, 0, 0, 0, 0.00),
+-- ('7140114', 'C03', 'TO', 3, 'VA', 3, 'SU', 1, '7140114_C03', 0, 1, 0, 0, 0, 1, 1, 0, 0, 0.00),
+-- ('7140114', 'C04', 'TO', 3, 'VA', 3, 'DI', 1, '7140114_C04', 0, 1, 0, 0, 0, 1, 0, 1, 0, 0.00),
+-- ('7140114', 'D01', 'TO', 3, 'VA', 3, 'N1', 1, '7140114_D01', 1, 1, 0, 0, 0, 1, 0, 0, 0, 0.00),
+-- ('7140209', 'A00', 'TO', 3, 'LI', 3, 'HO', 1, '7140209_A00', 0, 1, 1, 1, 0, 0, 0, 0, 0, 0.00),
+-- ('7140209', 'A01', 'TO', 3, 'LI', 3, 'N1', 1, '7140209_A01', 1, 1, 1, 0, 0, 0, 0, 0, 0, 0.00),
+-- ('7140209', 'D01', 'TO', 3, 'VA', 3, 'N1', 1, '7140209_D01', 1, 1, 0, 0, 0, 1, 0, 0, 0, 0.00),
+-- ('7480201', 'A00', 'TO', 3, 'LI', 3, 'HO', 1, '7480201_A00', 0, 1, 1, 1, 0, 0, 0, 0, 0, 0.00),
+-- ('7480201', 'A01', 'TO', 3, 'LI', 3, 'N1', 1, '7480201_A01', 1, 1, 1, 0, 0, 0, 0, 0, 0, 0.00),
+-- ('7480201', 'D01', 'TO', 3, 'VA', 3, 'N1', 1, '7480201_D01', 1, 1, 0, 0, 0, 1, 0, 0, 0, 0.00),
+-- ('7340101', 'A00', 'TO', 3, 'LI', 3, 'HO', 1, '7340101_A00', 0, 1, 1, 1, 0, 0, 0, 0, 0, 0.00),
+-- ('7340101', 'B00', 'TO', 3, 'HO', 3, 'SI', 1, '7340101_B00', 0, 1, 0, 1, 1, 0, 0, 0, 0, 0.00),
+-- ('7340101', 'D01', 'TO', 3, 'VA', 3, 'N1', 1, '7340101_D01', 1, 1, 0, 0, 0, 1, 0, 0, 0, 0.00),
+-- ('7310401', 'C01', 'TO', 3, 'VA', 3, 'HO', 1, '7310401_C01', 0, 1, 0, 1, 0, 1, 0, 0, 0, 0.00),
+-- ('7310401', 'D01', 'TO', 3, 'VA', 3, 'N1', 1, '7310401_D01', 1, 1, 0, 0, 0, 1, 0, 0, 0, 0.00),
+-- ('7610302', 'B00', 'TO', 3, 'HO', 3, 'SI', 1, '7610302_B00', 0, 1, 0, 1, 1, 0, 0, 0, 0, 0.00);
 
--- xt_thisinhxettuyen25
-INSERT INTO `xt_thisinhxettuyen25` (`cccd`, `sobaodanh`, `ho`, `ten`, `ngay_sinh`, `dien_thoai`, `password`, `gioi_tinh`, `email`, `noi_sinh`, `updated_at`, `doi_tuong`, `khu_vuc`) VALUES
-('TS_12077', '24001001', 'Nguyễn Văn', 'An',    '01/01/2007', '0901234561', '123456', 'Nam',  'an.nguyen@email.com',   'Hà Nội',     '2026-03-01', '01', 'KV1'),
-('TS_8814', '24001002', 'Trần Thị',   'Bình',  '02/02/2007', '0901234562', '123456', 'Nữ',   'binh.tran@email.com',   'Hà Nội',     '2026-03-01', '01', 'KV2'),
-('TS_3273', '24001003', 'Lê Thị',     'Chi',   '03/03/2007', '0901234563', '123456', 'Nữ',   'chi.le@email.com',      'Hải Phòng',  '2026-03-01', '00', 'KV2NT'),
-('TS_18436', '24001004', 'Phạm Văn',   'Dũng',  '04/04/2007', '0901234564', '123456', 'Nam',  'dung.pham@email.com',   'Nam Định',   '2026-03-01', '02', 'KV3'),
-('TS_2574', '24001005', 'Hoàng Thị',  'Em',    '05/05/2007', '0901234565', '123456', 'Nữ',   'em.hoang@email.com',    'Nghệ An',    '2026-03-01', '00', 'KV1'),
-('TS_15925', '24001006', 'Vũ Văn',     'Phúc',  '06/06/2007', '0901234566', '123456', 'Nam',  'phuc.vu@email.com',     'Hà Nội',     '2026-03-01', '01', 'KV2NT'),
-('TS_36668', '24001007', 'Đặng Thị',   'Giang', '07/07/2007', '0901234567', '123456', 'Nữ',   'giang.dang@email.com',  'Thái Bình',  '2026-03-01', '00', 'KV2'),
-('TS_25899', '24001008', 'Bùi Văn',    'Hải',   '08/08/2007', '0901234568', '123456', 'Nam',  'hai.bui@email.com',     'Hà Nam',     '2026-03-01', '00', 'KV1'),
-('TS_30137', '24001009', 'Ngô Thị',    'Lan',   '09/09/2007', '0901234569', '123456', 'Nữ',   'lan.ngo@email.com',     'TP.HCM',     '2026-03-01', '01', 'KV3'),
-('TS_1194', '24001010', 'Đinh Văn',   'Minh',  '10/10/2007', '0901234570', '123456', 'Nam',  'minh.dinh@email.com',   'Đà Nẵng',    '2026-03-01', '00', 'KV2NT');
+-- -- xt_thisinhxettuyen25
+-- INSERT INTO `xt_thisinhxettuyen25` (`cccd`, `sobaodanh`, `ho`, `ten`, `ngay_sinh`, `dien_thoai`, `password`, `gioi_tinh`, `email`, `noi_sinh`, `updated_at`, `doi_tuong`, `khu_vuc`) VALUES
+-- ('TS_12077', '24001001', 'Nguyễn Văn', 'An',    '01/01/2007', '0901234561', '123456', 'Nam',  'an.nguyen@email.com',   'Hà Nội',     '2026-03-01', '01', 'KV1'),
+-- ('TS_8814', '24001002', 'Trần Thị',   'Bình',  '02/02/2007', '0901234562', '123456', 'Nữ',   'binh.tran@email.com',   'Hà Nội',     '2026-03-01', '01', 'KV2'),
+-- ('TS_3273', '24001003', 'Lê Thị',     'Chi',   '03/03/2007', '0901234563', '123456', 'Nữ',   'chi.le@email.com',      'Hải Phòng',  '2026-03-01', '00', 'KV2NT'),
+-- ('TS_18436', '24001004', 'Phạm Văn',   'Dũng',  '04/04/2007', '0901234564', '123456', 'Nam',  'dung.pham@email.com',   'Nam Định',   '2026-03-01', '02', 'KV3'),
+-- ('TS_2574', '24001005', 'Hoàng Thị',  'Em',    '05/05/2007', '0901234565', '123456', 'Nữ',   'em.hoang@email.com',    'Nghệ An',    '2026-03-01', '00', 'KV1'),
+-- ('TS_15925', '24001006', 'Vũ Văn',     'Phúc',  '06/06/2007', '0901234566', '123456', 'Nam',  'phuc.vu@email.com',     'Hà Nội',     '2026-03-01', '01', 'KV2NT'),
+-- ('TS_36668', '24001007', 'Đặng Thị',   'Giang', '07/07/2007', '0901234567', '123456', 'Nữ',   'giang.dang@email.com',  'Thái Bình',  '2026-03-01', '00', 'KV2'),
+-- ('TS_25899', '24001008', 'Bùi Văn',    'Hải',   '08/08/2007', '0901234568', '123456', 'Nam',  'hai.bui@email.com',     'Hà Nam',     '2026-03-01', '00', 'KV1'),
+-- ('TS_30137', '24001009', 'Ngô Thị',    'Lan',   '09/09/2007', '0901234569', '123456', 'Nữ',   'lan.ngo@email.com',     'TP.HCM',     '2026-03-01', '01', 'KV3'),
+-- ('TS_1194', '24001010', 'Đinh Văn',   'Minh',  '10/10/2007', '0901234570', '123456', 'Nam',  'minh.dinh@email.com',   'Đà Nẵng',    '2026-03-01', '00', 'KV2NT');
 
--- xt_diemthixettuyen
-INSERT INTO `xt_diemthixettuyen` (`cccd`, `sobaodanh`, `d_phuongthuc`, `TO`, `LI`, `HO`, `SI`, `SU`, `DI`, `VA`, `GDCD`, `N1_THI`, `N1_CC`, `CNCN`, `CNNN`, `TI`, `KTPL`, `NK1`, `NK2`,`NK3`,`NK4`,`NK5`,`NK6`,`NL1`) VALUES
-('001207004846', '24001001', '1', 8.40, 7.80, 8.00, NULL, NULL, NULL, 7.20, NULL, 7.50, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 820.00),
-('001207004848', '24001002', '1', 9.20, 8.40, NULL, NULL, NULL, NULL, 7.60, NULL, 7.00, 8.50, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 910.00),
-('001207005157', '24001003', '1', 7.80, NULL, NULL, NULL, NULL, NULL, 8.20, NULL, 8.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 750.00),
-('001207008593', '24001004', '1', 8.00, NULL, 7.25, NULL, NULL, NULL, 7.50, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 780.00),
-('001207008630', '24001005', '1', 6.50, NULL, 6.75, 7.25, NULL, NULL, 7.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 690.00),
-('001207009704', '24001006', '5', 7.00, NULL, NULL, NULL, 7.80, 8.00, 8.50, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 760.00),
-('001207011458', '24001007', '1', 6.75, NULL, NULL, NULL, 8.25, NULL, 7.75, 7.50, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 710.00),
-('001207012341', '24001008', '1', NULL, NULL, NULL, NULL, NULL, NULL, 8.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 7.50, 8.00, NULL, NULL, NULL, NULL, NULL),
-('001207012439', '24001009', '4', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 950.00),
-('001207012684', '24001010', '1', 7.25, NULL, NULL, NULL, NULL, NULL, 7.75, NULL, 7.50, NULL, NULL, NULL, 8.00, 6.75, NULL, NULL, NULL, NULL, NULL, NULL, 720.00),
-('001207015001', '24001011', '5', 8.75, 9.00, NULL, NULL, NULL, NULL, 7.50, NULL, NULL, 8.75, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 870.00),
-('001207015002', '24001012', '1', 7.50, NULL, 7.00, NULL, NULL, NULL, 8.00, NULL, 7.25, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 730.00),
-('001207015003', '24001013', '1', 8.25, NULL, NULL, 8.50, NULL, NULL, 7.75, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 810.00),
-('001207015004', '24001014', '1', 6.00, NULL, NULL, NULL, 6.50, 7.00, 7.25, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 650.00),
-('001207015005', '24001015', '4', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 980.00),
-('001207015006', '24001016', '1', 7.00, NULL, NULL, NULL, 7.50, NULL, 8.25, 7.75, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 700.00),
-('001207015007', '24001017', '5', 8.00, NULL, 8.25, NULL, NULL, NULL, 7.50, NULL, 8.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 800.00),
-('001207015008', '24001018', '1', 7.75, 7.50, NULL, NULL, NULL, NULL, 8.50, NULL, 7.25, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 770.00),
-('001207015009', '24001019', '1', NULL, NULL, NULL, NULL, NULL, NULL, 8.75, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 8.25, 7.75, NULL, NULL, NULL),
-('001207015010', '24001020', '1', 6.25, NULL, NULL, 6.75, NULL, NULL, 7.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 640.00);
+-- -- xt_diemthixettuyen
+-- INSERT INTO `xt_diemthixettuyen` (`cccd`, `sobaodanh`, `d_phuongthuc`, `TO`, `LI`, `HO`, `SI`, `SU`, `DI`, `VA`, `GDCD`, `N1_THI`, `N1_CC`, `CNCN`, `CNNN`, `TI`, `KTPL`, `NK1`, `NK2`,`NK3`,`NK4`,`NK5`,`NK6`,`NL1`) VALUES
+-- ('001207004846', '24001001', '1', 8.40, 7.80, 8.00, NULL, NULL, NULL, 7.20, NULL, 7.50, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 820.00),
+-- ('001207004848', '24001002', '1', 9.20, 8.40, NULL, NULL, NULL, NULL, 7.60, NULL, 7.00, 8.50, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 910.00),
+-- ('001207005157', '24001003', '1', 7.80, NULL, NULL, NULL, NULL, NULL, 8.20, NULL, 8.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 750.00),
+-- ('001207008593', '24001004', '1', 8.00, NULL, 7.25, NULL, NULL, NULL, 7.50, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 780.00),
+-- ('001207008630', '24001005', '1', 6.50, NULL, 6.75, 7.25, NULL, NULL, 7.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 690.00),
+-- ('001207009704', '24001006', '5', 7.00, NULL, NULL, NULL, 7.80, 8.00, 8.50, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 760.00),
+-- ('001207011458', '24001007', '1', 6.75, NULL, NULL, NULL, 8.25, NULL, 7.75, 7.50, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 710.00),
+-- ('001207012341', '24001008', '1', NULL, NULL, NULL, NULL, NULL, NULL, 8.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 7.50, 8.00, NULL, NULL, NULL, NULL, NULL),
+-- ('001207012439', '24001009', '4', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 950.00),
+-- ('001207012684', '24001010', '1', 7.25, NULL, NULL, NULL, NULL, NULL, 7.75, NULL, 7.50, NULL, NULL, NULL, 8.00, 6.75, NULL, NULL, NULL, NULL, NULL, NULL, 720.00),
+-- ('001207015001', '24001011', '5', 8.75, 9.00, NULL, NULL, NULL, NULL, 7.50, NULL, NULL, 8.75, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 870.00),
+-- ('001207015002', '24001012', '1', 7.50, NULL, 7.00, NULL, NULL, NULL, 8.00, NULL, 7.25, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 730.00),
+-- ('001207015003', '24001013', '1', 8.25, NULL, NULL, 8.50, NULL, NULL, 7.75, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 810.00),
+-- ('001207015004', '24001014', '1', 6.00, NULL, NULL, NULL, 6.50, 7.00, 7.25, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 650.00),
+-- ('001207015005', '24001015', '4', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 980.00),
+-- ('001207015006', '24001016', '1', 7.00, NULL, NULL, NULL, 7.50, NULL, 8.25, 7.75, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 700.00),
+-- ('001207015007', '24001017', '5', 8.00, NULL, 8.25, NULL, NULL, NULL, 7.50, NULL, 8.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 800.00),
+-- ('001207015008', '24001018', '1', 7.75, 7.50, NULL, NULL, NULL, NULL, 8.50, NULL, 7.25, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 770.00),
+-- ('001207015009', '24001019', '1', NULL, NULL, NULL, NULL, NULL, NULL, 8.75, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 8.25, 7.75, NULL, NULL, NULL),
+-- ('001207015010', '24001020', '1', 6.25, NULL, NULL, 6.75, NULL, NULL, 7.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 640.00);
 
--- xt_diemcongxetuyen
-INSERT INTO `xt_diemcongxetuyen` (`ts_cccd`, `manganh`, `matohop`, `phuongthuc`, `diemCC`, `diemUtxt`, `diemTong`, `ghichu`, `dc_keys`) VALUES
-('056307010216', '7340101', 'B00', 'PT4', NULL, NULL, 1.00, NULL, '056307010216_7340101_B00'),
-('056307010216', '7340101', 'X22', 'PT4', NULL, NULL, 1.00, NULL, '056307010216_7340101_X22'),
-('056307010216', '7340101', 'B02', 'PT4', NULL, NULL, 1.00, NULL, '056307010216_7340101_B02'),
-('056307010216', '7340101', 'B01', 'PT4', NULL, NULL, 1.00, NULL, '056307010216_7340101_B01'),
-('056307010216', '7340101', 'A07', 'PT4', NULL, NULL, 1.00, NULL, '056307010216_7340101_A07'),
-('001207008593',  '7310401', 'C01', 'PT2', NULL, NULL, 0.50, NULL, '001207008593_7310401_C01'),
-('001207008630',  '7480201', 'D01', 'PT2', NULL, NULL, 0.75, NULL, '001207008630_7480201_D01'),
-('001207009704',  '7310401', 'D01', 'PT2', NULL, NULL, 0.50, NULL, '001207009704_7310401_D01'),
-('001207012439',  '7480201', 'A01', 'PT2', NULL, NULL, 0.61, NULL, '001207012439_7480201_A01'),
-('001207012341',  '7380101', 'D01', 'PT2', NULL, NULL, 0.00, NULL, '001207012341_7380101_D01');
+-- -- xt_diemcongxetuyen
+-- INSERT INTO `xt_diemcongxetuyen` (`ts_cccd`, `manganh`, `matohop`, `phuongthuc`, `diemCC`, `diemUtxt`, `diemTong`, `ghichu`, `dc_keys`) VALUES
+-- ('056307010216', '7340101', 'B00', 'PT4', NULL, NULL, 1.00, NULL, '056307010216_7340101_B00'),
+-- ('056307010216', '7340101', 'X22', 'PT4', NULL, NULL, 1.00, NULL, '056307010216_7340101_X22'),
+-- ('056307010216', '7340101', 'B02', 'PT4', NULL, NULL, 1.00, NULL, '056307010216_7340101_B02'),
+-- ('056307010216', '7340101', 'B01', 'PT4', NULL, NULL, 1.00, NULL, '056307010216_7340101_B01'),
+-- ('056307010216', '7340101', 'A07', 'PT4', NULL, NULL, 1.00, NULL, '056307010216_7340101_A07'),
+-- ('001207008593',  '7310401', 'C01', 'PT2', NULL, NULL, 0.50, NULL, '001207008593_7310401_C01'),
+-- ('001207008630',  '7480201', 'D01', 'PT2', NULL, NULL, 0.75, NULL, '001207008630_7480201_D01'),
+-- ('001207009704',  '7310401', 'D01', 'PT2', NULL, NULL, 0.50, NULL, '001207009704_7310401_D01'),
+-- ('001207012439',  '7480201', 'A01', 'PT2', NULL, NULL, 0.61, NULL, '001207012439_7480201_A01'),
+-- ('001207012341',  '7380101', 'D01', 'PT2', NULL, NULL, 0.00, NULL, '001207012341_7380101_D01');
 
--- xt_nguyenvongxettuyen
-INSERT INTO `xt_nguyenvongxettuyen` (`nn_cccd`, `nv_manganh`, `nv_tt`, `diem_thxt`, `diem_utqd`, `diem_cong`, `diem_xettuyen`, `nv_ketqua`, `nv_keys`, `tt_phuongthuc`, `tt_thm`) VALUES
-('001207004846', '7610302', 1,  19.50000, 0.25000, NULL, 19.75000, 'duoisan', '001207004846_7610302_PT2', 'PT2', NULL),
-('001207005157', '7510301', 1,  16.70000, 0.25000, NULL, 16.95000, 'duoisan', '001207005157_7510301_PT2', 'PT2', NULL),
-('001207005157', '7510302', 2,  15.70000, 0.00000, NULL, 15.70000, 'duoisan', '001207005157_7510302_PT2', 'PT2', NULL),
-('001207005157', '7220201', 3,  15.70000, 0.00000, NULL, 15.70000, 'duoisan', '001207005157_7220201_PT2', 'PT2', NULL),
-('001207008593', '7310401', 1,  20.25000, 0.00000, NULL, 20.25000, NULL,      '001207008593_7310401_PT2', 'PT2', NULL),
-('001207008630', '7310401', 1,  21.18000, 0.00000, NULL, 21.18000, NULL,      '001207008630_7310401_PT2', 'PT2', NULL),
-('001207009704', '7310401', 1,  21.85000, 0.00000, NULL, 21.85000, 'yes',     '001207009704_7310401_PT2', 'PT2', NULL),
-('001207012341', '7380101', 1,  19.93000, 0.00000, NULL, 19.93000, 'yes',     '001207012341_7380101_PT2', 'PT2', NULL),
-('001207012439', '7480201', 1,  23.85000, 0.61000, NULL, 24.46000, 'yes',     '001207012439_7480201_PT2', 'PT2', NULL),
-('001207012684', '7480201', 2,  20.10000, 0.00000, NULL, 20.10000, NULL,      '001207012684_7480201_PT2', 'PT2', NULL);
+-- -- xt_nguyenvongxettuyen
+-- INSERT INTO `xt_nguyenvongxettuyen` (`nn_cccd`, `nv_manganh`, `nv_tt`, `diem_thxt`, `diem_utqd`, `diem_cong`, `diem_xettuyen`, `nv_ketqua`, `nv_keys`, `tt_phuongthuc`, `tt_thm`) VALUES
+-- ('001207004846', '7610302', 1,  19.50000, 0.25000, NULL, 19.75000, 'duolaar', '001207004846_7610302_PT2', 'PT2', NULL),
+-- ('001207005157', '7510301', 1,  16.70000, 0.25000, NULL, 16.95000, 'duolaar', '001207005157_7510301_PT2', 'PT2', NULL),
+-- ('001207005157', '7510302', 2,  15.70000, 0.00000, NULL, 15.70000, 'duolaar', '001207005157_7510302_PT2', 'PT2', NULL),
+-- ('001207005157', '7220201', 3,  15.70000, 0.00000, NULL, 15.70000, 'duolaar', '001207005157_7220201_PT2', 'PT2', NULL),
+-- ('001207008593', '7310401', 1,  20.25000, 0.00000, NULL, 20.25000, NULL,      '001207008593_7310401_PT2', 'PT2', NULL),
+-- ('001207008630', '7310401', 1,  21.18000, 0.00000, NULL, 21.18000, NULL,      '001207008630_7310401_PT2', 'PT2', NULL),
+-- ('001207009704', '7310401', 1,  21.85000, 0.00000, NULL, 21.85000, 'yes',     '001207009704_7310401_PT2', 'PT2', NULL),
+-- ('001207012341', '7380101', 1,  19.93000, 0.00000, NULL, 19.93000, 'yes',     '001207012341_7380101_PT2', 'PT2', NULL),
+-- ('001207012439', '7480201', 1,  23.85000, 0.61000, NULL, 24.46000, 'yes',     '001207012439_7480201_PT2', 'PT2', NULL),
+-- ('001207012684', '7480201', 2,  20.10000, 0.00000, NULL, 20.10000, NULL,      '001207012684_7480201_PT2', 'PT2', NULL);
 
--- xt_bangquydoi
-INSERT INTO `xt_bangquydoi` (`d_phuongthuc`, `d_tohop`, `d_mon`, `d_diema`, `d_diemb`, `d_diemc`, `d_diemd`, `d_maquydoi`, `d_phanvi`) VALUES
-('DGNL', 'A01', NULL, 980.00, 997.00, 20.25, 20.10, 'DGNL_A01_2',  '2'),
-('DGNL', 'A01', NULL, 984.00, 997.00, 25.75, 26.10, 'DGNL_A01_3',  '3'),
-('DGNL', 'A01', NULL, 979.00, 983.00, 25.00, 25.65, 'DGNL_A01_4',  '4'),
-('DGNL', 'A01', NULL, 962.00, 972.00, 25.05, 25.25, 'DGNL_A01_5',  '5'),
-('DGNL', 'A01', NULL, 954.00, 961.00, 24.85, 25.05, 'DGNL_A01_6',  '6'),
-('DGNL', 'A01', NULL, 946.00, 953.00, 24.00, 24.75, 'DGNL_A01_7',  '7'),
-('DGNL', 'A01', NULL, 939.00, 945.00, 24.30, 24.50, 'DGNL_A01_8',  '8'),
-('DGNL', 'A01', NULL, 932.00, 938.00, 24.00, 24.25, 'DGNL_A01_9',  '9'),
-('DGNL', 'A01', NULL, 926.00, 931.00, 23.60, 24.20, 'DGNL_A01_10', '10'),
-('DGNL', 'A01', NULL, 919.00, 925.00, 23.30, 23.95, 'DGNL_A01_11', '11'),
-('DGNL', 'A01', NULL, 913.00, 918.00, 23.55, 23.75, 'DGNL_A01_12', '12');
+-- -- xt_bangquydoi
+-- INSERT INTO `xt_bangquydoi` (`d_phuongthuc`, `d_tohop`, `d_mon`, `d_diema`, `d_diemb`, `d_diemc`, `d_diemd`, `d_maquydoi`, `d_phanvi`) VALUES
+-- ('DGNL', 'A01', NULL, 980.00, 997.00, 20.25, 20.10, 'DGNL_A01_2',  '2'),
+-- ('DGNL', 'A01', NULL, 984.00, 997.00, 25.75, 26.10, 'DGNL_A01_3',  '3'),
+-- ('DGNL', 'A01', NULL, 979.00, 983.00, 25.00, 25.65, 'DGNL_A01_4',  '4'),
+-- ('DGNL', 'A01', NULL, 962.00, 972.00, 25.05, 25.25, 'DGNL_A01_5',  '5'),
+-- ('DGNL', 'A01', NULL, 954.00, 961.00, 24.85, 25.05, 'DGNL_A01_6',  '6'),
+-- ('DGNL', 'A01', NULL, 946.00, 953.00, 24.00, 24.75, 'DGNL_A01_7',  '7'),
+-- ('DGNL', 'A01', NULL, 939.00, 945.00, 24.30, 24.50, 'DGNL_A01_8',  '8'),
+-- ('DGNL', 'A01', NULL, 932.00, 938.00, 24.00, 24.25, 'DGNL_A01_9',  '9'),
+-- ('DGNL', 'A01', NULL, 926.00, 931.00, 23.60, 24.20, 'DGNL_A01_10', '10'),
+-- ('DGNL', 'A01', NULL, 919.00, 925.00, 23.30, 23.95, 'DGNL_A01_11', '11'),
+-- ('DGNL', 'A01', NULL, 913.00, 918.00, 23.55, 23.75, 'DGNL_A01_12', '12');
 
 
 -- Testing
