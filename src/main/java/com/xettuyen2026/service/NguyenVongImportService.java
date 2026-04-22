@@ -1,7 +1,9 @@
 package com.xettuyen2026.service;
 
 import com.xettuyen2026.dao.NguyenVongDAO;
+import com.xettuyen2026.dao.ThiSinhDAO;
 import com.xettuyen2026.entity.NguyenVongXetTuyen;
+import com.xettuyen2026.entity.ThiSinh;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
@@ -22,6 +24,7 @@ import java.util.*;
 public class NguyenVongImportService {
 
     private NguyenVongDAO dao = new NguyenVongDAO();
+    private ThiSinhDAO thiSinhDAO = new ThiSinhDAO();
 
     public static class ImportResult {
         public int successCount = 0;
@@ -34,44 +37,79 @@ public class NguyenVongImportService {
         ImportResult result = new ImportResult();
         List<NguyenVongXetTuyen> toSave = new ArrayList<>();
 
+        // FIX #5: Preload toàn bộ CCCD hợp lệ từ bảng thí sinh (1 query duy nhất, tránh N+1)
+        Set<String> validCccdSet = new HashSet<>();
+        try {
+            for (ThiSinh ts : thiSinhDAO.findAll()) {
+                if (ts.getCccd() != null) validCccdSet.add(ts.getCccd().trim());
+            }
+        } catch (Exception e) {
+            // Nếu không load được danh sách thí sinh thì vẫn cho import (không chặn)
+            System.err.println("⚠️ Không thể load danh sách thí sinh để validate: " + e.getMessage());
+        }
+
         try (FileInputStream fis = new FileInputStream(file);
              Workbook workbook = new XSSFWorkbook(fis)) {
 
-            Sheet sheet = workbook.getSheetAt(0);
-            Row headerRow = sheet.getRow(0);
-            if (headerRow == null) throw new Exception("File Excel không có header (dòng 1 trống).");
-
-            // Auto-detect column indices from header
+            // Tự động tìm sheet và Header (Quét qua các sheet, tìm dòng chứa CCCD và Mã ngành)
+            Sheet targetSheet = null;
+            Row headerRow = null;
+            int headerRowIndex = -1;
             int colCccd = -1, colMaNganh = -1, colNvTt = -1, colPt = -1, colThm = -1;
 
-            for (int c = 0; c < headerRow.getLastCellNum(); c++) {
-                String header = getCellString(headerRow, c);
-                if (header == null) continue;
-                String h = header.toLowerCase()
-                        .replace("_", "").replace(" ", "").replace("(", "").replace(")", "").replace("*", "");
+            for (int s = 0; s < workbook.getNumberOfSheets(); s++) {
+                Sheet sheet = workbook.getSheetAt(s);
+                // Scan 20 dòng đầu
+                for (int r = 0; r < Math.min(sheet.getLastRowNum() + 1, 20); r++) {
+                    Row row = sheet.getRow(r);
+                    if (row == null) continue;
 
-                if (h.contains("cccd") || h.contains("nncccd")) {
-                    colCccd = c;
-                } else if (h.contains("manganh") || h.contains("mãngành") || h.contains("manganh")) {
-                    if (colMaNganh < 0) colMaNganh = c; // lấy cột đầu tiên match
-                } else if (h.contains("nvtt") || h.contains("nvthứ") || h.contains("thứtự") || h.contains("nvthu")) {
-                    colNvTt = c;
-                } else if (h.contains("phuongthuc") || h.contains("phươngthức") || h.equals("pt")) {
-                    colPt = c;
-                } else if (h.contains("tohop") || h.contains("tổhợp") || h.contains("thm") || h.contains("ttthm")) {
-                    colThm = c;
+                    int tCccd = -1, tMaNganh = -1, tNvTt = -1, tPt = -1, tThm = -1;
+
+                    for (int c = 0; c < row.getLastCellNum(); c++) {
+                        String header = getCellString(row, c);
+                        if (header == null) continue;
+                        String h = header.toLowerCase()
+                                .replace("_", "").replace(" ", "").replace("(", "").replace(")", "").replace("*", "");
+
+                        if (h.contains("cccd") || h.contains("nncccd")) {
+                            tCccd = c;
+                        } else if (h.contains("manganh") || h.contains("mãngành") || h.contains("maxettuyen") || h.contains("mãxéttuyển")) {
+                            if (tMaNganh < 0) tMaNganh = c; // lấy cột match đầu tiên
+                        } else if (h.contains("nvtt") || h.contains("nvthứ") || h.contains("thứtự") || h.contains("nvthu") || h.contains("thutunv")) {
+                            tNvTt = c;
+                        } else if (h.contains("phuongthuc") || h.contains("phươngthức") || h.equals("pt")) {
+                            tPt = c;
+                        } else if (h.contains("tohop") || h.contains("tổhợp") || h.contains("thm") || h.contains("ttthm")) {
+                            tThm = c;
+                        }
+                    }
+
+                    // Nếu tìm thấy cả 2 cột nòng cốt
+                    if (tCccd >= 0 && tMaNganh >= 0) {
+                        targetSheet = sheet;
+                        headerRow = row;
+                        headerRowIndex = r;
+                        colCccd = tCccd;
+                        colMaNganh = tMaNganh;
+                        colNvTt = tNvTt;
+                        colPt = tPt;
+                        colThm = tThm;
+                        break;
+                    }
                 }
+                if (targetSheet != null) break;
             }
 
-            if (colCccd < 0 || colMaNganh < 0) {
-                throw new Exception("Không tìm thấy cột CCCD hoặc Mã ngành trong header.\n"
-                        + "Header cần chứa: 'cccd' hoặc 'nn_cccd', 'mã ngành' hoặc 'nv_manganh'.");
+            if (targetSheet == null || headerRow == null) {
+                throw new Exception("Không tìm thấy dữ liệu nguyện vọng hợp lệ!\n"
+                        + "Chưa tìm ra dòng Header chứa 'CCCD' và 'Mã ngành' / 'Mã xét tuyển' ở bất kỳ sheet nào.");
             }
 
-            int lastRow = sheet.getLastRowNum();
+            int lastRow = targetSheet.getLastRowNum();
 
-            for (int i = 1; i <= lastRow; i++) {
-                Row row = sheet.getRow(i);
+            for (int i = headerRowIndex + 1; i <= lastRow; i++) {
+                Row row = targetSheet.getRow(i);
                 if (row == null) continue;
 
                 try {
@@ -82,9 +120,16 @@ public class NguyenVongImportService {
                         result.skipCount++;
                         continue;
                     }
-                    
+
                     if (cccd.contains("(*)") || cccd.contains("nn_cccd")) {
                         result.skipCount++;
+                        continue;
+                    }
+
+                    // FIX #5: Kiểm tra CCCD có tồn tại trong bảng thí sinh không
+                    if (!validCccdSet.isEmpty() && !validCccdSet.contains(cccd)) {
+                        result.skipCount++;
+                        result.errors.add("Dòng " + (i + 1) + ": CCCD '" + cccd + "' không tồn tại trong hệ thống thí sinh — bỏ qua.");
                         continue;
                     }
 

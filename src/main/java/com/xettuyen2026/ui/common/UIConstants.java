@@ -64,21 +64,39 @@ public final class UIConstants {
     public static final int PAGE_SIZE        = 18;
     public static final Integer[] PAGE_SIZE_OPTIONS = {10, 18, 25, 50, 100};
 
+    // ── Helper to load icon ───────────────────────────────────
+    public static javax.swing.Icon getIcon(String fileName, int width, int height) {
+        if (fileName == null || fileName.trim().isEmpty()) return null;
+        try {
+            java.io.File file = new java.io.File("src/main/data/icon/" + fileName);
+            if (file.exists()) {
+                javax.swing.ImageIcon icon = new javax.swing.ImageIcon(file.getAbsolutePath());
+                java.awt.Image img = icon.getImage().getScaledInstance(width, height, java.awt.Image.SCALE_SMOOTH);
+                return new javax.swing.ImageIcon(img);
+            }
+        } catch (Exception e) {}
+        return null;
+    }
+
     // ── Emoji Icons for Menu  ─────────────────────────────────
-    public static final String ICON_DASHBOARD  = "📊";
-    public static final String ICON_USER       = "👤";
-    public static final String ICON_STUDENT    = "🎓";
-    public static final String ICON_MAJOR      = "📚";
-    public static final String ICON_COMBO      = "🔢";
-    public static final String ICON_MAJOR_COMBO= "📋";
-    public static final String ICON_SCORE      = "📝";
-    public static final String ICON_BONUS      = "➕";
-    public static final String ICON_WISH       = "📌";
-    public static final String ICON_CONVERT    = "🔄";
-    public static final String ICON_LOGOUT     = "🚪";
-    public static final String ICON_SEARCH     = "🔍";
-    public static final String ICON_IMPORT     = "📥";
-    public static final String ICON_ADD        = "➕";
-    public static final String ICON_EDIT       = "✏️";
-    public static final String ICON_DELETE     = "🗑️";
+    // ── Icons for Menu  ─────────────────────────────────
+    public static final String ICON_DASHBOARD  = "house.png";
+    public static final String ICON_USER       = "users.png";
+    public static final String ICON_STUDENT    = "graduation-cap.png";
+    public static final String ICON_MAJOR      = "book-open-check.png";
+    public static final String ICON_COMBO      = "layers.png";
+    public static final String ICON_MAJOR_COMBO= "cable.png";
+    public static final String ICON_SCORE      = "clipboard-paste.png";
+    public static final String ICON_BONUS      = "badge-plus.png";
+    public static final String ICON_WISH       = "file-heart.png";
+    public static final String ICON_CONVERT    = "arrow-left-right.png";
+    public static final String ICON_LOGOUT     = ""; // No PNG available
+    public static final String ICON_SEARCH     = "search.png";
+    public static final String ICON_IMPORT     = "cloud-upload.png";
+    public static final String ICON_ADD        = "plus.png";
+    public static final String ICON_EDIT       = "pencil-line.png";
+    public static final String ICON_DELETE     = "eraser.png";
+    public static final String ICON_DOWNLOAD   = "cloud-download.png";
+    public static final String ICON_CALCULATE  = "calculator.png";
+    public static final String ICON_EXECUTE    = "play.png";
 }

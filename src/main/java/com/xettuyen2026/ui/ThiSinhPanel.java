@@ -1,30 +1,46 @@
 package com.xettuyen2026.ui;
 
-import com.xettuyen2026.dao.ThiSinhDAO;
 import com.xettuyen2026.entity.ThiSinh;
-import com.xettuyen2026.ui.common.*;
+import com.xettuyen2026.service.ThiSinhService;
+import com.xettuyen2026.ui.common.ConfirmDialog;
+import com.xettuyen2026.ui.common.MessageHelper;
+import com.xettuyen2026.ui.common.PaginatedTable;
+import com.xettuyen2026.ui.common.RoundedButton;
+import com.xettuyen2026.ui.common.SearchBar;
+import com.xettuyen2026.ui.common.UIConstants;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.BorderFactory;
+import javax.swing.JFileChooser;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Quản lý Thí sinh - toolbar, search, table phân trang, dialog thêm/sửa.
+ * Quản lý Thí sinh - toolbar, search, table phân trang, CRUD + import Excel.
  */
 public class ThiSinhPanel extends JPanel {
 
-    private PaginatedTable styledTable;
-    private SearchBar searchBar;
-    private ThiSinhDAO dao;
-
     private static final String[] COLUMNS = {
-        "STT", "CCCD", "Số báo danh", "Họ", "Tên", "Ngày sinh",
-        "Giới tính", "Điện thoại", "Email", "Khu vực", "Đối tượng"
+            "STT", "CCCD", "Số báo danh", "Họ và tên", "Ngày sinh",
+            "Giới tính", "ĐTƯT", "KVƯT", "Dân tộc", "Nơi sinh"
     };
 
+    private PaginatedTable styledTable;
+    private SearchBar searchBar;
+    private final ThiSinhService service;
+    private boolean triedAutoLoadFromDataFile = false;
+
     public ThiSinhPanel() {
-        dao = new ThiSinhDAO();
+        service = new ThiSinhService();
         setLayout(new BorderLayout(0, 12));
         setBackground(UIConstants.BG_MAIN);
 
@@ -37,20 +53,15 @@ public class ThiSinhPanel extends JPanel {
         toolbar.setOpaque(false);
         toolbar.setPreferredSize(new Dimension(0, 48));
 
-        // Left: Search
         JPanel leftPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 8, 6));
         leftPanel.setOpaque(false);
-
         searchBar = new SearchBar("Tìm theo CCCD hoặc họ tên...", e -> doSearch());
-
         RoundedButton btnSearch = new RoundedButton(UIConstants.ICON_SEARCH + " Tìm kiếm", UIConstants.PRIMARY_LIGHT);
         btnSearch.addActionListener(e -> doSearch());
-
         leftPanel.add(searchBar);
         leftPanel.add(btnSearch);
         toolbar.add(leftPanel, BorderLayout.WEST);
 
-        // Right: Action buttons
         JPanel rightPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 6, 6));
         rightPanel.setOpaque(false);
 
@@ -94,75 +105,52 @@ public class ThiSinhPanel extends JPanel {
         styledTable = new PaginatedTable(COLUMNS);
         card.add(styledTable, BorderLayout.CENTER);
 
-        // Auto-load on first show
         SwingUtilities.invokeLater(this::loadData);
-
         return card;
     }
 
     private void loadData() {
         try {
-            List<ThiSinh> list = dao.findAll();
-            List<Object[]> rows = new ArrayList<>();
-            int stt = 1;
-            for (ThiSinh ts : list) {
-                rows.add(new Object[]{
-                    stt++,
-                    ts.getCccd(),
-                    ts.getSobaodanh(),
-                    ts.getHo(),
-                    ts.getTen(),
-                    ts.getNgaySinh(),
-                    ts.getGioiTinh(),
-                    ts.getDienThoai(),
-                    ts.getEmail(),
-                    ts.getKhuVuc(),
-                    ts.getDoiTuong()
-                });
+            if (!triedAutoLoadFromDataFile) {
+                triedAutoLoadFromDataFile = true;
+                int imported = service.importDefaultDataFileIfPresent();
+                if (imported > 0) {
+                    MessageHelper.showInfo(this, "Đã tự nạp " + imported + " thí sinh từ file Ds thi sinh.xlsx trong thư mục data.");
+                }
             }
-            styledTable.setData(rows);
+            displayList(service.findAll());
         } catch (Exception e) {
             e.printStackTrace();
-            MessageHelper.showError(this, "Không thể tải dữ liệu thí sinh: " + e.getMessage());
+            MessageHelper.showError(this, "Không thể tải dữ liệu thí sinh:\n" + e.getMessage());
         }
     }
 
     private void doSearch() {
-        String keyword = searchBar.getText();
+        String keyword = searchBar.getText().trim();
         if (keyword.isEmpty()) {
             loadData();
             return;
         }
         try {
-            List<ThiSinh> list = dao.findAll(); // use findAll and filter in app
-            List<Object[]> rows = new ArrayList<>();
-            int stt = 1;
-            String kw = keyword.toLowerCase();
-            for (ThiSinh ts : list) {
-                boolean match = (ts.getCccd() != null && ts.getCccd().toLowerCase().contains(kw))
-                    || (ts.getHo() != null && ts.getHo().toLowerCase().contains(kw))
-                    || (ts.getTen() != null && ts.getTen().toLowerCase().contains(kw));
-                if (match) {
-                    rows.add(new Object[]{
-                        stt++, ts.getCccd(), ts.getSobaodanh(), ts.getHo(), ts.getTen(),
-                        ts.getNgaySinh(), ts.getGioiTinh(), ts.getDienThoai(),
-                        ts.getEmail(), ts.getKhuVuc(), ts.getDoiTuong()
-                    });
-                }
-            }
-            styledTable.setData(rows);
+            displayList(service.search(keyword));
         } catch (Exception e) {
-            MessageHelper.showError(this, "Lỗi tìm kiếm: " + e.getMessage());
+            MessageHelper.showError(this, "Lỗi tìm kiếm:\n" + e.getMessage());
         }
     }
 
     private void doImport() {
-        ImportDialog dlg = new ImportDialog(SwingUtilities.getWindowAncestor(this));
-        dlg.setVisible(true);
-        if (dlg.isConfirmed() && dlg.getSelectedFile() != null) {
-            MessageHelper.showInfo(this, "Import file: " + dlg.getSelectedFile().getName()
-                    + "\n(Chức năng import sẽ xử lý file thực tế ở service layer)");
-            loadData();
+        JFileChooser chooser = new JFileChooser();
+        chooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Excel Files (*.xlsx, *.xls)", "xlsx", "xls"));
+        chooser.setDialogTitle("Chọn file Excel import thí sinh");
+        if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            File file = chooser.getSelectedFile();
+            try {
+                int count = service.importFromExcel(file);
+                MessageHelper.showSuccess(this, "Import thành công " + count + " thí sinh!");
+                loadData();
+            } catch (Exception e) {
+                MessageHelper.showError(this, "Lỗi import: " + e.getMessage());
+            }
         }
     }
 
@@ -170,7 +158,13 @@ public class ThiSinhPanel extends JPanel {
         ThiSinhDialog dlg = new ThiSinhDialog(SwingUtilities.getWindowAncestor(this), null);
         dlg.setVisible(true);
         if (dlg.isSaved()) {
-            loadData();
+            try {
+                service.save(dlg.getEntity());
+                MessageHelper.showSuccess(this, "Thêm thí sinh thành công!");
+                loadData();
+            } catch (Exception e) {
+                MessageHelper.showError(this, "Lỗi: " + e.getMessage());
+            }
         }
     }
 
@@ -184,12 +178,18 @@ public class ThiSinhPanel extends JPanel {
         List<Object[]> data = styledTable.getAllData();
         String cccd = (String) data.get(realIdx)[1];
 
-        ThiSinh ts = dao.findByCccd(cccd);
+        ThiSinh ts = service.findByCccd(cccd);
         if (ts != null) {
             ThiSinhDialog dlg = new ThiSinhDialog(SwingUtilities.getWindowAncestor(this), ts);
             dlg.setVisible(true);
             if (dlg.isSaved()) {
-                loadData();
+                try {
+                    service.update(dlg.getEntity());
+                    MessageHelper.showSuccess(this, "Cập nhật thí sinh thành công!");
+                    loadData();
+                } catch (Exception e) {
+                    MessageHelper.showError(this, "Lỗi: " + e.getMessage());
+                }
             }
         }
     }
@@ -201,8 +201,46 @@ public class ThiSinhPanel extends JPanel {
             return;
         }
         if (ConfirmDialog.show(this, "Bạn có chắc muốn xóa thí sinh này?")) {
-            MessageHelper.showSuccess(this, "Đã xóa thí sinh.");
-            loadData();
+            int realIdx = styledTable.getRealIndex(row);
+            List<Object[]> data = styledTable.getAllData();
+            String cccd = (String) data.get(realIdx)[1];
+            try {
+                ThiSinh selected = service.findByCccd(cccd);
+                if (selected != null) {
+                    service.delete(selected);
+                    MessageHelper.showSuccess(this, "Đã xóa thí sinh.");
+                    loadData();
+                }
+            } catch (Exception e) {
+                MessageHelper.showError(this, "Lỗi xóa: " + e.getMessage());
+            }
         }
+    }
+
+    private void displayList(List<ThiSinh> list) {
+        List<Object[]> rows = new ArrayList<>();
+        int stt = 1;
+        for (ThiSinh ts : list) {
+            rows.add(new Object[]{
+                    stt++,
+                    ts.getCccd(),
+                    ts.getSobaodanh(),
+                    buildHoTen(ts),
+                    ts.getNgaySinh(),
+                    ts.getGioiTinh(),
+                    ts.getDoiTuong(),
+                    ts.getKhuVuc(),
+                    ts.getDanToc(),
+                    ts.getNoiSinh()
+            });
+        }
+        styledTable.setData(rows);
+    }
+
+    private String buildHoTen(ThiSinh ts) {
+        String ho = ts.getHo() == null ? "" : ts.getHo().trim();
+        String ten = ts.getTen() == null ? "" : ts.getTen().trim();
+        String fullName = (ho + " " + ten).trim();
+        return fullName.isEmpty() ? ts.getCccd() : fullName;
     }
 }

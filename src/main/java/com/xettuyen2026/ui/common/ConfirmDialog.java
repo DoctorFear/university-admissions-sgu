@@ -46,7 +46,7 @@ public class ConfirmDialog extends JDialog {
         RoundedButton btnCancel = new RoundedButton("Hủy", new Color(0x757575));
         btnCancel.addActionListener(e -> dispose());
 
-        RoundedButton btnDelete = new RoundedButton("🗑️ Xóa", UIConstants.DANGER);
+        RoundedButton btnDelete = new RoundedButton(UIConstants.ICON_DELETE + " Xóa", UIConstants.DANGER);
         btnDelete.addActionListener(e -> { confirmed = true; dispose(); });
 
         btnPanel.add(btnCancel);

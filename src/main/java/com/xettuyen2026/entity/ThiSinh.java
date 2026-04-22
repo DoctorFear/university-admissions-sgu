@@ -50,6 +50,9 @@ public class ThiSinh {
     @Column(name = "noi_sinh", length = 45)
     private String noiSinh;
 
+    @Column(name = "dan_toc", length = 45)
+    private String danToc;
+
     @Column(name = "updated_at")
     private LocalDate updatedAt;
 
@@ -85,6 +88,8 @@ public class ThiSinh {
     public void setEmail(String email) { this.email = email; }
     public String getNoiSinh() { return noiSinh; }
     public void setNoiSinh(String noiSinh) { this.noiSinh = noiSinh; }
+    public String getDanToc() { return danToc; }
+    public void setDanToc(String danToc) { this.danToc = danToc; }
     public LocalDate getUpdatedAt() { return updatedAt; }
     public void setUpdatedAt(LocalDate updatedAt) { this.updatedAt = updatedAt; }
     public String getDoiTuong() { return doiTuong; }

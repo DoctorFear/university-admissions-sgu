@@ -54,9 +54,16 @@ public class SearchBar extends JPanel {
         textField.addActionListener(onSearch);
 
         // Icon label
-        JLabel iconLabel = new JLabel(" " + UIConstants.ICON_SEARCH + " ");
-        iconLabel.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 14));
-        iconLabel.setForeground(UIConstants.TEXT_SECONDARY);
+        JLabel iconLabel = new JLabel();
+        javax.swing.Icon searchIcon = UIConstants.getIcon(UIConstants.ICON_SEARCH, 16, 16);
+        if (searchIcon != null) {
+            iconLabel.setIcon(searchIcon);
+            iconLabel.setBorder(BorderFactory.createEmptyBorder(0, 8, 0, 4));
+        } else {
+            iconLabel.setText(" 🔍 ");
+            iconLabel.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 14));
+            iconLabel.setForeground(UIConstants.TEXT_SECONDARY);
+        }
 
         JPanel container = new JPanel(new BorderLayout()) {
             @Override
