@@ -2,6 +2,7 @@ package com.xettuyen2026.ui;
 
 import com.xettuyen2026.entity.DiemThiXetTuyen;
 import com.xettuyen2026.service.DiemThiService;
+import com.xettuyen2026.service.DiemThiService.ImportResult;
 import com.xettuyen2026.ui.common.ConfirmDialog;
 import com.xettuyen2026.ui.common.MessageHelper;
 import com.xettuyen2026.ui.common.PaginatedTable;
@@ -88,6 +89,7 @@ public class DiemThiPanel extends JPanel {
         add(tabs, BorderLayout.CENTER);
     }
 
+    // Tạo panel tab cho từng phương thức thi (THPT / ĐGNL / VSAT)
     private JPanel createTabPanel(String phuongThuc, String[] columns, int[] widths) {
         JPanel panel = new JPanel(new BorderLayout(0, 8));
         panel.setBackground(UIConstants.BG_MAIN);
@@ -114,6 +116,7 @@ public class DiemThiPanel extends JPanel {
         return panel;
     }
 
+    // Tạo thanh công cụ: ô tìm kiếm + các nút thao tác
     private JPanel buildToolbar(
         PaginatedTable table,
         SearchBar searchBar,
@@ -155,6 +158,11 @@ public class DiemThiPanel extends JPanel {
         return toolbar;
     }
 
+    // ════════════════════════════════════════════════════════════
+    //  XỬ LÝ SỰ KIỆN
+    // ════════════════════════════════════════════════════════════
+
+    // Tìm kiếm điểm thi theo từ khóa (CCCD hoặc tên môn)
     private void doSearch(
         PaginatedTable table,
         SearchBar searchBar,
@@ -178,6 +186,7 @@ public class DiemThiPanel extends JPanel {
         }
     }
 
+    // Mở dialog thêm mới bản ghi điểm thi
     private void doAdd(PaginatedTable table, String phuongThuc, JLabel lblTB, JLabel lblCao, JLabel lblThap) {
         DiemThiDialog dlg = new DiemThiDialog(SwingUtilities.getWindowAncestor(this), null, phuongThuc);
         dlg.setVisible(true);
@@ -193,6 +202,7 @@ public class DiemThiPanel extends JPanel {
         }
     }
 
+    // Mở dialog sửa bản ghi điểm thi đang chọn
     private void doEdit(PaginatedTable table, String phuongThuc, JLabel lblTB, JLabel lblCao, JLabel lblThap) {
         int row = table.getSelectedRow();
         if (row < 0) {
@@ -221,6 +231,7 @@ public class DiemThiPanel extends JPanel {
         }
     }
 
+    // Xóa bản ghi điểm thi đang chọn sau khi xác nhận
     private void doDelete(PaginatedTable table, String phuongThuc, JLabel lblTB, JLabel lblCao, JLabel lblThap) {
         int row = table.getSelectedRow();
         if (row < 0) {
@@ -246,23 +257,66 @@ public class DiemThiPanel extends JPanel {
         }
     }
 
+    /**
+     * Mở dialog chọn file Excel và thực hiện import điểm thi.
+     *
+     * Sau khi import, hiển thị thông báo chi tiết:
+     *   - Số bản ghi thêm mới / cập nhật / bỏ qua (đợt thi thấp hơn — chỉ ĐGNL)
+     *   - Danh sách lỗi nếu có (tối đa 5 lỗi đầu để tránh hộp thoại quá dài)
+     */
     private void doImport(PaginatedTable table, String phuongThuc, JLabel lblTB, JLabel lblCao, JLabel lblThap) {
         JFileChooser chooser = new JFileChooser();
-        chooser.setFileFilter(new FileNameExtensionFilter("Excel Files (*.xlsx)", "xlsx"));
+        chooser.setFileFilter(new FileNameExtensionFilter(
+            "Excel Files (*.xlsx, *.xls)", "xlsx", "xls"
+        ));
         chooser.setDialogTitle("Chọn file Excel import điểm " + phuongThuc);
 
-        if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
-            File file = chooser.getSelectedFile();
-            try {
-                int count = service.importFromExcel(file, phuongThuc);
-                MessageHelper.showSuccess(this, "Import thành công " + count + " bản ghi.");
-                loadData(table, phuongThuc, lblTB, lblCao, lblThap);
-            } catch (Exception ex) {
-                MessageHelper.showError(this, "Lỗi import: " + ex.getMessage());
+        if (chooser.showOpenDialog(this) != JFileChooser.APPROVE_OPTION) return;
+
+        File file = chooser.getSelectedFile();
+        try {
+            ImportResult result = service.importFromExcel(file, phuongThuc);
+
+            // Xây dựng thông báo kết quả chi tiết
+            StringBuilder sb = new StringBuilder();
+            sb.append("Import hoàn tất!\n\n");
+            sb.append("✅ Thêm mới  : ").append(result.insertCount).append(" bản ghi\n");
+            sb.append("🔄 Cập nhật  : ").append(result.updateCount).append(" bản ghi\n");
+
+            // Hiển thị số đợt thi bị bỏ qua (điểm thấp hơn) — chỉ có ý nghĩa với ĐGNL
+            if (result.skipCount > 0) {
+                sb.append("⏭ Bỏ qua    : ").append(result.skipCount).append(" đợt thi (điểm thấp hơn)\n");
             }
+
+            // Hiển thị lỗi nếu có
+            if (result.errorCount > 0) {
+                sb.append("❌ Lỗi       : ").append(result.errorCount).append(" bản ghi\n");
+                sb.append("\nChi tiết lỗi:\n");
+                int maxErrors = Math.min(result.errors.size(), 5); // Giới hạn hiển thị 5 lỗi đầu
+                for (int i = 0; i < maxErrors; i++) {
+                    sb.append("  • ").append(result.errors.get(i)).append("\n");
+                }
+                if (result.errors.size() > 5) {
+                    sb.append("  ... và ").append(result.errors.size() - 5).append(" lỗi khác.");
+                }
+                MessageHelper.showWarning(this, sb.toString());
+            } else {
+                MessageHelper.showSuccess(this, sb.toString());
+            }
+
+            // Tải lại dữ liệu bảng sau khi import
+            loadData(table, phuongThuc, lblTB, lblCao, lblThap);
+
+        } catch (Exception ex) {
+            MessageHelper.showError(this, "Lỗi import: " + ex.getMessage());
         }
     }
 
+    // ════════════════════════════════════════════════════════════
+    //  DỮ LIỆU & HIỂN THỊ
+    // ════════════════════════════════════════════════════════════
+
+    // Tải dữ liệu từ DB và cập nhật bảng + thống kê
     private void loadData(PaginatedTable table, String phuongThuc, JLabel lblTB, JLabel lblCao, JLabel lblThap) {
         try {
             List<DiemThiXetTuyen> list = service.findByPhuongThuc(phuongThuc);
@@ -274,6 +328,7 @@ public class DiemThiPanel extends JPanel {
         }
     }
 
+    // Điền danh sách điểm thi vào bảng theo đúng cột của từng phương thức
     private void fillTable(PaginatedTable table, List<DiemThiXetTuyen> list, String phuongThuc) {
         List<Object[]> rows = new ArrayList<>();
         int stt = 1;
@@ -332,6 +387,7 @@ public class DiemThiPanel extends JPanel {
         table.setData(rows);
     }
 
+    // Cập nhật các nhãn thống kê (TB, Cao nhất, Thấp nhất)
     private void updateStats(List<DiemThiXetTuyen> list, String phuongThuc, JLabel lblTB, JLabel lblCao, JLabel lblThap) {
         DiemThiService.ThongKe tk = service.thongKe(list, phuongThuc);
         lblTB.setText(tk.diemTB != null ? tk.diemTB.stripTrailingZeros().toPlainString() : "---");
@@ -339,6 +395,11 @@ public class DiemThiPanel extends JPanel {
         lblThap.setText(tk.thapNhat != null ? tk.thapNhat.stripTrailingZeros().toPlainString() : "---");
     }
 
+    // ════════════════════════════════════════════════════════════
+    //  GIAO DIỆN — RENDERER & LAYOUT
+    // ════════════════════════════════════════════════════════════
+
+    // Áp dụng renderer tùy chỉnh: màu dòng xen kẽ, căn giữa cột điểm, tô màu "---"
     private void applyRenderer(PaginatedTable table) {
         table.getTable().setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
             @Override
@@ -372,6 +433,7 @@ public class DiemThiPanel extends JPanel {
         });
     }
 
+    // Bọc panel bảng trong card có bo góc và đổ bóng
     private JPanel wrapCard(JPanel content) {
         JPanel card = new JPanel(new BorderLayout()) {
             @Override
@@ -391,6 +453,7 @@ public class DiemThiPanel extends JPanel {
         return card;
     }
 
+    // Tạo panel thống kê bên phải gồm 3 card: Điểm TB, Cao nhất, Thấp nhất
     private JPanel buildStatsPanel(JLabel lblTB, JLabel lblCao, JLabel lblThap) {
         JPanel panel = new JPanel();
         panel.setLayout(new javax.swing.BoxLayout(panel, javax.swing.BoxLayout.Y_AXIS));
@@ -405,6 +468,7 @@ public class DiemThiPanel extends JPanel {
         return panel;
     }
 
+    // Tạo card thống kê đơn lẻ (tên chỉ số + giá trị màu)
     private JPanel makeStat(String label, JLabel valueLabel, Color color) {
         JPanel card = new JPanel() {
             @Override
@@ -437,12 +501,18 @@ public class DiemThiPanel extends JPanel {
         return card;
     }
 
+    // ════════════════════════════════════════════════════════════
+    //  TIỆN ÍCH HIỂN THỊ
+    // ════════════════════════════════════════════════════════════
+
+    // Định dạng BigDecimal để hiển thị: trả về "---" nếu null hoặc bằng 0
     private String fmt(BigDecimal value) {
         return value != null && value.compareTo(BigDecimal.ZERO) != 0
             ? value.stripTrailingZeros().toPlainString()
             : "---";
     }
 
+    // Trả về chuỗi rỗng nếu value là null (tránh hiển thị "null" trong bảng)
     private String nvlStr(String value) {
         return value != null ? value : "";
     }
