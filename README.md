@@ -226,9 +226,15 @@ Mở file `src/main/resources/hibernate.cfg.xml` và sửa 2 dòng:
 
 ```
 ✅ Kết nối DB thành công!
-```
+```c
 
 4. Cửa sổ đăng nhập hiện ra → dùng tài khoản `admin` / `Admin@123`
+
+### Chạy java window và api
+```
+mvn spring-boot:run
+```
+__Swagger:__ http://localhost:8080/swagger-ui/index.html#/thi-sinh-controller/Testing 
 
 ### Nếu gặp lỗi kết nối DB:
 

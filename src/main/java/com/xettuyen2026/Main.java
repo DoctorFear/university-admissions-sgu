@@ -3,11 +3,14 @@ package com.xettuyen2026;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
+import org.springframework.stereotype.Component;
+
 import com.formdev.flatlaf.FlatLightLaf;
 import com.xettuyen2026.ui.LoginForm;
 
+@Component
 public class Main {
-    public static void main(String[] args) {
+    public void start() {
         // Setup FlatLaf
         try {
             FlatLightLaf.setup();
