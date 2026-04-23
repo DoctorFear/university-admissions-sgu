@@ -17,7 +17,6 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import com.xettuyen2026.dao.DiemCongDAO;
 import com.xettuyen2026.entity.DiemCongXetTuyen;
 import com.xettuyen2026.entity.NganhTohop;
-import com.xettuyen2026.entity.ThiSinhToHop;
 
 public class DiemCongService {
     private final DiemCongDAO dao = new DiemCongDAO();
