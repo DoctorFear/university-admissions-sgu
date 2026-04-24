@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cổng Thông Tin Tuyển Sinh - Tra Cứu & Tính Điểm</title>
+    <meta name="description" content="Tra cứu kết quả xét tuyển và tham khảo cách tính điểm xét tuyển đại học.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="background-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+    </div>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <div class="logo-icon"></div>
+                <span>Tuyển Sinh 2026</span>
+            </div>
+            <div class="nav-links">
+                <button class="nav-btn active" data-target="tab-tracuu">Tra Cứu Kết Quả</button>
+                <button class="nav-btn" data-target="tab-tinhdiem">Tính Điểm Xét Tuyển</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <!-- TAB TRA CỨU -->
+        <section id="tab-tracuu" class="tab-pane active">
+            <div class="card glass-card">
+                <div class="card-header">
+                    <h2>Tra cứu kết quả xét tuyển</h2>
+                    <p>Nhập thông tin để xem kết quả xét tuyển của bạn</p>
+                </div>
+                
+                <!-- Login Form -->
+                <form id="tracuu-form" class="tracuu-form">
+                    <div class="form-group">
+                        <label for="cccd">Số Căn Cước Công Dân</label>
+                        <input type="text" id="cccd" placeholder="Nhập số CCCD của bạn" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Mật khẩu (Ngày tháng năm sinh)</label>
+                        <div style="position: relative;">
+                            <input type="password" id="password" placeholder="VD: 15082008 (8 chữ số)" required pattern="[0-9]{8}" title="Vui lòng nhập 8 chữ số tương ứng ngày, tháng, năm sinh" style="width: 100%; padding-right: 40px;">
+                            <button type="button" id="togglePassword" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; color: #6b7280; padding: 0; display: flex;">
+                                <svg id="eye-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                            </button>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Tra Cứu</button>
+                </form>
+
+                <!-- Loading State -->
+                <div id="tracuu-loading" class="hidden text-center p-4">
+                    <div class="spinner"></div>
+                    <p>Đang tìm kiếm dữ liệu...</p>
+                </div>
+
+                <!-- Result Area -->
+                <div id="tracuu-result" class="result-area hidden" style="margin-top: 2rem;">
+                    <!-- Results will be injected here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB TÍNH ĐIỂM -->
+        <section id="tab-tinhdiem" class="tab-pane">
+            <div class="card glass-card calculator-card">
+                <div class="card-header">
+                    <h2>Công cụ tham khảo tính điểm xét tuyển</h2>
+                    <p>Chọn phương thức để tính điểm</p>
+                    
+                    <div class="method-selector">
+                        <label class="radio-card">
+                            <input type="radio" name="calc-method" value="dgnl" checked>
+                            <div class="radio-card-content">Phương thức ĐGNL</div>
+                        </label>
+                        <label class="radio-card">
+                            <input type="radio" name="calc-method" value="vsat">
+                            <div class="radio-card-content">Phương thức VSAT/THPT</div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- FORM ĐGNL -->
+                <form id="form-dgnl" class="calc-form">
+                    <div class="form-title text-red">Điểm thi Đánh giá năng lực cao nhất</div>
+                    
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Chọn ngành:</label>
+                            <select id="dgnl-nganh" class="select-modern">
+                                <option value="">-- Đang tải dữ liệu... --</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Điểm thi (thang 1200):</label>
+                            <input type="number" id="dgnl-diemthi" placeholder="Nhập điểm thi" max="1200" min="0" step="1">
+                        </div>
+                        <div class="form-group">
+                            <label>Điểm cộng (<=3.0):</label>
+                            <input type="number" id="dgnl-diemcong" value="0" step="0.1" max="3" min="0">
+                        </div>
+                        <div class="form-group">
+                            <label>Khu vực ưu tiên:</label>
+                            <select id="dgnl-khuvuc" class="select-modern">
+                                <option value="0">Không có</option>
+                                <option value="0.25">Khu vực 1 (0.25)</option>
+                                <option value="0.5">Khu vực 2 (0.5)</option>
+                                <option value="0.75">Khu vực 2NT (0.75)</option>
+                                <option value="1.0">Khu vực 3 (1.0)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Đối tượng ưu tiên:</label>
+                            <select id="dgnl-doituong" class="select-modern">
+                                <option value="0">Không đối tượng</option>
+                                <option value="1.0">Đối tượng 1-4 (1.0)</option>
+                                <option value="0.5">Đối tượng 5-7 (0.5)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Tính điểm</button>
+                    </div>
+                </form>
+
+                <!-- FORM VSAT -->
+                <form id="form-vsat" class="calc-form hidden">
+                    <div class="form-title text-red">Điểm thi VSAT (thang điểm 150) / THPT (thang điểm 10)</div>
+                    <p class="form-hint">Môn thi không có điểm: nhập 0.</p>
+                    
+                    <div class="form-grid-3">
+                        <div class="col-left">
+                            <div class="form-group">
+                                <label>Chọn ngành:</label>
+                                <select id="vsat-nganh" class="select-modern">
+                                    <option value="">-- Đang tải dữ liệu... --</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Điểm cộng (<=3.0):</label>
+                                <input type="number" id="vsat-diemcong" value="0" step="0.1" max="3" min="0">
+                            </div>
+                            <div class="form-group">
+                                <label>Khu vực ưu tiên:</label>
+                                <select id="vsat-khuvuc" class="select-modern">
+                                    <option value="0">Không có</option>
+                                    <option value="0.25">Khu vực 1</option>
+                                    <option value="0.5">Khu vực 2</option>
+                                    <option value="0.75">Khu vực 2NT</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Đối tượng ưu tiên:</label>
+                                <select id="vsat-doituong" class="select-modern">
+                                    <option value="0">Không đối tượng</option>
+                                    <option value="1.0">Đối tượng 1-4</option>
+                                    <option value="0.5">Đối tượng 5-7</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-middle">
+                            <div class="form-group">
+                                <label>Điểm môn Toán:</label>
+                                <input type="number" id="vsat-toan" value="0" max="150" min="0" step="0.1">
+                            </div>
+                            <div class="form-group">
+                                <label>Điểm môn Ngữ văn:</label>
+                                <input type="number" id="vsat-van" value="0" max="150" min="0" step="0.1">
+                            </div>
+                            <div class="form-group">
+                                <label>Điểm môn Vật lý:</label>
+                                <input type="number" id="vsat-ly" value="0" max="150" min="0" step="0.1">
+                            </div>
+                            <div class="form-group">
+                                <label>Điểm môn Hóa học:</label>
+                                <input type="number" id="vsat-hoa" value="0" max="150" min="0" step="0.1">
+                            </div>
+                        </div>
+                        <div class="col-right">
+                            <div class="form-group">
+                                <label>Điểm môn Sinh học:</label>
+                                <input type="number" id="vsat-sinh" value="0" max="150" min="0" step="0.1">
+                            </div>
+                            <div class="form-group">
+                                <label>Điểm môn Lịch sử:</label>
+                                <input type="number" id="vsat-su" value="0" max="150" min="0" step="0.1">
+                            </div>
+                            <div class="form-group">
+                                <label>Điểm môn Địa lý:</label>
+                                <input type="number" id="vsat-dia" value="0" max="150" min="0" step="0.1">
+                            </div>
+                            <div class="form-group">
+                                <label>Điểm môn Tiếng Anh:</label>
+                                <input type="number" id="vsat-anh" value="0" max="150" min="0" step="0.1">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-actions center">
+                        <button type="submit" class="btn btn-primary">Tính điểm</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- RESULT AREA TÍNH ĐIỂM -->
+            <div id="calc-result-area" class="card glass-card calc-result hidden">
+                <!-- Result content injected via JS -->
+            </div>
+        </section>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>

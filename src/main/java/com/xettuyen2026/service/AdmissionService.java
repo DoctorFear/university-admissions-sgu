@@ -323,6 +323,9 @@ public class AdmissionService {
 
         List<BangQuydoi> quydoiList = bangQuydoiDAO.findByPhuongthucAndTohop("DGNL", tohop);
         if (quydoiList == null || quydoiList.isEmpty()) {
+            quydoiList = bangQuydoiDAO.findByPhuongthucAndTohop("DGNL", "A01");
+        }
+        if (quydoiList == null || quydoiList.isEmpty()) {
             return BigDecimal.ZERO;
         }
 
