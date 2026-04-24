@@ -150,7 +150,7 @@ public class DiemThiService {
         diemThiDAO.delete(entity);
     }
 
-    // ════════════════════════════════════════════════════════════
+ // ════════════════════════════════════════════════════════════
     //  IMPORT EXCEL
     // ════════════════════════════════════════════════════════════
 
@@ -159,11 +159,11 @@ public class DiemThiService {
      * Trả về ImportResult chứa số liệu thêm mới / cập nhật / lỗi để UI hiển thị.
      *
      * Cấu trúc file Excel:
-     *   - THPT : "Ds thi sinh.xlsx" — dòng header ở row 0, dữ liệu từ row 1
-     *   - ĐGNL : sheet "DGNL" — mỗi thí sinh có thể có nhiều dòng (nhiều đợt),
-     *            chỉ lưu điểm cao nhất (Hướng A)
-     *   - VSAT : sheet "VSAT" — mỗi dòng là 1 bài thi riêng (nhiều môn, nhiều đợt),
-     *            gộp các môn của cùng CCCD vào 1 entity, lấy điểm cao nhất mỗi môn
+     * - THPT : "Ds thi sinh.xlsx" — dòng header ở row 0, dữ liệu từ row 1
+     * - ĐGNL : sheet "DGNL" — mỗi thí sinh có thể có nhiều dòng (nhiều đợt),
+     * chỉ lưu điểm cao nhất (Hướng A)
+     * - VSAT : sheet "VSAT" — mỗi dòng là 1 bài thi riêng (nhiều môn, nhiều đợt),
+     * gộp các môn của cùng CCCD vào 1 entity, lấy điểm cao nhất mỗi môn
      */
     public ImportResult importFromExcel(File file, String phuongThuc) throws Exception {
         String phuongThucCode = normalizePhuongThucCode(phuongThuc);
@@ -305,7 +305,7 @@ public class DiemThiService {
                 // So sánh điểm, giữ lại bản ghi có điểm cao hơn
                 DiemThiXetTuyen existing = bestMap.get(key);
                 BigDecimal currentBest = existing.getNl1() != null ? existing.getNl1() : BigDecimal.ZERO;
-                BigDecimal challenger  = d.getNl1()        != null ? d.getNl1()        : BigDecimal.ZERO;
+                BigDecimal challenger  = d.getNl1()         != null ? d.getNl1()        : BigDecimal.ZERO;
                 if (challenger.compareTo(currentBest) > 0) {
                     bestMap.put(key, d);
                 }
@@ -343,11 +343,11 @@ public class DiemThiService {
     //  G=MAMONTHI | H=TENMONHI | I=DIEM | J=THANGDIEM | K=MADVTCTDL | L=TENDVTCTDL
     //
     //  Mã môn thi (cột G): TO_VS=Toán, VA_VS=Văn, LI_VS=Lý, HO_VS=Hóa,
-    //                       SI_VS=Sinh, SU_VS=Sử, DI_VS=Địa, N1_VS=Anh
-    //                       M1=Toán, M2=Vật lý, M3=Hóa, ... (HUBSA format)
+    //                        SI_VS=Sinh, SU_VS=Sử, DI_VS=Địa, N1_VS=Anh
+    //                        M1=Toán, M2=Vật lý, M3=Hóa, ... (HUBSA format)
     //
-    //  Xử lý: đọc hết file → group theo CCCD → map từng môn → lấy điểm cao nhất
-    //         mỗi môn nếu thi ở nhiều đợt/trường → upsert 1 entity/thí sinh.
+    //  Xử lý: đọc hết file → group theo CCCD → với mỗi môn lấy điểm cao nhất 
+    //           từ tất cả các đợt thi → upsert duy nhất 1 bản ghi vào DB.
     // ────────────────────────────────────────────────────────────
     private ImportResult importVsat(File file, String phuongThucCode) throws Exception {
         ImportResult result = new ImportResult();
@@ -362,42 +362,49 @@ public class DiemThiService {
             return new String[]{cccd, maMon, diemStr};
         });
 
-        // Group theo CCCD, tích lũy điểm cao nhất mỗi môn
-        // Key = CCCD, Value = entity đang được xây dựng
+        // Group theo CCCD để tổng hợp điểm cao nhất của các môn thi
         Map<String, DiemThiXetTuyen> entityMap = new LinkedHashMap<>();
 
         for (String[] row : rawRows) {
             String cccd    = row[0];
             String maMon   = row[1].toUpperCase(Locale.ROOT).trim();
-            BigDecimal diem = parseBigDecimalSafe(row[2]);
+            BigDecimal newDiem = parseBigDecimalSafe(row[2]);
 
-            // Lấy hoặc tạo entity cho CCCD này
+            // Lấy hoặc tạo entity duy nhất cho thí sinh này trong phương thức V-SAT
             DiemThiXetTuyen d = entityMap.computeIfAbsent(cccd, k -> {
                 DiemThiXetTuyen entity = new DiemThiXetTuyen();
-                entity.setCccd(k);
+                entity.setCccd(cccd);
                 entity.setdPhuongthuc(phuongThucCode);
+                entity.setSobaodanh("V-SAT"); 
                 return entity;
             });
 
-            // Map mã môn → field tương ứng, lấy điểm cao nhất nếu thi nhiều lần
-            setVsatMonDiem(d, maMon, diem);
+            // Logic lấy điểm cao nhất môn thi hiện tại
+            // Tận dụng hàm setVsatMonDiem nhưng kiểm tra điểm trước khi set
+            updateMaxDiemVsat(d, maMon, newDiem);
         }
 
         // Upsert từng entity vào DB
         for (DiemThiXetTuyen d : entityMap.values()) {
             try {
-                clearVietSatUnsupportedScores(d); // Xóa các field không dùng cho VSAT
+                clearVietSatUnsupportedScores(d); 
                 d.setNl1(null);
 
+                // Kiểm tra xem thí sinh đã có điểm V-SAT trong DB chưa
                 DiemThiXetTuyen dbRecord = diemThiDAO.findByCccdAndPhuongThuc(d.getCccd(), d.getdPhuongthuc());
+                
                 if (dbRecord != null) {
+                    // Nếu đã có, so sánh điểm trong Database với điểm vừa tổng hợp từ file
                     d.setIddiemthi(dbRecord.getIddiemthi());
+                    compareAndUpdateWithDb(d, dbRecord);
                     diemThiDAO.update(d);
                     result.updateCount++;
                 } else {
+                    // Nếu chưa có, lưu bản ghi mới (đã là điểm cao nhất từ file)
                     diemThiDAO.save(d);
                     result.insertCount++;
                 }
+                
             } catch (Exception e) {
                 result.errorCount++;
                 result.errors.add("CCCD " + d.getCccd() + ": " + e.getMessage());
@@ -405,6 +412,47 @@ public class DiemThiService {
         }
 
         return result;
+    }
+
+    /**
+     * So sánh điểm môn thi mới và cũ để lấy điểm cao nhất (Xử lý cho V-SAT)
+     */
+    private void updateMaxDiemVsat(DiemThiXetTuyen d, String maMon, BigDecimal newDiem) {
+        if (newDiem == null) return;
+        
+        // Tạo một entity tạm để lấy giá trị điểm hiện tại của môn đó
+        DiemThiXetTuyen temp = new DiemThiXetTuyen();
+        setVsatMonDiem(temp, maMon, newDiem); 
+        
+        // So sánh môn nào được gán điểm thì cập nhật môn đó cho entity chính nếu cao hơn
+        if (temp.getTo() != null && (d.getTo() == null || temp.getTo().compareTo(d.getTo()) > 0)) d.setTo(temp.getTo());
+        if (temp.getVa() != null && (d.getVa() == null || temp.getVa().compareTo(d.getVa()) > 0)) d.setVa(temp.getVa());
+        if (temp.getLi() != null && (d.getLi() == null || temp.getLi().compareTo(d.getLi()) > 0)) d.setLi(temp.getLi());
+        if (temp.getHo() != null && (d.getHo() == null || temp.getHo().compareTo(d.getHo()) > 0)) d.setHo(temp.getHo());
+        if (temp.getSi() != null && (d.getSi() == null || temp.getSi().compareTo(d.getSi()) > 0)) d.setSi(temp.getSi());
+        if (temp.getSu() != null && (d.getSu() == null || temp.getSu().compareTo(d.getSu()) > 0)) d.setSu(temp.getSu());
+        if (temp.getDi() != null && (d.getDi() == null || temp.getDi().compareTo(d.getDi()) > 0)) d.setDi(temp.getDi());
+        if (temp.getN1Thi() != null && (d.getN1Thi() == null || temp.getN1Thi().compareTo(d.getN1Thi()) > 0)) d.setN1Thi(temp.getN1Thi());
+    }
+
+    /**
+     * So sánh điểm tổng hợp từ file và điểm đang có trong DB để giữ lại điểm cao nhất
+     */
+    private void compareAndUpdateWithDb(DiemThiXetTuyen current, DiemThiXetTuyen db) {
+        current.setTo(getMax(current.getTo(), db.getTo()));
+        current.setVa(getMax(current.getVa(), db.getVa()));
+        current.setLi(getMax(current.getLi(), db.getLi()));
+        current.setHo(getMax(current.getHo(), db.getHo()));
+        current.setSi(getMax(current.getSi(), db.getSi()));
+        current.setSu(getMax(current.getSu(), db.getSu()));
+        current.setDi(getMax(current.getDi(), db.getDi()));
+        current.setN1Thi(getMax(current.getN1Thi(), db.getN1Thi()));
+    }
+
+    private BigDecimal getMax(BigDecimal a, BigDecimal b) {
+        if (a == null) return b;
+        if (b == null) return a;
+        return a.compareTo(b) > 0 ? a : b;
     }
 
     // ════════════════════════════════════════════════════════════
