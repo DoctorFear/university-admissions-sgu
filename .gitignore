@@ -19,3 +19,19 @@ docker-compose.yml
 target/classes/hibernate.cfg.xml
 /src/main/resources
 /target/classes
+
+# Thư mục build
+bin/
+
+# Thư viện Maven tải về (quan trọng nhất)
+.m2/
+repository/
+
+# File hệ thống
+.DS_Store
+Thumbs.db
+
+# Chặn thư viện của Node.js / Frontend
+node_modules/
+dist/
+.npm/
