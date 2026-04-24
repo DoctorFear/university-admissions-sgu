@@ -1,7 +1,12 @@
 package com.xettuyen2026.service;
 
-import com.xettuyen2026.dao.ThiSinhDAO;
-import com.xettuyen2026.entity.ThiSinh;
+import java.io.File;
+import java.io.FileInputStream;
+import java.text.Normalizer;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.DataFormatter;
@@ -10,12 +15,8 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.text.Normalizer;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import com.xettuyen2026.dao.ThiSinhDAO;
+import com.xettuyen2026.entity.ThiSinh;
 
 public class ThiSinhService {
 
@@ -194,7 +195,26 @@ public class ThiSinhService {
                 readByHeader(row, headerMap, formatter, "dan toc", "dantoc"),
                 readByIndex(row, formatter, 37)
         ), 100));
+        ts.setPassword(generatePassword(ts.getCccd(), ts.getNgaySinh()));
         return ts;
+    }
+
+    private String generatePassword(String cccd, String ngaySinh) {
+        cccd = normalize(cccd);
+        ngaySinh = normalize(ngaySinh);
+
+        if (cccd == null) return null;
+
+        String password = cccd;
+
+        if (ngaySinh != null && ngaySinh.contains("/")) {
+            String[] parts = ngaySinh.split("/");
+            if (parts.length >= 2) {
+                password += parts[0] + parts[1];
+            }
+        }
+
+        return password;
     }
 
     private ThiSinh mergeImportedData(ThiSinh existing, ThiSinh imported) {
@@ -209,6 +229,7 @@ public class ThiSinhService {
         existing.setDanToc(limit(imported.getDanToc(), 100));
         existing.setDoiTuong(limit(imported.getDoiTuong(), 45));
         existing.setKhuVuc(limit(imported.getKhuVuc(), 45));
+        existing.setPassword(generatePassword(imported.getCccd(), imported.getNgaySinh()));
         return existing;
     }
 
@@ -329,5 +350,11 @@ public class ThiSinhService {
         if ("nu".equalsIgnoreCase(v) || "nữ".equalsIgnoreCase(v)) return "Nữ";
         if ("nam".equalsIgnoreCase(v)) return "Nam";
         return v;
+    }
+
+
+    public boolean authenticate(String cccd, String password) {
+        ThiSinh ts = thiSinhDAO.findByCccdAndPassword(cccd, password);
+        return ts != null;
     }
 }

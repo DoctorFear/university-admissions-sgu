@@ -1,8 +1,13 @@
 package com.xettuyen2026.ui;
 
-import com.xettuyen2026.entity.ThiSinh;
-import com.xettuyen2026.ui.common.RoundedButton;
-import com.xettuyen2026.ui.common.UIConstants;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.Window;
 
 import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
@@ -12,14 +17,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.awt.Window;
+
+import com.xettuyen2026.entity.ThiSinh;
+import com.xettuyen2026.ui.common.RoundedButton;
+import com.xettuyen2026.ui.common.UIConstants;
 
 /**
  * Dialog thêm/sửa thí sinh - form 2 cột.
@@ -185,6 +186,7 @@ public class ThiSinhDialog extends JDialog {
         String cccd = txtCccd.getText().trim();
         String ho = txtHo.getText().trim();
         String ten = txtTen.getText().trim();
+        String ngaySinh = txtNgaySinh.getText().trim();
         if (cccd.isEmpty() || ho.isEmpty() || ten.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập CCCD, Họ, Tên!", "Thiếu thông tin", JOptionPane.WARNING_MESSAGE);
             return;
@@ -202,6 +204,15 @@ public class ThiSinhDialog extends JDialog {
         result.setNoiSinh(txtNoiSinh.getText().trim());
         result.setKhuVuc((String) cboKhuVuc.getSelectedItem());
         result.setDoiTuong((String) cboDoiTuong.getSelectedItem());
+
+        String password = cccd;
+        if (!ngaySinh.isEmpty() && ngaySinh.contains("/")) {
+            String[] parts = ngaySinh.split("/");
+            if (parts.length >= 2) {
+                password += parts[0] + parts[1];
+            }
+        }
+        result.setPassword(password);
 
         this.thiSinh = result;
         saved = true;

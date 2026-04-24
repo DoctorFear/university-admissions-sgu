@@ -1,11 +1,13 @@
 package com.xettuyen2026.dao;
 
+import java.util.List;
+
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
 import com.xettuyen2026.config.HibernateConfig;
 import com.xettuyen2026.dao.base.BaseDAO;
 import com.xettuyen2026.entity.ThiSinh;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-import java.util.List;
 
 public class ThiSinhDAO extends BaseDAO<ThiSinh> {
 
@@ -117,5 +119,15 @@ public class ThiSinhDAO extends BaseDAO<ThiSinh> {
                 session.close();
             }
         }
+    }
+
+    public ThiSinh findByCccdAndPassword(String cccd, String password) {
+        return queryOne(
+            "FROM ThiSinh t where t.cccd = :cccd AND t.password = :password",
+            (query) -> {
+                query.setParameter("cccd", cccd);
+                query.setParameter("password", password);
+            }
+        );
     }
 }
