@@ -138,7 +138,7 @@ DROP TABLE IF EXISTS `xt_nganh`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `xt_nganh` (
   `idnganh` int NOT NULL AUTO_INCREMENT,
-  `manganh` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `manganh` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
   `tennganh` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
   `n_tohopgoc` varchar(3) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   `n_chitieu` int NOT NULL DEFAULT '0',
@@ -219,7 +219,7 @@ DROP TABLE IF EXISTS `xt_nguyenvongxettuyen`;
 CREATE TABLE `xt_nguyenvongxettuyen` (
   `idnv` int NOT NULL AUTO_INCREMENT,
   `nn_cccd` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
-  `nv_manganh` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `nv_manganh` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
   `nv_tt` int NOT NULL,
   `diem_thxt` decimal(10,5) DEFAULT NULL COMMENT 'đã cộng điểm môn chính',
   `diem_utqd` decimal(10,5) DEFAULT NULL COMMENT 'Điểm UTQD theo tổ họp sẽ khác nhau.',

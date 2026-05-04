@@ -7,6 +7,7 @@ import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -187,16 +188,43 @@ public class DiemCongPanel extends JPanel{
         }
     }
 
+    private String buildSearchableText(DiemCongXetTuyen d) {
+        return String.join(" ",
+            safe(d.getTsCccd()),
+            safe(d.getManganh()),
+            safe(d.getMatohop()),
+            safe(d.getPhuongthuc()),
+            safe(d.getGhichu()),
+            safe(d.getDiemCC()),
+            safe(d.getDiemUtxt()),
+            safe(d.getDiemTong())
+        ).toLowerCase();
+    }
+
+    
+    private String safe(String s) {
+        return s == null ? "" : s.trim();
+    }
+    
+    private String safe(BigDecimal b) {
+        return b == null ? "" : b.toPlainString();
+    }
+
     private void doSearch() {
-        String keyword = searchBar.getText().toLowerCase().trim();
+        String keyword = searchBar.getText();
+        if (keyword == null || keyword.isBlank()) {
+            loadData();
+            return;
+        }
+
+        keyword = keyword.toLowerCase().trim();
 
         List<Object[]> rows = new ArrayList<>();
 
         for (DiemCongXetTuyen d : diemcongList) {
-            if (d.getTsCccd().toLowerCase().contains(keyword)
-                || safe(d.getManganh()).toLowerCase().contains(keyword)
-                || safe(d.getMatohop()).toLowerCase().contains(keyword)) {
+            String searchable = buildSearchableText(d);
 
+            if (searchable.contains(keyword)) {
                 rows.add(new Object[]{
                     d.getTsCccd(),
                     d.getDiemTong(),
@@ -250,10 +278,6 @@ public class DiemCongPanel extends JPanel{
         } catch (Exception e) {
             MessageHelper.showError(this, "Lỗi import: " + e.getMessage());
         }
-    }
-
-    private String safe(String s) {
-        return s == null ? "" : s.trim();
     }
 
     private void doReset() {

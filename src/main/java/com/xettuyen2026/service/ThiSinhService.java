@@ -195,22 +195,19 @@ public class ThiSinhService {
                 readByHeader(row, headerMap, formatter, "dan toc", "dantoc"),
                 readByIndex(row, formatter, 37)
         ), 100));
-        ts.setPassword(generatePassword(ts.getCccd(), ts.getNgaySinh()));
+        ts.setPassword(generatePassword(ts.getNgaySinh()));
         return ts;
     }
 
-    private String generatePassword(String cccd, String ngaySinh) {
-        cccd = normalize(cccd);
+    private String generatePassword(String ngaySinh) {
         ngaySinh = normalize(ngaySinh);
 
-        if (cccd == null) return null;
-
-        String password = cccd;
+        String password = "";
 
         if (ngaySinh != null && ngaySinh.contains("/")) {
             String[] parts = ngaySinh.split("/");
             if (parts.length >= 2) {
-                password += parts[0] + parts[1];
+                password += parts[0] + parts[1] + parts[2];
             }
         }
 
@@ -229,7 +226,7 @@ public class ThiSinhService {
         existing.setDanToc(limit(imported.getDanToc(), 100));
         existing.setDoiTuong(limit(imported.getDoiTuong(), 45));
         existing.setKhuVuc(limit(imported.getKhuVuc(), 45));
-        existing.setPassword(generatePassword(imported.getCccd(), imported.getNgaySinh()));
+        existing.setPassword(generatePassword(imported.getNgaySinh()));
         return existing;
     }
 

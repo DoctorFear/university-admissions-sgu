@@ -130,10 +130,18 @@ public class DiemCongService {
             diemCong = diemCong.add(BigDecimal.valueOf(1));
         }
 
-        switch (kvut) {
-            case "1" -> diemCong = diemCong.add(BigDecimal.valueOf(0.75));
-            case "2NT" -> diemCong = diemCong.add(BigDecimal.valueOf(0.5));
-            case "2" -> diemCong = diemCong.add(BigDecimal.valueOf(0.25));
+        if (kvut != null) {
+            switch (kvut) {
+                case "1":
+                    diemCong = diemCong.add(BigDecimal.valueOf(0.75));
+                    break;
+                case "2NT":
+                    diemCong = diemCong.add(BigDecimal.valueOf(0.5));
+                    break;
+                case "2":
+                    diemCong = diemCong.add(BigDecimal.valueOf(0.25));
+                    break;
+            }
         }
 
         return diemCong;
@@ -299,7 +307,9 @@ public class DiemCongService {
                 );
 
                 if (d.getGhichu() != null && !d.getGhichu().isBlank()) {
-                    existed.setGhichu(d.getGhichu());
+                    for (String type : d.getGhichu().split(",")) {
+                        appendNote(existed, type);
+                    }
                 }
 
                 dao.update(existed);
