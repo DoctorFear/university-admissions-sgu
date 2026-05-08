@@ -410,66 +410,55 @@ public class WebpageController {
             }
             double diemSan = nganh.getnDiemsan() != null ? nganh.getnDiemsan().doubleValue() : 24.0;
 
-            // Get tohop for DGNL if any
-            List<NganhTohop> tohopList = nganhTohopDAO.findByMaNganh(request.getMaNganh());
-            if (tohopList == null || tohopList.isEmpty()) {
-                NganhTohop defaultNt = new NganhTohop();
-                defaultNt.setMatohop("A01");
-                tohopList = new java.util.ArrayList<>();
-                tohopList.add(defaultNt);
+            // Đối với ĐGNL, theo quy tắc chuẩn: Chỉ dùng Tổ hợp gốc của ngành để quy đổi
+            // Không lặp qua tất cả các tổ hợp để lấy max như THPT/VSAT
+            String tohopGoc = nganh.getnTohopgoc();
+            if (tohopGoc == null || tohopGoc.trim().isEmpty()) {
+                tohopGoc = "A01"; // Fallback mặc định
             }
 
-            double bestDiemQuyDoi = -1;
+            double bestDiemQuyDoi = 0;
             BangQuydoi bestMatched = null;
-            String bestTohopGoc = "A01";
+            String bestTohopGoc = tohopGoc;
 
-            for (NganhTohop nt : tohopList) {
-                String tohop = nt.getMatohop();
-                List<BangQuydoi> rows = bangQuydoiDAO.findByPhuongthucAndTohop("DGNL", tohop);
-                if (rows == null || rows.isEmpty()) {
-                    // Fallback to A01 if the combination has no DGNL mapping in the database
-                    rows = bangQuydoiDAO.findByPhuongthucAndTohop("DGNL", "A01");
-                    tohop = "A01 (Quy đổi mặc định)";
-                }
+            List<BangQuydoi> rows = bangQuydoiDAO.findByPhuongthucAndTohop("DGNL", tohopGoc);
+            if (rows == null || rows.isEmpty()) {
+                // Fallback to A01 if the combination has no DGNL mapping in the database
+                rows = bangQuydoiDAO.findByPhuongthucAndTohop("DGNL", "A01");
+                bestTohopGoc = "A01 (Quy đổi mặc định)";
+            }
 
-                BangQuydoi matched = null;
-                double diemQuyDoi = 0;
-                if (rows != null && !rows.isEmpty()) {
-                    rows.sort(java.util.Comparator.comparing(BangQuydoi::getdDiema));
-                    if (diemThi <= rows.get(0).getdDiema().doubleValue()) {
-                        matched = rows.get(0);
-                        diemQuyDoi = matched.getdDiemc() != null ? matched.getdDiemc().doubleValue() : 0;
-                    } else if (diemThi >= rows.get(rows.size() - 1).getdDiemb().doubleValue()) {
-                        matched = rows.get(rows.size() - 1);
-                        diemQuyDoi = matched.getdDiemd() != null ? matched.getdDiemd().doubleValue()
-                                : (matched.getdDiemc() != null ? matched.getdDiemc().doubleValue() : 0);
-                    } else {
-                        for (BangQuydoi qd : rows) {
-                            if (qd.getdDiema() == null || qd.getdDiemb() == null)
-                                continue;
-                            double a = qd.getdDiema().doubleValue();
-                            double b = qd.getdDiemb().doubleValue();
-                            if (diemThi >= a && diemThi < b) {
-                                matched = qd;
-                                double c = qd.getdDiemc() != null ? qd.getdDiemc().doubleValue() : 0;
-                                double d = qd.getdDiemd() != null ? qd.getdDiemd().doubleValue() : c;
-                                if (b == a) {
-                                    diemQuyDoi = c;
-                                } else {
-                                    diemQuyDoi = c + (diemThi - a) / (b - a) * (d - c);
-                                }
-                                break;
+            double diemQuyDoi = 0;
+            if (rows != null && !rows.isEmpty()) {
+                rows.sort(java.util.Comparator.comparing(BangQuydoi::getdDiema));
+                if (diemThi <= rows.get(0).getdDiema().doubleValue()) {
+                    bestMatched = rows.get(0);
+                    diemQuyDoi = bestMatched.getdDiemc() != null ? bestMatched.getdDiemc().doubleValue() : 0;
+                } else if (diemThi >= rows.get(rows.size() - 1).getdDiemb().doubleValue()) {
+                    bestMatched = rows.get(rows.size() - 1);
+                    diemQuyDoi = bestMatched.getdDiemd() != null ? bestMatched.getdDiemd().doubleValue()
+                            : (bestMatched.getdDiemc() != null ? bestMatched.getdDiemc().doubleValue() : 0);
+                } else {
+                    for (BangQuydoi qd : rows) {
+                        if (qd.getdDiema() == null || qd.getdDiemb() == null)
+                            continue;
+                        double a = qd.getdDiema().doubleValue();
+                        double b = qd.getdDiemb().doubleValue();
+                        if (diemThi >= a && diemThi < b) {
+                            bestMatched = qd;
+                            double c = qd.getdDiemc() != null ? qd.getdDiemc().doubleValue() : 0;
+                            double d = qd.getdDiemd() != null ? qd.getdDiemd().doubleValue() : c;
+                            if (b == a) {
+                                diemQuyDoi = c;
+                            } else {
+                                diemQuyDoi = c + (diemThi - a) / (b - a) * (d - c);
                             }
+                            break;
                         }
                     }
                 }
-
-                if (diemQuyDoi > bestDiemQuyDoi) {
-                    bestDiemQuyDoi = diemQuyDoi;
-                    bestMatched = matched;
-                    bestTohopGoc = tohop;
-                }
             }
+            bestDiemQuyDoi = diemQuyDoi;
 
             double finalDiemQuyDoi = bestDiemQuyDoi > 0 ? bestDiemQuyDoi : 0;
             
