@@ -122,16 +122,16 @@ public class AdmissionService {
             // Dưới 22.5 → ĐƯT = MĐƯT (nguyên)
             dUutien = mdut;
         } else {
-            // Trên 22.5 → ĐƯT = [(30 - ĐTHGXT - ĐC) / 7.5] × MĐƯT
-            BigDecimal diff = new BigDecimal("30").subtract(dthgxt).subtract(dCong);
+            // Trên 22.5 → ĐƯT = [(30 - ĐTHXT - ĐC) / 7.5] × MĐƯT
+            BigDecimal diff = new BigDecimal("30").subtract(dthxt).subtract(dCong);
             if (diff.compareTo(BigDecimal.ZERO) < 0) diff = BigDecimal.ZERO;
             BigDecimal factor = diff.divide(new BigDecimal("7.5"), 5, RoundingMode.HALF_UP);
             dUutien = factor.multiply(mdut).setScale(5, RoundingMode.HALF_UP);
         }
         nv.setDiemUtqd(dUutien);
 
-        // ── Bước 4: ĐXT = ĐTHXT + ĐC + ĐƯT, CAP tại 30 ──
-        BigDecimal dxt = dthxt.add(dCong).add(dUutien).setScale(5, RoundingMode.HALF_UP);
+        // ── Bước 4: ĐXT = ĐTHGXT + ĐC + ĐƯT, CAP tại 30 ──
+        BigDecimal dxt = dthgxt.add(dCong).add(dUutien).setScale(5, RoundingMode.HALF_UP);
         // Đảm bảo điểm không vượt quá 30
         if (dxt.compareTo(new BigDecimal("30")) > 0) {
             dxt = new BigDecimal("30.00000");
@@ -208,7 +208,13 @@ public class AdmissionService {
 
             // Trừ độ lệch giữa tổ hợp dự thi và tổ hợp gốc của ngành
             BigDecimal dolech = nt.getDolech() != null ? nt.getDolech() : BigDecimal.ZERO;
-            BigDecimal adjustedScore = rawScore.subtract(dolech);
+            
+            BigDecimal adjustedScore;
+            if ("DGNL".equalsIgnoreCase(phuongthuc) || "PT4".equalsIgnoreCase(phuongthuc) || "4".equals(phuongthuc)) {
+                adjustedScore = rawScore; // ĐGNL không quy đổi trừ độ lệch
+            } else {
+                adjustedScore = rawScore.subtract(dolech);
+            }
             if (adjustedScore.compareTo(BigDecimal.ZERO) < 0) adjustedScore = BigDecimal.ZERO;
 
             if (adjustedScore.compareTo(bestAdjusted) > 0) {

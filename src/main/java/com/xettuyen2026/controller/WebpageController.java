@@ -26,7 +26,6 @@ import com.xettuyen2026.entity.NguyenVongXetTuyen;
 import com.xettuyen2026.entity.ThiSinh;
 import com.xettuyen2026.service.ThiSinhService;
 
-
 @Controller
 public class WebpageController {
     private final ThiSinhService tsService;
@@ -39,14 +38,13 @@ public class WebpageController {
     public WebpageController() {
         this.tsService = new ThiSinhService();
     }
-    
+
     @GetMapping("/")
     public String home(Model model) {
 
         model.addAttribute(
-            "nganhList",
-            nganhDAO.findAll()
-        );
+                "nganhList",
+                nganhDAO.findAll());
 
         return "index";
     }
@@ -64,6 +62,11 @@ public class WebpageController {
             } else {
 
                 String password = ts.getPassword();
+                // Fallback: generate password from DOB if stored password is null
+                if (password == null || password.isEmpty()) {
+                    String dob = ts.getNgaySinh();
+                    password = (dob != null) ? dob.replace("/", "").replace("-", "") : "";
+                }
 
                 if (!password.equals(request.getPassword())) {
                     response.setSuccess(false);
@@ -72,7 +75,7 @@ public class WebpageController {
 
                     List<NguyenVongXetTuyen> nvs = nguyenVongDAO.findByCccd(ts.getCccd());
                     response.setSuccess(true);
-                    
+
                     List<TraCuuResponse.NguyenVongDTO> dtoList = new ArrayList<>();
                     boolean isPending = false;
                     boolean isAdmitted = false;
@@ -81,12 +84,15 @@ public class WebpageController {
                     for (NguyenVongXetTuyen nv : nvs) {
                         TraCuuResponse.NguyenVongDTO dto = new TraCuuResponse.NguyenVongDTO();
                         dto.setMaNganh(nv.getNvManganh());
-                        
+
                         Nganh nganh = nganhDAO.findByMaNganh(nv.getNvManganh());
                         dto.setTenNganh(nganh != null ? nganh.getTennganh() : "Chưa xác định");
-                        dto.setDiemSan(nganh != null && nganh.getnDiemsan() != null ? nganh.getnDiemsan().doubleValue() : null);
-                        dto.setDiemChuan(nganh != null && nganh.getnDiemtrungtuyen() != null ? nganh.getnDiemtrungtuyen().doubleValue() : null);
-                        
+                        dto.setDiemSan(nganh != null && nganh.getnDiemsan() != null ? nganh.getnDiemsan().doubleValue()
+                                : null);
+                        dto.setDiemChuan(nganh != null && nganh.getnDiemtrungtuyen() != null
+                                ? nganh.getnDiemtrungtuyen().doubleValue()
+                                : null);
+
                         dto.setThuTu(nv.getNvTt());
                         dto.setToHop(nganh != null ? nganh.getnTohopgoc() : "Chưa xác định");
                         dto.setPhuongThuc(nv.getTtPhuongthuc());
@@ -99,9 +105,11 @@ public class WebpageController {
                         String kq = nv.getNvKetqua();
                         if (kq == null || kq.trim().isEmpty()) {
                             isPending = true;
-                        } else if ("yes".equalsIgnoreCase(kq) || "Đậu".equalsIgnoreCase(kq) || "Trúng tuyển".equalsIgnoreCase(kq)) {
+                        } else if ("yes".equalsIgnoreCase(kq) || "Đậu".equalsIgnoreCase(kq)
+                                || "Trúng tuyển".equalsIgnoreCase(kq)) {
                             isAdmitted = true;
-                            if (admittedNV == null || (dto.getThuTu() != null && admittedNV.getThuTu() != null && dto.getThuTu() < admittedNV.getThuTu())) {
+                            if (admittedNV == null || (dto.getThuTu() != null && admittedNV.getThuTu() != null
+                                    && dto.getThuTu() < admittedNV.getThuTu())) {
                                 admittedNV = dto;
                             }
                         }
@@ -125,20 +133,20 @@ public class WebpageController {
 
         model.addAttribute(
                 "nganhList",
-                nganhDAO.findAll()
-        );
+                nganhDAO.findAll());
         model.addAttribute(
-            "activeTab",
-            "tracuu"
-        );
+                "activeTab",
+                "tracuu");
         model.addAttribute(
-            "inputCccd",
-            request.getCccd()
-        );
+                "inputCccd",
+                request.getCccd());
+        model.addAttribute(
+                "inputPassword",
+                request.getPassword());
 
         return "index";
     }
-    
+
     @PostMapping("/vsat")
     public String tinhDiemVSAT(TinhDiemRequest request, Model model) {
         TinhDiemResponse response = new TinhDiemResponse();
@@ -146,7 +154,7 @@ public class WebpageController {
             double diemCong = request.getDiemCong() != null ? request.getDiemCong() : 0;
             double khuVuc = request.getKhuVuc() != null ? request.getKhuVuc() : 0;
             double doiTuong = request.getDoiTuong() != null ? request.getDoiTuong() : 0;
-            double diemUuTien = khuVuc + doiTuong;
+            double mdut = khuVuc + doiTuong;
 
             // Map subject code -> input value
             Map<String, Double> subjectInputs = new java.util.HashMap<>();
@@ -170,6 +178,7 @@ public class WebpageController {
             List<Map<String, Object>> combinations = new java.util.ArrayList<>();
             String bestTohop = "";
             double bestScore = -Double.MAX_VALUE;
+            double bestDut = mdut;
 
             // Map monCode to Vietnamese name for V-SAT
             Map<String, String> monMap = new java.util.HashMap<>();
@@ -184,8 +193,8 @@ public class WebpageController {
 
             List<BangQuydoi> allQuydoi = bangQuydoiDAO.findAll();
             List<BangQuydoi> vsatRules = new java.util.ArrayList<>();
-            for(BangQuydoi b : allQuydoi) {
-                if("V-SAT".equalsIgnoreCase(b.getdPhuongthuc())) {
+            for (BangQuydoi b : allQuydoi) {
+                if ("V-SAT".equalsIgnoreCase(b.getdPhuongthuc())) {
                     vsatRules.add(b);
                 }
             }
@@ -205,12 +214,12 @@ public class WebpageController {
                 }
                 String monName = monMap.get(monCode);
                 List<BangQuydoi> rows = new java.util.ArrayList<>();
-                for(BangQuydoi b : vsatRules) {
-                    if(monName != null && monName.equalsIgnoreCase(b.getdMon())) {
+                for (BangQuydoi b : vsatRules) {
+                    if (monName != null && monName.equalsIgnoreCase(b.getdMon())) {
                         rows.add(b);
                     }
                 }
-                
+
                 BangQuydoi matched = null;
                 for (BangQuydoi bq : rows) {
                     double a = bq.getdDiema() != null ? bq.getdDiema().doubleValue() : 0;
@@ -250,9 +259,9 @@ public class WebpageController {
                     int hsSum = hs1 + hs2 + hs3;
                     double dolech = th.getDolech() != null ? th.getDolech().doubleValue() : 0.0;
 
-                    Map<String, Object> r1 = convertSubject.apply(new String[]{mon1, th.getMatohop()});
-                    Map<String, Object> r2 = convertSubject.apply(new String[]{mon2, th.getMatohop()});
-                    Map<String, Object> r3 = convertSubject.apply(new String[]{mon3, th.getMatohop()});
+                    Map<String, Object> r1 = convertSubject.apply(new String[] { mon1, th.getMatohop() });
+                    Map<String, Object> r2 = convertSubject.apply(new String[] { mon2, th.getMatohop() });
+                    Map<String, Object> r3 = convertSubject.apply(new String[] { mon3, th.getMatohop() });
 
                     double m1Conv = (Double) r1.get("conv");
                     double m2Conv = (Double) r2.get("conv");
@@ -266,15 +275,26 @@ public class WebpageController {
                     // Net DTHXT sent to formula display
                     double dthxt = dthxtRaw;
                     // Xet nguong = sum of converted + uu tien
-                    double xetNguong = m1Conv + m2Conv + m3Conv + diemUuTien;
-                    // DXT = DTHXT + DC + DUT - dolech (capped <=30)
-                    double dxtCombo = Math.min(dthxt + diemCong + diemUuTien - dolech, 30.0);
+                    double xetNguong = m1Conv + m2Conv + m3Conv + mdut;
+                    
+                    double dthgxt = dthxt - dolech;
+                    double actualDut = mdut;
+                    if (dthgxt + diemCong >= 22.5) {
+                        actualDut = ((30.0 - dthxt - diemCong) / 7.5) * mdut;
+                        if (actualDut < 0) actualDut = 0.0;
+                    }
+
+                    // DXT = DTHGXT + DC + DUT (capped <=30)
+                    double dxtCombo = Math.min(dthgxt + diemCong + actualDut, 30.0);
 
                     Map<String, Object> thDetail = new java.util.LinkedHashMap<>();
                     thDetail.put("maTohop", th.getMatohop());
                     thDetail.put("mon1", mon1);
                     thDetail.put("mon2", mon2);
                     thDetail.put("mon3", mon3);
+                    thDetail.put("mon1Name", monMap.getOrDefault(mon1, mon1));
+                    thDetail.put("mon2Name", monMap.getOrDefault(mon2, mon2));
+                    thDetail.put("mon3Name", monMap.getOrDefault(mon3, mon3));
                     thDetail.put("hs1", hs1);
                     thDetail.put("hs2", hs2);
                     thDetail.put("hs3", hs3);
@@ -303,19 +323,21 @@ public class WebpageController {
                     thDetail.put("m3Diemd", r3.getOrDefault("diemd", null));
                     thDetail.put("dthxt", dthxt);
                     thDetail.put("xetNguong", xetNguong);
-                    thDetail.put("dut", diemUuTien);
+                    thDetail.put("dut", actualDut);
                     thDetail.put("dc", diemCong);
                     thDetail.put("diemXetTuyen", dxtCombo);
 
                     if (dxtCombo > bestScore) {
                         bestScore = dxtCombo;
                         bestTohop = th.getMatohop();
+                        bestDut = actualDut;
                     }
                     combinations.add(thDetail);
                 }
             }
 
-            if (bestScore == -Double.MAX_VALUE) bestScore = 0;
+            if (bestScore == -Double.MAX_VALUE)
+                bestScore = 0;
             if (bestTohop.isEmpty() && !combinations.isEmpty()) {
                 bestTohop = (String) combinations.get(0).get("maTohop");
             }
@@ -325,11 +347,28 @@ public class WebpageController {
             response.setTenNganh(nganh.getTennganh());
             response.setToHop(bestTohop);
             response.setDiemCong(diemCong);
-            response.setDiemUuTien(diemUuTien);
+            response.setDiemUuTien(bestDut);
             response.setDiemXetTuyen(bestScore);
             response.setDiemNguong(diemSan);
             response.setIsDat(bestScore >= diemSan);
             response.setToHopDetails(combinations);
+
+            // Set tổ hợp gốc from ngành entity
+            response.setTohopGoc(nganh.getnTohopgoc() != null ? nganh.getnTohopgoc() : bestTohop);
+
+            // Set khu vực priority name & value
+            response.setKhuVucValue(khuVuc);
+            if (khuVuc == 0.25) response.setKhuVucName("KV1");
+            else if (khuVuc == 0.5) response.setKhuVucName("KV2");
+            else if (khuVuc == 0.75) response.setKhuVucName("2NT");
+            else if (khuVuc == 1.0) response.setKhuVucName("KV3");
+            else response.setKhuVucName("Không có");
+
+            // Set đối tượng priority name & value
+            response.setDoiTuongValue(doiTuong);
+            if (doiTuong == 1.0) response.setDoiTuongName("ĐT 1-4");
+            else if (doiTuong == 0.5) response.setDoiTuongName("ĐT 5-7");
+            else response.setDoiTuongName("Không đối tượng");
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -338,23 +377,21 @@ public class WebpageController {
         }
 
         model.addAttribute("vsatResult", response);
+        model.addAttribute("vsatInput", request);
 
         model.addAttribute(
-            "nganhList",
-            nganhDAO.findAll()
-        );
+                "nganhList",
+                nganhDAO.findAll());
         model.addAttribute(
-            "activeCalcMethod", 
-            "vsat"
-        );
+                "activeCalcMethod",
+                "vsat");
         model.addAttribute(
-            "activeTab", 
-            "tinhdiem"
-        );
+                "activeTab",
+                "tinhdiem");
 
         return "index";
     }
-    
+
     @PostMapping("/dgnl")
     public String tinhDiemDGNL(TinhDiemRequest request, Model model) {
         TinhDiemResponse response = new TinhDiemResponse();
@@ -363,16 +400,16 @@ public class WebpageController {
             double diemCong = request.getDiemCong() != null ? request.getDiemCong() : 0;
             double khuVuc = request.getKhuVuc() != null ? request.getKhuVuc() : 0;
             double doiTuong = request.getDoiTuong() != null ? request.getDoiTuong() : 0;
-            
+
             // Priority score
-            double diemUuTien = khuVuc + doiTuong;
-            
+            double mdut = khuVuc + doiTuong;
+
             Nganh nganh = nganhDAO.findByMaNganh(request.getMaNganh());
             if (nganh == null) {
                 throw new Exception("Ngành không tồn tại");
             }
             double diemSan = nganh.getnDiemsan() != null ? nganh.getnDiemsan().doubleValue() : 24.0;
-            
+
             // Get tohop for DGNL if any
             List<NganhTohop> tohopList = nganhTohopDAO.findByMaNganh(request.getMaNganh());
             if (tohopList == null || tohopList.isEmpty()) {
@@ -402,12 +439,14 @@ public class WebpageController {
                     if (diemThi <= rows.get(0).getdDiema().doubleValue()) {
                         matched = rows.get(0);
                         diemQuyDoi = matched.getdDiemc() != null ? matched.getdDiemc().doubleValue() : 0;
-                    } else if (diemThi >= rows.get(rows.size()-1).getdDiemb().doubleValue()) {
-                        matched = rows.get(rows.size()-1);
-                        diemQuyDoi = matched.getdDiemd() != null ? matched.getdDiemd().doubleValue() : (matched.getdDiemc() != null ? matched.getdDiemc().doubleValue() : 0);
+                    } else if (diemThi >= rows.get(rows.size() - 1).getdDiemb().doubleValue()) {
+                        matched = rows.get(rows.size() - 1);
+                        diemQuyDoi = matched.getdDiemd() != null ? matched.getdDiemd().doubleValue()
+                                : (matched.getdDiemc() != null ? matched.getdDiemc().doubleValue() : 0);
                     } else {
                         for (BangQuydoi qd : rows) {
-                            if (qd.getdDiema() == null || qd.getdDiemb() == null) continue;
+                            if (qd.getdDiema() == null || qd.getdDiemb() == null)
+                                continue;
                             double a = qd.getdDiema().doubleValue();
                             double b = qd.getdDiemb().doubleValue();
                             if (diemThi >= a && diemThi < b) {
@@ -424,24 +463,31 @@ public class WebpageController {
                         }
                     }
                 }
-                
+
                 if (diemQuyDoi > bestDiemQuyDoi) {
                     bestDiemQuyDoi = diemQuyDoi;
                     bestMatched = matched;
                     bestTohopGoc = tohop;
                 }
             }
-            
+
             double finalDiemQuyDoi = bestDiemQuyDoi > 0 ? bestDiemQuyDoi : 0;
-            double diemXetTuyen = finalDiemQuyDoi + diemCong + diemUuTien;
             
+            double actualDut = mdut;
+            if (finalDiemQuyDoi + diemCong >= 22.5) {
+                actualDut = ((30.0 - finalDiemQuyDoi - diemCong) / 7.5) * mdut;
+                if (actualDut < 0) actualDut = 0.0;
+            }
+            
+            double diemXetTuyen = Math.min(finalDiemQuyDoi + diemCong + actualDut, 30.0);
+
             if (bestMatched != null) {
                 response.setDiema(bestMatched.getdDiema() != null ? bestMatched.getdDiema().doubleValue() : null);
                 response.setDiemb(bestMatched.getdDiemb() != null ? bestMatched.getdDiemb().doubleValue() : null);
                 response.setDiemc(bestMatched.getdDiemc() != null ? bestMatched.getdDiemc().doubleValue() : null);
                 response.setDiemd(bestMatched.getdDiemd() != null ? bestMatched.getdDiemd().doubleValue() : null);
             }
-            
+
             response.setSuccess(true);
             response.setMaNganh(nganh.getManganh());
             response.setTenNganh(nganh.getTennganh());
@@ -449,29 +495,27 @@ public class WebpageController {
             response.setDiemThi(diemThi);
             response.setDiemQuyDoi(finalDiemQuyDoi);
             response.setDiemCong(diemCong);
-            response.setDiemUuTien(diemUuTien);
+            response.setDiemUuTien(actualDut);
             response.setDiemXetTuyen(diemXetTuyen);
             response.setDiemNguong(diemSan);
             response.setIsDat(diemXetTuyen >= diemSan);
-            
+
         } catch (Exception e) {
             response.setSuccess(false);
             response.setMessage(e.getMessage());
         }
         model.addAttribute("dgnlResult", response);
+        model.addAttribute("dgnlInput", request);
 
         model.addAttribute(
-            "nganhList",
-            nganhDAO.findAll()
-        );
+                "nganhList",
+                nganhDAO.findAll());
         model.addAttribute(
-            "activeCalcMethod", 
-            "dgnl"
-        );
+                "activeCalcMethod",
+                "dgnl");
         model.addAttribute(
-            "activeTab", 
-            "tinhdiem"
-        );
+                "activeTab",
+                "tinhdiem");
 
         return "index";
     }

@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cổng Thông Tin Tuyển Sinh - Tra Cứu & Tính Điểm</title>
     <meta name="description" content="Tra cứu kết quả xét tuyển và tham khảo cách tính điểm xét tuyển đại học.">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
+
 <body>
     <div class="background-blobs">
         <div class="blob blob-1"></div>
@@ -21,33 +23,45 @@
                 <span>Tuyển Sinh 2026</span>
             </div>
             <div class="nav-links">
-                <button class="nav-btn active" data-target="tab-tracuu">Tra Cứu Kết Quả</button>
-                <button class="nav-btn" data-target="tab-tinhdiem">Tính Điểm Xét Tuyển</button>
+                <button th:class="${activeTab == 'tinhdiem' ? 'nav-btn' : 'nav-btn active'}"
+                    data-target="tab-tracuu">Tra Cứu Kết Quả</button>
+                <button th:class="${activeTab == 'tinhdiem' ? 'nav-btn active' : 'nav-btn'}"
+                    data-target="tab-tinhdiem">Tính Điểm Xét Tuyển</button>
             </div>
         </div>
     </nav>
 
     <main class="main-content">
         <!-- TAB TRA CỨU -->
-        <section id="tab-tracuu" class="tab-pane active">
+        <section id="tab-tracuu" th:class="${activeTab == 'tinhdiem' ? 'tab-pane' : 'tab-pane active'}">
             <div class="card glass-card">
                 <div class="card-header">
                     <h2>Tra cứu kết quả xét tuyển</h2>
                     <p>Nhập thông tin để xem kết quả xét tuyển của bạn</p>
                 </div>
-                
+
                 <!-- Login Form -->
-                <form id="tracuu-form" class="tracuu-form">
+                <form id="tracuu-form" class="tracuu-form" th:action="@{/tracuu}" method="post">
                     <div class="form-group">
                         <label for="cccd">Số Căn Cước Công Dân</label>
-                        <input type="text" id="cccd" placeholder="Nhập số CCCD của bạn" required>
+                        <input type="text" id="cccd" name="cccd" placeholder="Nhập số CCCD của bạn" required
+                            th:value="${inputCccd}">
                     </div>
                     <div class="form-group">
                         <label for="password">Mật khẩu (Ngày tháng năm sinh)</label>
                         <div style="position: relative;">
-                            <input type="password" id="password" placeholder="VD: 15082008 (8 chữ số)" required pattern="[0-9]{8}" title="Vui lòng nhập 8 chữ số tương ứng ngày, tháng, năm sinh" style="width: 100%; padding-right: 40px;">
-                            <button type="button" id="togglePassword" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; color: #6b7280; padding: 0; display: flex;">
-                                <svg id="eye-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                            <input type="password" id="password" name="password" placeholder="VD: 15082008 (8 chữ số)"
+                                required pattern="[0-9]{8}"
+                                title="Vui lòng nhập 8 chữ số tương ứng ngày, tháng, năm sinh"
+                                style="width: 100%; padding-right: 40px;" th:value="${inputPassword}">
+                            <button type="button" id="togglePassword"
+                                style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; color: #6b7280; padding: 0; display: flex;">
+                                <svg id="eye-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                    <circle cx="12" cy="12" r="3"></circle>
+                                </svg>
                             </button>
                         </div>
                     </div>
@@ -61,66 +75,195 @@
                 </div>
 
                 <!-- Result Area -->
-                <div id="tracuu-result" class="result-area hidden" style="margin-top: 2rem;">
-                    <!-- Results will be injected here -->
+                <div id="tracuu-result" class="result-area" style="margin-top: 2rem;" th:if="${result != null}">
+
+                    <!-- Lỗi không tìm thấy -->
+                    <div th:if="${!result.success}">
+                        <div class="result-box error" style="border-left-color: #f59e0b;">
+                            <div class="result-header" style="color: #d97706;">Không tìm thấy thông tin</div>
+                            <p th:text="${result.message}">Lỗi</p>
+                        </div>
+                    </div>
+
+                    <!-- Thành công -->
+                    <div th:if="${result.success}">
+
+                        <!-- Banner Trúng tuyển -->
+                        <div th:if="${result.admitted}"
+                            style="background: #f0fdf4; border: 2px solid #22c55e; border-radius: 12px; padding: 1.2rem 1.5rem; margin-bottom: 1.5rem;">
+                            <div style="font-size: 1.1rem; font-weight: 700; color: #15803d; margin-bottom: 6px;">TRÚNG
+                                TUYỂN</div>
+                            <div style="color: #166534;">
+                                <strong th:text="${result.admittedNV.tenNganh}">Tên ngành</strong>
+                                (<span th:text="${result.admittedNV.maNganh}">Mã</span>)
+                                &nbsp;—&nbsp; Nguyện vọng <span th:text="${result.admittedNV.thuTu}">1</span>
+                                &nbsp;—&nbsp; Điểm: <strong
+                                    th:text="${#numbers.formatDecimal(result.admittedNV.diemXetTuyen, 1, 2)}">0.00</strong>
+                            </div>
+                            <div style="font-size: 0.85rem; color: #4d7c0f; margin-top: 6px;">Vui lòng kiểm tra email và
+                                làm thủ tục nhập học.</div>
+                        </div>
+
+                        <!-- Banner Đang xét -->
+                        <div th:if="${!result.admitted and result.pending}"
+                            style="background: #eff6ff; border: 2px solid #3b82f6; border-radius: 12px; padding: 1.2rem 1.5rem; margin-bottom: 1.5rem;">
+                            <div style="font-size: 1.1rem; font-weight: 700; color: #1d4ed8; margin-bottom: 6px;">ĐANG
+                                TRONG XÉT TUYỂN</div>
+                            <div style="color: #1e40af;">Các nguyện vọng của bạn hiện đang được xét tuyển. Vui lòng chờ
+                                kết quả.</div>
+                        </div>
+
+                        <!-- Banner Rớt -->
+                        <div th:if="${!result.admitted and !result.pending and not #lists.isEmpty(result.nguyenVongs)}"
+                            style="background: #fff1f2; border: 2px solid #f43f5e; border-radius: 12px; padding: 1.2rem 1.5rem; margin-bottom: 1.5rem;">
+                            <div style="font-size: 1.1rem; font-weight: 700; color: #be123c; margin-bottom: 6px;">KHÔNG
+                                TRÚNG TUYỂN</div>
+                            <div style="color: #9f1239;">Rất tiếc, bạn chưa đủ điều kiện trúng tuyển vào các nguyện vọng
+                                đã đăng ký.</div>
+                        </div>
+
+                        <!-- Bảng chi tiết -->
+                        <div th:if="${not #lists.isEmpty(result.nguyenVongs)}"
+                            style="overflow-x:auto; margin-bottom: 1.5rem;">
+                            <table class="result-table"
+                                style="min-width:700px; border-collapse: separate; border-spacing: 0;">
+                                <thead>
+                                    <tr>
+                                        <th style="text-align:center;padding:12px 8px;">NV</th>
+                                        <th style="padding:12px 8px;">Ngành</th>
+                                        <th style="padding:12px 8px;">Phương thức</th>
+                                        <th style="text-align:center;padding:12px 8px;">Tổ hợp</th>
+                                        <th style="text-align:center;padding:12px 8px;">Điểm XT</th>
+                                        <th style="text-align:center;padding:12px 8px;">Điểm sàn</th>
+                                        <th style="text-align:center;padding:12px 8px;">Điểm chuẩn</th>
+                                        <th style="text-align:center;padding:12px 8px;">Kết quả</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="nv : ${result.nguyenVongs}">
+                                        <td style="text-align:center;font-weight:700;padding:12px 8px;"
+                                            th:text="${nv.thuTu}"></td>
+                                        <td style="padding:12px 8px;">
+                                            <strong th:text="${nv.tenNganh}"></strong><br>
+                                            <span style="font-size:0.8rem;color:#64748b;margin-top:2px;display:block;"
+                                                th:text="${nv.maNganh}"></span>
+                                        </td>
+                                        <td style="padding:12px 8px;" th:text="${nv.phuongThuc}"></td>
+                                        <td style="text-align:center;padding:12px 8px;" th:text="${nv.toHop}"></td>
+                                        <td style="text-align:center;font-weight:700;color:#1e3a8a;padding:12px 8px;"
+                                            th:text="${nv.diemXetTuyen != null ? #numbers.formatDecimal(nv.diemXetTuyen, 1, 2) : '—'}">
+                                        </td>
+                                        <td style="text-align:center;padding:12px 8px;"
+                                            th:text="${nv.diemSan != null ? #numbers.formatDecimal(nv.diemSan, 1, 2) : '—'}">
+                                        </td>
+                                        <td style="text-align:center;padding:12px 8px;"
+                                            th:text="${nv.diemChuan != null ? #numbers.formatDecimal(nv.diemChuan, 1, 2) : '—'}">
+                                        </td>
+                                        <td style="text-align:center;padding:12px 8px;">
+                                            <span
+                                                th:if="${nv.ketQua != null and (nv.ketQua == 'yes' or nv.ketQua == 'Đậu' or nv.ketQua == 'Trúng tuyển')}"
+                                                style="background:#22c55e;color:#fff;padding:3px 12px;border-radius:999px;font-size:0.8rem;font-weight:600;">Trúng
+                                                tuyển</span>
+                                            <span th:if="${nv.ketQua == null or nv.ketQua == ''}"
+                                                style="background:#3b82f6;color:#fff;padding:3px 12px;border-radius:999px;font-size:0.8rem;font-weight:600;">Đang
+                                                xét</span>
+                                            <span
+                                                th:if="${nv.ketQua != null and (nv.ketQua == 'duoisan' or nv.ketQua == 'rớt' or nv.ketQua == 'không trúng')}"
+                                                style="background:#f43f5e;color:#fff;padding:3px 12px;border-radius:999px;font-size:0.8rem;font-weight:600;">Không
+                                                đạt</span>
+                                            <span
+                                                th:if="${nv.ketQua != null and nv.ketQua != 'yes' and nv.ketQua != 'Đậu' and nv.ketQua != 'Trúng tuyển' and nv.ketQua != 'duoisan' and nv.ketQua != 'rớt' and nv.ketQua != 'không trúng' and nv.ketQua != ''}"
+                                                th:text="${nv.ketQua}"
+                                                style="background:#94a3b8;color:#fff;padding:3px 12px;border-radius:999px;font-size:0.8rem;"></span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- TAB TÍNH ĐIỂM -->
-        <section id="tab-tinhdiem" class="tab-pane">
+        <section id="tab-tinhdiem" th:class="${activeTab == 'tinhdiem' ? 'tab-pane active' : 'tab-pane'}">
             <div class="card glass-card calculator-card">
                 <div class="card-header">
                     <h2>Công cụ tham khảo tính điểm xét tuyển</h2>
                     <p>Chọn phương thức để tính điểm</p>
-                    
+
                     <div class="method-selector">
                         <label class="radio-card">
-                            <input type="radio" name="calc-method" value="dgnl" checked>
+                            <input type="radio" name="calc-method" value="dgnl"
+                                th:checked="${activeCalcMethod != 'vsat'}">
                             <div class="radio-card-content">Phương thức ĐGNL</div>
                         </label>
                         <label class="radio-card">
-                            <input type="radio" name="calc-method" value="vsat">
+                            <input type="radio" name="calc-method" value="vsat"
+                                th:checked="${activeCalcMethod == 'vsat'}">
                             <div class="radio-card-content">Phương thức VSAT/THPT</div>
                         </label>
                     </div>
                 </div>
 
                 <!-- FORM ĐGNL -->
-                <form id="form-dgnl" class="calc-form">
+                <form id="form-dgnl" th:class="${activeCalcMethod == 'vsat' ? 'calc-form hidden' : 'calc-form'}"
+                    th:action="@{/dgnl}" method="post">
                     <div class="form-title text-red">Điểm thi Đánh giá năng lực cao nhất</div>
-                    
+
                     <div class="form-grid">
                         <div class="form-group">
                             <label>Chọn ngành:</label>
-                            <select id="dgnl-nganh" class="select-modern">
-                                <option value="">-- Đang tải dữ liệu... --</option>
+                            <select id="dgnl-nganh" name="maNganh" class="select-modern">
+                                <option value="">-- Chọn ngành --</option>
+                                <option th:each="n : ${nganhList}" th:value="${n.manganh}" th:text="${n.tennganh}"
+                                    th:selected="${dgnlInput != null and n.manganh == dgnlInput.maNganh}"></option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label>Điểm thi (thang 1200):</label>
-                            <input type="number" id="dgnl-diemthi" placeholder="Nhập điểm thi" max="1200" min="0" step="1">
+                            <input type="number" id="dgnl-diemthi" name="diemThi"
+                                th:value="${dgnlInput != null ? dgnlInput.diemThi : ''}" placeholder="Nhập điểm thi"
+                                max="1200" min="0" step="1">
                         </div>
                         <div class="form-group">
-                            <label>Điểm cộng (<=3.0):</label>
-                            <input type="number" id="dgnl-diemcong" value="0" step="0.1" max="3" min="0">
+                            <label>Điểm cộng (<=3.0):< /label>
+                                    <input type="number" id="dgnl-diemcong" name="diemCong"
+                                        th:value="${dgnlInput != null and dgnlInput.diemCong != null ? dgnlInput.diemCong : 0}"
+                                        step="0.1" max="3" min="0">
                         </div>
                         <div class="form-group">
                             <label>Khu vực ưu tiên:</label>
-                            <select id="dgnl-khuvuc" class="select-modern">
-                                <option value="0">Không có</option>
-                                <option value="0.25">Khu vực 1 (0.25)</option>
-                                <option value="0.5">Khu vực 2 (0.5)</option>
-                                <option value="0.75">Khu vực 2NT (0.75)</option>
-                                <option value="1.0">Khu vực 3 (1.0)</option>
+                            <select id="dgnl-khuvuc" name="khuVuc" class="select-modern">
+                                <option value="0"
+                                    th:selected="${dgnlInput == null or dgnlInput.khuVuc == null or dgnlInput.khuVuc == 0}">
+                                    Không có</option>
+                                <option value="0.25"
+                                    th:selected="${dgnlInput != null and dgnlInput.khuVuc != null and dgnlInput.khuVuc == 0.25}">
+                                    Khu vực 1 (0.25)</option>
+                                <option value="0.5"
+                                    th:selected="${dgnlInput != null and dgnlInput.khuVuc != null and dgnlInput.khuVuc == 0.5}">
+                                    Khu vực 2 (0.5)</option>
+                                <option value="0.75"
+                                    th:selected="${dgnlInput != null and dgnlInput.khuVuc != null and dgnlInput.khuVuc == 0.75}">
+                                    Khu vực 2NT (0.75)</option>
+                                <option value="1.0"
+                                    th:selected="${dgnlInput != null and dgnlInput.khuVuc != null and dgnlInput.khuVuc == 1.0}">
+                                    Khu vực 3 (1.0)</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label>Đối tượng ưu tiên:</label>
-                            <select id="dgnl-doituong" class="select-modern">
-                                <option value="0">Không đối tượng</option>
-                                <option value="1.0">Đối tượng 1-4 (1.0)</option>
-                                <option value="0.5">Đối tượng 5-7 (0.5)</option>
+                            <select id="dgnl-doituong" name="doiTuong" class="select-modern">
+                                <option value="0"
+                                    th:selected="${dgnlInput == null or dgnlInput.doiTuong == null or dgnlInput.doiTuong == 0}">
+                                    Không đối tượng</option>
+                                <option value="1.0"
+                                    th:selected="${dgnlInput != null and dgnlInput.doiTuong != null and dgnlInput.doiTuong == 1.0}">
+                                    Đối tượng 1-4 (1.0)</option>
+                                <option value="0.5"
+                                    th:selected="${dgnlInput != null and dgnlInput.doiTuong != null and dgnlInput.doiTuong == 0.5}">
+                                    Đối tượng 5-7 (0.5)</option>
                             </select>
                         </div>
                     </div>
@@ -130,74 +273,109 @@
                 </form>
 
                 <!-- FORM VSAT -->
-                <form id="form-vsat" class="calc-form hidden">
+                <form id="form-vsat" th:class="${activeCalcMethod == 'vsat' ? 'calc-form' : 'calc-form hidden'}"
+                    th:action="@{/vsat}" method="post">
                     <div class="form-title text-red">Điểm thi VSAT (thang điểm 150) / THPT (thang điểm 10)</div>
                     <p class="form-hint">Môn thi không có điểm: nhập 0.</p>
-                    
+
                     <div class="form-grid-3">
                         <div class="col-left">
                             <div class="form-group">
                                 <label>Chọn ngành:</label>
-                                <select id="vsat-nganh" class="select-modern">
-                                    <option value="">-- Đang tải dữ liệu... --</option>
+                                <select id="vsat-nganh" name="maNganh" class="select-modern">
+                                    <option value="">-- Chọn ngành --</option>
+                                    <option th:each="n : ${nganhList}" th:value="${n.manganh}" th:text="${n.tennganh}"
+                                        th:selected="${vsatInput != null and n.manganh == vsatInput.maNganh}"></option>
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label>Điểm cộng (<=3.0):</label>
-                                <input type="number" id="vsat-diemcong" value="0" step="0.1" max="3" min="0">
+                                <label>Điểm cộng (<=3.0):< /label>
+                                        <input type="number" id="vsat-diemcong" name="diemCong"
+                                            th:value="${vsatInput != null and vsatInput.diemCong != null ? vsatInput.diemCong : 0}"
+                                            step="0.1" max="3" min="0">
                             </div>
                             <div class="form-group">
                                 <label>Khu vực ưu tiên:</label>
-                                <select id="vsat-khuvuc" class="select-modern">
-                                    <option value="0">Không có</option>
-                                    <option value="0.25">Khu vực 1</option>
-                                    <option value="0.5">Khu vực 2</option>
-                                    <option value="0.75">Khu vực 2NT</option>
+                                <select id="vsat-khuvuc" name="khuVuc" class="select-modern">
+                                    <option value="0"
+                                        th:selected="${vsatInput == null or vsatInput.khuVuc == null or vsatInput.khuVuc == 0}">
+                                        Không có</option>
+                                    <option value="0.25"
+                                        th:selected="${vsatInput != null and vsatInput.khuVuc != null and vsatInput.khuVuc == 0.25}">
+                                        Khu vực 1</option>
+                                    <option value="0.5"
+                                        th:selected="${vsatInput != null and vsatInput.khuVuc != null and vsatInput.khuVuc == 0.5}">
+                                        Khu vực 2</option>
+                                    <option value="0.75"
+                                        th:selected="${vsatInput != null and vsatInput.khuVuc != null and vsatInput.khuVuc == 0.75}">
+                                        Khu vực 2NT</option>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label>Đối tượng ưu tiên:</label>
-                                <select id="vsat-doituong" class="select-modern">
-                                    <option value="0">Không đối tượng</option>
-                                    <option value="1.0">Đối tượng 1-4</option>
-                                    <option value="0.5">Đối tượng 5-7</option>
+                                <select id="vsat-doituong" name="doiTuong" class="select-modern">
+                                    <option value="0"
+                                        th:selected="${vsatInput == null or vsatInput.doiTuong == null or vsatInput.doiTuong == 0}">
+                                        Không đối tượng</option>
+                                    <option value="1.0"
+                                        th:selected="${vsatInput != null and vsatInput.doiTuong != null and vsatInput.doiTuong == 1.0}">
+                                        Đối tượng 1-4</option>
+                                    <option value="0.5"
+                                        th:selected="${vsatInput != null and vsatInput.doiTuong != null and vsatInput.doiTuong == 0.5}">
+                                        Đối tượng 5-7</option>
                                 </select>
                             </div>
                         </div>
                         <div class="col-middle">
                             <div class="form-group">
                                 <label>Điểm môn Toán:</label>
-                                <input type="number" id="vsat-toan" value="0" max="150" min="0" step="0.1">
+                                <input type="number" id="vsat-toan" name="toan"
+                                    th:value="${vsatInput != null and vsatInput.toan != null ? vsatInput.toan : 0}"
+                                    max="150" min="0" step="0.1">
                             </div>
                             <div class="form-group">
                                 <label>Điểm môn Ngữ văn:</label>
-                                <input type="number" id="vsat-van" value="0" max="150" min="0" step="0.1">
+                                <input type="number" id="vsat-van" name="van"
+                                    th:value="${vsatInput != null and vsatInput.van != null ? vsatInput.van : 0}"
+                                    max="150" min="0" step="0.1">
                             </div>
                             <div class="form-group">
                                 <label>Điểm môn Vật lý:</label>
-                                <input type="number" id="vsat-ly" value="0" max="150" min="0" step="0.1">
+                                <input type="number" id="vsat-ly" name="ly"
+                                    th:value="${vsatInput != null and vsatInput.ly != null ? vsatInput.ly : 0}"
+                                    max="150" min="0" step="0.1">
                             </div>
                             <div class="form-group">
                                 <label>Điểm môn Hóa học:</label>
-                                <input type="number" id="vsat-hoa" value="0" max="150" min="0" step="0.1">
+                                <input type="number" id="vsat-hoa" name="hoa"
+                                    th:value="${vsatInput != null and vsatInput.hoa != null ? vsatInput.hoa : 0}"
+                                    max="150" min="0" step="0.1">
                             </div>
                         </div>
                         <div class="col-right">
                             <div class="form-group">
                                 <label>Điểm môn Sinh học:</label>
-                                <input type="number" id="vsat-sinh" value="0" max="150" min="0" step="0.1">
+                                <input type="number" id="vsat-sinh" name="sinh"
+                                    th:value="${vsatInput != null and vsatInput.sinh != null ? vsatInput.sinh : 0}"
+                                    max="150" min="0" step="0.1">
                             </div>
                             <div class="form-group">
                                 <label>Điểm môn Lịch sử:</label>
-                                <input type="number" id="vsat-su" value="0" max="150" min="0" step="0.1">
+                                <input type="number" id="vsat-su" name="su"
+                                    th:value="${vsatInput != null and vsatInput.su != null ? vsatInput.su : 0}"
+                                    max="150" min="0" step="0.1">
                             </div>
                             <div class="form-group">
                                 <label>Điểm môn Địa lý:</label>
-                                <input type="number" id="vsat-dia" value="0" max="150" min="0" step="0.1">
+                                <input type="number" id="vsat-dia" name="dia"
+                                    th:value="${vsatInput != null and vsatInput.dia != null ? vsatInput.dia : 0}"
+                                    max="150" min="0" step="0.1">
                             </div>
                             <div class="form-group">
                                 <label>Điểm môn Tiếng Anh:</label>
-                                <input type="number" id="vsat-anh" value="0" max="150" min="0" step="0.1">
+                                <input type="number" id="vsat-anh" name="anh"
+                                    th:value="${vsatInput != null and vsatInput.anh != null ? vsatInput.anh : 0}"
+                                    max="150" min="0" step="0.1">
                             </div>
                         </div>
                     </div>
@@ -207,13 +385,198 @@
                 </form>
             </div>
 
-            <!-- RESULT AREA TÍNH ĐIỂM -->
-            <div id="calc-result-area" class="card glass-card calc-result hidden">
-                <!-- Result content injected via JS -->
+            <!-- KẾT QUẢ ĐGNL (Thymeleaf SSR) -->
+            <div th:if="${dgnlResult != null and dgnlResult.success}" id="result-dgnl"
+                class="card glass-card calc-result" th:classappend="${activeCalcMethod == 'vsat' ? 'hidden' : ''}"
+                style="margin-top:1.5rem;">
+                <div class="result-header text-red"
+                    th:text="'Tính quy đổi điểm xét tuyển ĐGNL: ' + ${dgnlResult.tenNganh}"></div>
+                <p style="font-size:0.9rem;margin-bottom:1rem;">
+                    Tổ hợp gốc quy đổi theo ngành: <span
+                        style="background:#1e3a8a;color:white;padding:2px 6px;border-radius:4px;font-size:0.8rem;"
+                        th:text="${dgnlResult.toHop}"></span>,
+                    ngưỡng đầu vào: <span th:text="${dgnlResult.diemNguong}"></span>
+                </p>
+                <div style="overflow-x:auto;">
+                    <table class="result-table">
+                        <thead>
+                            <tr>
+                                <th>Nội dung</th>
+                                <th>Chi tiết điểm</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Điểm thi ĐGNL</td>
+                                <td
+                                    th:text="${#numbers.formatDecimal(dgnlResult.diemThi != null ? dgnlResult.diemThi : 0.0, 1, 2)}">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Công thức quy đổi về thang 30 (THXT gốc: <span
+                                        th:text="${dgnlResult.toHop}"></span>)</td>
+                                <td>
+                                    <span th:if="${dgnlResult.diema != null}"
+                                        th:text="|${#numbers.formatDecimal(dgnlResult.diemc ?: 0.0, 1, 2)} + ( ${#numbers.formatDecimal(dgnlResult.diemThi ?: 0.0, 1, 2)} - ${#numbers.formatDecimal(dgnlResult.diema ?: 0.0, 1, 2)} ) / ( ${#numbers.formatDecimal(dgnlResult.diemb ?: 0.0, 1, 2)} - ${#numbers.formatDecimal(dgnlResult.diema ?: 0.0, 1, 2)} ) * ( ${#numbers.formatDecimal(dgnlResult.diemd ?: dgnlResult.diemc ?: 0.0, 1, 2)} - ${#numbers.formatDecimal(dgnlResult.diemc ?: 0.0, 1, 2)} )|"></span>
+                                    <span th:if="${dgnlResult.diema == null}"
+                                        th:text="${#numbers.formatDecimal(dgnlResult.diemQuyDoi ?: 0.0, 1, 2)}"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Điểm thi quy đổi</td>
+                                <td
+                                    th:text="${#numbers.formatDecimal(dgnlResult.diemQuyDoi != null ? dgnlResult.diemQuyDoi : 0.0, 1, 2)}">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Điểm cộng</td>
+                                <td th:text="${#numbers.formatDecimal(dgnlResult.diemCong, 1, 2)}"></td>
+                            </tr>
+                            <tr>
+                                <td>Điểm ưu tiên quy đổi</td>
+                                <td th:text="${#numbers.formatDecimal(dgnlResult.diemUuTien, 1, 2)}"></td>
+                            </tr>
+                            <tr>
+                                <td>Điểm xét tuyển = điểm thi quy đổi + điểm cộng + điểm ưu tiên quy đổi</td>
+                                <td th:text="${#numbers.formatDecimal(dgnlResult.diemXetTuyen, 1, 2)}"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div style="margin-top:1rem;padding:1rem;border-radius:0.5rem;"
+                    th:styleappend="${dgnlResult.isDat ? 'background:#f0fdf4;border:1px solid #bbf7d0;' : 'background:#fff1f2;border:1px solid #fecdd3;'}">
+                    <strong>Kết quả:</strong>
+                    <span th:if="${dgnlResult.isDat}" style="color:green;font-weight:700;">ĐẠT ngưỡng</span>
+                    <span th:if="${!dgnlResult.isDat}" style="color:red;font-weight:700;">KHÔNG ĐẠT ngưỡng</span>
+                </div>
+            </div>
+
+            <!-- KẾT QUẢ VSAT (Thymeleaf SSR) -->
+            <div th:if="${vsatResult != null and vsatResult.success}" id="result-vsat"
+                class="card glass-card calc-result" th:classappend="${activeCalcMethod != 'vsat' ? 'hidden' : ''}"
+                style="margin-top:1.5rem;">
+                <div class="result-header text-red">Tính điểm vào ngành xét tuyển: <strong
+                        th:text="${vsatResult.tenNganh}"></strong> (<span th:text="${vsatResult.maNganh}"></span>)</div>
+                <p style="font-size:0.9rem;margin-bottom:0.5rem;">
+                    Tổ hợp có điểm xét tuyển cao nhất: <span class="text-red"><strong
+                            th:text="${vsatResult.toHop + ', ' + #numbers.formatDecimal(vsatResult.diemXetTuyen, 1, 2) + ' điểm.'}"></strong></span>
+                    Tổ hợp gốc: <span
+                        style="background:#1e3a8a;color:white;padding:2px 8px;border-radius:4px;font-size:0.8rem;font-weight:600;"
+                        th:text="${vsatResult.tohopGoc}"></span>,
+                    ngưỡng đầu vào: <strong
+                        th:text="${vsatResult.diemNguong != null ? vsatResult.diemNguong : '—'}"></strong>
+                </p>
+                <div style="overflow-x:auto;">
+                    <table class="result-table" style="min-width:680px;">
+                        <thead>
+                            <tr>
+                                <th style="width:55%;padding:10px 12px;">Nội dung</th>
+                                <th style="padding:10px 12px;">Chi tiết điểm</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="padding:8px 12px;" th:text="${'Khu vực ưu tiên: ' + vsatResult.khuVucName}">Khu vực ưu tiên</td>
+                                <td style="padding:8px 12px;" th:text="${#numbers.formatDecimal(vsatResult.khuVucValue ?: 0.0, 1, 2)}"></td>
+                            </tr>
+                            <tr>
+                                <td style="padding:8px 12px;" th:text="${'Đối tượng ưu tiên: ' + vsatResult.doiTuongName}">Đối tượng ưu tiên</td>
+                                <td style="padding:8px 12px;" th:text="${#numbers.formatDecimal(vsatResult.doiTuongValue ?: 0.0, 1, 2)}"></td>
+                            </tr>
+                            <tr>
+                                <td style="padding:8px 12px;">Điểm cộng (≤3)</td>
+                                <td style="padding:8px 12px;"
+                                    th:text="${#numbers.formatDecimal(vsatResult.diemCong, 1, 2)}"></td>
+                            </tr>
+                            <th:block th:each="th, iter : ${vsatResult.toHopDetails}">
+                                <tr style="background:#f0f4ff;">
+                                    <td colspan="2" style="padding:10px 12px;font-weight:700;font-size:0.95rem;"
+                                        th:text="${(iter.index+1) + ') Tổ hợp: ' + th['maTohop'] + ' &mdash; ' + (th['mon1Name'] != null ? th['mon1Name'] : th['mon1']) + ', ' + (th['mon2Name'] != null ? th['mon2Name'] : th['mon2']) + ', ' + (th['mon3Name'] != null ? th['mon3Name'] : th['mon3'])}">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding:8px 12px;"
+                                        th:text="${'Điểm môn ' + th['mon1'] + ':' + th['m1Val']}"></td>
+                                    <td style="padding:8px 12px;">
+                                        <span th:if="${th['m1Error']}" class="text-red">Lỗi, điểm nhập vào không nằm trong phân vị nào = 0</span>
+                                        <span th:if="${!th['m1Error'] and th['m1Val'] <= 0}">0.00</span>
+                                        <span th:if="${!th['m1Error'] and th['m1Val'] > 0 and th['m1Diema'] != null}"
+                                            th:text="${#numbers.formatDecimal(th['m1Diemc'] ?: 0.0, 1, 2) + ' + ( ' + #numbers.formatDecimal(th['m1Val'] ?: 0.0, 1, 2) + ' - ' + #numbers.formatDecimal(th['m1Diema'] ?: 0.0, 1, 2) + ' ) / ( ' + #numbers.formatDecimal(th['m1Diemb'] ?: 0.0, 1, 2) + ' - ' + #numbers.formatDecimal(th['m1Diema'] ?: 0.0, 1, 2) + ' ) * ( ' + #numbers.formatDecimal(th['m1Diemd'] ?: 0.0, 1, 2) + ' - ' + #numbers.formatDecimal(th['m1Diemc'] ?: 0.0, 1, 2) + ' ) = ' + #numbers.formatDecimal(th['m1Conv'] ?: 0.0, 1, 2)}"></span>
+                                        <span th:if="${!th['m1Error'] and th['m1Val'] > 0 and th['m1Diema'] == null}"
+                                            th:text="${#numbers.formatDecimal(th['m1Conv'] ?: 0.0, 1, 2)}"></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding:8px 12px;"
+                                        th:text="${'Điểm môn ' + th['mon2'] + ':' + th['m2Val']}"></td>
+                                    <td style="padding:8px 12px;">
+                                        <span th:if="${th['m2Error']}" class="text-red">Lỗi, điểm nhập vào không nằm trong phân vị nào = 0</span>
+                                        <span th:if="${!th['m2Error'] and th['m2Val'] <= 0}">0.00</span>
+                                        <span th:if="${!th['m2Error'] and th['m2Val'] > 0 and th['m2Diema'] != null}"
+                                            th:text="${#numbers.formatDecimal(th['m2Diemc'] ?: 0.0, 1, 2) + ' + ( ' + #numbers.formatDecimal(th['m2Val'] ?: 0.0, 1, 2) + ' - ' + #numbers.formatDecimal(th['m2Diema'] ?: 0.0, 1, 2) + ' ) / ( ' + #numbers.formatDecimal(th['m2Diemb'] ?: 0.0, 1, 2) + ' - ' + #numbers.formatDecimal(th['m2Diema'] ?: 0.0, 1, 2) + ' ) * ( ' + #numbers.formatDecimal(th['m2Diemd'] ?: 0.0, 1, 2) + ' - ' + #numbers.formatDecimal(th['m2Diemc'] ?: 0.0, 1, 2) + ' ) = ' + #numbers.formatDecimal(th['m2Conv'] ?: 0.0, 1, 2)}"></span>
+                                        <span th:if="${!th['m2Error'] and th['m2Val'] > 0 and th['m2Diema'] == null}"
+                                            th:text="${#numbers.formatDecimal(th['m2Conv'] ?: 0.0, 1, 2)}"></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding:8px 12px;"
+                                        th:text="${'Điểm môn ' + th['mon3'] + ':' + th['m3Val']}"></td>
+                                    <td style="padding:8px 12px;">
+                                        <span th:if="${th['m3Error']}" class="text-red">Lỗi, điểm nhập vào không nằm trong phân vị nào = 0</span>
+                                        <span th:if="${!th['m3Error'] and th['m3Val'] <= 0}">0.00</span>
+                                        <span th:if="${!th['m3Error'] and th['m3Val'] > 0 and th['m3Diema'] != null}"
+                                            th:text="${#numbers.formatDecimal(th['m3Diemc'] ?: 0.0, 1, 2) + ' + ( ' + #numbers.formatDecimal(th['m3Val'] ?: 0.0, 1, 2) + ' - ' + #numbers.formatDecimal(th['m3Diema'] ?: 0.0, 1, 2) + ' ) / ( ' + #numbers.formatDecimal(th['m3Diemb'] ?: 0.0, 1, 2) + ' - ' + #numbers.formatDecimal(th['m3Diema'] ?: 0.0, 1, 2) + ' ) * ( ' + #numbers.formatDecimal(th['m3Diemd'] ?: 0.0, 1, 2) + ' - ' + #numbers.formatDecimal(th['m3Diemc'] ?: 0.0, 1, 2) + ' ) = ' + #numbers.formatDecimal(th['m3Conv'] ?: 0.0, 1, 2)}"></span>
+                                        <span th:if="${!th['m3Error'] and th['m3Val'] > 0 and th['m3Diema'] == null}"
+                                            th:text="${#numbers.formatDecimal(th['m3Conv'] ?: 0.0, 1, 2)}"></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding:8px 12px;">Xét ngưỡng = Tổng điểm 3 môn + điểm ưu tiên</td>
+                                    <td style="padding:8px 12px;">
+                                        <span th:text="${'(' + #numbers.formatDecimal(th['m1Conv'] ?: 0.0, 1, 2) + ' + ' + #numbers.formatDecimal(th['m2Conv'] ?: 0.0, 1, 2) + ' + ' + #numbers.formatDecimal(th['m3Conv'] ?: 0.0, 1, 2) + ' + ' + #numbers.formatDecimal(vsatResult.khuVucValue ?: 0.0, 1, 1) + ' + ' + #numbers.formatDecimal(vsatResult.doiTuongValue ?: 0.0, 1, 1) + ') = '}"></span>
+                                        <span style="background:#fef08a;padding:2px 6px;border-radius:4px;font-weight:700;" th:text="${#numbers.formatDecimal(th['xetNguong'], 1, 2)}"></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding:8px 12px;" th:text="${'Điểm tổ hợp xét tuyển (DTHXT) = (' + th['mon1'] + ' * ' + th['hs1'] + ' + ' + th['mon2'] + ' * ' + th['hs2'] + ' + ' + th['mon3'] + ' * ' + th['hs3'] + ') / ' + (th['hs1'] + th['hs2'] + th['hs3']) + ' * 3'}"></td>
+                                    <td style="padding:8px 12px;">
+                                        <span th:text="${'(' + #numbers.formatDecimal(th['m1Conv'] ?: 0.0, 1, 2) + ' * ' + th['hs1'] + ' + ' + #numbers.formatDecimal(th['m2Conv'] ?: 0.0, 1, 2) + ' * ' + th['hs2'] + ' + ' + #numbers.formatDecimal(th['m3Conv'] ?: 0.0, 1, 2) + ' * ' + th['hs3'] + ') / ' + (th['hs1'] + th['hs2'] + th['hs3']) + ' * 3 = '}"></span>
+                                        <span style="background:#bae6fd;padding:2px 6px;border-radius:4px;font-weight:700;"
+                                            th:text="${#numbers.formatDecimal(th['dthxt'], 1, 3)}"></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding:8px 12px;" th:text="${'Độ lệch với TH Gốc (' + vsatResult.tohopGoc + ')'}"></td>
+                                    <td style="padding:8px 12px;" th:text="${th['dolech']}"></td>
+                                </tr>
+                                <tr>
+                                    <td style="padding:8px 12px;">Điểm ưu tiên (DUT)</td>
+                                    <td style="padding:8px 12px;" th:text="${#numbers.formatDecimal(th['dut'], 1, 2)}"></td>
+                                </tr>
+                                <tr>
+                                    <td style="padding:8px 12px;font-weight:600;">Điểm xét tuyển (DXT) = DTHXT + DC + DUT − Độ lệch (≤30)</td>
+                                    <td style="padding:8px 12px;">
+                                        <span th:text="${#numbers.formatDecimal(th['dthxt'], 1, 3) + ' + ' + #numbers.formatDecimal(th['dc'] ?: 0.0, 1, 1) + ' + ' + #numbers.formatDecimal(th['dut'] ?: 0.0, 1, 1) + ' -(' + th['dolech'] + ') => '}"></span>
+                                        <span style="background:#fecaca;color:#b91c1c;padding:2px 6px;border-radius:4px;font-weight:700;"
+                                            th:text="${#numbers.formatDecimal(th['diemXetTuyen'], 1, 2)}"></span>
+                                    </td>
+                                </tr>
+                            </th:block>
+                        </tbody>
+                    </table>
+                </div>
+                <div style="margin-top:1rem;padding:1rem;border-radius:0.5rem;"
+                    th:styleappend="${vsatResult.isDat ? 'background:#f0fdf4;border:1px solid #bbf7d0;' : 'background:#fff1f2;border:1px solid #fecdd3;'}">
+                    <strong>Kết quả:</strong>
+                    <span th:if="${vsatResult.isDat}" style="color:green;font-weight:700;">ĐẠT ngưỡng điểm sàn</span>
+                    <span th:if="${!vsatResult.isDat}" style="color:red;font-weight:700;">KHÔNG ĐẠT ngưỡng điểm
+                        sàn</span>
+                </div>
             </div>
         </section>
     </main>
 
-    <script src="app.js"></script>
+    <script th:src="@{/js/app.js?v=2}"></script>
 </body>
+
 </html>
