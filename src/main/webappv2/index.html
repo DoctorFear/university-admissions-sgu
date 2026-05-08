@@ -238,18 +238,15 @@
                                 <option value="0"
                                     th:selected="${dgnlInput == null or dgnlInput.khuVuc == null or dgnlInput.khuVuc == 0}">
                                     Không có</option>
-                                <option value="0.25"
-                                    th:selected="${dgnlInput != null and dgnlInput.khuVuc != null and dgnlInput.khuVuc == 0.25}">
-                                    Khu vực 1 (0.25)</option>
-                                <option value="0.5"
-                                    th:selected="${dgnlInput != null and dgnlInput.khuVuc != null and dgnlInput.khuVuc == 0.5}">
-                                    Khu vực 2 (0.5)</option>
                                 <option value="0.75"
                                     th:selected="${dgnlInput != null and dgnlInput.khuVuc != null and dgnlInput.khuVuc == 0.75}">
-                                    Khu vực 2NT (0.75)</option>
-                                <option value="1.0"
-                                    th:selected="${dgnlInput != null and dgnlInput.khuVuc != null and dgnlInput.khuVuc == 1.0}">
-                                    Khu vực 3 (1.0)</option>
+                                    Khu vực 1 (0.75)</option>
+                                <option value="0.50"
+                                    th:selected="${dgnlInput != null and dgnlInput.khuVuc != null and dgnlInput.khuVuc == 0.50}">
+                                    Khu vực 2NT (0.50)</option>
+                                <option value="0.25"
+                                    th:selected="${dgnlInput != null and dgnlInput.khuVuc != null and dgnlInput.khuVuc == 0.25}">
+                                    Khu vực 2 (0.25)</option>
                             </select>
                         </div>
                         <div class="form-group">
@@ -258,12 +255,13 @@
                                 <option value="0"
                                     th:selected="${dgnlInput == null or dgnlInput.doiTuong == null or dgnlInput.doiTuong == 0}">
                                     Không đối tượng</option>
-                                <option value="1.0"
-                                    th:selected="${dgnlInput != null and dgnlInput.doiTuong != null and dgnlInput.doiTuong == 1.0}">
-                                    Đối tượng 1-4 (1.0)</option>
-                                <option value="0.5"
-                                    th:selected="${dgnlInput != null and dgnlInput.doiTuong != null and dgnlInput.doiTuong == 0.5}">
-                                    Đối tượng 5-7 (0.5)</option>
+                                <option value="1" th:selected="${dgnlInput != null and dgnlInput.doiTuong == 1}">Đối tượng 1</option>
+                                <option value="2" th:selected="${dgnlInput != null and dgnlInput.doiTuong == 2}">Đối tượng 2</option>
+                                <option value="3" th:selected="${dgnlInput != null and dgnlInput.doiTuong == 3}">Đối tượng 3</option>
+                                <option value="4" th:selected="${dgnlInput != null and dgnlInput.doiTuong == 4}">Đối tượng 4</option>
+                                <option value="5" th:selected="${dgnlInput != null and dgnlInput.doiTuong == 5}">Đối tượng 5</option>
+                                <option value="6" th:selected="${dgnlInput != null and dgnlInput.doiTuong == 6}">Đối tượng 6</option>
+                                <option value="7" th:selected="${dgnlInput != null and dgnlInput.doiTuong == 7}">Đối tượng 7</option>
                             </select>
                         </div>
                     </div>
@@ -300,15 +298,15 @@
                                     <option value="0"
                                         th:selected="${vsatInput == null or vsatInput.khuVuc == null or vsatInput.khuVuc == 0}">
                                         Không có</option>
-                                    <option value="0.25"
-                                        th:selected="${vsatInput != null and vsatInput.khuVuc != null and vsatInput.khuVuc == 0.25}">
-                                        Khu vực 1</option>
-                                    <option value="0.5"
-                                        th:selected="${vsatInput != null and vsatInput.khuVuc != null and vsatInput.khuVuc == 0.5}">
-                                        Khu vực 2</option>
                                     <option value="0.75"
                                         th:selected="${vsatInput != null and vsatInput.khuVuc != null and vsatInput.khuVuc == 0.75}">
+                                        Khu vực 1</option>
+                                    <option value="0.50"
+                                        th:selected="${vsatInput != null and vsatInput.khuVuc != null and vsatInput.khuVuc == 0.50}">
                                         Khu vực 2NT</option>
+                                    <option value="0.25"
+                                        th:selected="${vsatInput != null and vsatInput.khuVuc != null and vsatInput.khuVuc == 0.25}">
+                                        Khu vực 2</option>
                                 </select>
                             </div>
                             <div class="form-group">
@@ -317,12 +315,13 @@
                                     <option value="0"
                                         th:selected="${vsatInput == null or vsatInput.doiTuong == null or vsatInput.doiTuong == 0}">
                                         Không đối tượng</option>
-                                    <option value="1.0"
-                                        th:selected="${vsatInput != null and vsatInput.doiTuong != null and vsatInput.doiTuong == 1.0}">
-                                        Đối tượng 1-4</option>
-                                    <option value="0.5"
-                                        th:selected="${vsatInput != null and vsatInput.doiTuong != null and vsatInput.doiTuong == 0.5}">
-                                        Đối tượng 5-7</option>
+                                    <option value="1" th:selected="${vsatInput != null and vsatInput.doiTuong == 1}">Đối tượng 1</option>
+                                    <option value="2" th:selected="${vsatInput != null and vsatInput.doiTuong == 2}">Đối tượng 2</option>
+                                    <option value="3" th:selected="${vsatInput != null and vsatInput.doiTuong == 3}">Đối tượng 3</option>
+                                    <option value="4" th:selected="${vsatInput != null and vsatInput.doiTuong == 4}">Đối tượng 4</option>
+                                    <option value="5" th:selected="${vsatInput != null and vsatInput.doiTuong == 5}">Đối tượng 5</option>
+                                    <option value="6" th:selected="${vsatInput != null and vsatInput.doiTuong == 6}">Đối tượng 6</option>
+                                    <option value="7" th:selected="${vsatInput != null and vsatInput.doiTuong == 7}">Đối tượng 7</option>
                                 </select>
                             </div>
                         </div>

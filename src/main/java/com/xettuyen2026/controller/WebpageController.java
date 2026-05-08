@@ -153,8 +153,9 @@ public class WebpageController {
         try {
             double diemCong = request.getDiemCong() != null ? request.getDiemCong() : 0;
             double khuVuc = request.getKhuVuc() != null ? request.getKhuVuc() : 0;
-            double doiTuong = request.getDoiTuong() != null ? request.getDoiTuong() : 0;
-            double mdut = khuVuc + doiTuong;
+            int doiTuongCode = request.getDoiTuong() != null ? request.getDoiTuong().intValue() : 0;
+            double doiTuongValue = mapDoiTuongToValue(doiTuongCode);
+            double mdut = khuVuc + doiTuongValue;
 
             // Map subject code -> input value
             Map<String, Double> subjectInputs = new java.util.HashMap<>();
@@ -358,17 +359,14 @@ public class WebpageController {
 
             // Set khu vực priority name & value
             response.setKhuVucValue(khuVuc);
-            if (khuVuc == 0.25) response.setKhuVucName("KV1");
-            else if (khuVuc == 0.5) response.setKhuVucName("KV2");
-            else if (khuVuc == 0.75) response.setKhuVucName("2NT");
-            else if (khuVuc == 1.0) response.setKhuVucName("KV3");
+            if (khuVuc == 0.75) response.setKhuVucName("KV1");
+            else if (khuVuc == 0.50) response.setKhuVucName("2NT");
+            else if (khuVuc == 0.25) response.setKhuVucName("KV2");
             else response.setKhuVucName("Không có");
 
             // Set đối tượng priority name & value
-            response.setDoiTuongValue(doiTuong);
-            if (doiTuong == 1.0) response.setDoiTuongName("ĐT 1-4");
-            else if (doiTuong == 0.5) response.setDoiTuongName("ĐT 5-7");
-            else response.setDoiTuongName("Không đối tượng");
+            response.setDoiTuongValue(doiTuongValue);
+            response.setDoiTuongName(mapDoiTuongToName(doiTuongCode));
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -399,10 +397,11 @@ public class WebpageController {
             double diemThi = request.getDiemThi() != null ? request.getDiemThi() : 0;
             double diemCong = request.getDiemCong() != null ? request.getDiemCong() : 0;
             double khuVuc = request.getKhuVuc() != null ? request.getKhuVuc() : 0;
-            double doiTuong = request.getDoiTuong() != null ? request.getDoiTuong() : 0;
+            int doiTuongCode = request.getDoiTuong() != null ? request.getDoiTuong().intValue() : 0;
+            double doiTuongValue = mapDoiTuongToValue(doiTuongCode);
 
             // Priority score
-            double mdut = khuVuc + doiTuong;
+            double mdut = khuVuc + doiTuongValue;
 
             Nganh nganh = nganhDAO.findByMaNganh(request.getMaNganh());
             if (nganh == null) {
@@ -507,5 +506,36 @@ public class WebpageController {
                 "tinhdiem");
 
         return "index";
+    }
+
+    // ════════════════════════════════════════════════════════════
+    //  HELPER: MAPPING ĐỐI TƯỢNG ƯU TIÊN
+    // ════════════════════════════════════════════════════════════
+
+    /**
+     * Chuyển mã đối tượng (1-7) sang điểm ưu tiên tương ứng.
+     * Khớp với AdmissionService.calculateMdut().
+     */
+    private double mapDoiTuongToValue(int code) {
+        switch (code) {
+            case 1:  return 2.0;
+            case 2:  return 1.5;
+            case 3:  return 1.0;
+            case 4:  return 0.0;
+            case 5:
+            case 6:
+            case 7:  return 1.0;
+            default: return 0.0;
+        }
+    }
+
+    /**
+     * Chuyển mã đối tượng (1-7) sang tên hiển thị.
+     */
+    private String mapDoiTuongToName(int code) {
+        if (code >= 1 && code <= 7) {
+            return "ĐT 0" + code;
+        }
+        return "Không đối tượng";
     }
 }
