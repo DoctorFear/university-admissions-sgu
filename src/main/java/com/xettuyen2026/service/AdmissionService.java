@@ -34,13 +34,14 @@ import com.xettuyen2026.entity.ThiSinh;
  * Service tính điểm + chạy thuật toán xét tuyển.
  *
  * Các bước:
- * 1. calculateAllScores()  — Tính ĐTHGXT, ĐC, ĐƯT, ĐXT cho mỗi nguyện vọng
+ * 1. calculateAllScores() — Tính ĐTHGXT, ĐC, ĐƯT, ĐXT cho mỗi nguyện vọng
  * 2. executeAdmissionProcess() — Chạy Gale-Shapley deferred acceptance
  *
  * Phương thức được hỗ trợ (qua d_phuongthuc trong xt_diemthixettuyen):
- *   "1"  = THPT (điểm thi THPT quốc gia)
- *   "4"  = ĐGNL (Đánh giá năng lực ĐHQG-HCM, thang 1200; dùng NL1)
- *   "5"  = VSAT (V-SAT, điểm từng môn đã lưu ở TO/LI/HO/...; quy đổi qua bangquydoi)
+ * "1" = THPT (điểm thi THPT quốc gia)
+ * "4" = ĐGNL (Đánh giá năng lực ĐHQG-HCM, thang 1200; dùng NL1)
+ * "5" = VSAT (V-SAT, điểm từng môn đã lưu ở TO/LI/HO/...; quy đổi qua
+ * bangquydoi)
  *
  * Trong nguyện vọng, tt_phuongthuc dùng giá trị "PT2"/"DGNL"/"VSAT" v.v.
  * Mapping: PT2 → d_phuongthuc "1"; DGNL → "4"; VSAT → "5".
@@ -56,7 +57,7 @@ public class AdmissionService {
     private BangQuydoiDAO bangQuydoiDAO = new BangQuydoiDAO();
 
     // ════════════════════════════════════════════════════════════
-    //  BƯỚC 1: TÍNH ĐIỂM XÉT TUYỂN CHO MỖI NGUYỆN VỌNG
+    // BƯỚC 1: TÍNH ĐIỂM XÉT TUYỂN CHO MỖI NGUYỆN VỌNG
     // ════════════════════════════════════════════════════════════
 
     /**
@@ -78,11 +79,12 @@ public class AdmissionService {
 
     /**
      * Tính điểm cho 1 nguyện vọng:
-     *   ĐTHXT & ĐTHGXT → ĐC → ĐƯT → ĐXT (cap tại 30)
+     * ĐTHXT & ĐTHGXT → ĐC → ĐƯT → ĐXT (cap tại 30)
      */
     public void calculateScoreForAspiration(NguyenVongXetTuyen nv) {
         ThiSinh thiSinh = thiSinhDAO.findByCccd(nv.getNnCccd());
-        if (thiSinh == null) return;
+        if (thiSinh == null)
+            return;
 
         // Chuyển tt_phuongthuc (e.g. "PT2","DGNL","VSAT") sang mã d_phuongthuc trong DB
         String phuongthucCode = mapPhuongThucToCode(nv.getTtPhuongthuc());
@@ -92,7 +94,8 @@ public class AdmissionService {
             // Fallback: lấy bản ghi điểm đầu tiên của thí sinh nếu không match chính xác
             diemThi = diemThiDAO.findByCccd(nv.getNnCccd());
         }
-        if (diemThi == null) return;
+        if (diemThi == null)
+            return;
 
         String maNganh = nv.getNvManganh();
         String phuongthuc = nv.getTtPhuongthuc();
@@ -101,15 +104,14 @@ public class AdmissionService {
         TohopResult tohopRes = calculateDTHGXT(diemThi, maNganh, phuongthuc);
         BigDecimal dthxt = tohopRes.rawScore != null ? tohopRes.rawScore : BigDecimal.ZERO;
         BigDecimal dthgxt = tohopRes.adjustedScore != null ? tohopRes.adjustedScore : BigDecimal.ZERO;
-        
+
         nv.setDiemThxt(dthxt); // Lưu bảng thực tế không có độ lệch vào DB
 
-        // ── Bước 2: Lấy Điểm cộng (ĐC), tối đa 3.0, phân biệt có Ngoại ngữ hay không ──
-        boolean containsN1 = tohopRes.bestTohop != null && (
-               "N1".equalsIgnoreCase(tohopRes.bestTohop.getThMon1()) ||
-               "N1".equalsIgnoreCase(tohopRes.bestTohop.getThMon2()) ||
-               "N1".equalsIgnoreCase(tohopRes.bestTohop.getThMon3())
-        );
+        // ── Bước 2: Lấy Điểm cộng (ĐC), tối đa 3.0, phân biệt có Ngoại ngữ hay không
+        // ──
+        boolean containsN1 = tohopRes.bestTohop != null && ("N1".equalsIgnoreCase(tohopRes.bestTohop.getThMon1()) ||
+                "N1".equalsIgnoreCase(tohopRes.bestTohop.getThMon2()) ||
+                "N1".equalsIgnoreCase(tohopRes.bestTohop.getThMon3()));
         BigDecimal dCong = getDiemCong(nv.getNnCccd(), maNganh, nv.getTtThm(), containsN1);
         nv.setDiemCong(dCong);
 
@@ -124,7 +126,8 @@ public class AdmissionService {
         } else {
             // Trên 22.5 → ĐƯT = [(30 - ĐTHXT - ĐC) / 7.5] × MĐƯT
             BigDecimal diff = new BigDecimal("30").subtract(dthxt).subtract(dCong);
-            if (diff.compareTo(BigDecimal.ZERO) < 0) diff = BigDecimal.ZERO;
+            if (diff.compareTo(BigDecimal.ZERO) < 0)
+                diff = BigDecimal.ZERO;
             BigDecimal factor = diff.divide(new BigDecimal("7.5"), 5, RoundingMode.HALF_UP);
             dUutien = factor.multiply(mdut).setScale(5, RoundingMode.HALF_UP);
         }
@@ -145,39 +148,51 @@ public class AdmissionService {
     }
 
     // ════════════════════════════════════════════════════════════
-    //  MAPPING PHƯƠNG THỨC
+    // MAPPING PHƯƠNG THỨC
     // ════════════════════════════════════════════════════════════
 
     /**
      * Chuyển mã phương thức lưu trong nguyện vọng (tt_phuongthuc)
      * sang mã d_phuongthuc trong bảng xt_diemthixettuyen.
      *
-     *   PT2, THPT, 1 → "1"
-     *   DGNL, PT4, 4  → "4"
-     *   VSAT, PT5, 5  → "5"
-     *   Mặc định      → "1"
+     * PT2, THPT, 1 → "1"
+     * DGNL, PT4, 4 → "4"
+     * VSAT, PT5, 5 → "5"
+     * Mặc định → "1"
      */
     private String mapPhuongThucToCode(String ttPhuongthuc) {
-        if (ttPhuongthuc == null) return "1";
+        if (ttPhuongthuc == null)
+            return "1";
         switch (ttPhuongthuc.toUpperCase().trim()) {
-            case "4": case "PT4": case "DGNL":        return "4";
-            case "5": case "PT5": case "VSAT":         return "5";
-            case "1": case "PT1": case "PT2": case "THPT": default: return "1";
+            case "4":
+            case "PT4":
+            case "DGNL":
+                return "4";
+            case "5":
+            case "PT5":
+            case "VSAT":
+                return "5";
+            case "1":
+            case "PT1":
+            case "PT2":
+            case "THPT":
+            default:
+                return "1";
         }
     }
 
     // ════════════════════════════════════════════════════════════
-    //  TÍNH ĐTHGXT (Điểm tổ hợp gốc xét tuyển)
+    // TÍNH ĐTHGXT (Điểm tổ hợp gốc xét tuyển)
     // ════════════════════════════════════════════════════════════
 
     /**
      * Tính ĐTHGXT: với mỗi tổ hợp của ngành,
-     *   score = DiemToHop(tổ hợp dự thi) - dolech
+     * score = DiemToHop(tổ hợp dự thi) - dolech
      * Lấy tổ hợp cho điểm cao nhất sau khi trừ dolech.
      *
      * Với phương thức ĐGNL: quy đổi NL1 → thang 30 qua bảng xt_bangquydoi.
      * Với phương thức VSAT: quy đổi từng môn V-SAT → THPT qua bảng xt_bangquydoi,
-     *   rồi tính tổ hợp bình thường.
+     * rồi tính tổ hợp bình thường.
      * Với phương thức THPT: tính trực tiếp từ điểm thi × hệ số môn.
      */
     private TohopResult calculateDTHGXT(DiemThiXetTuyen diemThi, String maNganh, String phuongthuc) {
@@ -198,7 +213,8 @@ public class AdmissionService {
             if ("DGNL".equalsIgnoreCase(phuongthuc) || "PT4".equalsIgnoreCase(phuongthuc) || "4".equals(phuongthuc)) {
                 // ĐGNL: quy đổi NL1 → thang 30 bằng bảng quy đổi theo tổ hợp
                 rawScore = convertDGNLScore(diemThi.getNl1(), nt.getMatohop());
-            } else if ("VSAT".equalsIgnoreCase(phuongthuc) || "PT5".equalsIgnoreCase(phuongthuc) || "5".equals(phuongthuc)) {
+            } else if ("VSAT".equalsIgnoreCase(phuongthuc) || "PT5".equalsIgnoreCase(phuongthuc)
+                    || "5".equals(phuongthuc)) {
                 // V-SAT — quy đổi từng môn sang thang THPT, rồi tính tổ hợp
                 rawScore = calculateVSATScore(diemThi, nt);
             } else {
@@ -208,14 +224,15 @@ public class AdmissionService {
 
             // Trừ độ lệch giữa tổ hợp dự thi và tổ hợp gốc của ngành
             BigDecimal dolech = nt.getDolech() != null ? nt.getDolech() : BigDecimal.ZERO;
-            
+
             BigDecimal adjustedScore;
             if ("DGNL".equalsIgnoreCase(phuongthuc) || "PT4".equalsIgnoreCase(phuongthuc) || "4".equals(phuongthuc)) {
                 adjustedScore = rawScore; // ĐGNL không quy đổi trừ độ lệch
             } else {
                 adjustedScore = rawScore.subtract(dolech);
             }
-            if (adjustedScore.compareTo(BigDecimal.ZERO) < 0) adjustedScore = BigDecimal.ZERO;
+            if (adjustedScore.compareTo(BigDecimal.ZERO) < 0)
+                adjustedScore = BigDecimal.ZERO;
 
             if (adjustedScore.compareTo(bestAdjusted) > 0) {
                 bestAdjusted = adjustedScore;
@@ -229,12 +246,12 @@ public class AdmissionService {
     }
 
     // ════════════════════════════════════════════════════════════
-    //  TÍNH ĐIỂM THEO TỪNG PHƯƠNG THỨC
+    // TÍNH ĐIỂM THEO TỪNG PHƯƠNG THỨC
     // ════════════════════════════════════════════════════════════
 
     /**
      * Tính điểm THPT cho 1 tổ hợp:
-     *   rawScore = (mon1 * hs1 + mon2 * hs2 + mon3 * hs3) * 3 / (hs1 + hs2 + hs3)
+     * rawScore = (mon1 * hs1 + mon2 * hs2 + mon3 * hs3) * 3 / (hs1 + hs2 + hs3)
      * → Quy về thang 30.
      */
     private BigDecimal calculateTHPTScore(DiemThiXetTuyen diemThi, NganhTohop nt) {
@@ -263,12 +280,15 @@ public class AdmissionService {
 
     /**
      * Tính điểm V-SAT cho 1 tổ hợp:
-     * - Quy đổi từng môn từ thang V-SAT về thang THPT (0-10) qua bảng xt_bangquydoi.
+     * - Quy đổi từng môn từ thang V-SAT về thang THPT (0-10) qua bảng
+     * xt_bangquydoi.
      * - Sau đó tính tổ hợp giống THPT.
      *
-     * Bảng quy đổi V-SAT sử dụng d_phuongthuc = "VSAT", d_tohop = null (hoặc "VSAT"),
+     * Bảng quy đổi V-SAT sử dụng d_phuongthuc = "VSAT", d_tohop = null (hoặc
+     * "VSAT"),
      * d_mon = mã môn (TO, LI, HO...).
-     * Nội suy tuyến tính: y = d_diemc + (x - d_diema) / (d_diemb - d_diema) * (d_diemd - d_diemc)
+     * Nội suy tuyến tính: y = d_diemc + (x - d_diema) / (d_diemb - d_diema) *
+     * (d_diemd - d_diemc)
      */
     private BigDecimal calculateVSATScore(DiemThiXetTuyen diemThi, NganhTohop nt) {
         BigDecimal mon1Raw = getRawSubjectScore(diemThi, nt.getThMon1());
@@ -298,12 +318,15 @@ public class AdmissionService {
 
     /**
      * Quy đổi điểm 1 môn V-SAT về thang THPT (0-10)
-     * bằng nội suy tuyến tính từ bảng xt_bangquydoi (d_phuongthuc = "VSAT", d_mon = monKey).
+     * bằng nội suy tuyến tính từ bảng xt_bangquydoi (d_phuongthuc = "VSAT", d_mon =
+     * monKey).
      * Nếu không có bảng quy đổi → trả về điểm gốc (fallback, không mất dữ liệu).
      */
     private BigDecimal convertVSATSubjectScore(BigDecimal diemVSAT, String monKey) {
-        if (diemVSAT == null || diemVSAT.compareTo(BigDecimal.ZERO) == 0) return BigDecimal.ZERO;
-        if (monKey == null) return BigDecimal.ZERO;
+        if (diemVSAT == null || diemVSAT.compareTo(BigDecimal.ZERO) == 0)
+            return BigDecimal.ZERO;
+        if (monKey == null)
+            return BigDecimal.ZERO;
 
         // Lấy bảng quy đổi cho môn cụ thể (VSAT, tổ hợp null, theo môn)
         List<BangQuydoi> quydoiList = bangQuydoiDAO.findByPhuongthucAndTohop("VSAT", monKey);
@@ -325,7 +348,8 @@ public class AdmissionService {
      * rồi nội suy tuyến tính giữa d_diemc và d_diemd.
      */
     private BigDecimal convertDGNLScore(BigDecimal diemNL1, String tohop) {
-        if (diemNL1 == null) return BigDecimal.ZERO;
+        if (diemNL1 == null)
+            return BigDecimal.ZERO;
 
         List<BangQuydoi> quydoiList = bangQuydoiDAO.findByPhuongthucAndTohop("DGNL", tohop);
         if (quydoiList == null || quydoiList.isEmpty()) {
@@ -340,12 +364,13 @@ public class AdmissionService {
 
     /**
      * Nội suy tuyến tính chung:
-     *   result = d_diemc + (x - d_diema) / (d_diemb - d_diema) * (d_diemd - d_diemc)
+     * result = d_diemc + (x - d_diema) / (d_diemb - d_diema) * (d_diemd - d_diemc)
      * Quét qua danh sách khoảng, trả về giá trị khoảng khớp đầu tiên.
      */
     private BigDecimal interpolateScore(BigDecimal x, List<BangQuydoi> quydoiList) {
-        if (quydoiList == null || quydoiList.isEmpty()) return BigDecimal.ZERO;
-        
+        if (quydoiList == null || quydoiList.isEmpty())
+            return BigDecimal.ZERO;
+
         quydoiList.sort(Comparator.comparing(BangQuydoi::getdDiema));
 
         // Nằm ngoài khoảng dưới
@@ -356,11 +381,13 @@ public class AdmissionService {
         // Nằm ngoài khoảng trên
         BangQuydoi lastQd = quydoiList.get(quydoiList.size() - 1);
         if (x.compareTo(lastQd.getdDiemb()) >= 0) {
-            return lastQd.getdDiemd() != null ? lastQd.getdDiemd() : (lastQd.getdDiemc() != null ? lastQd.getdDiemc() : BigDecimal.ZERO);
+            return lastQd.getdDiemd() != null ? lastQd.getdDiemd()
+                    : (lastQd.getdDiemc() != null ? lastQd.getdDiemc() : BigDecimal.ZERO);
         }
 
         for (BangQuydoi qd : quydoiList) {
-            if (qd.getdDiema() == null || qd.getdDiemb() == null) continue;
+            if (qd.getdDiema() == null || qd.getdDiemb() == null)
+                continue;
             // Nằm lọt trong phổ nội suy (mở tại cận trên để không gộp lặp)
             if (x.compareTo(qd.getdDiema()) >= 0 && x.compareTo(qd.getdDiemb()) < 0) {
                 BigDecimal diemc = qd.getdDiemc() != null ? qd.getdDiemc() : BigDecimal.ZERO;
@@ -368,7 +395,8 @@ public class AdmissionService {
                 BigDecimal rangeInput = qd.getdDiemb().subtract(qd.getdDiema());
                 BigDecimal rangeOutput = diemd.subtract(diemc);
 
-                if (rangeInput.compareTo(BigDecimal.ZERO) == 0) return diemc;
+                if (rangeInput.compareTo(BigDecimal.ZERO) == 0)
+                    return diemc;
 
                 BigDecimal ratio = x.subtract(qd.getdDiema()).divide(rangeInput, 5, RoundingMode.HALF_UP);
                 return diemc.add(ratio.multiply(rangeOutput)).setScale(5, RoundingMode.HALF_UP);
@@ -378,7 +406,7 @@ public class AdmissionService {
     }
 
     // ════════════════════════════════════════════════════════════
-    //  LẤY ĐIỂM MÔN
+    // LẤY ĐIỂM MÔN
     // ════════════════════════════════════════════════════════════
 
     /**
@@ -386,28 +414,48 @@ public class AdmissionService {
      * Dùng khi tính tổ hợp THPT.
      */
     private BigDecimal getSubjectScore(DiemThiXetTuyen d, String monKey) {
-        if (monKey == null) return BigDecimal.ZERO;
+        if (monKey == null)
+            return BigDecimal.ZERO;
         switch (monKey.toUpperCase()) {
-            case "TO":   return d.getTo()   != null ? d.getTo()   : BigDecimal.ZERO;
-            case "LI":   return d.getLi()   != null ? d.getLi()   : BigDecimal.ZERO;
-            case "HO":   return d.getHo()   != null ? d.getHo()   : BigDecimal.ZERO;
-            case "SI":   return d.getSi()   != null ? d.getSi()   : BigDecimal.ZERO;
-            case "SU":   return d.getSu()   != null ? d.getSu()   : BigDecimal.ZERO;
-            case "DI":   return d.getDi()   != null ? d.getDi()   : BigDecimal.ZERO;
-            case "VA":   return d.getVa()   != null ? d.getVa()   : BigDecimal.ZERO;
+            case "TO":
+                return d.getTo() != null ? d.getTo() : BigDecimal.ZERO;
+            case "LI":
+                return d.getLi() != null ? d.getLi() : BigDecimal.ZERO;
+            case "HO":
+                return d.getHo() != null ? d.getHo() : BigDecimal.ZERO;
+            case "SI":
+                return d.getSi() != null ? d.getSi() : BigDecimal.ZERO;
+            case "SU":
+                return d.getSu() != null ? d.getSu() : BigDecimal.ZERO;
+            case "DI":
+                return d.getDi() != null ? d.getDi() : BigDecimal.ZERO;
+            case "VA":
+                return d.getVa() != null ? d.getVa() : BigDecimal.ZERO;
             // FIX #2: N1 = MAX(điểm thi gốc, quy đổi từ chứng chỉ)
-            case "N1":   return getN1Score(d);
-            case "TI":   return d.getTi()   != null ? d.getTi()   : BigDecimal.ZERO;
-            case "CNCN": return d.getCncn() != null ? d.getCncn() : BigDecimal.ZERO;
-            case "CNNN": return d.getCnnn() != null ? d.getCnnn() : BigDecimal.ZERO;
-            case "KTPL": return d.getKtpl() != null ? d.getKtpl() : BigDecimal.ZERO;
-            case "NK1":  return d.getNk1()  != null ? d.getNk1()  : BigDecimal.ZERO;
-            case "NK2":  return d.getNk2()  != null ? d.getNk2()  : BigDecimal.ZERO;
-            case "NK3":  return d.getNk3()  != null ? d.getNk3()  : BigDecimal.ZERO;
-            case "NK4":  return d.getNk4()  != null ? d.getNk4()  : BigDecimal.ZERO;
-            case "NK5":  return d.getNk5()  != null ? d.getNk5()  : BigDecimal.ZERO;
-            case "NK6":  return d.getNk6()  != null ? d.getNk6()  : BigDecimal.ZERO;
-            default:     return BigDecimal.ZERO;
+            case "N1":
+                return getN1Score(d);
+            case "TI":
+                return d.getTi() != null ? d.getTi() : BigDecimal.ZERO;
+            case "CNCN":
+                return d.getCncn() != null ? d.getCncn() : BigDecimal.ZERO;
+            case "CNNN":
+                return d.getCnnn() != null ? d.getCnnn() : BigDecimal.ZERO;
+            case "KTPL":
+                return d.getKtpl() != null ? d.getKtpl() : BigDecimal.ZERO;
+            case "NK1":
+                return d.getNk1() != null ? d.getNk1() : BigDecimal.ZERO;
+            case "NK2":
+                return d.getNk2() != null ? d.getNk2() : BigDecimal.ZERO;
+            case "NK3":
+                return d.getNk3() != null ? d.getNk3() : BigDecimal.ZERO;
+            case "NK4":
+                return d.getNk4() != null ? d.getNk4() : BigDecimal.ZERO;
+            case "NK5":
+                return d.getNk5() != null ? d.getNk5() : BigDecimal.ZERO;
+            case "NK6":
+                return d.getNk6() != null ? d.getNk6() : BigDecimal.ZERO;
+            default:
+                return BigDecimal.ZERO;
         }
     }
 
@@ -415,44 +463,59 @@ public class AdmissionService {
      * Lấy điểm môn thô (chưa xử lý N1 MAX) — dùng trước khi quy đổi V-SAT.
      */
     private BigDecimal getRawSubjectScore(DiemThiXetTuyen d, String monKey) {
-        if (monKey == null) return BigDecimal.ZERO;
+        if (monKey == null)
+            return BigDecimal.ZERO;
         switch (monKey.toUpperCase()) {
-            case "TO":   return d.getTo()   != null ? d.getTo()   : BigDecimal.ZERO;
-            case "LI":   return d.getLi()   != null ? d.getLi()   : BigDecimal.ZERO;
-            case "HO":   return d.getHo()   != null ? d.getHo()   : BigDecimal.ZERO;
-            case "SI":   return d.getSi()   != null ? d.getSi()   : BigDecimal.ZERO;
-            case "SU":   return d.getSu()   != null ? d.getSu()   : BigDecimal.ZERO;
-            case "DI":   return d.getDi()   != null ? d.getDi()   : BigDecimal.ZERO;
-            case "VA":   return d.getVa()   != null ? d.getVa()   : BigDecimal.ZERO;
-            case "N1":   return d.getN1Thi() != null ? d.getN1Thi() : BigDecimal.ZERO;
-            case "TI":   return d.getTi()   != null ? d.getTi()   : BigDecimal.ZERO;
-            case "CNCN": return d.getCncn() != null ? d.getCncn() : BigDecimal.ZERO;
-            case "CNNN": return d.getCnnn() != null ? d.getCnnn() : BigDecimal.ZERO;
-            case "KTPL": return d.getKtpl() != null ? d.getKtpl() : BigDecimal.ZERO;
-            default:     return BigDecimal.ZERO;
+            case "TO":
+                return d.getTo() != null ? d.getTo() : BigDecimal.ZERO;
+            case "LI":
+                return d.getLi() != null ? d.getLi() : BigDecimal.ZERO;
+            case "HO":
+                return d.getHo() != null ? d.getHo() : BigDecimal.ZERO;
+            case "SI":
+                return d.getSi() != null ? d.getSi() : BigDecimal.ZERO;
+            case "SU":
+                return d.getSu() != null ? d.getSu() : BigDecimal.ZERO;
+            case "DI":
+                return d.getDi() != null ? d.getDi() : BigDecimal.ZERO;
+            case "VA":
+                return d.getVa() != null ? d.getVa() : BigDecimal.ZERO;
+            case "N1":
+                return d.getN1Thi() != null ? d.getN1Thi() : BigDecimal.ZERO;
+            case "TI":
+                return d.getTi() != null ? d.getTi() : BigDecimal.ZERO;
+            case "CNCN":
+                return d.getCncn() != null ? d.getCncn() : BigDecimal.ZERO;
+            case "CNNN":
+                return d.getCnnn() != null ? d.getCnnn() : BigDecimal.ZERO;
+            case "KTPL":
+                return d.getKtpl() != null ? d.getKtpl() : BigDecimal.ZERO;
+            default:
+                return BigDecimal.ZERO;
         }
     }
 
     /**
      * FIX #2: Điểm N1 (Tiếng Anh) = MAX(N1_THI, N1_CC).
      * N1_THI = điểm thi THPT gốc.
-     * N1_CC  = điểm quy đổi từ chứng chỉ tiếng Anh (IELTS, TOEFL...).
+     * N1_CC = điểm quy đổi từ chứng chỉ tiếng Anh (IELTS, TOEFL...).
      * Lấy giá trị lớn hơn để có lợi cho thí sinh.
      */
     private BigDecimal getN1Score(DiemThiXetTuyen d) {
         BigDecimal n1Thi = d.getN1Thi() != null ? d.getN1Thi() : BigDecimal.ZERO;
-        BigDecimal n1Cc  = d.getN1Cc()  != null ? d.getN1Cc()  : BigDecimal.ZERO;
+        BigDecimal n1Cc = d.getN1Cc() != null ? d.getN1Cc() : BigDecimal.ZERO;
         return n1Thi.compareTo(n1Cc) >= 0 ? n1Thi : n1Cc;
     }
 
     // ════════════════════════════════════════════════════════════
-    //  BƯỚC 2: THUẬT TOÁN XÉT TUYỂN (Gale-Shapley deferred acceptance)
+    // BƯỚC 2: THUẬT TOÁN XÉT TUYỂN (Gale-Shapley deferred acceptance)
     // ════════════════════════════════════════════════════════════
 
     /**
      * Chạy thuật toán xét tuyển Gale-Shapley.
      * 1. Mỗi thí sinh đề xuất vào nguyện vọng ưu tiên cao nhất chưa bị từ chối.
-     * 2. Mỗi ngành so sánh và giữ lại top N (theo chỉ tiêu), loại thí sinh yếu nhất.
+     * 2. Mỗi ngành so sánh và giữ lại top N (theo chỉ tiêu), loại thí sinh yếu
+     * nhất.
      * 3. Thí sinh bị loại chuyển sang nguyện vọng tiếp theo.
      * 4. Lặp lại cho đến khi không còn thí sinh nào cần xử lý.
      */
@@ -461,6 +524,38 @@ public class AdmissionService {
 
         // 1. Fetch data
         List<NguyenVongXetTuyen> allAspirations = nguyenVongDAO.findAllOrdered();
+
+        // 1.5 Điểm rà soát & cập nhật tự động (Tính điểm cho tất cả NV)
+        System.out.println("Đang tính toán lại điểm cho tất cả nguyện vọng...");
+        for (NguyenVongXetTuyen nv : allAspirations) {
+            String pt = nv.getTtPhuongthuc();
+            if (pt == null)
+                pt = "PT2";
+
+            double dthxt = 0.0;
+            if (pt.equalsIgnoreCase("PT2") || pt.equalsIgnoreCase("THPT") || pt.equals("1")) {
+                dthxt = tinhDiemTHPT(nv.getNnCccd(), nv.getNvManganh(), nv.getTtThm());
+            } else if (pt.equalsIgnoreCase("PT3") || pt.equalsIgnoreCase("VSAT") || pt.equals("5")) {
+                dthxt = tinhDiemVSAT(nv.getNnCccd(), nv.getNvManganh(), nv.getTtThm());
+            } else if (pt.equalsIgnoreCase("PT4") || pt.equalsIgnoreCase("DGNL") || pt.equals("4")) {
+                dthxt = tinhDiemDGNL(nv.getNnCccd(), nv.getNvManganh());
+            } else {
+                dthxt = tinhDiemTHPT(nv.getNnCccd(), nv.getNvManganh(), nv.getTtThm());
+            }
+
+            boolean containsN1 = (nv.getTtThm() != null && nv.getTtThm().contains("N1"));
+            double dc = getDiemCongDouble(nv.getNnCccd(), nv.getNvManganh(), nv.getTtThm(), containsN1);
+            double mdut = calculateMdutDouble(nv.getNnCccd());
+
+            double dut = tinhDiemUuTien(dthxt, dc, mdut);
+            double dxt = tinhDiemXT(dthxt, dc, dut);
+
+            nv.setDiemThxt(BigDecimal.valueOf(dthxt));
+            nv.setDiemCong(BigDecimal.valueOf(dc));
+            nv.setDiemUtqd(BigDecimal.valueOf(dut));
+            nv.setDiemXettuyen(BigDecimal.valueOf(dxt));
+        }
+
         List<Nganh> allNganh = nganhDAO.findAll();
 
         Map<String, Nganh> nganhMap = new HashMap<>();
@@ -508,7 +603,8 @@ public class AdmissionService {
             int idx = currentIndex.getOrDefault(cccd, 0);
             List<NguyenVongXetTuyen> aps = candidateAspirations.get(cccd);
 
-            if (idx >= aps.size()) continue; // Hết nguyện vọng
+            if (idx >= aps.size())
+                continue; // Hết nguyện vọng
 
             NguyenVongXetTuyen currentNv = aps.get(idx);
             String maNganh = currentNv.getNvManganh();
@@ -553,14 +649,17 @@ public class AdmissionService {
                 // Đầy → so sánh với người yếu nhất
                 NguyenVongXetTuyen weakest = acceptedList.peek();
                 if (weakest != null) {
-                    BigDecimal weakestScore = weakest.getDiemXettuyen() != null ? weakest.getDiemXettuyen() : BigDecimal.ZERO;
-                    BigDecimal currentScore = currentNv.getDiemXettuyen() != null ? currentNv.getDiemXettuyen() : BigDecimal.ZERO;
-                    
+                    BigDecimal weakestScore = weakest.getDiemXettuyen() != null ? weakest.getDiemXettuyen()
+                            : BigDecimal.ZERO;
+                    BigDecimal currentScore = currentNv.getDiemXettuyen() != null ? currentNv.getDiemXettuyen()
+                            : BigDecimal.ZERO;
+
                     int cmpScore = currentScore.compareTo(weakestScore);
                     int cmpRaw = 0;
                     if (cmpScore == 0) {
                         BigDecimal weakestRaw = weakest.getDiemThxt() != null ? weakest.getDiemThxt() : BigDecimal.ZERO;
-                        BigDecimal currentRaw = currentNv.getDiemThxt() != null ? currentNv.getDiemThxt() : BigDecimal.ZERO;
+                        BigDecimal currentRaw = currentNv.getDiemThxt() != null ? currentNv.getDiemThxt()
+                                : BigDecimal.ZERO;
                         cmpRaw = currentRaw.compareTo(weakestRaw);
                     }
 
@@ -630,7 +729,7 @@ public class AdmissionService {
     }
 
     // ════════════════════════════════════════════════════════════
-    //  HELPER: TÍNH ĐIỂM ƯU TIÊN
+    // HELPER: TÍNH ĐIỂM ƯU TIÊN
     // ════════════════════════════════════════════════════════════
 
     /**
@@ -642,22 +741,37 @@ public class AdmissionService {
 
         if (khuVuc != null) {
             switch (khuVuc.toUpperCase().replace("-", "")) {
-                case "KV1":   uutien = uutien.add(new BigDecimal("0.75")); break;
-                case "KV2NT": uutien = uutien.add(new BigDecimal("0.5"));  break;
-                case "KV2":   uutien = uutien.add(new BigDecimal("0.25")); break;
+                case "KV1":
+                    uutien = uutien.add(new BigDecimal("0.75"));
+                    break;
+                case "KV2NT":
+                    uutien = uutien.add(new BigDecimal("0.5"));
+                    break;
+                case "KV2":
+                    uutien = uutien.add(new BigDecimal("0.25"));
+                    break;
                 // KV3: không có điểm ưu tiên khu vực
             }
         }
 
         if (doiTuong != null) {
             switch (doiTuong) {
-                case "01": uutien = uutien.add(new BigDecimal("2.0")); break;
-                case "02": uutien = uutien.add(new BigDecimal("1.5")); break;
-                case "03": uutien = uutien.add(new BigDecimal("1.0")); break;
-                case "04": break; // 0.0
+                case "01":
+                    uutien = uutien.add(new BigDecimal("2.0"));
+                    break;
+                case "02":
+                    uutien = uutien.add(new BigDecimal("1.5"));
+                    break;
+                case "03":
+                    uutien = uutien.add(new BigDecimal("1.0"));
+                    break;
+                case "04":
+                    break; // 0.0
                 case "05":
                 case "06":
-                case "07": uutien = uutien.add(new BigDecimal("1.0")); break; 
+                case "07":
+                    uutien = uutien.add(new BigDecimal("1.0"));
+                    break;
             }
         }
 
@@ -666,22 +780,25 @@ public class AdmissionService {
 
     /**
      * Lấy tổng điểm cộng cho thí sinh ở ngành + tổ hợp cụ thể. Giới hạn max 3.0.
-     * Chống cộng trùng: Nếu tổ hợp đã chứa Ngoại ngữ, trừ đi phần điểm cấu thành CC.
+     * Chống cộng trùng: Nếu tổ hợp đã chứa Ngoại ngữ, trừ đi phần điểm cấu thành
+     * CC.
      */
     private BigDecimal getDiemCong(String cccd, String maNganh, String tohop, boolean containsN1) {
         List<DiemCongXetTuyen> diems = diemCongDAO.findByCccd(cccd);
         BigDecimal sum = BigDecimal.ZERO;
         for (DiemCongXetTuyen dc : diems) {
-            if (dc.getManganh() != null && !dc.getManganh().equals(maNganh)) continue;
-            if (tohop != null && dc.getMatohop() != null && !dc.getMatohop().equals(tohop)) continue;
-            
+            if (dc.getManganh() != null && !dc.getManganh().equals(maNganh))
+                continue;
+            if (tohop != null && dc.getMatohop() != null && !dc.getMatohop().equals(tohop))
+                continue;
+
             if (dc.getDiemTong() != null) {
                 BigDecimal diemThem = dc.getDiemTong();
                 // Rào ngoại ngữ để tránh tính vào tổng điểm cộng 2 lần
                 if (containsN1 && dc.getDiemCC() != null) {
                     diemThem = diemThem.subtract(dc.getDiemCC());
                 }
-                
+
                 if (diemThem.compareTo(BigDecimal.ZERO) > 0) {
                     sum = sum.add(diemThem);
                 }
@@ -692,5 +809,173 @@ public class AdmissionService {
             return new BigDecimal("3.0");
         }
         return sum;
+    }
+
+    // ════════════════════════════════════════════════════════════
+    // PHƯƠNG THỨC MỚI (DOUBLE) THEO YÊU CẦU NGHIỆP VỤ PT3 & PT4
+    // ════════════════════════════════════════════════════════════
+
+    // Tra bảng quy đổi và nội suy
+    public double quyDoiDiem(String phuongthuc, String mon, double diemGoc) {
+        if (diemGoc <= 0)
+            return 0.0;
+        List<BangQuydoi> quydoiList = bangQuydoiDAO.findByPhuongthucAndMon(phuongthuc, mon);
+        if (quydoiList == null || quydoiList.isEmpty()) {
+            if ("VSAT".equals(phuongthuc) || "PT3".equals(phuongthuc)) {
+                quydoiList = bangQuydoiDAO.findByPhuongthucAndTohop("VSAT", "VSAT");
+            } else if ("DGNL".equals(phuongthuc) || "PT4".equals(phuongthuc)) {
+                quydoiList = bangQuydoiDAO.findByPhuongthucAndTohop("DGNL", "A01"); // default fallback
+            }
+        }
+        if (quydoiList == null || quydoiList.isEmpty()) {
+            System.out.println("WARN: Không tìm thấy khoảng quy đổi phù hợp cho PT=" + phuongthuc + ", môn=" + mon);
+            if ("VSAT".equals(phuongthuc) || "PT3".equals(phuongthuc)) {
+                return diemGoc / 10.0;
+            }
+            return 0.0;
+        }
+        return interpolateScore(BigDecimal.valueOf(diemGoc), quydoiList).doubleValue();
+    }
+
+    // Tính ĐTHXT cho V-SAT (sau khi quy đổi từng môn)
+    public double tinhDiemVSAT(String cccd, String manganh, String matohop) {
+        DiemThiXetTuyen diemThi = diemThiDAO.findByCccdAndPhuongThuc(cccd, "PT3");
+        if (diemThi == null)
+            diemThi = diemThiDAO.findByCccdAndPhuongThuc(cccd, "5");
+        if (diemThi == null)
+            diemThi = diemThiDAO.findByCccd(cccd);
+        if (diemThi == null)
+            return 0.0;
+
+        List<NganhTohop> tohopList = nganhTohopDAO.findByMaNganh(manganh);
+        if (tohopList == null || tohopList.isEmpty())
+            return 0.0;
+
+        if (matohop != null && !matohop.trim().isEmpty()) {
+            NganhTohop nt = tohopList.stream().filter(n -> matohop.equals(n.getMatohop())).findFirst().orElse(null);
+            if (nt != null) {
+                return calculateVSATCombination(diemThi, nt);
+            }
+        }
+
+        double maxAdjusted = -1.0;
+        for (NganhTohop nt : tohopList) {
+            double adjusted = calculateVSATCombination(diemThi, nt);
+            if (adjusted > maxAdjusted)
+                maxAdjusted = adjusted;
+        }
+        return maxAdjusted < 0 ? 0.0 : maxAdjusted;
+    }
+
+    private double calculateVSATCombination(DiemThiXetTuyen diemThi, NganhTohop nt) {
+        double mon1Raw = getRawSubjectScore(diemThi, nt.getThMon1()).doubleValue();
+        double mon2Raw = getRawSubjectScore(diemThi, nt.getThMon2()).doubleValue();
+        double mon3Raw = getRawSubjectScore(diemThi, nt.getThMon3()).doubleValue();
+
+        double m1C = quyDoiDiem("PT3", nt.getThMon1(), mon1Raw);
+        if (m1C == 0)
+            m1C = quyDoiDiem("VSAT", nt.getThMon1(), mon1Raw);
+
+        double m2C = quyDoiDiem("PT3", nt.getThMon2(), mon2Raw);
+        if (m2C == 0)
+            m2C = quyDoiDiem("VSAT", nt.getThMon2(), mon2Raw);
+
+        double m3C = quyDoiDiem("PT3", nt.getThMon3(), mon3Raw);
+        if (m3C == 0)
+            m3C = quyDoiDiem("VSAT", nt.getThMon3(), mon3Raw);
+
+        int hs1 = nt.getHsmon1() != null ? nt.getHsmon1() : 1;
+        int hs2 = nt.getHsmon2() != null ? nt.getHsmon2() : 1;
+        int hs3 = nt.getHsmon3() != null ? nt.getHsmon3() : 1;
+
+        double sum = (m1C * hs1 + m2C * hs2 + m3C * hs3) * 3.0 / (hs1 + hs2 + hs3);
+        double dolech = nt.getDolech() != null ? nt.getDolech().doubleValue() : 0.0;
+        double adjusted = sum - dolech;
+        return adjusted < 0 ? 0.0 : adjusted;
+    }
+
+    // Tính ĐTHXT cho ĐGNL
+    public double tinhDiemDGNL(String cccd, String manganh) {
+        DiemThiXetTuyen diemThi = diemThiDAO.findByCccdAndPhuongThuc(cccd, "PT4");
+        if (diemThi == null)
+            diemThi = diemThiDAO.findByCccdAndPhuongThuc(cccd, "4");
+        if (diemThi == null)
+            diemThi = diemThiDAO.findByCccd(cccd);
+        if (diemThi == null || diemThi.getNl1() == null || diemThi.getNl1().doubleValue() <= 0)
+            return 0.0;
+
+        double diemNl1 = diemThi.getNl1().doubleValue();
+        double val = quyDoiDiem("PT4", "DGNL", diemNl1);
+        if (val == 0)
+            val = quyDoiDiem("DGNL", "DGNL", diemNl1); // fallback config
+        return val;
+    }
+
+    // Tính ĐTHXT cho THPT (PT2) thêm vào để đối chuẩn
+    public double tinhDiemTHPT(String cccd, String manganh, String matohop) {
+        DiemThiXetTuyen diemThi = diemThiDAO.findByCccdAndPhuongThuc(cccd, "PT2");
+        if (diemThi == null)
+            diemThi = diemThiDAO.findByCccdAndPhuongThuc(cccd, "1");
+        if (diemThi == null)
+            diemThi = diemThiDAO.findByCccd(cccd);
+        if (diemThi == null)
+            return 0.0;
+
+        List<NganhTohop> tohopList = nganhTohopDAO.findByMaNganh(manganh);
+        if (tohopList == null || tohopList.isEmpty())
+            return 0.0;
+
+        if (matohop != null && !matohop.trim().isEmpty()) {
+            NganhTohop nt = tohopList.stream().filter(n -> matohop.equals(n.getMatohop())).findFirst().orElse(null);
+            if (nt != null) {
+                double raw = calculateTHPTScore(diemThi, nt).doubleValue();
+                double dolech = nt.getDolech() != null ? nt.getDolech().doubleValue() : 0.0;
+                double adjusted = raw - dolech;
+                return adjusted < 0 ? 0.0 : adjusted;
+            }
+        }
+
+        double maxAdjusted = -1.0;
+        for (NganhTohop nt : tohopList) {
+            double raw = calculateTHPTScore(diemThi, nt).doubleValue();
+            double dolech = nt.getDolech() != null ? nt.getDolech().doubleValue() : 0.0;
+            double adjusted = raw - dolech;
+            if (adjusted > maxAdjusted)
+                maxAdjusted = adjusted;
+        }
+        return maxAdjusted < 0 ? 0.0 : maxAdjusted;
+    }
+
+    // Tính điểm ưu tiên (dùng chung 3 PT)
+    public double tinhDiemUuTien(double dthgxt, double dc, double mDUT) {
+        double sum = dthgxt + dc;
+        if (sum < 22.5) {
+            return mDUT;
+        } else {
+            double diff = 30.0 - sum;
+            if (diff < 0)
+                diff = 0.0;
+            return (diff / 7.5) * mDUT;
+        }
+    }
+
+    // Tính điểm xét tuyển cuối cùng (dùng chung 3 PT)
+    public double tinhDiemXT(double dthgxt, double dc, double dut) {
+        double dxt = dthgxt + dc + dut;
+        if (dxt > 30.0)
+            dxt = 30.0;
+        return dxt;
+    }
+
+    // Helper method wrapper
+    public double getDiemCongDouble(String cccd, String manganh, String tohop, boolean containsN1) {
+        return getDiemCong(cccd, manganh, tohop, containsN1).doubleValue();
+    }
+
+    public double calculateMdutDouble(String cccd) {
+        ThiSinh ts = thiSinhDAO.findByCccd(cccd);
+        if (ts == null)
+            return 0.0;
+        return calculateMdut(ts.getKhuVuc(), ts.getDoiTuong()).doubleValue();
     }
 }
