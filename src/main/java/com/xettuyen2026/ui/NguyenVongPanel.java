@@ -31,8 +31,8 @@ public class NguyenVongPanel extends JPanel {
     private List<NguyenVongXetTuyen> loadedEntities = new ArrayList<>();
 
     private static final String[] COLUMNS = {
-        "STT", "CCCD", "Mã ngành", "Tên ngành", "NV Thứ", "PT",
-        "Điểm THXT", "Điểm Cộng", "Điểm ƯT", "Điểm XT", "Kết quả"
+            "STT", "CCCD", "Mã ngành", "Tên ngành", "NV Thứ", "PT",
+            "Điểm THXT", "Điểm Cộng", "Điểm ƯT", "Điểm XT", "Kết quả"
     };
 
     public NguyenVongPanel() {
@@ -58,7 +58,7 @@ public class NguyenVongPanel extends JPanel {
         RoundedButton btnSearch = new RoundedButton(UIConstants.ICON_SEARCH + " Tìm", UIConstants.PRIMARY_LIGHT);
         btnSearch.addActionListener(e -> doSearch());
         RoundedButton btnLoad = new RoundedButton(UIConstants.ICON_DOWNLOAD + " Tải DS", UIConstants.PRIMARY);
-        btnLoad.addActionListener(e -> loadData());
+        btnLoad.addActionListener(e -> doExport());
         row1.add(searchBar);
         row1.add(btnSearch);
         row1.add(btnLoad);
@@ -71,29 +71,27 @@ public class NguyenVongPanel extends JPanel {
         RoundedButton btnImport = new RoundedButton(UIConstants.ICON_IMPORT + " Import Excel", new Color(0x00796B));
         btnImport.addActionListener(e -> doImport());
 
-        RoundedButton btnAdd = new RoundedButton(UIConstants.ICON_ADD + " Thêm NV", UIConstants.SUCCESS);
+        RoundedButton btnAdd = new RoundedButton(UIConstants.ICON_ADD + " Bổ sung nguyện vọng", UIConstants.SUCCESS);
         btnAdd.addActionListener(e -> doAdd());
 
-        RoundedButton btnEdit = new RoundedButton(UIConstants.ICON_EDIT + " Sửa", UIConstants.WARNING);
-        btnEdit.addActionListener(e -> doEdit());
-
-        RoundedButton btnDelete = new RoundedButton(UIConstants.ICON_DELETE + " Xóa", UIConstants.DANGER);
-        btnDelete.addActionListener(e -> doDelete());
+        RoundedButton btnDelete = new RoundedButton(UIConstants.ICON_DELETE + " Hủy NV", UIConstants.DANGER);
+        btnDelete.addActionListener(e -> doCancel());
 
         // Separator
         JSeparator sep = new JSeparator(JSeparator.VERTICAL);
         sep.setPreferredSize(new Dimension(2, 24));
         sep.setForeground(UIConstants.BORDER_LIGHT);
 
-        RoundedButton btnCalc = new RoundedButton(UIConstants.ICON_CALCULATE + " Tính điểm ĐXT", new Color(0x6A1B9A));
-        btnCalc.addActionListener(e -> calculateScores());
+        RoundedButton btnCalc = new RoundedButton(UIConstants.ICON_CALCULATE + " Xét tuyển cá nhân",
+                new Color(0x6A1B9A));
+        btnCalc.addActionListener(e -> calculateIndividualScore());
 
-        RoundedButton btnRun = new RoundedButton(UIConstants.ICON_EXECUTE + " Chạy xét tuyển", UIConstants.STAT_GREEN);
+        RoundedButton btnRun = new RoundedButton(UIConstants.ICON_EXECUTE + " Xét tuyển toàn bộ",
+                UIConstants.STAT_GREEN);
         btnRun.addActionListener(e -> runAdmission());
 
         row2.add(btnImport);
         row2.add(btnAdd);
-        row2.add(btnEdit);
         row2.add(btnDelete);
         row2.add(Box.createHorizontalStrut(6));
         row2.add(sep);
@@ -125,31 +123,57 @@ public class NguyenVongPanel extends JPanel {
 
         styledTable.getTable().setDefaultRenderer(Object.class, new javax.swing.table.DefaultTableCellRenderer() {
             @Override
-            public Component getTableCellRendererComponent(JTable t, Object value, boolean sel, boolean focus, int row, int col) {
-                Component c = super.getTableCellRendererComponent(t, value, sel, focus, row, col);
-                if (!sel) c.setBackground(row % 2 == 0 ? UIConstants.ROW_ODD : UIConstants.ROW_EVEN);
-                ((JLabel) c).setBorder(BorderFactory.createEmptyBorder(0, 6, 0, 6));
+            public Component getTableCellRendererComponent(JTable t, Object value, boolean sel, boolean focus, int row,
+                    int col) {
+                JLabel c = (JLabel) super.getTableCellRendererComponent(t, value, sel, focus, row, col);
+                if (!sel)
+                    c.setBackground(row % 2 == 0 ? UIConstants.ROW_ODD : UIConstants.ROW_EVEN);
+                c.setBorder(BorderFactory.createEmptyBorder(0, 6, 0, 6));
 
                 // Color-code kết quả (col 10)
                 if (col == 10 && value != null) {
                     String val = value.toString();
                     if ("yes".equals(val)) {
                         c.setForeground(UIConstants.SUCCESS);
-                        ((JLabel) c).setFont(UIConstants.FONT_BOLD);
-                        ((JLabel) c).setText("Trúng tuyển");
+                        c.setFont(UIConstants.FONT_BOLD);
+                        c.setText("Trúng tuyển");
                     } else if ("duoisan".equals(val)) {
                         c.setForeground(UIConstants.DANGER);
-                        ((JLabel) c).setFont(UIConstants.FONT_BOLD);
-                        ((JLabel) c).setText("Rớt");
+                        c.setFont(UIConstants.FONT_BOLD);
+                        c.setText("Rớt");
                     } else {
                         c.setForeground(UIConstants.TEXT_SECONDARY);
                     }
+                } else if (col == 5 && value != null) {
+                    // Badge màu Phương thức
+                    String val = value.toString().toUpperCase();
+                    if ("PT2".equals(val) || "THPT".equals(val) || "1".equals(val)) {
+                        c.setForeground(new Color(0x1976D2)); // Xanh dương
+                        c.setFont(UIConstants.FONT_BOLD);
+                        c.setText("PT2 (THPT)");
+                        c.setToolTipText("Xét Điểm Thi THPT");
+                    } else if ("PT3".equals(val) || "VSAT".equals(val) || "5".equals(val)) {
+                        c.setForeground(new Color(0x7B1FA2)); // Tím
+                        c.setFont(UIConstants.FONT_BOLD);
+                        c.setText("PT3 (V-SAT)");
+                        c.setToolTipText("Kỳ thi V-SAT");
+                    } else if ("PT4".equals(val) || "DGNL".equals(val) || "4".equals(val)) {
+                        c.setForeground(new Color(0xF57C00)); // Cam
+                        c.setFont(UIConstants.FONT_BOLD);
+                        c.setText("PT4 (ĐGNL)");
+                        c.setToolTipText("Đánh giá Năng lực ĐHQG");
+                    } else {
+                        c.setForeground(UIConstants.TEXT_PRIMARY);
+                    }
                 } else {
                     c.setForeground(UIConstants.TEXT_PRIMARY);
+                    c.setToolTipText(null);
                 }
 
-                if (col >= 6 && col <= 9) setHorizontalAlignment(SwingConstants.CENTER);
-                else setHorizontalAlignment(SwingConstants.LEFT);
+                if (col >= 6 && col <= 9)
+                    setHorizontalAlignment(SwingConstants.CENTER);
+                else
+                    setHorizontalAlignment(SwingConstants.LEFT);
 
                 return c;
             }
@@ -168,7 +192,7 @@ public class NguyenVongPanel extends JPanel {
         if (nganhNameMap == null) {
             try {
                 nganhNameMap = nganhDAO.findAll().stream()
-                    .collect(Collectors.toMap(Nganh::getManganh, Nganh::getTennganh, (a, b) -> a));
+                        .collect(Collectors.toMap(Nganh::getManganh, Nganh::getTennganh, (a, b) -> a));
             } catch (Exception e) {
                 nganhNameMap = java.util.Collections.emptyMap();
             }
@@ -193,29 +217,33 @@ public class NguyenVongPanel extends JPanel {
     }
 
     private Object[] mapToRow(NguyenVongXetTuyen nv, int stt) {
-        return new Object[]{
-            stt,
-            nv.getNnCccd(),
-            nv.getNvManganh(),
-            getNganhName(nv.getNvManganh()),
-            nv.getNvTt(),
-            nv.getTtPhuongthuc(),
-            nv.getDiemThxt(),
-            nv.getDiemCong(),
-            nv.getDiemUtqd(),
-            nv.getDiemXettuyen(),
-            nv.getNvKetqua()
+        return new Object[] {
+                stt,
+                nv.getNnCccd(),
+                nv.getNvManganh(),
+                getNganhName(nv.getNvManganh()),
+                nv.getNvTt(),
+                nv.getTtPhuongthuc(),
+                nv.getDiemThxt(),
+                nv.getDiemCong(),
+                nv.getDiemUtqd(),
+                nv.getDiemXettuyen(),
+                nv.getNvKetqua()
         };
     }
 
     private void doSearch() {
         String kw = searchBar.getText();
-        if (kw.isEmpty()) { loadData(); return; }
+        if (kw.isEmpty()) {
+            loadData();
+            return;
+        }
         try {
             loadedEntities = dao.findByCccd(kw);
             List<Object[]> rows = new ArrayList<>();
             int stt = 1;
-            for (NguyenVongXetTuyen nv : loadedEntities) rows.add(mapToRow(nv, stt++));
+            for (NguyenVongXetTuyen nv : loadedEntities)
+                rows.add(mapToRow(nv, stt++));
             styledTable.setData(rows);
         } catch (Exception e) {
             MessageHelper.showError(this, "Lỗi tìm kiếm: " + e.getMessage());
@@ -227,26 +255,61 @@ public class NguyenVongPanel extends JPanel {
     private void doAdd() {
         NguyenVongDialog dlg = new NguyenVongDialog(SwingUtilities.getWindowAncestor(this), null);
         dlg.setVisible(true);
-        if (dlg.isSaved()) loadData();
+        if (dlg.isSaved())
+            loadData();
     }
 
-    private void doEdit() {
+    private void doCancel() {
         int row = styledTable.getSelectedRow();
-        if (row < 0) { MessageHelper.showWarning(this, "Vui lòng chọn nguyện vọng."); return; }
-        int realIdx = styledTable.getRealIndex(row);
-        if (realIdx >= 0 && realIdx < loadedEntities.size()) {
-            NguyenVongXetTuyen nv = loadedEntities.get(realIdx);
-            NguyenVongDialog dlg = new NguyenVongDialog(SwingUtilities.getWindowAncestor(this), nv);
-            dlg.setVisible(true);
-            if (dlg.isSaved()) loadData();
+        if (row < 0) {
+            MessageHelper.showWarning(this, "Vui lòng chọn nguyện vọng.");
+            return;
+        }
+        if (ConfirmDialog.show(this, "Bạn có chắc muốn hủy nguyện vọng này?")) {
+            int realIdx = styledTable.getRealIndex(row);
+            if (realIdx >= 0 && realIdx < loadedEntities.size()) {
+                NguyenVongXetTuyen nv = loadedEntities.get(realIdx);
+                try {
+                    nv.setNvKetqua("Hủy");
+                    dao.update(nv);
+                    MessageHelper.showSuccess(this, "Đã hủy nguyện vọng.");
+                    loadData();
+                } catch (Exception e) {
+                    MessageHelper.showError(this, "Lỗi hủy: " + e.getMessage());
+                }
+            }
         }
     }
+
+    private void doExport() {
+        JFileChooser chooser = new JFileChooser();
+        chooser.setDialogTitle("Lưu file Excel");
+        chooser.setFileFilter(new FileNameExtensionFilter("Excel Files (*.xlsx)", "xlsx"));
+        if (chooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
+            File file = chooser.getSelectedFile();
+            if (!file.getName().endsWith(".xlsx")) {
+                file = new File(file.getAbsolutePath() + ".xlsx");
+            }
+            try {
+                if (nganhNameMap == null) {
+                    getNganhName(""); // trigger load map
+                }
+                com.xettuyen2026.util.ExportUtil.exportNguyenVongToExcel(loadedEntities, nganhNameMap, file);
+                MessageHelper.showSuccess(this, "Xuất file Excel thành công!");
+            } catch (Exception e) {
+                MessageHelper.showError(this, "Lỗi xuất Excel: " + e.getMessage());
+            }
+        }
+    }
+
+    // ── Score calculation & Admission ──
 
     private void doImport() {
         JFileChooser chooser = new JFileChooser();
         chooser.setFileFilter(new FileNameExtensionFilter("Excel Files (.xlsx)", "xlsx"));
         chooser.setDialogTitle("Chọn file Excel nguyện vọng");
-        if (chooser.showOpenDialog(this) != JFileChooser.APPROVE_OPTION) return;
+        if (chooser.showOpenDialog(this) != JFileChooser.APPROVE_OPTION)
+            return;
 
         File file = chooser.getSelectedFile();
         SwingWorker<NguyenVongImportService.ImportResult, Void> worker = new SwingWorker<>() {
@@ -255,6 +318,7 @@ public class NguyenVongPanel extends JPanel {
                 NguyenVongImportService importService = new NguyenVongImportService();
                 return importService.importFromExcel(file);
             }
+
             @Override
             protected void done() {
                 try {
@@ -264,7 +328,8 @@ public class NguyenVongPanel extends JPanel {
                             + "⏭️ Bỏ qua: " + r.skipCount + "\n"
                             + "❌ Lỗi: " + r.errorCount;
                     if (!r.errors.isEmpty()) {
-                        msg += "\n\nChi tiết lỗi:\n" + String.join("\n", r.errors.subList(0, Math.min(5, r.errors.size())));
+                        msg += "\n\nChi tiết lỗi:\n"
+                                + String.join("\n", r.errors.subList(0, Math.min(5, r.errors.size())));
                     }
                     MessageHelper.showInfo(NguyenVongPanel.this, msg);
                     loadData();
@@ -276,45 +341,126 @@ public class NguyenVongPanel extends JPanel {
         worker.execute();
     }
 
-    private void doDelete() {
+    private void calculateIndividualScore() {
         int row = styledTable.getSelectedRow();
-        if (row < 0) { MessageHelper.showWarning(this, "Vui lòng chọn nguyện vọng."); return; }
-        if (ConfirmDialog.show(this, "Bạn có chắc muốn xóa nguyện vọng này?")) {
-            int realIdx = styledTable.getRealIndex(row);
-            if (realIdx >= 0 && realIdx < loadedEntities.size()) {
-                NguyenVongXetTuyen nv = loadedEntities.get(realIdx);
-                try {
-                    dao.delete(nv);
-                    MessageHelper.showSuccess(this, "Đã xóa nguyện vọng.");
-                    loadData();
-                } catch (Exception e) {
-                    MessageHelper.showError(this, "Lỗi xóa: " + e.getMessage());
-                }
-            }
+        if (row < 0) {
+            MessageHelper.showWarning(this, "Vui lòng chọn một nguyện vọng của thí sinh để xét tuyển cá nhân.");
+            return;
         }
-    }
+        int realIdx = styledTable.getRealIndex(row);
+        if (realIdx < 0 || realIdx >= loadedEntities.size())
+            return;
 
-    // ── Score calculation & Admission ──
+        NguyenVongXetTuyen selectedNv = loadedEntities.get(realIdx);
+        String cccd = selectedNv.getNnCccd();
 
-    private void calculateScores() {
         int result = JOptionPane.showConfirmDialog(this,
-                "Tính lại ĐTHGXT + ĐC + ĐƯT + ĐXT cho tất cả nguyện vọng?",
-                "Xác nhận tính điểm", JOptionPane.YES_NO_OPTION);
-        if (result != JOptionPane.YES_OPTION) return;
+                "Tính điểm & xét duyệt trúng tuyển cho thí sinh có CCCD: " + cccd + "?",
+                "Xác nhận xét tuyển cá nhân", JOptionPane.YES_NO_OPTION);
+        if (result != JOptionPane.YES_OPTION)
+            return;
 
         SwingWorker<Void, Void> worker = new SwingWorker<>() {
             @Override
             protected Void doInBackground() {
-                admissionService.calculateAllScores();
+                com.xettuyen2026.dao.DiemCongDAO diemCongDAO = new com.xettuyen2026.dao.DiemCongDAO();
+                com.xettuyen2026.dao.NganhDAO nganhDAO = new com.xettuyen2026.dao.NganhDAO();
+
+                // Lọc và sắp xếp các NV của thí sinh theo thứ tự ưu tiên
+                java.util.List<NguyenVongXetTuyen> candidateNvs = loadedEntities.stream()
+                        .filter(nv -> cccd.equals(nv.getNnCccd()))
+                        .sorted(java.util.Comparator
+                                .comparingInt(n -> n.getNvTt() != null ? n.getNvTt() : Integer.MAX_VALUE))
+                        .collect(java.util.stream.Collectors.toList());
+
+                boolean alreadyPassed = false;
+
+                for (NguyenVongXetTuyen nv : candidateNvs) {
+                    if ("Hủy".equals(nv.getNvKetqua()))
+                        continue; // Skip canceled
+
+                    String pt = nv.getTtPhuongthuc();
+                    if (pt == null)
+                        pt = "PT2";
+
+                    double dthxt = 0.0;
+                    if (pt.equalsIgnoreCase("PT2") || pt.equalsIgnoreCase("THPT") || pt.equals("1")) {
+                        dthxt = admissionService.tinhDiemTHPT(nv.getNnCccd(), nv.getNvManganh(), nv.getTtThm());
+                    } else if (pt.equalsIgnoreCase("PT3") || pt.equalsIgnoreCase("VSAT") || pt.equals("5")) {
+                        dthxt = admissionService.tinhDiemVSAT(nv.getNnCccd(), nv.getNvManganh(), nv.getTtThm());
+                    } else if (pt.equalsIgnoreCase("PT4") || pt.equalsIgnoreCase("DGNL") || pt.equals("4")) {
+                        dthxt = admissionService.tinhDiemDGNL(nv.getNnCccd(), nv.getNvManganh());
+                    } else {
+                        dthxt = admissionService.tinhDiemTHPT(nv.getNnCccd(), nv.getNvManganh(), nv.getTtThm());
+                    }
+
+                    boolean containsN1 = (nv.getTtThm() != null && nv.getTtThm().contains("N1"));
+                    double dc = admissionService.getDiemCongDouble(nv.getNnCccd(), nv.getNvManganh(), nv.getTtThm(),
+                            containsN1);
+                    double mdut = admissionService.calculateMdutDouble(nv.getNnCccd());
+
+                    double dut = admissionService.tinhDiemUuTien(dthxt, dc, mdut);
+                    double dxt = admissionService.tinhDiemXT(dthxt, dc, dut);
+
+                    nv.setDiemThxt(BigDecimal.valueOf(dthxt));
+                    nv.setDiemCong(BigDecimal.valueOf(dc));
+                    nv.setDiemUtqd(BigDecimal.valueOf(dut));
+                    nv.setDiemXettuyen(BigDecimal.valueOf(dxt));
+
+                    // Xét kết quả Trúng tuyển / Rớt
+                    if (alreadyPassed) {
+                        nv.setNvKetqua("duoisan");
+                    } else {
+                        com.xettuyen2026.entity.Nganh nganh = nganhDAO.findByMaNganh(nv.getNvManganh());
+                        if (nganh == null) {
+                            nv.setNvKetqua("duoisan");
+                        } else {
+                            BigDecimal diemsan = nganh.getnDiemsan() != null ? nganh.getnDiemsan() : BigDecimal.ZERO;
+                            BigDecimal diemchuan = nganh.getnDiemtrungtuyen() != null ? nganh.getnDiemtrungtuyen()
+                                    : diemsan;
+
+                            if (BigDecimal.valueOf(dxt).compareTo(diemsan) < 0) {
+                                nv.setNvKetqua("duoisan");
+                            } else if (BigDecimal.valueOf(dxt).compareTo(diemchuan) >= 0) {
+                                nv.setNvKetqua("yes");
+                                alreadyPassed = true;
+                            } else {
+                                nv.setNvKetqua("duoisan");
+                            }
+                        }
+                    }
+
+                    dao.update(nv);
+
+                    // Cập nhật diemTong, diemUtxt vào xt_diemcongxetuyen
+                    String dcKey = nv.getNnCccd() + "_" + nv.getNvManganh() + "_" + pt;
+                    com.xettuyen2026.entity.DiemCongXetTuyen dcEntity = diemCongDAO.findByKey(dcKey);
+                    if (dcEntity == null) {
+                        dcEntity = new com.xettuyen2026.entity.DiemCongXetTuyen();
+                        dcEntity.setTsCccd(nv.getNnCccd());
+                        dcEntity.setManganh(nv.getNvManganh());
+                        dcEntity.setPhuongthuc(pt);
+                        dcEntity.setDcKeys(dcKey);
+                        dcEntity.setDiemTong(BigDecimal.valueOf(dc));
+                        dcEntity.setDiemUtxt(BigDecimal.valueOf(dut));
+                        diemCongDAO.save(dcEntity);
+                    } else {
+                        dcEntity.setDiemTong(BigDecimal.valueOf(dc));
+                        dcEntity.setDiemUtxt(BigDecimal.valueOf(dut));
+                        diemCongDAO.update(dcEntity);
+                    }
+                }
                 return null;
             }
+
             @Override
             protected void done() {
                 try {
                     get(); // check for exceptions
-                    MessageHelper.showSuccess(NguyenVongPanel.this, "Đã tính xong điểm xét tuyển cho tất cả nguyện vọng!");
+                    MessageHelper.showSuccess(NguyenVongPanel.this,
+                            "Đã xét tuyển thành công cho thí sinh " + cccd + "!");
                 } catch (Exception e) {
-                    MessageHelper.showError(NguyenVongPanel.this, "Lỗi tính điểm: " + e.getMessage());
+                    MessageHelper.showError(NguyenVongPanel.this, "Lỗi xét tuyển: " + e.getMessage());
                 }
                 loadData();
             }
@@ -326,7 +472,8 @@ public class NguyenVongPanel extends JPanel {
         int result = JOptionPane.showConfirmDialog(this,
                 "Chạy thuật toán xét tuyển Gale-Shapley?\nKết quả hiện tại sẽ bị ghi đè.",
                 "Xác nhận chạy xét tuyển", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
-        if (result != JOptionPane.YES_OPTION) return;
+        if (result != JOptionPane.YES_OPTION)
+            return;
 
         SwingWorker<Void, Void> worker = new SwingWorker<>() {
             @Override
@@ -334,6 +481,7 @@ public class NguyenVongPanel extends JPanel {
                 admissionService.executeAdmissionProcess();
                 return null;
             }
+
             @Override
             protected void done() {
                 try {
