@@ -96,7 +96,9 @@ public class DiemThiPanel extends JPanel {
         panel.setBorder(BorderFactory.createEmptyBorder(8, 0, 0, 0));
 
         PaginatedTable table = new PaginatedTable(columns);
-        table.enableHorizontalScroll(widths);
+        if (!DiemThiService.PHUONG_THUC_DGNL.equals(phuongThuc)) {
+            table.enableHorizontalScroll(widths);
+        }
 
         SearchBar searchBar = new SearchBar("Tìm theo CCCD hoặc tên môn...", null);
         JLabel lblTB = new JLabel("---");
@@ -338,14 +340,14 @@ public class DiemThiPanel extends JPanel {
                 rows.add(new Object[]{
                     stt++,
                     d.getCccd(),
-                    nvlStr(d.getSobaodanh()),
+                    nvlStr(d.getCccd()),
                     fmt(d.getNl1())
                 });
             } else if (DiemThiService.PHUONG_THUC_VSAT.equals(phuongThuc)) {
                 rows.add(new Object[]{
                     stt++,
                     d.getCccd(),
-                    nvlStr(d.getSobaodanh()),
+                    sbdOrCccd(d),
                     fmt(d.getTo()),
                     fmt(d.getVa()),
                     fmt(d.getLi()),
@@ -359,7 +361,7 @@ public class DiemThiPanel extends JPanel {
                 rows.add(new Object[]{
                     stt++,
                     d.getCccd(),
-                    nvlStr(d.getSobaodanh()),
+                    sbdOrCccd(d),
                     fmt(d.getTo()),
                     fmt(d.getVa()),
                     fmt(d.getLi()),
@@ -415,7 +417,7 @@ public class DiemThiPanel extends JPanel {
                 if (!selected) {
                     c.setBackground(row % 2 == 0 ? UIConstants.ROW_ODD : UIConstants.ROW_EVEN);
                 }
-                setHorizontalAlignment(col >= 1 ? SwingConstants.CENTER : SwingConstants.LEFT);
+                setHorizontalAlignment(col >= 0 ? SwingConstants.CENTER : SwingConstants.LEFT);
                 ((JLabel) c).setBorder(BorderFactory.createEmptyBorder(0, 6, 0, 6));
 
                 if (col >= 3 && value != null) {
@@ -515,5 +517,11 @@ public class DiemThiPanel extends JPanel {
     // Trả về chuỗi rỗng nếu value là null (tránh hiển thị "null" trong bảng)
     private String nvlStr(String value) {
         return value != null ? value : "";
+    }
+
+    // Hiển thị CCCD thay cho SBD khi dữ liệu import không có SBD riêng
+    private String sbdOrCccd(DiemThiXetTuyen d) {
+        String sbd = nvlStr(d.getSobaodanh()).trim();
+        return !sbd.isEmpty() ? sbd : nvlStr(d.getCccd());
     }
 }

@@ -41,12 +41,11 @@ public class NganhPanel extends JPanel {
 
     private static final String[] COLUMNS = {
             "STT", "Mã ngành", "Tên ngành", "Tổ hợp gốc",
-            "Chỉ tiêu", "Điểm sàn", "Điểm T.Tuyển",
-            "T.Thẳng", "ĐGNL", "THPT", "V-SAT"
+            "Chỉ tiêu", "Điểm sàn", "Điểm T.Tuyển"
     };
 
     private static final int[] COLUMN_WIDTHS = {
-            60, 110, 260, 100, 90, 95, 110, 90, 90, 90, 90
+            60, 120, 360, 130, 110, 120, 140
     };
 
     public NganhPanel() {
@@ -143,7 +142,10 @@ public class NganhPanel extends JPanel {
         card.setBorder(BorderFactory.createEmptyBorder(12, 16, 12, 16));
 
         styledTable = new PaginatedTable(COLUMNS);
-        styledTable.setPreferredColumnWidths(COLUMN_WIDTHS);
+        javax.swing.table.TableColumnModel columnModel = styledTable.getTable().getColumnModel();
+        for (int i = 0; i < Math.min(COLUMN_WIDTHS.length, columnModel.getColumnCount()); i++) {
+            columnModel.getColumn(i).setPreferredWidth(COLUMN_WIDTHS[i]);
+        }
         card.add(styledTable, BorderLayout.CENTER);
 
         SwingUtilities.invokeLater(this::loadData);
@@ -174,11 +176,7 @@ public class NganhPanel extends JPanel {
                     n.getnTohopgoc() != null ? n.getnTohopgoc() : "",
                     n.getnChitieu() != null ? n.getnChitieu() : "",
                     n.getnDiemsan() != null ? n.getnDiemsan() : "",
-                    n.getnDiemtrungtuyen() != null ? n.getnDiemtrungtuyen() : "",
-                    slText("1".equals(n.getnTuyenthang()), toStr(n.getSlXtt())),
-                    slText("1".equals(n.getnDgnl()), toStr(n.getSlDgnl())),
-                    slText("1".equals(n.getnThpt()), n.getSlThpt()),
-                    slText("1".equals(n.getnVsat()), toStr(n.getSlVsat()))
+                    n.getnDiemtrungtuyen() != null ? n.getnDiemtrungtuyen() : ""
             });
         }
         styledTable.setData(rows);

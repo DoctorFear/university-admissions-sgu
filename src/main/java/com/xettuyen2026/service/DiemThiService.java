@@ -196,6 +196,7 @@ public class DiemThiService {
             DiemThiXetTuyen d = new DiemThiXetTuyen();
             d.setCccd(cccd);
             d.setdPhuongthuc(phuongThucCode);
+            d.setSobaodanh(cccd);
 
             // Cột C (index 2) = SBD (số báo danh, trong file THPT là Họ Tên — bỏ qua)
             // Không có SBD riêng trong file THPT, để null
@@ -285,9 +286,7 @@ public class DiemThiService {
             DiemThiXetTuyen d = new DiemThiXetTuyen();
             d.setCccd(cccd);
             d.setdPhuongthuc(phuongThucCode);
-
-            // Cột C (index 2) = Đợt thi (số thứ tự đợt) — dùng làm SBD tạm
-            d.setSobaodanh(ImportUtil.getString(row, 2));
+            d.setSobaodanh(cccd);
 
             // Cột I (index 8) = Điểm ĐGNL (thang điểm 1200)
             d.setNl1(ImportUtil.getDecimal(row, 8));
@@ -375,7 +374,7 @@ public class DiemThiService {
                 DiemThiXetTuyen entity = new DiemThiXetTuyen();
                 entity.setCccd(cccd);
                 entity.setdPhuongthuc(phuongThucCode);
-                entity.setSobaodanh("V-SAT"); 
+                entity.setSobaodanh(cccd); 
                 return entity;
             });
 
