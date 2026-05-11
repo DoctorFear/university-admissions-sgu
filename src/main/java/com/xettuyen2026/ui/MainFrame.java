@@ -218,6 +218,9 @@ public class MainFrame extends JFrame {
 
         // Show card
         cardLayout.show(contentPanel, key);
+        if ("dashboard".equals(key) && dashboardPanel instanceof DashboardPanel) {
+            ((DashboardPanel) dashboardPanel).refreshData();
+        }
 
         // Update header
         String[] titles = {
@@ -293,7 +296,8 @@ public class MainFrame extends JFrame {
 
     private void addModulePanels() {
         // Dashboard
-        contentPanel.add(new DashboardPanel(), "dashboard");
+        dashboardPanel = new DashboardPanel();
+        contentPanel.add(dashboardPanel, "dashboard");
 
         // Module panels - lazy init with placeholder for unfinished ones
         contentPanel.add(new ThiSinhPanel(), "thisinh");
