@@ -6,7 +6,7 @@
     <title>Cổng Thông Tin Tuyển Sinh - Tra Cứu & Tính Điểm</title>
     <meta name="description" content="Tra cứu kết quả xét tuyển và tham khảo cách tính điểm xét tuyển đại học.">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/index.css}">
 </head>
 <body
     th:data-active-tab="${activeTab}"
@@ -300,7 +300,11 @@
                         </label>
                         <label class="radio-card">
                             <input type="radio" name="calc-method" value="vsat">
-                            <div class="radio-card-content">Phương thức VSAT/THPT</div>
+                            <div class="radio-card-content">Phương thức VSAT</div>
+                        </label>
+                        <label class="radio-card">
+                            <input type="radio" name="calc-method" value="thpt">
+                            <div class="radio-card-content">Phương thức THPT</div>
                         </label>
                     </div>
                 </div>
@@ -355,7 +359,7 @@
 
                 <!-- FORM VSAT -->
                 <form id="form-vsat" th:action="@{/vsat}" method="post" class="calc-form hidden">
-                    <div class="form-title text-red">Điểm thi VSAT (thang điểm 150) / THPT (thang điểm 10)</div>
+                    <div class="form-title text-red">Điểm thi VSAT (thang điểm 150)</div>
                     <p class="form-hint">Môn thi không có điểm: nhập 0.</p>
                     
                     <div class="form-grid-3">
@@ -433,6 +437,186 @@
                     <div class="form-actions center">
                         <button type="submit" class="btn btn-primary">Tính điểm</button>
                     </div>
+                </form>
+
+                <!-- FORM THPT -->
+                <form id="form-thpt" th:action="@{/thpt}" method="post" class="calc-form hidden">
+
+                    <div class="form-title text-red">
+                        Điểm thi THPT (thang điểm 10)
+                    </div>
+
+                    <p class="form-hint">
+                        Môn thi không có điểm: nhập 0.
+                    </p>
+
+                    <div class="form-grid-4">
+
+                        <div class="form-group">
+                            <label>Chọn ngành:</label>
+
+                            <select name="maNganh" class="select-modern">
+                                <option value="">-- Chọn ngành --</option>
+
+                                <option th:each="n : ${nganhList}"
+                                        th:value="${n.manganh}"
+                                        th:text="${n.tennganh}">
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Điểm cộng (<=3.0):</label>
+
+                            <input type="number"
+                                name="diemCong"
+                                value="0"
+                                step="0.1"
+                                max="3"
+                                min="0">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Khu vực ưu tiên:</label>
+
+                            <select name="khuVuc" class="select-modern">
+                                <option value="0">Không có</option>
+                                <option value="0.25">Khu vực 1</option>
+                                <option value="0.5">Khu vực 2</option>
+                                <option value="0.75">Khu vực 2NT</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Đối tượng ưu tiên:</label>
+
+                            <select name="doiTuong" class="select-modern">
+                                <option value="0">Không đối tượng</option>
+                                <option value="1.0">Đối tượng 1-4</option>
+                                <option value="0.5">Đối tượng 5-7</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <div class="form-grid-4 scores-grid">
+
+                        <div class="form-group">
+                            <label>Toán</label>
+                            <input type="checkbox" class="subject-check" data-target="toan-score">
+                            <input type="number" name="toan" id="toan-score" value="0" max="10" min="0" step="0.1" disabled>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Ngữ văn</label>
+                            <input type="checkbox" class="subject-check" data-target="van-score">
+                            <input type="number" name="van" id="van-score" value="0" max="10" min="0" step="0.1" disabled>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Vật lý</label>
+                            <input type="checkbox" class="subject-check" data-target="ly-score">
+                            <input type="number" name="ly" id="ly-score" value="0" max="10" min="0" step="0.1" disabled>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Hóa học</label>
+                            <input type="checkbox" class="subject-check" data-target="hoa-score">
+                            <input type="number" name="hoa" id="hoa-score" value="0" max="10" min="0" step="0.1" disabled>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Sinh học</label>
+                            <input type="checkbox" class="subject-check" data-target="sinh-score">
+                            <input type="number" name="sinh" id="sinh-score" value="0" max="10" min="0" step="0.1" disabled>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Lịch sử</label>
+                            <input type="checkbox" class="subject-check" data-target="su-score">
+                            <input type="number" name="su" id="su-score" value="0" max="10" min="0" step="0.1" disabled>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Địa lý</label>
+                            <input type="checkbox" class="subject-check" data-target="dia-score">
+                            <input type="number" name="dia" id="dia-score" value="0" max="10" min="0" step="0.1" disabled>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Tiếng Anh</label>
+                            <input type="checkbox" class="subject-check" data-target="anh-score">
+                            <input type="number" name="anh" id="anh-score" value="0" max="10" min="0" step="0.1" disabled>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Công nghệ chăn nuôi</label>
+                            <input type="checkbox" class="subject-check" data-target="cncn-score">
+                            <input type="number" name="cncn" id="cncn-score" value="0" max="10" min="0" step="0.1" disabled>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Công nghệ nông nghiệp</label>
+                            <input type="checkbox" class="subject-check" data-target="cnnn-score">
+                            <input type="number" name="cnnn" id="cnnn-score" value="0" max="10" min="0" step="0.1" disabled>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Tin</label>
+                            <input type="checkbox" class="subject-check" data-target="tin-score">
+                            <input type="number" name="tin" id="tin-score" value="0" max="10" min="0" step="0.1" disabled>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Kinh tế pháp luật</label>
+                            <input type="checkbox" class="subject-check" data-target="ktpl-score">
+                            <input type="number" name="ktpl" id="ktpl-score" value="0" max="10" min="0" step="0.1" disabled>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Năng khiếu 1</label>
+                            <input type="checkbox" class="subject-check" data-target="nk1-score">
+                            <input type="number" name="nk1" id="nk1-score" value="0" max="10" min="0" step="0.1" disabled>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Năng khiếu 2</label>
+                            <input type="checkbox" class="subject-check" data-target="nk2-score">
+                            <input type="number" name="nk2" id="nk2-score" value="0" max="10" min="0" step="0.1" disabled>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Năng khiếu 3</label>
+                            <input type="checkbox" class="subject-check" data-target="nk3-score">
+                            <input type="number" name="nk3" id="nk3-score" value="0" max="10" min="0" step="0.1" disabled>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Năng khiếu 4</label>
+                            <input type="checkbox" class="subject-check" data-target="nk4-score">
+                            <input type="number" name="nk4" id="nk4-score" value="0" max="10" min="0" step="0.1" disabled>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Năng khiếu 5</label>
+                            <input type="checkbox" class="subject-check" data-target="nk5-score">
+                            <input type="number" name="nk5" id="nk5-score" value="0" max="10" min="0" step="0.1" disabled>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Năng khiếu 6</label>
+                            <input type="checkbox" class="subject-check" data-target="nk6-score">
+                            <input type="number" name="nk6" id="nk6-score" value="0" max="10" min="0" step="0.1" disabled>
+                        </div>
+
+                    </div>
+
+                    <div class="form-actions center">
+                        <button type="submit" class="btn btn-primary">
+                            Tính điểm
+                        </button>
+                    </div>
+
                 </form>
             </div>
 
@@ -868,6 +1052,270 @@
                 </div>
 
             </div>
+
+            <!-- RESULT AREA THPT -->
+            <div id="thpt-result"
+                class="card glass-card calc-result"
+                th:if="${thptResult != null}"
+                style="margin-top:2rem;">
+
+                <!-- ERROR -->
+                <div th:unless="${thptResult.success}">
+                    <div class="result-box error">
+                        <p th:text="${thptResult.message}"></p>
+                    </div>
+                </div>
+
+                <!-- SUCCESS -->
+                <div th:if="${thptResult.success}">
+
+                    <div class="result-header text-red">
+                        Tính điểm vào ngành xét tuyển:
+                        <strong th:text="${thptResult.tenNganh}"></strong>
+                        (<span th:text="${thptResult.maNganh}"></span>)
+                    </div>
+
+                    <p style="font-size:0.9rem;margin-bottom:0.5rem;">
+                        Tổ hợp có điểm xét tuyển cao nhất:
+                        <span class="text-red">
+                            <strong>
+                                <span th:text="${thptResult.toHop}"></span>,
+                                <span th:text="${#numbers.formatDecimal(thptResult.diemXetTuyen,1,2)}"></span>
+                                điểm
+                            </strong>
+                        </span>
+                    </p>
+
+                    <p style="font-size:0.9rem;margin-bottom:1rem;">
+                        Ngưỡng đầu vào:
+                        <strong th:text="${#numbers.formatDecimal(thptResult.diemNguong,1,2)}"></strong>
+                    </p>
+
+                    <div style="overflow-x:auto;">
+
+                        <table class="result-table" style="min-width:700px;">
+
+                            <thead>
+                                <tr>
+                                    <th style="width:55%;padding:10px 12px;">
+                                        Nội dung
+                                    </th>
+
+                                    <th style="padding:10px 12px;">
+                                        Chi tiết điểm
+                                    </th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <!-- LOOP TỔ HỢP -->
+                                <th:block th:each="th, stat : ${thptResult.toHopDetails}">
+
+                                    <!-- HEADER -->
+                                    <tr style="background:#f0f4ff;">
+                                        <td colspan="2"
+                                            style="padding:10px 12px;font-weight:700;font-size:0.95rem;">
+
+                                            <span th:text="${stat.index + 1}"></span>)
+                                            Tổ hợp:
+                                            <span th:text="${th.maTohop}"></span>
+
+                                            —
+                                            <span th:text="${th.mon1}"></span>,
+                                            <span th:text="${th.mon2}"></span>,
+                                            <span th:text="${th.mon3}"></span>
+                                        </td>
+                                    </tr>
+
+                                    <!-- MÔN 1 -->
+                                    <tr>
+                                        <td style="padding:8px 12px;">
+                                            Điểm môn
+                                            <span th:text="${th.mon1}"></span>
+                                        </td>
+
+                                        <td style="padding:8px 12px;">
+                                            <strong th:text="${#numbers.formatDecimal(th.m1Val,1,2)}"></strong>
+                                            ×
+                                            <span th:text="${th.hs1}"></span>
+                                        </td>
+                                    </tr>
+
+                                    <!-- MÔN 2 -->
+                                    <tr>
+                                        <td style="padding:8px 12px;">
+                                            Điểm môn
+                                            <span th:text="${th.mon2}"></span>
+                                        </td>
+
+                                        <td style="padding:8px 12px;">
+                                            <strong th:text="${#numbers.formatDecimal(th.m2Val,1,2)}"></strong>
+                                            ×
+                                            <span th:text="${th.hs2}"></span>
+                                        </td>
+                                    </tr>
+
+                                    <!-- MÔN 3 -->
+                                    <tr>
+                                        <td style="padding:8px 12px;">
+                                            Điểm môn
+                                            <span th:text="${th.mon3}"></span>
+                                        </td>
+
+                                        <td style="padding:8px 12px;">
+                                            <strong th:text="${#numbers.formatDecimal(th.m3Val,1,2)}"></strong>
+                                            ×
+                                            <span th:text="${th.hs3}"></span>
+                                        </td>
+                                    </tr>
+
+                                    <!-- DTHXT -->
+                                    <tr>
+                                        <td style="padding:8px 12px;">
+                                            Điểm tổ hợp xét tuyển
+                                        </td>
+
+                                        <td style="padding:8px 12px;">
+
+                                            (
+                                            <span th:text="${#numbers.formatDecimal(th.m1Val,1,2)}"></span>
+                                            ×
+                                            <span th:text="${th.hs1}"></span>
+
+                                            +
+
+                                            <span th:text="${#numbers.formatDecimal(th.m2Val,1,2)}"></span>
+                                            ×
+                                            <span th:text="${th.hs2}"></span>
+
+                                            +
+
+                                            <span th:text="${#numbers.formatDecimal(th.m3Val,1,2)}"></span>
+                                            ×
+                                            <span th:text="${th.hs3}"></span>
+                                            )
+
+                                            /
+                                            <span th:text="${th.hs1 + th.hs2 + th.hs3}"></span>
+                                            × 3
+
+                                            =
+
+                                            <span style="background:#bae6fd;padding:2px 6px;border-radius:4px;font-weight:700;"
+                                                th:text="${#numbers.formatDecimal(th.dthxt,1,3)}">
+                                            </span>
+                                        </td>
+                                    </tr>
+
+                                    <!-- ĐIỂM CỘNG -->
+                                    <tr>
+                                        <td style="padding:8px 12px;">
+                                            Điểm cộng
+                                        </td>
+
+                                        <td style="padding:8px 12px;"
+                                            th:text="${#numbers.formatDecimal(th.dc,1,2)}">
+                                        </td>
+                                    </tr>
+
+                                    <!-- ĐIỂM ƯU TIÊN -->
+                                    <tr>
+                                        <td style="padding:8px 12px;">
+                                            Điểm ưu tiên
+                                        </td>
+
+                                        <td style="padding:8px 12px;"
+                                            th:text="${#numbers.formatDecimal(th.dut,1,2)}">
+                                        </td>
+                                    </tr>
+
+                                    <!-- ĐỘ LỆCH -->
+                                    <tr>
+                                        <td style="padding:8px 12px;">
+                                            Độ lệch quy đổi
+                                        </td>
+
+                                        <td style="padding:8px 12px;">
+
+                                            <span th:if="${th.dolech > 0}">
+                                                +
+                                            </span>
+
+                                            <span th:if="${th.dolech < 0}">
+                                                -
+                                            </span>
+
+                                            <span th:text="${#numbers.formatDecimal(T(java.lang.Math).abs(th.dolech),1,2)}">
+                                            </span>
+
+                                        </td>
+                                    </tr>
+
+                                    <!-- DXT -->
+                                    <tr>
+                                        <td style="padding:8px 12px;font-weight:600;">
+                                            Điểm xét tuyển
+                                        </td>
+
+                                        <td style="padding:8px 12px;">
+
+                                            <span th:text="${#numbers.formatDecimal(th.dthxt,1,3)}"></span>
+
+                                            <span th:if="${th.dolech >= 0}">
+                                                +
+                                            </span>
+
+                                            <span th:if="${th.dolech < 0}">
+                                                -
+                                            </span>
+
+                                            <span th:text="${#numbers.formatDecimal(T(java.lang.Math).abs(th.dolech),1,2)}">
+                                            </span>
+
+                                            +
+                                            <span th:text="${#numbers.formatDecimal(th.dc,1,2)}"></span>
+
+                                            +
+                                            <span th:text="${#numbers.formatDecimal(th.dut,1,2)}"></span>
+
+                                            ⇒
+
+                                            <span style="background:#fecaca;color:#b91c1c;padding:2px 6px;border-radius:4px;font-weight:700;"
+                                                th:text="${#numbers.formatDecimal(th.diemXetTuyen,1,2)}">
+                                            </span>
+
+                                        </td>
+                                    </tr>
+
+                                </th:block>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                    <!-- RESULT -->
+                    <div style="margin-top:1rem;padding:1rem;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:0.5rem;">
+
+                        <strong>Kết quả:</strong>
+
+                        <span th:if="${thptResult.isDat}"
+                            style="color:green;font-weight:700;">
+                            ĐẠT ngưỡng điểm sàn
+                        </span>
+
+                        <span th:unless="${thptResult.isDat}"
+                            style="color:red;font-weight:700;">
+                            KHÔNG ĐẠT ngưỡng điểm sàn
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>  
         </section>
     </main>
 

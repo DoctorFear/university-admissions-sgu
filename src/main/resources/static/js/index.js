@@ -60,9 +60,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const formVsat = document.getElementById('form-vsat');
     
+    const formThpt = document.getElementById('form-thpt');
+    
     const dgnlResult = document.getElementById('dgnl-result');
 
     const vsatResult = document.getElementById('vsat-result')
+    
+    const thptResult = document.getElementById('thpt-result')
 
     methodRadios.forEach(radio => {
 
@@ -73,21 +77,81 @@ document.addEventListener('DOMContentLoaded', () => {
                 formDgnl.classList.remove('hidden');
 
                 formVsat.classList.add('hidden');
+                
+                formThpt.classList.add('hidden');
 
-                vsatResult?.classList.add('hidden');
-        
                 dgnlResult?.classList.remove('hidden');
+                
+                vsatResult?.classList.add('hidden');
 
-            } else {
+                thptResult?.classList.add('hidden');
+
+            } else if (e.target.value === "vsat") {
+
+                formDgnl.classList.add('hidden');
 
                 formVsat.classList.remove('hidden');
                 
-                formDgnl.classList.add('hidden');
-        
-                dgnlResult?.classList.add('hidden')
-        
+                formThpt.classList.add('hidden');
+
+                dgnlResult?.classList.add('hidden');
+                
                 vsatResult?.classList.remove('hidden');
 
+                thptResult?.classList.add('hidden');
+
+            } else {
+
+                formDgnl.classList.add('hidden');
+
+                formVsat.classList.add('hidden');
+                
+                formThpt.classList.remove('hidden');
+
+                dgnlResult?.classList.add('hidden');
+                
+                vsatResult?.classList.add('hidden');
+
+                thptResult?.classList.remove('hidden');
+
+            }
+        });
+    });
+
+    // SUBJECT CHECKBOX LIMIT
+    const subjectChecks = document.querySelectorAll('.subject-check');
+
+    subjectChecks.forEach(check => {
+
+        check.addEventListener('change', (e) => {
+
+            const checkedCount =
+                document.querySelectorAll('.subject-check:checked').length;
+
+            const targetId = e.target.dataset.target;
+
+            const input =
+                document.getElementById(targetId);
+
+            // limit max 4
+            if (checkedCount > 4) {
+
+                e.target.checked = false;
+
+                alert('Chỉ được chọn tối đa 4 môn.');
+
+                return;
+            }
+
+            // enable / disable input
+            if (e.target.checked) {
+
+                input.disabled = false;
+
+            } else {
+
+                input.disabled = true;
+                
             }
         });
     });
@@ -113,26 +177,50 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (activeMethod === 'vsat') {
 
-        formVsat.classList.remove('hidden');
-
         formDgnl.classList.add('hidden');
+
+        formVsat.classList.remove('hidden');
         
+        formThpt.classList.add('hidden');
+
         dgnlResult?.classList.add('hidden');
         
         vsatResult?.classList.remove('hidden');
 
+        thptResult?.classList.add('hidden');
+
         document.querySelector('input[value="vsat"]').checked = true;
 
-    } else {
+    } else if (activeMethod === "dgnl") {
 
         formDgnl.classList.remove('hidden');
 
         formVsat.classList.add('hidden');
         
-        vsatResult?.classList.add('hidden');
-        
+        formThpt.classList.add('hidden');
+
         dgnlResult?.classList.remove('hidden');
+        
+        vsatResult?.classList.add('hidden');
+
+        thptResult?.classList.add('hidden');
 
         document.querySelector('input[value="dgnl"]').checked = true;
+    } else {
+
+        formDgnl.classList.add('hidden');
+
+        formVsat.classList.add('hidden');
+        
+        formThpt.classList.remove('hidden');
+
+        dgnlResult?.classList.add('hidden');
+        
+        vsatResult?.classList.add('hidden');
+
+        thptResult?.classList.remove('hidden');
+
+        document.querySelector('input[value="thpt"]').checked = true;
+
     }
 });

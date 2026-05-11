@@ -45,8 +45,8 @@ public class WebpageController {
                 "nganhList",
                 nganhDAO.findAll());
 
-        return "index";
-        // return "app";
+        // return "index";
+        return "app";
     }
 
     @PostMapping("/tracuu")
@@ -144,8 +144,8 @@ public class WebpageController {
                 "inputPassword",
                 request.getPassword());
 
-        return "index";
-        // return "app";
+        // return "index";
+        return "app";
     }
 
     @PostMapping("/vsat")
@@ -191,7 +191,7 @@ public class WebpageController {
             monMap.put("HO", "Hóa học");
             monMap.put("SU", "Lịch sử");
             monMap.put("DI", "Địa lí");
-            monMap.put("AN", "Tiếng Anh");
+            monMap.put("N1", "Tiếng Anh");
 
             List<BangQuydoi> allQuydoi = bangQuydoiDAO.findAll();
             List<BangQuydoi> vsatRules = new java.util.ArrayList<>();
@@ -388,8 +388,8 @@ public class WebpageController {
                 "activeTab",
                 "tinhdiem");
 
-        return "index";
-        // return "app";
+        // return "index";
+        return "app";
     }
 
     @PostMapping("/dgnl")
@@ -507,8 +507,345 @@ public class WebpageController {
                 "activeTab",
                 "tinhdiem");
 
-        return "index";
-        // return "app";
+        // return "index";
+        return "app";
+    }
+    
+    @PostMapping("/thpt")
+    public String tinhDiemTHPT(TinhDiemRequest request, Model model) {
+
+        TinhDiemResponse response = new TinhDiemResponse();
+
+        try {
+
+            double diemCong = request.getDiemCong() != null
+                    ? request.getDiemCong()
+                    : 0;
+
+            double khuVuc = request.getKhuVuc() != null
+                    ? request.getKhuVuc()
+                    : 0;
+
+            int doiTuongCode = request.getDoiTuong() != null
+                    ? request.getDoiTuong().intValue()
+                    : 0;
+
+            double doiTuongValue = mapDoiTuongToValue(doiTuongCode);
+
+            double mdut = khuVuc + doiTuongValue;
+
+            // SUBJECT INPUTS
+            Map<String, Double> scores = new java.util.HashMap<>();
+
+            if (request.getToan() != null) {
+                scores.put("TO", request.getToan());
+            }
+
+            if (request.getVan() != null) {
+                scores.put("VA", request.getVan());
+            }
+
+            if (request.getLy() != null) {
+                scores.put("LI", request.getLy());
+            }
+
+            if (request.getHoa() != null) {
+                scores.put("HO", request.getHoa());
+            }
+
+            if (request.getSinh() != null) {
+                scores.put("SI", request.getSinh());
+            }
+
+            if (request.getSu() != null) {
+                scores.put("SU", request.getSu());
+            }
+
+            if (request.getDia() != null) {
+                scores.put("DI", request.getDia());
+            }
+
+            if (request.getAnh() != null) {
+                scores.put("N1", request.getAnh());
+            }
+
+            if (request.getCncn() != null) {
+                scores.put("KHAC", request.getCncn());
+            }
+
+            if (request.getCnnn() != null) {
+                scores.put("KHAC", request.getCnnn());
+            }
+
+            if (request.getTin() != null) {
+                scores.put("TI", request.getTin());
+            }
+
+            if (request.getKtpl() != null) {
+                scores.put("KTPL", request.getKtpl());
+            }
+
+            if (request.getNk1() != null) {
+                scores.put("KHAC", request.getNk1());
+            }
+
+            if (request.getNk2() != null) {
+                scores.put("KHAC", request.getNk2());
+            }
+
+            if (request.getNk3() != null) {
+                scores.put("KHAC", request.getNk3());
+            }
+
+            if (request.getNk4() != null) {
+                scores.put("KHAC", request.getNk4());
+            }
+
+            if (request.getNk5() != null) {
+                scores.put("KHAC", request.getNk5());
+            }
+
+            if (request.getNk6() != null) {
+                scores.put("KHAC", request.getNk6());
+            }
+
+            Nganh nganh = nganhDAO.findByMaNganh(request.getMaNganh());
+
+            if (nganh == null) {
+                throw new Exception("Ngành không tồn tại");
+            }
+
+            String toHopGoc = nganh.getnTohopgoc();
+
+            double diemSan = nganh.getnDiemsan() != null
+                    ? nganh.getnDiemsan().doubleValue()
+                    : 20.0;
+
+            List<NganhTohop> tohopList =
+                    nganhTohopDAO.findByMaNganh(request.getMaNganh());
+
+            List<Map<String, Object>> combinations =
+                    new ArrayList<>();
+
+            double bestScore = -999;
+            String bestToHop = "";
+
+            // ĐỘ LỆCH THPT
+            Map<String, Map<String, Double>> diffTable =
+                    new java.util.HashMap<>();
+
+            // A00
+            Map<String, Double> A00 = new java.util.HashMap<>();
+            A00.put("A01", -0.69);
+            A00.put("B00", -1.21);
+            A00.put("C00", 2.32);
+            A00.put("C01", 0.94);
+            A00.put("D01", -0.68);
+            A00.put("D07", -1.62);
+            diffTable.put("A00", A00);
+
+            // A01
+            Map<String, Double> A01 = new java.util.HashMap<>();
+            A01.put("A00", 0.69);
+            A01.put("B00", -0.52);
+            A01.put("C00", 3.01);
+            A01.put("C01", 1.63);
+            A01.put("D01", 0.01);
+            A01.put("D07", -0.93);
+            diffTable.put("A01", A01);
+
+            // B00
+            Map<String, Double> B00 = new java.util.HashMap<>();
+            B00.put("A00", 1.21);
+            B00.put("A01", 0.52);
+            B00.put("C00", 3.53);
+            B00.put("C01", 2.15);
+            B00.put("D01", 0.53);
+            B00.put("D07", -0.41);
+            diffTable.put("B00", B00);
+
+            // C00
+            Map<String, Double> C00 = new java.util.HashMap<>();
+            C00.put("A00", -2.32);
+            C00.put("A01", -3.01);
+            C00.put("B00", -3.53);
+            C00.put("C01", -1.38);
+            C00.put("D01", -3.00);
+            C00.put("D07", -3.94);
+            diffTable.put("C00", C00);
+
+            // C01
+            Map<String, Double> C01 = new java.util.HashMap<>();
+            C01.put("A00", -0.94);
+            C01.put("A01", -1.63);
+            C01.put("B00", -2.15);
+            C01.put("C00", 1.38);
+            C01.put("D01", -1.62);
+            C01.put("D07", -2.56);
+            diffTable.put("C01", C01);
+
+            // D01
+            Map<String, Double> D01 = new java.util.HashMap<>();
+            D01.put("A00", 0.68);
+            D01.put("A01", -0.01);
+            D01.put("B00", -0.53);
+            D01.put("C00", 3.00);
+            D01.put("C01", 1.62);
+            D01.put("D07", -0.94);
+            diffTable.put("D01", D01);
+
+            for (NganhTohop th : tohopList) {
+
+                String mon1 = th.getThMon1();
+                String mon2 = th.getThMon2();
+                String mon3 = th.getThMon3();
+
+                if (!scores.containsKey(mon1) || !scores.containsKey(mon2) || !scores.containsKey(mon3)) {
+                    continue;
+                }
+
+                double m1 = scores.getOrDefault(mon1, 0.0);
+                double m2 = scores.getOrDefault(mon2, 0.0);
+                double m3 = scores.getOrDefault(mon3, 0.0);
+
+                int hs1 = th.getHsmon1() != null
+                        ? th.getHsmon1().intValue()
+                        : 1;
+
+                int hs2 = th.getHsmon2() != null
+                        ? th.getHsmon2().intValue()
+                        : 1;
+
+                int hs3 = th.getHsmon3() != null
+                        ? th.getHsmon3().intValue()
+                        : 1;
+
+                int hsSum = hs1 + hs2 + hs3;
+
+                double dthxt =
+                        ((m1 * hs1)
+                        + (m2 * hs2)
+                        + (m3 * hs3))
+                        / hsSum * 3.0;
+
+                // ĐỘ LỆCH
+                double dolech = 0.0;
+
+                if (diffTable.containsKey(toHopGoc)) {
+
+                    Map<String, Double> row =
+                            diffTable.get(toHopGoc);
+
+                    if (row.containsKey(th.getMatohop())) {
+                        dolech = row.get(th.getMatohop());
+                    }
+                }
+
+                // QUY ĐỔI
+                double diemSauQuyDoi = dthxt + dolech;
+
+                double actualDut = mdut;
+
+                if (diemSauQuyDoi + diemCong >= 22.5) {
+
+                    actualDut =
+                            ((30.0 - diemSauQuyDoi - diemCong) / 7.5)
+                            * mdut;
+
+                    if (actualDut < 0) {
+                        actualDut = 0;
+                    }
+                }
+
+                double dxt =
+                        Math.min(
+                                diemSauQuyDoi
+                                + diemCong
+                                + actualDut,
+                                30.0);
+
+                Map<String, Object> detail = new java.util.LinkedHashMap<>();
+
+                detail.put("maTohop", th.getMatohop());
+
+                detail.put("mon1", mon1);
+                detail.put("mon2", mon2);
+                detail.put("mon3", mon3);
+
+                detail.put("m1Val", m1);
+                detail.put("m2Val", m2);
+                detail.put("m3Val", m3);
+
+                detail.put("hs1", hs1);
+                detail.put("hs2", hs2);
+                detail.put("hs3", hs3);
+
+                detail.put("dthxt", dthxt);
+
+                detail.put("dolech", dolech);
+
+                detail.put("dthgxt", diemSauQuyDoi);
+
+                detail.put("dc", diemCong);
+
+                detail.put("dut", actualDut);
+
+                detail.put("diemXetTuyen", dxt);
+
+                combinations.add(detail);
+
+                if (dxt > bestScore) {
+                    bestScore = dxt;
+                    bestToHop = th.getMatohop();
+                }
+            }
+
+            response.setSuccess(true);
+
+            response.setMaNganh(nganh.getManganh());
+
+            response.setTenNganh(nganh.getTennganh());
+
+            response.setToHop(bestToHop);
+
+            response.setDiemCong(diemCong);
+
+            response.setDiemUuTien(mdut);
+
+            response.setDiemXetTuyen(bestScore);
+
+            response.setDiemNguong(diemSan);
+
+            response.setIsDat(bestScore >= diemSan);
+
+            response.setToHopDetails(combinations);
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+
+            response.setSuccess(false);
+
+            response.setMessage(e.getMessage());
+        }
+
+        model.addAttribute("thptResult", response);
+
+        model.addAttribute("thptInput", request);
+
+        model.addAttribute(
+                "nganhList",
+                nganhDAO.findAll());
+
+        model.addAttribute(
+                "activeCalcMethod",
+                "thpt");
+
+        model.addAttribute(
+                "activeTab",
+                "tinhdiem");
+
+        return "app";
     }
 
     // ════════════════════════════════════════════════════════════
