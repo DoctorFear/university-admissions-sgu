@@ -20,15 +20,14 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/**")
-                .addResourceLocations("classpath:/static/", "/webapp/");
+                .addResourceLocations("classpath:/static/", "classpath:/webappv2/", "/webapp/");
     }
 
     @Bean
     public MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter() {
         MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
         converter.setSupportedMediaTypes(Collections.singletonList(
-                new MediaType("application", "json", StandardCharsets.UTF_8)
-        ));
+                new MediaType("application", "json", StandardCharsets.UTF_8)));
         return converter;
     }
 
