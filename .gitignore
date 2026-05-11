@@ -17,7 +17,6 @@ docker-compose.yml
 .env
 
 target/classes/hibernate.cfg.xml
-/src/main/resources
 /target/classes
 
 # Thư mục build
