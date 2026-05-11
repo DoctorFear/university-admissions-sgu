@@ -150,7 +150,8 @@ public class KetQuaXetTuyenPanel extends JPanel {
                 } else {
                     c.setForeground(UIConstants.TEXT_PRIMARY);
                 }
-                if (col >= 4 && col <= 7) setHorizontalAlignment(SwingConstants.CENTER);
+                if (col == 0 || (col >= 4 && col <= 7)) setHorizontalAlignment(SwingConstants.CENTER);
+                else setHorizontalAlignment(SwingConstants.LEFT);
                 return c;
             }
         });

@@ -175,7 +175,7 @@ public class NguyenVongPanel extends JPanel {
                     c.setToolTipText(null);
                 }
 
-                if (col >= 6 && col <= 9)
+                if (col == 0 || (col >= 6 && col <= 9))
                     setHorizontalAlignment(SwingConstants.CENTER);
                 else
                     setHorizontalAlignment(SwingConstants.LEFT);
