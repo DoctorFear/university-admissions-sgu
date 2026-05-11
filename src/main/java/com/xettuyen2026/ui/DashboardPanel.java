@@ -1,8 +1,12 @@
 package com.xettuyen2026.ui;
 
+import com.xettuyen2026.dto.DashboardData;
+import com.xettuyen2026.service.DashboardService;
 import com.xettuyen2026.ui.common.UIConstants;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
 
@@ -11,7 +15,23 @@ import java.awt.geom.RoundRectangle2D;
  */
 public class DashboardPanel extends JPanel {
 
+    private final DashboardService dashboardService = new DashboardService();
+
     public DashboardPanel() {
+        refreshData();
+    }
+
+    // Tải lại dữ liệu trang chủ từ database và dựng lại giao diện
+    public void refreshData() {
+        DashboardData data;
+        try {
+            data = dashboardService.getDashboardData();
+        } catch (Exception e) {
+            e.printStackTrace();
+            data = new DashboardData();
+        }
+
+        removeAll();
         setLayout(new BorderLayout(0, 16));
         setBackground(UIConstants.BG_MAIN);
         setBorder(BorderFactory.createEmptyBorder(4, 0, 4, 0));
@@ -21,10 +41,10 @@ public class DashboardPanel extends JPanel {
         statsRow.setOpaque(false);
         statsRow.setPreferredSize(new Dimension(0, 120));
 
-        statsRow.add(createStatCard("🎓", "Tổng thí sinh", "---", UIConstants.STAT_BLUE));
-        statsRow.add(createStatCard("📚", "Tổng ngành", "---", UIConstants.STAT_PURPLE));
-        statsRow.add(createStatCard("📌", "Tổng nguyện vọng", "---", UIConstants.STAT_ORANGE));
-        statsRow.add(createStatCard("✅", "Trúng tuyển", "---", UIConstants.STAT_GREEN));
+        statsRow.add(createStatCard("🎓", "Tổng thí sinh", String.valueOf(data.getTotalThiSinh()), UIConstants.STAT_BLUE));
+        statsRow.add(createStatCard("📚", "Tổng ngành", String.valueOf(data.getTotalNganh()), UIConstants.STAT_PURPLE));
+        statsRow.add(createStatCard("📌", "Tổng nguyện vọng", String.valueOf(data.getTotalNguyenVong()), UIConstants.STAT_ORANGE));
+        statsRow.add(createStatCard("✅", "Trúng tuyển", data.getTotalTrungTuyen() != null ? String.valueOf(data.getTotalTrungTuyen()) : "---", UIConstants.STAT_GREEN));
 
         add(statsRow, BorderLayout.NORTH);
 
@@ -32,10 +52,12 @@ public class DashboardPanel extends JPanel {
         JPanel bottomRow = new JPanel(new GridLayout(1, 2, 16, 0));
         bottomRow.setOpaque(false);
 
-        bottomRow.add(createTopNganhCard());
-        bottomRow.add(createStatsCard());
+        bottomRow.add(createTopNganhCard(data));
+        bottomRow.add(createStatsCard(data));
 
         add(bottomRow, BorderLayout.CENTER);
+        revalidate();
+        repaint();
     }
 
     private JPanel createStatCard(String icon, String label, String value, Color accentColor) {
@@ -85,14 +107,15 @@ public class DashboardPanel extends JPanel {
         return card;
     }
 
-    private JPanel createTopNganhCard() {
-        JPanel card = createCardPanel("📊 Top 10 Ngành nhiều nguyện vọng nhất");
+    private JPanel createTopNganhCard(DashboardData data) {
+        JPanel card = createCardPanel("Top 10 Ngành nhiều nguyện vọng nhất");
 
-        String[] cols = {"#", "Mã ngành", "Tên ngành", "Số NV"};
-        JTable table = new JTable(new javax.swing.table.DefaultTableModel(cols, 0) {
+        String[] cols = {"STT", "Mã ngành", "Tên ngành", "Số NV"};
+        DefaultTableModel model = new DefaultTableModel(cols, 0) {
             @Override
             public boolean isCellEditable(int r, int c) { return false; }
-        });
+        };
+        JTable table = new JTable(model);
         table.setFont(UIConstants.FONT_REGULAR);
         table.setRowHeight(28);
         table.setShowGrid(true);
@@ -100,12 +123,33 @@ public class DashboardPanel extends JPanel {
         table.getTableHeader().setBackground(UIConstants.TABLE_HEADER);
         table.getTableHeader().setForeground(Color.WHITE);
         table.getTableHeader().setFont(UIConstants.FONT_BOLD);
+        table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        table.getColumnModel().getColumn(0).setPreferredWidth(45);
+        table.getColumnModel().getColumn(1).setPreferredWidth(110);
+        table.getColumnModel().getColumn(2).setPreferredWidth(260);
+        table.getColumnModel().getColumn(3).setPreferredWidth(80);
+        table.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable t, Object value, boolean selected, boolean focus, int row, int col) {
+                Component c = super.getTableCellRendererComponent(t, value, selected, focus, row, col);
+                if (!selected) {
+                    c.setBackground(row % 2 == 0 ? UIConstants.ROW_ODD : UIConstants.ROW_EVEN);
+                }
+                setHorizontalAlignment(col == 2 ? SwingConstants.LEFT : SwingConstants.CENTER);
+                ((JLabel) c).setBorder(BorderFactory.createEmptyBorder(0, 6, 0, 6));
+                return c;
+            }
+        });
 
-        // Sample data placeholder
-        javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) table.getModel();
-        model.addRow(new Object[]{"1", "7480201", "Công nghệ thông tin", "---"});
-        model.addRow(new Object[]{"2", "7340101", "Quản trị kinh doanh", "---"});
-        model.addRow(new Object[]{"3", "7140202", "Giáo dục Tiểu học", "---"});
+        int stt = 1;
+        for (DashboardData.TopNganhItem item : data.getTopNganhItems()) {
+            model.addRow(new Object[]{
+                    stt++,
+                    item.getMaNganh(),
+                    item.getTenNganh(),
+                    item.getSoNguyenVong()
+            });
+        }
 
         JScrollPane sp = new JScrollPane(table);
         sp.setBorder(BorderFactory.createEmptyBorder());
@@ -113,27 +157,28 @@ public class DashboardPanel extends JPanel {
         return card;
     }
 
-    private JPanel createStatsCard() {
-        JPanel card = createCardPanel("📈 Thống kê theo phương thức xét tuyển");
+    private JPanel createStatsCard(DashboardData data) {
+        JPanel card = createCardPanel("Thống kê theo phương thức xét tuyển");
 
         JPanel content = new JPanel();
         content.setOpaque(false);
         content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
         content.setBorder(BorderFactory.createEmptyBorder(8, 0, 8, 0));
 
-        content.add(createProgressItem("PT2 - Xét điểm THPT", 65, UIConstants.STAT_BLUE));
-        content.add(Box.createVerticalStrut(16));
-        content.add(createProgressItem("PT4 - Xét học bạ", 20, UIConstants.STAT_ORANGE));
-        content.add(Box.createVerticalStrut(16));
-        content.add(createProgressItem("ĐGNL - Đánh giá năng lực", 10, UIConstants.STAT_PURPLE));
-        content.add(Box.createVerticalStrut(16));
-        content.add(createProgressItem("VSAT - V-SAT", 5, UIConstants.STAT_GREEN));
+        Color[] colors = {UIConstants.STAT_BLUE, UIConstants.STAT_PURPLE, UIConstants.STAT_GREEN};
+        for (int i = 0; i < data.getMethodStats().size(); i++) {
+            DashboardData.MethodStatItem item = data.getMethodStats().get(i);
+            if (i > 0) {
+                content.add(Box.createVerticalStrut(16));
+            }
+            content.add(createProgressItem(item.getLabel(), item.getCount(), item.getPercent(), colors[Math.min(i, colors.length - 1)]));
+        }
 
         card.add(content, BorderLayout.CENTER);
         return card;
     }
 
-    private JPanel createProgressItem(String label, int percent, Color color) {
+    private JPanel createProgressItem(String label, long count, int percent, Color color) {
         JPanel item = new JPanel(new BorderLayout(0, 4));
         item.setOpaque(false);
         item.setMaximumSize(new Dimension(Integer.MAX_VALUE, 44));
@@ -144,7 +189,7 @@ public class DashboardPanel extends JPanel {
         lbl.setFont(UIConstants.FONT_REGULAR);
         lbl.setForeground(UIConstants.TEXT_PRIMARY);
         labelPanel.add(lbl, BorderLayout.WEST);
-        JLabel pct = new JLabel(percent + "%");
+        JLabel pct = new JLabel(count + " NV - " + percent + "%");
         pct.setFont(UIConstants.FONT_BOLD);
         pct.setForeground(color);
         labelPanel.add(pct, BorderLayout.EAST);
