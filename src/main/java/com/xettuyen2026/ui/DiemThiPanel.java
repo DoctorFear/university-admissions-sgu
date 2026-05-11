@@ -74,12 +74,6 @@ public class DiemThiPanel extends JPanel {
         setBackground(UIConstants.BG_MAIN);
         setBorder(BorderFactory.createEmptyBorder(16, 16, 16, 16));
 
-        JLabel lblTitle = new JLabel("Quản lý Điểm thi");
-        lblTitle.setFont(UIConstants.FONT_HEADER);
-        lblTitle.setForeground(UIConstants.TEXT_PRIMARY);
-        lblTitle.setBorder(BorderFactory.createEmptyBorder(0, 0, 12, 0));
-        add(lblTitle, BorderLayout.NORTH);
-
         JTabbedPane tabs = new JTabbedPane(JTabbedPane.TOP);
         tabs.setFont(UIConstants.FONT_BOLD);
         tabs.setBackground(Color.WHITE);

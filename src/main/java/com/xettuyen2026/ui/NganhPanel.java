@@ -53,24 +53,9 @@ public class NganhPanel extends JPanel {
         tohopService = new TohopService();
         setLayout(new BorderLayout(0, 12));
         setBackground(UIConstants.BG_MAIN);
-        setBorder(BorderFactory.createEmptyBorder(16, 16, 16, 16));
 
-        add(buildHeader(), BorderLayout.NORTH);
+        add(buildToolbar(), BorderLayout.NORTH);
         add(buildTableCard(), BorderLayout.CENTER);
-    }
-
-    // Tạo phần đầu trang gồm tiêu đề và thanh công cụ
-    private JPanel buildHeader() {
-        JPanel wrapper = new JPanel(new BorderLayout(0, 8));
-        wrapper.setOpaque(false);
-
-        JLabel lblTitle = new JLabel("Quản lý Ngành tuyển sinh");
-        lblTitle.setFont(UIConstants.FONT_HEADER);
-        lblTitle.setForeground(UIConstants.TEXT_PRIMARY);
-        wrapper.add(lblTitle, BorderLayout.NORTH);
-
-        wrapper.add(buildToolbar(), BorderLayout.CENTER);
-        return wrapper;
     }
 
     // Tạo thanh công cụ tìm kiếm và nhóm nút thao tác
@@ -95,10 +80,6 @@ public class NganhPanel extends JPanel {
         JPanel rightPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 6, 6));
         rightPanel.setOpaque(false);
 
-        // Code cũ:
-        // btnImport = new RoundedButton(
-        //         UIConstants.ICON_IMPORT + " Import ▾", new Color(0x00796B));
-        // btnImport.addActionListener(e -> doImport(btnImport));
         btnImport = new RoundedButton(
                 UIConstants.ICON_IMPORT + " Import", new Color(0x00796B));
         btnImport.addActionListener(e -> doImport());

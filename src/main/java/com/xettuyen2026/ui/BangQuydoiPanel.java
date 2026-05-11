@@ -29,23 +29,9 @@ public class BangQuydoiPanel extends JPanel {
         service = new BangQuydoiService();
         setLayout(new BorderLayout(0, 12));
         setBackground(UIConstants.BG_MAIN);
-        setBorder(BorderFactory.createEmptyBorder(16, 16, 16, 16));
 
-        add(buildHeader(), BorderLayout.NORTH);
+        add(buildToolbar(), BorderLayout.NORTH);
         add(buildTableCard(), BorderLayout.CENTER);
-    }
-
-    private JPanel buildHeader() {
-        JPanel wrapper = new JPanel(new BorderLayout(0, 8));
-        wrapper.setOpaque(false);
-
-        JLabel lblTitle = new JLabel("Quản lý Bảng Quy Đổi Điểm");
-        lblTitle.setFont(UIConstants.FONT_HEADER);
-        lblTitle.setForeground(UIConstants.TEXT_PRIMARY);
-        wrapper.add(lblTitle, BorderLayout.NORTH);
-
-        wrapper.add(buildToolbar(), BorderLayout.CENTER);
-        return wrapper;
     }
 
     private JPanel buildToolbar() {
