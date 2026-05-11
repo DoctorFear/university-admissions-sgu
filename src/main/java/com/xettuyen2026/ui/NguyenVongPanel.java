@@ -7,6 +7,7 @@ import com.xettuyen2026.entity.NguyenVongXetTuyen;
 import com.xettuyen2026.service.AdmissionService;
 import com.xettuyen2026.service.NguyenVongImportService;
 import com.xettuyen2026.ui.common.*;
+import com.xettuyen2026.ui.common.CancelReasonDialog;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -141,6 +142,10 @@ public class NguyenVongPanel extends JPanel {
                         c.setForeground(UIConstants.DANGER);
                         c.setFont(UIConstants.FONT_BOLD);
                         c.setText("Rớt");
+                    } else if ("Đã hủy".equals(val)) {
+                        c.setForeground(new Color(0x9E9E9E));
+                        c.setFont(UIConstants.FONT_BOLD);
+                        c.setText("Đã hủy");
                     } else {
                         c.setForeground(UIConstants.TEXT_SECONDARY);
                     }
@@ -265,18 +270,28 @@ public class NguyenVongPanel extends JPanel {
             MessageHelper.showWarning(this, "Vui lòng chọn nguyện vọng.");
             return;
         }
-        if (ConfirmDialog.show(this, "Bạn có chắc muốn hủy nguyện vọng này?")) {
-            int realIdx = styledTable.getRealIndex(row);
-            if (realIdx >= 0 && realIdx < loadedEntities.size()) {
-                NguyenVongXetTuyen nv = loadedEntities.get(realIdx);
-                try {
-                    nv.setNvKetqua("Hủy");
-                    dao.update(nv);
-                    MessageHelper.showSuccess(this, "Đã hủy nguyện vọng.");
-                    loadData();
-                } catch (Exception e) {
-                    MessageHelper.showError(this, "Lỗi hủy: " + e.getMessage());
-                }
+        int realIdx = styledTable.getRealIndex(row);
+        if (realIdx < 0 || realIdx >= loadedEntities.size())
+            return;
+
+        NguyenVongXetTuyen nv = loadedEntities.get(realIdx);
+        if ("Đã hủy".equals(nv.getNvKetqua())) {
+            MessageHelper.showWarning(this, "Nguyện vọng này đã được hủy trước đó.");
+            return;
+        }
+
+        String reason = CancelReasonDialog.showAndGetReason(this);
+        if (reason != null) {
+            try {
+                nv.setNvKetqua("Đã hủy");
+                dao.update(nv);
+                System.out.println("[HỦY NV] CCCD=" + nv.getNnCccd()
+                        + ", Ngành=" + nv.getNvManganh()
+                        + ", Lý do: " + reason);
+                MessageHelper.showSuccess(this, "Đã hủy nguyện vọng.\nLý do: " + reason);
+                loadData();
+            } catch (Exception e) {
+                MessageHelper.showError(this, "Lỗi hủy: " + e.getMessage());
             }
         }
     }
@@ -376,7 +391,7 @@ public class NguyenVongPanel extends JPanel {
                 boolean alreadyPassed = false;
 
                 for (NguyenVongXetTuyen nv : candidateNvs) {
-                    if ("Hủy".equals(nv.getNvKetqua()))
+                    if ("Đã hủy".equals(nv.getNvKetqua()))
                         continue; // Skip canceled
 
                     String pt = nv.getTtPhuongthuc();

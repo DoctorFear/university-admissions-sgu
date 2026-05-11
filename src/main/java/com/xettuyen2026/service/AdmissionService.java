@@ -528,6 +528,9 @@ public class AdmissionService {
         // 1.5 Điểm rà soát & cập nhật tự động (Tính điểm cho tất cả NV)
         System.out.println("Đang tính toán lại điểm cho tất cả nguyện vọng...");
         for (NguyenVongXetTuyen nv : allAspirations) {
+            // Skip NV đã hủy
+            if ("Đã hủy".equals(nv.getNvKetqua()))
+                continue;
             String pt = nv.getTtPhuongthuc();
             if (pt == null)
                 pt = "PT2";
@@ -691,9 +694,11 @@ public class AdmissionService {
         // 6. Cập nhật kết quả
         System.out.println("Cập nhật kết quả vào database...");
 
-        // Reset tất cả kết quả
+        // Reset tất cả kết quả (trừ NV đã hủy)
         for (NguyenVongXetTuyen nv : allAspirations) {
-            nv.setNvKetqua("duoisan"); // Mặc định rớt
+            if (!"Đã hủy".equals(nv.getNvKetqua())) {
+                nv.setNvKetqua("duoisan"); // Mặc định rớt
+            }
         }
 
         // Đánh dấu trúng tuyển + tính điểm trúng tuyển mỗi ngành
