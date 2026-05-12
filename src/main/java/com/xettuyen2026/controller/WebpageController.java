@@ -570,11 +570,11 @@ public class WebpageController {
             }
 
             if (request.getCncn() != null) {
-                scores.put("KHAC", request.getCncn());
+                scores.put("CNCN", request.getCncn());
             }
 
             if (request.getCnnn() != null) {
-                scores.put("KHAC", request.getCnnn());
+                scores.put("CNNN", request.getCnnn());
             }
 
             if (request.getTin() != null) {
@@ -586,27 +586,27 @@ public class WebpageController {
             }
 
             if (request.getNk1() != null) {
-                scores.put("KHAC", request.getNk1());
+                scores.put("NK1", request.getNk1());
             }
 
             if (request.getNk2() != null) {
-                scores.put("KHAC", request.getNk2());
+                scores.put("NK2", request.getNk2());
             }
 
             if (request.getNk3() != null) {
-                scores.put("KHAC", request.getNk3());
+                scores.put("NK3", request.getNk3());
             }
 
             if (request.getNk4() != null) {
-                scores.put("KHAC", request.getNk4());
+                scores.put("NK4", request.getNk4());
             }
 
             if (request.getNk5() != null) {
-                scores.put("KHAC", request.getNk5());
+                scores.put("NK5", request.getNk5());
             }
 
             if (request.getNk6() != null) {
-                scores.put("KHAC", request.getNk6());
+                scores.put("NK6", request.getNk6());
             }
 
             Nganh nganh = nganhDAO.findByMaNganh(request.getMaNganh());
