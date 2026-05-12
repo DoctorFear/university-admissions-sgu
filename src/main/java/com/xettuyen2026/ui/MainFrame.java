@@ -135,6 +135,7 @@ public class MainFrame extends JFrame {
         addMenuItem(sidebar, "diemthi",      UIConstants.ICON_SCORE,       "Điểm thi");
         addMenuItem(sidebar, "diemcong",     UIConstants.ICON_BONUS,       "Điểm cộng");
         addMenuItem(sidebar, "nguyenvong",   UIConstants.ICON_WISH,        "Nguyện vọng & XT");
+        addMenuItem(sidebar, "ketqua",       UIConstants.ICON_DASHBOARD,   "Kết quả xét tuyển");
         addMenuItem(sidebar, "bangquydoi",   UIConstants.ICON_CONVERT,     "Bảng quy đổi");
 
         sidebar.add(Box.createVerticalGlue());
@@ -232,6 +233,7 @@ public class MainFrame extends JFrame {
             "diemthi", "Quản lý Điểm thi",
             "diemcong", "Quản lý Điểm cộng",
             "nguyenvong", "Quản lý Nguyện vọng & Xét tuyển",
+            "ketqua", "Kết quả xét tuyển",
             "bangquydoi", "Bảng quy đổi"
         };
         for (int i = 0; i < titles.length; i += 2) {
@@ -308,6 +310,7 @@ public class MainFrame extends JFrame {
         contentPanel.add(new NganhTohopPanel(), "nganh_tohop");
         contentPanel.add(new DiemCongPanel(), "diemcong");
         contentPanel.add(new BangQuydoiPanel(), "bangquydoi");
+        contentPanel.add(new KetQuaXetTuyenPanel(), "ketqua");
     }
 
     private JPanel createPlaceholderPanel(String title, String icon) {

@@ -107,6 +107,11 @@ public class AdmissionService {
 
         nv.setDiemThxt(dthxt); // Lưu bảng thực tế không có độ lệch vào DB
 
+        // Lưu tổ hợp cho điểm cao nhất vào tt_thm
+        if (tohopRes.bestTohop != null) {
+            nv.setTtThm(tohopRes.bestTohop.getMatohop());
+        }
+
         // ── Bước 2: Lấy Điểm cộng (ĐC), tối đa 3.0, phân biệt có Ngoại ngữ hay không
         // ──
         boolean containsN1 = tohopRes.bestTohop != null && ("N1".equalsIgnoreCase(tohopRes.bestTohop.getThMon1()) ||
@@ -536,14 +541,23 @@ public class AdmissionService {
                 pt = "PT2";
 
             double dthxt = 0.0;
+            String bestThm = nv.getTtThm(); // giữ nguyên nếu đã có
             if (pt.equalsIgnoreCase("PT2") || pt.equalsIgnoreCase("THPT") || pt.equals("1")) {
-                dthxt = tinhDiemTHPT(nv.getNnCccd(), nv.getNvManganh(), nv.getTtThm());
+                dthxt = tinhDiemTHPT(nv.getNnCccd(), nv.getNvManganh(), null);
+                bestThm = findBestTohopTHPT(nv.getNnCccd(), nv.getNvManganh());
             } else if (pt.equalsIgnoreCase("PT3") || pt.equalsIgnoreCase("VSAT") || pt.equals("5")) {
-                dthxt = tinhDiemVSAT(nv.getNnCccd(), nv.getNvManganh(), nv.getTtThm());
+                dthxt = tinhDiemVSAT(nv.getNnCccd(), nv.getNvManganh(), null);
+                bestThm = findBestTohopVSAT(nv.getNnCccd(), nv.getNvManganh());
             } else if (pt.equalsIgnoreCase("PT4") || pt.equalsIgnoreCase("DGNL") || pt.equals("4")) {
                 dthxt = tinhDiemDGNL(nv.getNnCccd(), nv.getNvManganh());
+                bestThm = findBestTohopDGNL(nv.getNvManganh());
             } else {
-                dthxt = tinhDiemTHPT(nv.getNnCccd(), nv.getNvManganh(), nv.getTtThm());
+                dthxt = tinhDiemTHPT(nv.getNnCccd(), nv.getNvManganh(), null);
+                bestThm = findBestTohopTHPT(nv.getNnCccd(), nv.getNvManganh());
+            }
+            // Cập nhật tổ hợp cho điểm cao nhất
+            if (bestThm != null && !bestThm.trim().isEmpty()) {
+                nv.setTtThm(bestThm);
             }
 
             boolean containsN1 = (nv.getTtThm() != null && nv.getTtThm().contains("N1"));
@@ -982,5 +996,84 @@ public class AdmissionService {
         if (ts == null)
             return 0.0;
         return calculateMdut(ts.getKhuVuc(), ts.getDoiTuong()).doubleValue();
+    }
+
+    // ════════════════════════════════════════════════════════════════
+    // TÌM TỔ HỢP CHO ĐIỂM CAO NHẤT
+    // ════════════════════════════════════════════════════════════════
+
+    /**
+     * Tìm mã tổ hợp THPT cho điểm cao nhất (sau khi trừ độ lệch).
+     */
+    public String findBestTohopTHPT(String cccd, String manganh) {
+        DiemThiXetTuyen diemThi = diemThiDAO.findByCccdAndPhuongThuc(cccd, "PT2");
+        if (diemThi == null)
+            diemThi = diemThiDAO.findByCccdAndPhuongThuc(cccd, "1");
+        if (diemThi == null)
+            diemThi = diemThiDAO.findByCccd(cccd);
+        if (diemThi == null)
+            return null;
+
+        List<NganhTohop> tohopList = nganhTohopDAO.findByMaNganh(manganh);
+        if (tohopList == null || tohopList.isEmpty())
+            return null;
+
+        double maxAdjusted = -1.0;
+        String bestTohop = null;
+        for (NganhTohop nt : tohopList) {
+            double raw = calculateTHPTScore(diemThi, nt).doubleValue();
+            double dolech = nt.getDolech() != null ? nt.getDolech().doubleValue() : 0.0;
+            double adjusted = raw - dolech;
+            if (adjusted > maxAdjusted) {
+                maxAdjusted = adjusted;
+                bestTohop = nt.getMatohop();
+            }
+        }
+        return bestTohop;
+    }
+
+    /**
+     * Tìm mã tổ hợp VSAT cho điểm cao nhất (sau khi quy đổi và trừ độ lệch).
+     */
+    public String findBestTohopVSAT(String cccd, String manganh) {
+        DiemThiXetTuyen diemThi = diemThiDAO.findByCccdAndPhuongThuc(cccd, "PT3");
+        if (diemThi == null)
+            diemThi = diemThiDAO.findByCccdAndPhuongThuc(cccd, "5");
+        if (diemThi == null)
+            diemThi = diemThiDAO.findByCccd(cccd);
+        if (diemThi == null)
+            return null;
+
+        List<NganhTohop> tohopList = nganhTohopDAO.findByMaNganh(manganh);
+        if (tohopList == null || tohopList.isEmpty())
+            return null;
+
+        double maxAdjusted = -1.0;
+        String bestTohop = null;
+        for (NganhTohop nt : tohopList) {
+            double adjusted = calculateVSATCombination(diemThi, nt);
+            if (adjusted > maxAdjusted) {
+                maxAdjusted = adjusted;
+                bestTohop = nt.getMatohop();
+            }
+        }
+        return bestTohop;
+    }
+
+    /**
+     * Tìm tổ hợp gốc cho ĐGNL (lấy từ bảng ngành).
+     * ĐGNL dùng tổ hợp gốc của ngành để quy đổi, không lặp qua tất cả tổ hợp.
+     */
+    public String findBestTohopDGNL(String manganh) {
+        Nganh nganh = nganhDAO.findByMaNganh(manganh);
+        if (nganh != null && nganh.getnTohopgoc() != null && !nganh.getnTohopgoc().trim().isEmpty()) {
+            return nganh.getnTohopgoc();
+        }
+        // Fallback: lấy tổ hợp đầu tiên của ngành
+        List<NganhTohop> tohopList = nganhTohopDAO.findByMaNganh(manganh);
+        if (tohopList != null && !tohopList.isEmpty()) {
+            return tohopList.get(0).getMatohop();
+        }
+        return "A01";
     }
 }

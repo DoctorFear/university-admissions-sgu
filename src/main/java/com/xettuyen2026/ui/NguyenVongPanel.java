@@ -2,8 +2,10 @@ package com.xettuyen2026.ui;
 
 import com.xettuyen2026.dao.NguyenVongDAO;
 import com.xettuyen2026.dao.NganhDAO;
+import com.xettuyen2026.dao.ThiSinhDAO;
 import com.xettuyen2026.entity.Nganh;
 import com.xettuyen2026.entity.NguyenVongXetTuyen;
+import com.xettuyen2026.entity.ThiSinh;
 import com.xettuyen2026.service.AdmissionService;
 import com.xettuyen2026.service.NguyenVongImportService;
 import com.xettuyen2026.ui.common.*;
@@ -15,6 +17,7 @@ import java.awt.*;
 import java.io.File;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -28,17 +31,19 @@ public class NguyenVongPanel extends JPanel {
     private SearchBar searchBar;
     private NguyenVongDAO dao;
     private NganhDAO nganhDAO;
+    private ThiSinhDAO thiSinhDAO;
     private AdmissionService admissionService;
     private List<NguyenVongXetTuyen> loadedEntities = new ArrayList<>();
 
     private static final String[] COLUMNS = {
-            "STT", "CCCD", "Mã ngành", "Tên ngành", "NV Thứ", "PT",
+            "STT", "CCCD", "Họ", "Tên", "Mã ngành", "Tên ngành", "NV Thứ", "PT", "THM",
             "Điểm THXT", "Điểm Cộng", "Điểm ƯT", "Điểm XT", "Kết quả"
     };
 
     public NguyenVongPanel() {
         dao = new NguyenVongDAO();
         nganhDAO = new NganhDAO();
+        thiSinhDAO = new ThiSinhDAO();
         admissionService = new AdmissionService();
         setLayout(new BorderLayout(0, 12));
         setBackground(UIConstants.BG_MAIN);
@@ -131,8 +136,8 @@ public class NguyenVongPanel extends JPanel {
                     c.setBackground(row % 2 == 0 ? UIConstants.ROW_ODD : UIConstants.ROW_EVEN);
                 c.setBorder(BorderFactory.createEmptyBorder(0, 6, 0, 6));
 
-                // Color-code kết quả (col 10)
-                if (col == 10 && value != null) {
+                // Color-code kết quả (col 13)
+                if (col == 13 && value != null) {
                     String val = value.toString();
                     if ("yes".equals(val)) {
                         c.setForeground(UIConstants.SUCCESS);
@@ -149,7 +154,7 @@ public class NguyenVongPanel extends JPanel {
                     } else {
                         c.setForeground(UIConstants.TEXT_SECONDARY);
                     }
-                } else if (col == 5 && value != null) {
+                } else if (col == 7 && value != null) {
                     // Badge màu Phương thức
                     String val = value.toString().toUpperCase();
                     if ("PT2".equals(val) || "THPT".equals(val) || "1".equals(val)) {
@@ -175,7 +180,7 @@ public class NguyenVongPanel extends JPanel {
                     c.setToolTipText(null);
                 }
 
-                if (col == 0 || (col >= 6 && col <= 9))
+                if (col == 0 || col == 6 || (col >= 9 && col <= 12))
                     setHorizontalAlignment(SwingConstants.CENTER);
                 else
                     setHorizontalAlignment(SwingConstants.LEFT);
@@ -192,6 +197,7 @@ public class NguyenVongPanel extends JPanel {
     // ── Data loading ──
 
     private Map<String, String> nganhNameMap;
+    private Map<String, ThiSinh> thiSinhMap;
 
     private String getNganhName(String maNganh) {
         if (nganhNameMap == null) {
@@ -205,9 +211,24 @@ public class NguyenVongPanel extends JPanel {
         return nganhNameMap.getOrDefault(maNganh, maNganh);
     }
 
+    private ThiSinh getThiSinh(String cccd) {
+        if (thiSinhMap == null) {
+            try {
+                thiSinhMap = new HashMap<>();
+                for (ThiSinh ts : thiSinhDAO.findAll()) {
+                    thiSinhMap.put(ts.getCccd(), ts);
+                }
+            } catch (Exception e) {
+                thiSinhMap = new HashMap<>();
+            }
+        }
+        return thiSinhMap.get(cccd);
+    }
+
     private void loadData() {
         try {
             nganhNameMap = null; // refresh
+            thiSinhMap = null; // refresh
             loadedEntities = dao.findAllOrdered();
             List<Object[]> rows = new ArrayList<>();
             int stt = 1;
@@ -222,13 +243,20 @@ public class NguyenVongPanel extends JPanel {
     }
 
     private Object[] mapToRow(NguyenVongXetTuyen nv, int stt) {
+        ThiSinh ts = getThiSinh(nv.getNnCccd());
+        String ho = ts != null ? ts.getHo() : "";
+        String ten = ts != null ? ts.getTen() : "";
+        String thm = nv.getTtThm() != null ? nv.getTtThm() : "";
         return new Object[] {
                 stt,
                 nv.getNnCccd(),
+                ho,
+                ten,
                 nv.getNvManganh(),
                 getNganhName(nv.getNvManganh()),
                 nv.getNvTt(),
                 nv.getTtPhuongthuc(),
+                thm,
                 nv.getDiemThxt(),
                 nv.getDiemCong(),
                 nv.getDiemUtqd(),
@@ -399,14 +427,23 @@ public class NguyenVongPanel extends JPanel {
                         pt = "PT2";
 
                     double dthxt = 0.0;
+                    String bestThm = nv.getTtThm();
                     if (pt.equalsIgnoreCase("PT2") || pt.equalsIgnoreCase("THPT") || pt.equals("1")) {
-                        dthxt = admissionService.tinhDiemTHPT(nv.getNnCccd(), nv.getNvManganh(), nv.getTtThm());
+                        dthxt = admissionService.tinhDiemTHPT(nv.getNnCccd(), nv.getNvManganh(), null);
+                        bestThm = admissionService.findBestTohopTHPT(nv.getNnCccd(), nv.getNvManganh());
                     } else if (pt.equalsIgnoreCase("PT3") || pt.equalsIgnoreCase("VSAT") || pt.equals("5")) {
-                        dthxt = admissionService.tinhDiemVSAT(nv.getNnCccd(), nv.getNvManganh(), nv.getTtThm());
+                        dthxt = admissionService.tinhDiemVSAT(nv.getNnCccd(), nv.getNvManganh(), null);
+                        bestThm = admissionService.findBestTohopVSAT(nv.getNnCccd(), nv.getNvManganh());
                     } else if (pt.equalsIgnoreCase("PT4") || pt.equalsIgnoreCase("DGNL") || pt.equals("4")) {
                         dthxt = admissionService.tinhDiemDGNL(nv.getNnCccd(), nv.getNvManganh());
+                        bestThm = admissionService.findBestTohopDGNL(nv.getNvManganh());
                     } else {
-                        dthxt = admissionService.tinhDiemTHPT(nv.getNnCccd(), nv.getNvManganh(), nv.getTtThm());
+                        dthxt = admissionService.tinhDiemTHPT(nv.getNnCccd(), nv.getNvManganh(), null);
+                        bestThm = admissionService.findBestTohopTHPT(nv.getNnCccd(), nv.getNvManganh());
+                    }
+                    // Cập nhật tổ hợp cho điểm cao nhất
+                    if (bestThm != null && !bestThm.trim().isEmpty()) {
+                        nv.setTtThm(bestThm);
                     }
 
                     boolean containsN1 = (nv.getTtThm() != null && nv.getTtThm().contains("N1"));
