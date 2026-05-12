@@ -103,6 +103,7 @@ public class PaginatedTable extends JPanel {
                 if (!selected) {
                     c.setBackground(row % 2 == 0 ? UIConstants.ROW_ODD : UIConstants.ROW_EVEN);
                 }
+                ((JLabel) c).setHorizontalAlignment("STT".equals(t.getColumnName(column)) ? SwingConstants.CENTER : SwingConstants.LEFT);
                 ((JLabel) c).setBorder(BorderFactory.createEmptyBorder(0, 8, 0, 8));
                 return c;
             }

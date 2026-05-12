@@ -90,7 +90,7 @@ public final class UIConstants {
     public static final String ICON_BONUS      = "badge-plus.png";
     public static final String ICON_WISH       = "file-heart.png";
     public static final String ICON_CONVERT    = "arrow-left-right.png";
-    public static final String ICON_LOGOUT     = ""; // No PNG available
+    public static final String ICON_LOGOUT     = "exit.png"; // No PNG available
     public static final String ICON_SEARCH     = "search.png";
     public static final String ICON_IMPORT     = "cloud-upload.png";
     public static final String ICON_ADD        = "plus.png";

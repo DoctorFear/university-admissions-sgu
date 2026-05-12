@@ -106,19 +106,18 @@ public class MainFrame extends JFrame {
         if (brandIcon != null) {
             lblBrand.setIcon(brandIcon);
             lblBrand.setIconTextGap(8);
-        } else {
-            lblBrand.setText("🎓  SGU Tuyển sinh");
         }
         lblBrand.setFont(new Font("Segoe UI", Font.BOLD, 16));
         lblBrand.setForeground(Color.WHITE);
-        lblBrand.setAlignmentX(Component.LEFT_ALIGNMENT);
+        lblBrand.setAlignmentX(Component.CENTER_ALIGNMENT); // chỉ giữ dòng này
         brandPanel.add(lblBrand);
 
-        JLabel lblYear = new JLabel("     Năm 2026");
+        JLabel lblYear = new JLabel("Năm 2026");
         lblYear.setFont(UIConstants.FONT_SMALL);
         lblYear.setForeground(new Color(255, 255, 255, 150));
-        lblYear.setAlignmentX(Component.LEFT_ALIGNMENT);
+        lblYear.setAlignmentX(Component.CENTER_ALIGNMENT); // căn giữa luôn
         brandPanel.add(lblYear);
+
 
         sidebar.add(brandPanel);
 
@@ -218,6 +217,9 @@ public class MainFrame extends JFrame {
 
         // Show card
         cardLayout.show(contentPanel, key);
+        if ("dashboard".equals(key) && dashboardPanel instanceof DashboardPanel) {
+            ((DashboardPanel) dashboardPanel).refreshData();
+        }
 
         // Update header
         String[] titles = {
@@ -293,7 +295,8 @@ public class MainFrame extends JFrame {
 
     private void addModulePanels() {
         // Dashboard
-        contentPanel.add(new DashboardPanel(), "dashboard");
+        dashboardPanel = new DashboardPanel();
+        contentPanel.add(dashboardPanel, "dashboard");
 
         // Module panels - lazy init with placeholder for unfinished ones
         contentPanel.add(new ThiSinhPanel(), "thisinh");
