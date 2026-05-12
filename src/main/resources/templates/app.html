@@ -658,7 +658,7 @@
 
             <!-- RESULT AREA TÍNH ĐIỂM -->
             <!-- RESULT AREA DGNL -->
-            <div id="dgnl-result" class="card glass-card calc-result"
+            <!-- <div id="dgnl-result" class="card glass-card calc-result"
                 th:if="${dgnlResult != null}"
                 style="margin-top:2rem;">
 
@@ -744,6 +744,70 @@
                     </div>
                 </div>
 
+            </div> -->
+            <div th:if="${dgnlResult != null and dgnlResult.success}" id="result-dgnl"
+                class="card glass-card calc-result" th:classappend="${activeCalcMethod == 'vsat' ? 'hidden' : ''}"
+                style="margin-top:1.5rem;">
+                <div class="result-header text-red"
+                    th:text="'Tính quy đổi điểm xét tuyển ĐGNL: ' + ${dgnlResult.tenNganh}"></div>
+                <p style="font-size:0.9rem;margin-bottom:1rem;">
+                    Tổ hợp gốc quy đổi theo ngành: <span
+                        style="background:#1e3a8a;color:white;padding:2px 6px;border-radius:4px;font-size:0.8rem;"
+                        th:text="${dgnlResult.toHop}"></span>,
+                    ngưỡng đầu vào: <span th:text="${dgnlResult.diemNguong}"></span>
+                </p>
+                <div style="overflow-x:auto;">
+                    <table class="result-table">
+                        <thead>
+                            <tr>
+                                <th>Nội dung</th>
+                                <th>Chi tiết điểm</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Điểm thi ĐGNL</td>
+                                <td
+                                    th:text="${#numbers.formatDecimal(dgnlResult.diemThi != null ? dgnlResult.diemThi : 0.0, 1, 2)}">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Công thức quy đổi về thang 30 (THXT gốc: <span
+                                        th:text="${dgnlResult.toHop}"></span>)</td>
+                                <td>
+                                    <span th:if="${dgnlResult.diema != null}"
+                                        th:text="|${#numbers.formatDecimal(dgnlResult.diemc ?: 0.0, 1, 2)} + ( ${#numbers.formatDecimal(dgnlResult.diemThi ?: 0.0, 1, 2)} - ${#numbers.formatDecimal(dgnlResult.diema ?: 0.0, 1, 2)} ) / ( ${#numbers.formatDecimal(dgnlResult.diemb ?: 0.0, 1, 2)} - ${#numbers.formatDecimal(dgnlResult.diema ?: 0.0, 1, 2)} ) * ( ${#numbers.formatDecimal(dgnlResult.diemd ?: dgnlResult.diemc ?: 0.0, 1, 2)} - ${#numbers.formatDecimal(dgnlResult.diemc ?: 0.0, 1, 2)} )|"></span>
+                                    <span th:if="${dgnlResult.diema == null}"
+                                        th:text="${#numbers.formatDecimal(dgnlResult.diemQuyDoi ?: 0.0, 1, 2)}"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Điểm thi quy đổi</td>
+                                <td
+                                    th:text="${#numbers.formatDecimal(dgnlResult.diemQuyDoi != null ? dgnlResult.diemQuyDoi : 0.0, 1, 2)}">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Điểm cộng</td>
+                                <td th:text="${#numbers.formatDecimal(dgnlResult.diemCong, 1, 2)}"></td>
+                            </tr>
+                            <tr>
+                                <td>Điểm ưu tiên quy đổi</td>
+                                <td th:text="${#numbers.formatDecimal(dgnlResult.diemUuTien, 1, 2)}"></td>
+                            </tr>
+                            <tr>
+                                <td>Điểm xét tuyển = điểm thi quy đổi + điểm cộng + điểm ưu tiên quy đổi</td>
+                                <td th:text="${#numbers.formatDecimal(dgnlResult.diemXetTuyen, 1, 2)}"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div style="margin-top:1rem;padding:1rem;border-radius:0.5rem;"
+                    th:styleappend="${dgnlResult.isDat ? 'background:#f0fdf4;border:1px solid #bbf7d0;' : 'background:#fff1f2;border:1px solid #fecdd3;'}">
+                    <strong>Kết quả:</strong>
+                    <span th:if="${dgnlResult.isDat}" style="color:green;font-weight:700;">ĐẠT ngưỡng</span>
+                    <span th:if="${!dgnlResult.isDat}" style="color:red;font-weight:700;">KHÔNG ĐẠT ngưỡng</span>
+                </div>
             </div>
 
             <!-- RESULT AREA VSAT -->
