@@ -41,11 +41,12 @@ public class NganhPanel extends JPanel {
 
     private static final String[] COLUMNS = {
             "STT", "Mã ngành", "Tên ngành", "Tổ hợp gốc",
-            "Chỉ tiêu", "Điểm sàn", "Điểm T.Tuyển"
+            "Chỉ tiêu", "Điểm sàn", "Điểm T.Tuyển",
+            "T.Thẳng", "ĐGNL", "THPT", "V-SAT"
     };
 
     private static final int[] COLUMN_WIDTHS = {
-            60, 120, 360, 130, 110, 120, 140
+    		60, 110, 260, 100, 90, 95, 110, 90, 90, 90, 90
     };
 
     public NganhPanel() {
@@ -136,7 +137,7 @@ public class NganhPanel extends JPanel {
     // Tải lại toàn bộ dữ liệu ngành từ service
     private void loadData() {
         try {
-            allEntities = service.findAll();
+            allEntities = service.findAllWithSlNguyenVong(); 
             loadedEntities = new ArrayList<>(allEntities);
             displayEntities(loadedEntities);
         } catch (Exception e) {
@@ -157,16 +158,30 @@ public class NganhPanel extends JPanel {
                     n.getnTohopgoc() != null ? n.getnTohopgoc() : "",
                     n.getnChitieu() != null ? n.getnChitieu() : "",
                     n.getnDiemsan() != null ? n.getnDiemsan() : "",
-                    n.getnDiemtrungtuyen() != null ? n.getnDiemtrungtuyen() : ""
+                    n.getnDiemtrungtuyen() != null ? n.getnDiemtrungtuyen() : "",
+                    // Thống kê động: hiển thị số nếu > 0, ngược lại "-"
+                    slDong(n.getSlXtt()),
+                    slDong(n.getSlDgnl()),
+                    slDong(n.getSlThpt()),
+                    slDong(n.getSlVsat())
             });
         }
         styledTable.setData(rows);
     }
 
-    // Hiển thị số lượng chỉ tiêu của từng phương thức xét tuyển
-    private String slText(boolean coXetTuyen, String sl) {
-        if (!coXetTuyen) return "-";
-        return (sl != null && !sl.isEmpty()) ? sl : "-";
+    // Hiển thị số lượng nguyện vọng động: "-" nếu 0, số thực nếu có
+    private String slDong(Integer sl) {
+        return (sl != null && sl > 0) ? String.valueOf(sl) : "-";
+    }
+
+    // Overload cho slThpt vì kiểu String
+    private String slDong(String sl) {
+        if (sl == null || sl.isEmpty()) return "-";
+        try {
+            return Integer.parseInt(sl) > 0 ? sl : "-";
+        } catch (NumberFormatException e) {
+            return "-";
+        }
     }
 
     // Tìm kiếm ngành theo mã hoặc tên

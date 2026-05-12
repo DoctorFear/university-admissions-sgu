@@ -89,7 +89,7 @@ public class DiemThiDialog extends JDialog {
     private void initUI() {
         JPanel main = new JPanel(new BorderLayout(0, 16));
         main.setBackground(Color.WHITE);
-        main.setBorder(BorderFactory.createEmptyBorder(20, 24, 16, 24));
+        main.setBorder(BorderFactory.createEmptyBorder(50, 24, 16, 24));
 
         JLabel title = new JLabel(
             entity == null

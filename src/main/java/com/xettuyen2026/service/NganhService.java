@@ -1,6 +1,7 @@
 package com.xettuyen2026.service;
 
 import com.xettuyen2026.dao.NganhDAO;
+import com.xettuyen2026.dao.NguyenVongDAO;
 import com.xettuyen2026.dao.TohopMonthiDAO;
 import com.xettuyen2026.entity.Nganh;
 import com.xettuyen2026.util.ImportUtil;
@@ -20,20 +21,40 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.Map;
 
 public class NganhService {
 
     private final NganhDAO nganhDAO;
     private final TohopMonthiDAO tohopDAO;
+    private final NguyenVongDAO nguyenVongDAO;
 
     public NganhService() {
         this.nganhDAO = new NganhDAO();
         this.tohopDAO = new TohopMonthiDAO();
+        this.nguyenVongDAO = new NguyenVongDAO();     
     }
 
     // Lấy toàn bộ danh sách ngành
     public List<Nganh> findAll() {
         return nganhDAO.findAll();
+    }
+    
+    // Lấy danh sách ngành và gắn số lượng nguyện vọng từng phương thức
+    // (thống kê động, KHÔNG ghi đè dữ liệu import của ngành)
+    public List<Nganh> findAllWithSlNguyenVong() {
+        List<Nganh> danhSach = nganhDAO.findAll();
+        Map<String, Integer> slMap = nguyenVongDAO.countByNganhAndPhuongThuc();
+
+        for (Nganh n : danhSach) {
+            String ma = n.getManganh();
+            // ttPhuongthuc: TT=TuyenThang, PT4=DGNL, PT2=THPT, PT5=VSAT
+            n.setSlXtt (slMap.getOrDefault(ma + "|TT",  0));
+            n.setSlDgnl(slMap.getOrDefault(ma + "|PT4", 0));
+            n.setSlThpt(String.valueOf(slMap.getOrDefault(ma + "|PT2", 0)));
+            n.setSlVsat(slMap.getOrDefault(ma + "|PT5", 0));
+        }
+        return danhSach;
     }
 
     // Tìm ngành theo mã ngành
@@ -73,7 +94,22 @@ public class NganhService {
     }
 
     // Xóa ngành khỏi hệ thống
+    // Chỉ cho xóa nếu ngành chưa có nguyện vọng nào đăng ký
     public void delete(Nganh nganh) {
+        Map<String, Integer> slMap = nguyenVongDAO.countByNganhAndPhuongThuc();
+        String ma = nganh.getManganh();
+
+        boolean coNguyenVong =
+                slMap.getOrDefault(ma + "|TT",  0) > 0 ||
+                slMap.getOrDefault(ma + "|PT4", 0) > 0 ||
+                slMap.getOrDefault(ma + "|PT2", 0) > 0 ||
+                slMap.getOrDefault(ma + "|PT5", 0) > 0;
+
+        if (coNguyenVong) {
+            throw new RuntimeException(
+                "Không thể xóa ngành '" + nganh.getManganh() +
+                "' vì đã có thí sinh đăng ký nguyện vọng!");
+        }
         nganhDAO.delete(nganh);
     }
 
