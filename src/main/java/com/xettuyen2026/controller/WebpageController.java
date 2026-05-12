@@ -742,7 +742,7 @@ public class WebpageController {
                 }
 
                 // QUY ĐỔI
-                double diemSauQuyDoi = dthxt + dolech;
+                double diemSauQuyDoi = dthxt - dolech;
 
                 double actualDut = mdut;
 
