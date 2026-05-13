@@ -1,7 +1,9 @@
 package com.xettuyen2026.service;
 
 import com.xettuyen2026.dao.TohopMonthiDAO;
+import com.xettuyen2026.dao.NganhTohopDAO;
 import com.xettuyen2026.entity.TohopMonthi;
+import com.xettuyen2026.util.TohopValidator;
 
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -12,6 +14,17 @@ import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.regex.*;
 
+/**
+ * Service cho quản lý tổ hợp môn xét tuyển.
+ * 
+ * Chức năng:
+ * - Validate dữ liệu tổ hợp môn
+ * - CRUD tổ hợp môn
+ * - Import từ file Excel / Text
+ * - Kiểm tra ràng buộc dữ liệu
+ * 
+ * @author Senior Developer
+ */
 public class TohopService {
 
     private final TohopMonthiDAO dao = new TohopMonthiDAO();
@@ -24,16 +37,133 @@ public class TohopService {
         return dao.findByMaTohop(maTohop);
     }
 
+    /**
+     * Thêm mới tổ hợp môn với validation hoàn toàn.
+     * - Normalize dữ liệu (trim, uppercase)
+     * - Validate mã tổ hợp
+     * - Validate 3 môn học
+     * - Generate tên tổ hợp tự động
+     * - Kiểm tra trùng lặp mã tổ hợp
+     * 
+     * @param tohop Đối tượng tổ hợp môn
+     * @throws IllegalArgumentException Nếu dữ liệu không hợp lệ
+     * @throws RuntimeException Nếu xảy ra lỗi database
+     */
     public void save(TohopMonthi tohop) {
+        if (tohop == null) {
+            throw new IllegalArgumentException("Tổ hợp môn không được null");
+        }
+
+        // Normalize dữ liệu
+        String maTohop = TohopValidator.normalizeMaTohop(tohop.getMatohop());
+        String mon1 = TohopValidator.normalizeSubject(tohop.getMon1());
+        String mon2 = TohopValidator.normalizeSubject(tohop.getMon2());
+        String mon3 = TohopValidator.normalizeSubject(tohop.getMon3());
+
+        // Validate
+        String maTohopErr = TohopValidator.getMaTohopError(maTohop);
+        if (maTohopErr != null) {
+            throw new IllegalArgumentException(maTohopErr);
+        }
+
+        String subjectErr = TohopValidator.getSubjectsError(mon1, mon2, mon3);
+        if (subjectErr != null) {
+            throw new IllegalArgumentException(subjectErr);
+        }
+
+        // Check trùng lặp
+        if (dao.findByMaTohop(maTohop) != null) {
+            throw new IllegalArgumentException("Mã tổ hợp " + maTohop + " đã tồn tại!");
+        }
+
+        // Set dữ liệu đã normalize
+        tohop.setMatohop(maTohop);
+        tohop.setMon1(mon1);
+        tohop.setMon2(mon2);
+        tohop.setMon3(mon3);
+
+        // Auto-generate tên tổ hợp nếu chưa có hoặc để trống
+        if (tohop.getTentohop() == null || tohop.getTentohop().trim().isEmpty()) {
+            tohop.setTentohop(TohopValidator.generateTohopName(mon1, mon2, mon3));
+        }
+
+        // Lưu vào database
         dao.save(tohop);
     }
 
+    /**
+     * Cập nhật tổ hợp môn.
+     * - Kiểm tra xem tổ hợp có được sử dụng trong xt_nganh_tohop không
+     * - Nếu có, sẽ warning nhưng vẫn cho phép sửa
+     * 
+     * @param tohop Đối tượng tổ hợp môn cần sửa
+     * @throws IllegalArgumentException Nếu dữ liệu không hợp lệ
+     */
     public void update(TohopMonthi tohop) {
+        if (tohop == null || tohop.getIdtohop() == null) {
+            throw new IllegalArgumentException("Dữ liệu tổ hợp không hợp lệ");
+        }
+
+        // Normalize dữ liệu
+        String mon1 = TohopValidator.normalizeSubject(tohop.getMon1());
+        String mon2 = TohopValidator.normalizeSubject(tohop.getMon2());
+        String mon3 = TohopValidator.normalizeSubject(tohop.getMon3());
+
+        // Validate 3 môn (không validate mã tổ hợp vì đang sửa)
+        String subjectErr = TohopValidator.getSubjectsError(mon1, mon2, mon3);
+        if (subjectErr != null) {
+            throw new IllegalArgumentException(subjectErr);
+        }
+
+        // Set dữ liệu đã normalize
+        tohop.setMon1(mon1);
+        tohop.setMon2(mon2);
+        tohop.setMon3(mon3);
+
+        // Auto-update tên tổ hợp nếu chưa có
+        if (tohop.getTentohop() == null || tohop.getTentohop().trim().isEmpty()) {
+            tohop.setTentohop(TohopValidator.generateTohopName(mon1, mon2, mon3));
+        }
+
+        // Warning: kiểm tra xem tổ hợp có được sử dụng không
+        boolean isUsed = dao.isUsedInNganhTohop(tohop.getMatohop());
+        if (isUsed) {
+            System.err.println("[WARNING] Tổ hợp " + tohop.getMatohop() 
+                    + " đang được sử dụng trong dữ liệu ngành-tổ hợp. Hãy chắc chắn bạn biết mình đang làm gì!");
+        }
+
         dao.update(tohop);
     }
 
+    /**
+     * Xóa tổ hợp môn.
+     * - KHÔNG cho phép xóa nếu tổ hợp đang được sử dụng trong xt_nganh_tohop
+     * 
+     * @param tohop Đối tượng tổ hợp môn
+     * @throws IllegalArgumentException Nếu tổ hợp đang được sử dụng
+     */
     public void delete(TohopMonthi tohop) {
+        if (tohop == null || tohop.getIdtohop() == null) {
+            throw new IllegalArgumentException("Dữ liệu tổ hợp không hợp lệ");
+        }
+
+        // Check xem có dữ liệu phụ thuộc không
+        if (dao.isUsedInNganhTohop(tohop.getMatohop())) {
+            throw new IllegalArgumentException(
+                    "Không thể xóa vì tổ hợp này đang được sử dụng trong dữ liệu ngành-tổ hợp. " +
+                    "Hãy xóa dữ liệu liên quan trước!");
+        }
+
         dao.delete(tohop);
+    }
+
+    /**
+     * Kiểm tra xem tổ hợp môn có được sử dụng trong xt_nganh_tohop không.
+     * @param maTohop Mã tổ hợp
+     * @return true nếu đang được sử dụng, false nếu không
+     */
+    public boolean isUsedInNganhTohop(String maTohop) {
+        return dao.isUsedInNganhTohop(maTohop);
     }
 
     /**
