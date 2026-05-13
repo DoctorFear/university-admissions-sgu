@@ -62,10 +62,22 @@ public class NguyenVongDAO extends BaseDAO<NguyenVongXetTuyen> {
                 String maNganh     = (String) row[0];
                 String phuongThuc  = (String) row[1];
                 Long   count       = (Long)   row[2];
-                result.put(maNganh + "|" + phuongThuc, count.intValue());
+                if (maNganh == null || phuongThuc == null) continue;
+                // Chuẩn hóa khóa đếm nguyện vọng theo ngành và phương thức
+                result.merge(maNganh.trim().toUpperCase() + "|" + normalizePhuongThuc(phuongThuc),
+                        count.intValue(), Integer::sum);
             }
             return result;
         }
+    }
+
+    // Chuẩn hóa mã phương thức xét tuyển khi đếm nguyện vọng
+    private String normalizePhuongThuc(String phuongThuc) {
+        String pt = phuongThuc != null ? phuongThuc.trim().toUpperCase() : "";
+        if (pt.startsWith("PT2") || pt.contains("THPT")) return "PT2";
+        if (pt.startsWith("PT4") || pt.contains("DGNL") || pt.contains("ĐGNL")) return "PT4";
+        if (pt.startsWith("PT5") || pt.startsWith("PT3") || pt.contains("VSAT") || pt.contains("V-SAT")) return "PT5";
+        return pt;
     }
 
     /** Giữ lại batchUpdate vì các service khác còn dùng */

@@ -20,6 +20,10 @@ public class NganhDialog extends JDialog {
     private JTextField txtChiTieu;
     private JTextField txtDiemSan;
     private JTextField txtDiemTrungTuyen;
+    private JCheckBox cbTuyenThang;
+    private JCheckBox cbDgnl;
+    private JCheckBox cbThpt;
+    private JCheckBox cbVsat;
     private java.util.List<String> validTohop;
 
     public NganhDialog(Window owner, Nganh existing, java.util.List<String> validTohop) {
@@ -28,7 +32,7 @@ public class NganhDialog extends JDialog {
               ModalityType.APPLICATION_MODAL);
         this.entity = existing;
         this.validTohop = validTohop;
-        setSize(560, 500);
+        setSize(560, 560);
         setLocationRelativeTo(owner);
         setResizable(false);
         initUI();
@@ -84,6 +88,23 @@ public class NganhDialog extends JDialog {
         // Điem trung tuyen
         txtDiemTrungTuyen = addTextField(form, gbc, row++, "Điểm trúng tuyển");
         txtDiemTrungTuyen.setEnabled(false);
+
+        // Chọn phương thức xét tuyển của ngành
+        addSectionLabel(form, gbc, row++, "Phương thức xét tuyển");
+        JPanel methodPanel = new JPanel(new GridLayout(2, 2, 8, 6));
+        methodPanel.setOpaque(false);
+        cbTuyenThang = createMethodCheckBox("Tuyển thẳng");
+        cbDgnl = createMethodCheckBox("ĐGNL");
+        cbThpt = createMethodCheckBox("THPT");
+        cbVsat = createMethodCheckBox("V-SAT");
+        methodPanel.add(cbTuyenThang);
+        methodPanel.add(cbDgnl);
+        methodPanel.add(cbThpt);
+        methodPanel.add(cbVsat);
+
+        gbc.gridx = 0; gbc.gridy = row; gbc.gridwidth = 2; gbc.weightx = 1;
+        form.add(methodPanel, gbc);
+        gbc.gridwidth = 1;
         return form;
     }
 
@@ -114,6 +135,15 @@ public class NganhDialog extends JDialog {
         gbc.gridwidth = 1;
     }
 
+    // Tạo checkbox chọn phương thức xét tuyển
+    private JCheckBox createMethodCheckBox(String text) {
+        JCheckBox checkbox = new JCheckBox(text);
+        checkbox.setOpaque(false);
+        checkbox.setFont(UIConstants.FONT_REGULAR);
+        checkbox.setSelected(true);
+        return checkbox;
+    }
+
     private JPanel createButtonPanel() {
         JPanel panel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 8, 0));
         panel.setOpaque(false);
@@ -139,6 +169,14 @@ public class NganhDialog extends JDialog {
         txtDiemSan.setText(entity.getnDiemsan() != null ? entity.getnDiemsan().toPlainString() : "");
         txtDiemTrungTuyen.setText(entity.getnDiemtrungtuyen() != null
                 ? entity.getnDiemtrungtuyen().toPlainString() : "");
+        cbTuyenThang.setSelected(isMethodEnabled(entity.getnTuyenthang()));
+        cbDgnl.setSelected(isMethodEnabled(entity.getnDgnl()));
+        cbThpt.setSelected(isMethodEnabled(entity.getnThpt()));
+        cbVsat.setSelected(isMethodEnabled(entity.getnVsat()));
+        lockMethodIfHasNguyenVong(cbTuyenThang, countInt(entity.getSlXtt()));
+        lockMethodIfHasNguyenVong(cbDgnl, countInt(entity.getSlDgnl()));
+        lockMethodIfHasNguyenVong(cbThpt, countInt(entity.getSlThpt()));
+        lockMethodIfHasNguyenVong(cbVsat, countInt(entity.getSlVsat()));
     }
 
     /** Validate va luu entity tu form. */
@@ -228,6 +266,16 @@ public class NganhDialog extends JDialog {
             }
         }
 
+        if (!cbTuyenThang.isSelected() && !cbDgnl.isSelected()
+                && !cbThpt.isSelected() && !cbVsat.isSelected()) {
+            warn("Vui lòng chọn ít nhất một phương thức xét tuyển!");
+            return;
+        }
+
+        if (entity != null && !canChangeMethods()) {
+            return;
+        }
+
         // Build entity
         Nganh result = (entity != null) ? entity : new Nganh();
         result.setManganh(maNganh);
@@ -236,6 +284,10 @@ public class NganhDialog extends JDialog {
         result.setnChitieu(chiTieu);
         result.setnDiemsan(diemSan);
         result.setnDiemtrungtuyen(diemTrungTuyen);
+        result.setnTuyenthang(methodFlag(cbTuyenThang.isSelected()));
+        result.setnDgnl(methodFlag(cbDgnl.isSelected()));
+        result.setnThpt(methodFlag(cbThpt.isSelected()));
+        result.setnVsat(methodFlag(cbVsat.isSelected()));
 
         // Neu them moi, cac truong sl de null (chua co gia tri)
         if (entity == null) {
@@ -251,6 +303,60 @@ public class NganhDialog extends JDialog {
     }
 
     private String nvlStr(String s) { return s != null ? s : ""; }
+
+    // Kiểm tra phương thức còn được xét tuyển hay không
+    private boolean isMethodEnabled(String value) {
+        return value == null || !"-".equals(value.trim());
+    }
+
+    // Chuyển trạng thái checkbox thành cờ lưu trong database
+    private String methodFlag(boolean selected) {
+        return selected ? "1" : "-";
+    }
+
+    // Khóa phương thức đã có nguyện vọng đăng ký
+    private void lockMethodIfHasNguyenVong(JCheckBox checkbox, int count) {
+        if (count > 0) {
+            checkbox.setSelected(true);
+            checkbox.setEnabled(false);
+        }
+    }
+
+    // Kiểm tra không bỏ phương thức đã có nguyện vọng
+    private boolean canChangeMethods() {
+        if (!cbTuyenThang.isSelected() && countInt(entity.getSlXtt()) > 0) {
+            warn("Không thể bỏ phương thức Tuyển thẳng vì đã có nguyện vọng đăng ký!");
+            return false;
+        }
+        if (!cbDgnl.isSelected() && countInt(entity.getSlDgnl()) > 0) {
+            warn("Không thể bỏ phương thức ĐGNL vì đã có nguyện vọng đăng ký!");
+            return false;
+        }
+        if (!cbThpt.isSelected() && countInt(entity.getSlThpt()) > 0) {
+            warn("Không thể bỏ phương thức THPT vì đã có nguyện vọng đăng ký!");
+            return false;
+        }
+        if (!cbVsat.isSelected() && countInt(entity.getSlVsat()) > 0) {
+            warn("Không thể bỏ phương thức V-SAT vì đã có nguyện vọng đăng ký!");
+            return false;
+        }
+        return true;
+    }
+
+    // Chuyển số lượng nguyện vọng sang số nguyên để kiểm tra
+    private int countInt(Integer value) {
+        return value != null ? value : 0;
+    }
+
+    // Chuyển số lượng nguyện vọng dạng chuỗi sang số nguyên để kiểm tra
+    private int countInt(String value) {
+        if (value == null || value.trim().isEmpty()) return 0;
+        try {
+            return Integer.parseInt(value.trim());
+        } catch (NumberFormatException e) {
+            return 0;
+        }
+    }
 
     private void warn(String msg) {
         JOptionPane.showMessageDialog(this, msg, "Loi nhap lieu", JOptionPane.WARNING_MESSAGE);

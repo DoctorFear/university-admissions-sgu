@@ -49,10 +49,10 @@ public class NganhService {
         for (Nganh n : danhSach) {
             String ma = n.getManganh();
             // ttPhuongthuc: TT=TuyenThang, PT4=DGNL, PT2=THPT, PT5=VSAT
-            n.setSlXtt (slMap.getOrDefault(ma + "|TT",  0));
-            n.setSlDgnl(slMap.getOrDefault(ma + "|PT4", 0));
-            n.setSlThpt(String.valueOf(slMap.getOrDefault(ma + "|PT2", 0)));
-            n.setSlVsat(slMap.getOrDefault(ma + "|PT5", 0));
+            n.setSlXtt (getCount(slMap, ma, "TT"));
+            n.setSlDgnl(getCount(slMap, ma, "PT4", "DGNL"));
+            n.setSlThpt(String.valueOf(getCount(slMap, ma, "PT2", "THPT")));
+            n.setSlVsat(getCount(slMap, ma, "PT5", "PT3", "VSAT", "V-SAT"));
         }
         return danhSach;
     }
@@ -65,11 +65,11 @@ public class NganhService {
     // Tìm kiếm ngành theo mã hoặc tên
     public List<Nganh> search(String keyword) {
         if (keyword == null || keyword.trim().isEmpty()) {
-            return findAll();
+            return findAllWithSlNguyenVong();
         }
 
         String normalizedKeyword = normalize(keyword);
-        return findAll().stream()
+        return findAllWithSlNguyenVong().stream()
                 .filter(n -> matches(n, normalizedKeyword))
                 .sorted(Comparator
                         .comparingInt((Nganh n) -> getBestRank(n, normalizedKeyword))
@@ -90,6 +90,7 @@ public class NganhService {
     // Cập nhật ngành từ form quản lý ngành
     public void update(Nganh nganh) {
         validate(nganh);
+        validateCanDisableMethods(nganh);
         nganhDAO.update(nganh);
     }
 
@@ -100,10 +101,10 @@ public class NganhService {
         String ma = nganh.getManganh();
 
         boolean coNguyenVong =
-                slMap.getOrDefault(ma + "|TT",  0) > 0 ||
-                slMap.getOrDefault(ma + "|PT4", 0) > 0 ||
-                slMap.getOrDefault(ma + "|PT2", 0) > 0 ||
-                slMap.getOrDefault(ma + "|PT5", 0) > 0;
+                getCount(slMap, ma, "TT") > 0 ||
+                getCount(slMap, ma, "PT4", "DGNL") > 0 ||
+                getCount(slMap, ma, "PT2", "THPT") > 0 ||
+                getCount(slMap, ma, "PT5", "PT3", "VSAT", "V-SAT") > 0;
 
         if (coNguyenVong) {
             throw new RuntimeException(
@@ -446,6 +447,7 @@ public class NganhService {
         Nganh nganh = nganhDAO.findByMaNganh(maNganh);
         if (nganh != null) {
             capNhatTenNganhNeuCan(nganh, tenNganh);
+            batTatCaPhuongThuc(nganh);
             return nganh;
         }
 
@@ -453,6 +455,7 @@ public class NganhService {
         nganhMoi.setManganh(maNganh);
         nganhMoi.setTennganh(chuanHoaTenNganh(tenNganh, maNganh));
         nganhMoi.setnChitieu(0);
+        batTatCaPhuongThuc(nganhMoi);
         return nganhMoi;
     }
 
@@ -499,6 +502,53 @@ public class NganhService {
         if (nganh.getnChitieu() == null || nganh.getnChitieu() < 0) {
             throw new RuntimeException("Chỉ tiêu không hợp lệ!");
         }
+        if (!isMethodEnabled(nganh.getnTuyenthang()) && !isMethodEnabled(nganh.getnDgnl())
+                && !isMethodEnabled(nganh.getnThpt()) && !isMethodEnabled(nganh.getnVsat())) {
+            throw new RuntimeException("Ngành phải có ít nhất một phương thức xét tuyển!");
+        }
+    }
+
+    // Kiểm tra không bỏ phương thức đã có nguyện vọng
+    private void validateCanDisableMethods(Nganh nganh) {
+        Map<String, Integer> slMap = nguyenVongDAO.countByNganhAndPhuongThuc();
+        String ma = nganh.getManganh();
+
+        if (!isMethodEnabled(nganh.getnTuyenthang()) && getCount(slMap, ma, "TT") > 0) {
+            throw new RuntimeException("Không thể bỏ phương thức Tuyển thẳng vì đã có nguyện vọng đăng ký!");
+        }
+        if (!isMethodEnabled(nganh.getnDgnl()) && getCount(slMap, ma, "PT4", "DGNL") > 0) {
+            throw new RuntimeException("Không thể bỏ phương thức ĐGNL vì đã có nguyện vọng đăng ký!");
+        }
+        if (!isMethodEnabled(nganh.getnThpt()) && getCount(slMap, ma, "PT2", "THPT") > 0) {
+            throw new RuntimeException("Không thể bỏ phương thức THPT vì đã có nguyện vọng đăng ký!");
+        }
+        if (!isMethodEnabled(nganh.getnVsat()) && getCount(slMap, ma, "PT5", "PT3", "VSAT", "V-SAT") > 0) {
+            throw new RuntimeException("Không thể bỏ phương thức V-SAT vì đã có nguyện vọng đăng ký!");
+        }
+    }
+
+    // Bật mặc định tất cả phương thức khi import ngành
+    private void batTatCaPhuongThuc(Nganh nganh) {
+        nganh.setnTuyenthang("1");
+        nganh.setnDgnl("1");
+        nganh.setnThpt("1");
+        nganh.setnVsat("1");
+    }
+
+    // Kiểm tra phương thức còn được xét tuyển hay không
+    private boolean isMethodEnabled(String flag) {
+        return flag == null || !"-".equals(flag.trim());
+    }
+
+    // Lấy số lượng nguyện vọng theo ngành và các mã phương thức tương ứng
+    private int getCount(Map<String, Integer> slMap, String maNganh, String... phuongThucList) {
+        String ma = maNganh != null ? maNganh.trim().toUpperCase(Locale.ROOT) : "";
+        int total = 0;
+        for (String phuongThuc : phuongThucList) {
+            String pt = phuongThuc != null ? phuongThuc.trim().toUpperCase(Locale.ROOT) : "";
+            total += slMap.getOrDefault(ma + "|" + pt, 0);
+        }
+        return total;
     }
 
     // Lấy danh sách tổ hợp hợp lệ để kiểm tra dữ liệu ngành
