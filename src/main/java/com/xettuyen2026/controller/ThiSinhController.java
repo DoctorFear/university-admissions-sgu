@@ -1,6 +1,8 @@
 package com.xettuyen2026.controller;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.xettuyen2026.dao.BangQuydoiDAO;
+import com.xettuyen2026.dao.DiemThiDAO;
 import com.xettuyen2026.dao.NganhDAO;
 import com.xettuyen2026.dao.NganhTohopDAO;
 import com.xettuyen2026.dao.NguyenVongDAO;
@@ -23,6 +26,7 @@ import com.xettuyen2026.dto.TinhDiemResponse;
 import com.xettuyen2026.dto.TraCuuRequest;
 import com.xettuyen2026.dto.TraCuuResponse;
 import com.xettuyen2026.entity.BangQuydoi;
+import com.xettuyen2026.entity.DiemThiXetTuyen;
 import com.xettuyen2026.entity.Nganh;
 import com.xettuyen2026.entity.NganhTohop;
 import com.xettuyen2026.entity.NguyenVongXetTuyen;
@@ -37,6 +41,7 @@ public class ThiSinhController {
     private final NganhDAO nganhDAO = new NganhDAO();
     private final NganhTohopDAO nganhTohopDAO = new NganhTohopDAO();
     private final BangQuydoiDAO bangQuydoiDAO = new BangQuydoiDAO();
+    private final DiemThiDAO diemThiDAO = new DiemThiDAO();
 
     public ThiSinhController() {
         this.tsService = new ThiSinhService();
@@ -85,6 +90,15 @@ public class ThiSinhController {
 
             List<NguyenVongXetTuyen> nvs = nguyenVongDAO.findByCccd(ts.getCccd());
             response.setSuccess(true);
+
+            // Thông tin thí sinh
+            String hoTen = ((ts.getHo() != null ? ts.getHo() : "") + " " + (ts.getTen() != null ? ts.getTen() : "")).trim();
+            response.setHoTen(hoTen);
+            response.setCccd(ts.getCccd());
+            response.setNgaySinh(ts.getNgaySinh());
+            response.setGioiTinh(ts.getGioiTinh());
+            response.setDanToc(ts.getDanToc());
+            response.setNoiSinh(ts.getNoiSinh());
             
             List<TraCuuResponse.NguyenVongDTO> dtoList = new ArrayList<>();
             boolean isPending = false;
@@ -107,6 +121,52 @@ public class ThiSinhController {
                     dto.setDiemXetTuyen(nv.getDiemXettuyen().doubleValue());
                 }
                 dto.setKetQua(nv.getNvKetqua());
+
+                // Chi tiết điểm từ entity
+                if (nv.getDiemThxt() != null) dto.setDiemThxt(nv.getDiemThxt().doubleValue());
+                if (nv.getDiemUtqd() != null) dto.setDiemUtqd(nv.getDiemUtqd().doubleValue());
+                if (nv.getDiemCong() != null) dto.setDiemCongDetail(nv.getDiemCong().doubleValue());
+                dto.setToHopXetTuyen(nv.getTtThm());
+
+                // Tên phương thức
+                String pt = nv.getTtPhuongthuc();
+                if (pt != null) {
+                    if ("4".equals(pt) || pt.toUpperCase().contains("DGNL")) {
+                        dto.setPhuongThucDisplay("ĐGNL (Thang 1200)");
+                    } else if ("5".equals(pt) || pt.toUpperCase().contains("VSAT")) {
+                        dto.setPhuongThucDisplay("V-SAT / THPT");
+                    } else if ("1".equals(pt) || "2".equals(pt) || pt.toUpperCase().contains("PT") || pt.toUpperCase().contains("THPT")) {
+                        dto.setPhuongThucDisplay("Xét điểm THPT");
+                    } else {
+                        dto.setPhuongThucDisplay(pt);
+                    }
+                }
+
+                // Lấy điểm thi chi tiết
+                String ptCode = nv.getTtPhuongthuc();
+                if (ptCode != null) {
+                    DiemThiXetTuyen diemThi = diemThiDAO.findByCccdAndPhuongThuc(ts.getCccd(), ptCode);
+                    if (diemThi != null) {
+                        Map<String, Double> chiTiet = new LinkedHashMap<>();
+                        addIfNotNull(chiTiet, "Toán", diemThi.getTo());
+                        addIfNotNull(chiTiet, "Ngữ văn", diemThi.getVa());
+                        addIfNotNull(chiTiet, "Vật lý", diemThi.getLi());
+                        addIfNotNull(chiTiet, "Hóa học", diemThi.getHo());
+                        addIfNotNull(chiTiet, "Sinh học", diemThi.getSi());
+                        addIfNotNull(chiTiet, "Lịch sử", diemThi.getSu());
+                        addIfNotNull(chiTiet, "Địa lí", diemThi.getDi());
+                        addIfNotNull(chiTiet, "GDCD", diemThi.getGdcd());
+                        addIfNotNull(chiTiet, "Tiếng Anh (thi)", diemThi.getN1Thi());
+                        addIfNotNull(chiTiet, "Tiếng Anh (CC)", diemThi.getN1Cc());
+                        addIfNotNull(chiTiet, "ĐGNL", diemThi.getNl1());
+                        addIfNotNull(chiTiet, "Tin học", diemThi.getTi());
+                        addIfNotNull(chiTiet, "KTPL", diemThi.getKtpl());
+                        if (!chiTiet.isEmpty()) {
+                            dto.setDiemThiChiTiet(chiTiet);
+                        }
+                    }
+                }
+
                 dtoList.add(dto);
 
                 String kq = nv.getNvKetqua();
@@ -212,7 +272,14 @@ public class ThiSinhController {
             }
             
             double finalDiemQuyDoi = bestDiemQuyDoi > 0 ? bestDiemQuyDoi : 0;
-            double diemXetTuyen = finalDiemQuyDoi + diemCong + diemUuTien;
+            
+            double actualDut = diemUuTien;
+            if (finalDiemQuyDoi + diemCong >= 22.5) {
+                actualDut = ((30.0 - finalDiemQuyDoi - diemCong) / 7.5) * diemUuTien;
+                if (actualDut < 0) actualDut = 0.0;
+            }
+            
+            double diemXetTuyen = Math.min(finalDiemQuyDoi + diemCong + actualDut, 30.0);
             
             if (bestMatched != null) {
                 response.setDiema(bestMatched.getdDiema() != null ? bestMatched.getdDiema().doubleValue() : null);
@@ -228,7 +295,7 @@ public class ThiSinhController {
             response.setDiemThi(diemThi);
             response.setDiemQuyDoi(finalDiemQuyDoi);
             response.setDiemCong(diemCong);
-            response.setDiemUuTien(diemUuTien);
+            response.setDiemUuTien(actualDut);
             response.setDiemXetTuyen(diemXetTuyen);
             response.setDiemNguong(diemSan);
             response.setIsDat(diemXetTuyen >= diemSan);
@@ -369,8 +436,15 @@ public class ThiSinhController {
                     double dthxt = dthxtRaw;
                     // Xet nguong = sum of converted + uu tien
                     double xetNguong = m1Conv + m2Conv + m3Conv + diemUuTien;
-                    // DXT = DTHXT + DC + DUT - dolech (capped <=30)
-                    double dxtCombo = Math.min(dthxt + diemCong + diemUuTien - dolech, 30.0);
+                    
+                    double dthgxt = dthxt - dolech;
+                    double actualDut = diemUuTien;
+                    if (dthgxt + diemCong >= 22.5) {
+                        actualDut = ((30.0 - dthxt - diemCong) / 7.5) * diemUuTien;
+                        if (actualDut < 0) actualDut = 0.0;
+                    }
+                    // DXT = DTHGXT + DC + DUT (capped <=30)
+                    double dxtCombo = Math.min(dthgxt + diemCong + actualDut, 30.0);
 
                     Map<String, Object> thDetail = new java.util.LinkedHashMap<>();
                     thDetail.put("maTohop", th.getMatohop());
@@ -405,7 +479,7 @@ public class ThiSinhController {
                     thDetail.put("m3Diemd", r3.getOrDefault("diemd", null));
                     thDetail.put("dthxt", dthxt);
                     thDetail.put("xetNguong", xetNguong);
-                    thDetail.put("dut", diemUuTien);
+                    thDetail.put("dut", actualDut);
                     thDetail.put("dc", diemCong);
                     thDetail.put("diemXetTuyen", dxtCombo);
 
@@ -439,5 +513,11 @@ public class ThiSinhController {
             response.setMessage(e.getMessage());
         }
         return response;
+    }
+
+    private void addIfNotNull(Map<String, Double> map, String key, BigDecimal value) {
+        if (value != null && value.doubleValue() > 0) {
+            map.put(key, value.doubleValue());
+        }
     }
 }

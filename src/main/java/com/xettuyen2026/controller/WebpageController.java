@@ -1,6 +1,8 @@
 package com.xettuyen2026.controller;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.xettuyen2026.dao.BangQuydoiDAO;
+import com.xettuyen2026.dao.DiemThiDAO;
 import com.xettuyen2026.dao.NganhDAO;
 import com.xettuyen2026.dao.NganhTohopDAO;
 import com.xettuyen2026.dao.NguyenVongDAO;
@@ -19,6 +22,7 @@ import com.xettuyen2026.dto.TinhDiemResponse;
 import com.xettuyen2026.dto.TraCuuRequest;
 import com.xettuyen2026.dto.TraCuuResponse;
 import com.xettuyen2026.entity.BangQuydoi;
+import com.xettuyen2026.entity.DiemThiXetTuyen;
 import com.xettuyen2026.entity.Nganh;
 import com.xettuyen2026.entity.NganhTohop;
 import com.xettuyen2026.entity.NguyenVongXetTuyen;
@@ -33,6 +37,7 @@ public class WebpageController {
     private final NganhDAO nganhDAO = new NganhDAO();
     private final NganhTohopDAO nganhTohopDAO = new NganhTohopDAO();
     private final BangQuydoiDAO bangQuydoiDAO = new BangQuydoiDAO();
+    private final DiemThiDAO diemThiDAO = new DiemThiDAO();
 
     public WebpageController() {
         this.tsService = new ThiSinhService();
@@ -76,6 +81,15 @@ public class WebpageController {
                     List<NguyenVongXetTuyen> nvs = nguyenVongDAO.findByCccd(ts.getCccd());
                     response.setSuccess(true);
 
+                    // Thông tin thí sinh
+                    String hoTen = ((ts.getHo() != null ? ts.getHo() : "") + " " + (ts.getTen() != null ? ts.getTen() : "")).trim();
+                    response.setHoTen(hoTen);
+                    response.setCccd(ts.getCccd());
+                    response.setNgaySinh(ts.getNgaySinh());
+                    response.setGioiTinh(ts.getGioiTinh());
+                    response.setDanToc(ts.getDanToc());
+                    response.setNoiSinh(ts.getNoiSinh());
+
                     List<TraCuuResponse.NguyenVongDTO> dtoList = new ArrayList<>();
                     boolean isPending = false;
                     boolean isAdmitted = false;
@@ -94,12 +108,75 @@ public class WebpageController {
                                 : null);
 
                         dto.setThuTu(nv.getNvTt());
-                        dto.setToHop(nganh != null ? nganh.getnTohopgoc() : "Chưa xác định");
+                        // Ưu tiên tổ hợp thực tế thí sinh đã đăng ký (tt_thm), fallback sang tổ hợp gốc ngành
+                        String toHopDisplay = nv.getTtThm();
+                        if (toHopDisplay == null || toHopDisplay.trim().isEmpty()) {
+                            toHopDisplay = (nganh != null ? nganh.getnTohopgoc() : "Chưa xác định");
+                        }
+                        dto.setToHop(toHopDisplay);
                         dto.setPhuongThuc(nv.getTtPhuongthuc());
                         if (nv.getDiemXettuyen() != null) {
                             dto.setDiemXetTuyen(nv.getDiemXettuyen().doubleValue());
                         }
                         dto.setKetQua(nv.getNvKetqua());
+
+                        // Chi tiết điểm từ entity
+                        if (nv.getDiemThxt() != null) dto.setDiemThxt(nv.getDiemThxt().doubleValue());
+                        if (nv.getDiemUtqd() != null) dto.setDiemUtqd(nv.getDiemUtqd().doubleValue());
+                        if (nv.getDiemCong() != null) dto.setDiemCongDetail(nv.getDiemCong().doubleValue());
+                        dto.setToHopXetTuyen(nv.getTtThm());
+
+                        // Tên phương thức hiển thị
+                        String pt = nv.getTtPhuongthuc();
+                        if (pt != null) {
+                            if ("4".equals(pt) || pt.toUpperCase().contains("DGNL")) {
+                                dto.setPhuongThucDisplay("ĐGNL (Thang 1200)");
+                            } else if ("5".equals(pt) || pt.toUpperCase().contains("VSAT")) {
+                                dto.setPhuongThucDisplay("V-SAT / THPT");
+                            } else if ("1".equals(pt) || "2".equals(pt) || pt.toUpperCase().contains("PT") || pt.toUpperCase().contains("THPT")) {
+                                dto.setPhuongThucDisplay("Xét điểm THPT");
+                            } else {
+                                dto.setPhuongThucDisplay(pt);
+                            }
+                        }
+
+                        // Lấy điểm thi chi tiết theo CCCD và phương thức
+                        String ptCode = nv.getTtPhuongthuc();
+                        if (ptCode != null) {
+                            DiemThiXetTuyen diemThi = diemThiDAO.findByCccdAndPhuongThuc(ts.getCccd(), ptCode);
+                            // Fallback: nếu không tìm thấy theo phương thức, thử tìm theo CCCD
+                            if (diemThi == null) {
+                                diemThi = diemThiDAO.findByCccd(ts.getCccd());
+                            }
+                            if (diemThi != null) {
+                                Map<String, Double> chiTiet = new LinkedHashMap<>();
+                                addIfNotNull(chiTiet, "Toán", diemThi.getTo());
+                                addIfNotNull(chiTiet, "Ngữ văn", diemThi.getVa());
+                                addIfNotNull(chiTiet, "Vật lý", diemThi.getLi());
+                                addIfNotNull(chiTiet, "Hóa học", diemThi.getHo());
+                                addIfNotNull(chiTiet, "Sinh học", diemThi.getSi());
+                                addIfNotNull(chiTiet, "Lịch sử", diemThi.getSu());
+                                addIfNotNull(chiTiet, "Địa lí", diemThi.getDi());
+                                addIfNotNull(chiTiet, "GDCD", diemThi.getGdcd());
+                                addIfNotNull(chiTiet, "Tiếng Anh (thi)", diemThi.getN1Thi());
+                                addIfNotNull(chiTiet, "Tiếng Anh (CC)", diemThi.getN1Cc());
+                                addIfNotNull(chiTiet, "ĐGNL", diemThi.getNl1());
+                                addIfNotNull(chiTiet, "Tin học", diemThi.getTi());
+                                addIfNotNull(chiTiet, "KTPL", diemThi.getKtpl());
+                                addIfNotNull(chiTiet, "CN Chăn nuôi", diemThi.getCncn());
+                                addIfNotNull(chiTiet, "CN Nông nghiệp", diemThi.getCnnn());
+                                addIfNotNull(chiTiet, "Năng khiếu 1", diemThi.getNk1());
+                                addIfNotNull(chiTiet, "Năng khiếu 2", diemThi.getNk2());
+                                addIfNotNull(chiTiet, "Năng khiếu 3", diemThi.getNk3());
+                                addIfNotNull(chiTiet, "Năng khiếu 4", diemThi.getNk4());
+                                addIfNotNull(chiTiet, "Năng khiếu 5", diemThi.getNk5());
+                                addIfNotNull(chiTiet, "Năng khiếu 6", diemThi.getNk6());
+                                if (!chiTiet.isEmpty()) {
+                                    dto.setDiemThiChiTiet(chiTiet);
+                                }
+                            }
+                        }
+
                         dtoList.add(dto);
 
                         String kq = nv.getNvKetqua();
@@ -877,5 +954,11 @@ public class WebpageController {
             return "ĐT 0" + code;
         }
         return "Không đối tượng";
+    }
+
+    private void addIfNotNull(Map<String, Double> map, String key, BigDecimal value) {
+        if (value != null && value.doubleValue() > 0) {
+            map.put(key, value.doubleValue());
+        }
     }
 }
