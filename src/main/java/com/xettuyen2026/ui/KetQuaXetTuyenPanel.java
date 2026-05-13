@@ -27,16 +27,20 @@ public class KetQuaXetTuyenPanel extends JPanel {
     private NganhDAO nganhDAO = new NganhDAO();
     private ThiSinhDAO thiSinhDAO = new ThiSinhDAO();
     private JComboBox<String> cboNganh;
+    private JRadioButton radAll, radPassed, radFailed;
     private PaginatedTable styledTable;
     private JLabel lblDiemChuan, lblTrungTuyen, lblTongNV;
     private JTabbedPane tabbedPane;
     private PaginatedTable statsTable;
+    private JComboBox<String> cboStatsSearch;
+    private List<Object[]> allStatsRows = new ArrayList<>();
+    private Map<String, String> nganhNameMap;
 
     // Cache
     private Map<String, ThiSinh> thiSinhMap;
 
     private static final String[] COLUMNS = {
-        "STT", "CCCD", "Họ", "Tên", "NV Thứ", "Phương thức", "THM",
+        "STT", "CCCD", "Tên", "Tên ngành", "NV Thứ", "Phương thức", "THM",
         "Điểm THXT", "Điểm Cộng", "Điểm ƯT", "Điểm XT", "Kết quả"
     };
 
@@ -54,46 +58,19 @@ public class KetQuaXetTuyenPanel extends JPanel {
 
         tabbedPane = new JTabbedPane();
         tabbedPane.setFont(UIConstants.FONT_BOLD);
-        tabbedPane.addTab("📋 Danh sách trúng tuyển chi tiết", createTableCard());
-        tabbedPane.addTab("📊 Thống kê trúng tuyển theo phương thức", createStatsCard());
+        tabbedPane.addTab("Danh sách trúng tuyển chi tiết", createTableCard());
+        tabbedPane.addTab("Thống kê trúng tuyển theo phương thức", createStatsCard());
         add(tabbedPane, BorderLayout.CENTER);
+
+        SwingUtilities.invokeLater(() -> {
+            loadAllStats();
+            loadResults();
+        });
     }
 
     private JPanel createHeaderPanel() {
         JPanel header = new JPanel(new BorderLayout(12, 8));
         header.setOpaque(false);
-
-        // Top row: ngành selector + button
-        JPanel selectPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 8, 4));
-        selectPanel.setOpaque(false);
-
-        JLabel lbl = new JLabel("Chọn ngành:");
-        lbl.setFont(UIConstants.FONT_BOLD);
-        selectPanel.add(lbl);
-
-        cboNganh = new JComboBox<>();
-        cboNganh.setFont(UIConstants.FONT_REGULAR);
-        cboNganh.setPreferredSize(new Dimension(400, 34));
-        try {
-            cboNganh.addItem("--- Tất cả ngành ---");
-            List<Nganh> list = nganhDAO.findAll();
-            for (Nganh n : list) {
-                cboNganh.addItem(n.getManganh() + " - " + n.getTennganh());
-            }
-        } catch (Exception e) {
-            cboNganh.addItem("(Lỗi tải ngành)");
-        }
-        selectPanel.add(cboNganh);
-
-        RoundedButton btnView = new RoundedButton(UIConstants.ICON_DASHBOARD + " Xem kết quả", UIConstants.PRIMARY);
-        btnView.addActionListener(e -> loadResults());
-        selectPanel.add(btnView);
-
-        RoundedButton btnStats = new RoundedButton(UIConstants.ICON_DASHBOARD + " Tải thống kê tất cả", new Color(0x00796B));
-        btnStats.addActionListener(e -> loadAllStats());
-        selectPanel.add(btnStats);
-
-        header.add(selectPanel, BorderLayout.NORTH);
 
         // Stats cards
         JPanel statsPanel = new JPanel(new GridLayout(1, 3, 12, 0));
@@ -104,7 +81,7 @@ public class KetQuaXetTuyenPanel extends JPanel {
         lblTrungTuyen = new JLabel("---");
         lblTongNV = new JLabel("---");
 
-        statsPanel.add(createMiniCard("Điểm chuẩn", lblDiemChuan, UIConstants.STAT_BLUE));
+        statsPanel.add(createMiniCard("Không trúng tuyển", lblDiemChuan, UIConstants.STAT_BLUE));
         statsPanel.add(createMiniCard("Trúng tuyển", lblTrungTuyen, UIConstants.STAT_GREEN));
         statsPanel.add(createMiniCard("Tổng NV", lblTongNV, UIConstants.STAT_ORANGE));
 
@@ -156,6 +133,71 @@ public class KetQuaXetTuyenPanel extends JPanel {
         card.setOpaque(false);
         card.setBorder(BorderFactory.createEmptyBorder(12, 16, 12, 16));
 
+        JPanel topContainer = new JPanel(new BorderLayout());
+        topContainer.setOpaque(false);
+
+        // Row 1: Chọn ngành + Buttons
+        JPanel row1 = new JPanel(new FlowLayout(FlowLayout.LEFT, 8, 4));
+        row1.setOpaque(false);
+        
+        JLabel lbl = new JLabel("Chọn ngành:");
+        lbl.setFont(UIConstants.FONT_BOLD);
+        row1.add(lbl);
+
+        cboNganh = new JComboBox<>();
+        cboNganh.setFont(UIConstants.FONT_REGULAR);
+        cboNganh.setPreferredSize(new Dimension(400, 34));
+        try {
+            cboNganh.addItem("--- Tất cả ngành ---");
+            List<Nganh> list = nganhDAO.findAll();
+            for (Nganh n : list) {
+                cboNganh.addItem(n.getManganh() + " - " + n.getTennganh());
+            }
+        } catch (Exception e) {
+            cboNganh.addItem("(Lỗi tải ngành)");
+        }
+        row1.add(cboNganh);
+
+        RoundedButton btnView = new RoundedButton(UIConstants.ICON_SEARCH + " Xem kết quả", UIConstants.PRIMARY);
+        btnView.addActionListener(e -> loadResults());
+        row1.add(btnView);
+
+        RoundedButton btnStats = new RoundedButton(UIConstants.ICON_STATISTIC + " Tải thống kê tất cả", new Color(0x00796B));
+        btnStats.addActionListener(e -> loadAllStats());
+        row1.add(btnStats);
+
+        // Row 2: Radio buttons
+        JPanel row2 = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        row2.setOpaque(false);
+        
+        radAll = new JRadioButton("Tất cả", true);
+        radPassed = new JRadioButton("Đậu");
+        radFailed = new JRadioButton("Rớt");
+        
+        radAll.setOpaque(false);
+        radPassed.setOpaque(false);
+        radFailed.setOpaque(false);
+        
+        ButtonGroup bg = new ButtonGroup();
+        bg.add(radAll);
+        bg.add(radPassed);
+        bg.add(radFailed);
+        
+        java.awt.event.ActionListener filterAction = e -> loadResults();
+        radAll.addActionListener(filterAction);
+        radPassed.addActionListener(filterAction);
+        radFailed.addActionListener(filterAction);
+        
+        row2.add(new JLabel("Lọc kết quả: "));
+        row2.add(radAll);
+        row2.add(radPassed);
+        row2.add(radFailed);
+        
+        topContainer.add(row1, BorderLayout.NORTH);
+        topContainer.add(row2, BorderLayout.SOUTH);
+        
+        card.add(topContainer, BorderLayout.NORTH);
+
         styledTable = new PaginatedTable(COLUMNS);
 
         styledTable.getTable().setDefaultRenderer(Object.class, new javax.swing.table.DefaultTableCellRenderer() {
@@ -168,11 +210,11 @@ public class KetQuaXetTuyenPanel extends JPanel {
                     if ("yes".equals(value.toString())) {
                         c.setForeground(UIConstants.SUCCESS);
                         ((JLabel) c).setFont(UIConstants.FONT_BOLD);
-                        ((JLabel) c).setText("✅ Trúng tuyển");
+                        ((JLabel) c).setText("Trúng tuyển");
                     } else {
                         c.setForeground(UIConstants.DANGER);
                         ((JLabel) c).setFont(UIConstants.FONT_BOLD);
-                        ((JLabel) c).setText("❌ Rớt");
+                        ((JLabel) c).setText("Rớt");
                     }
                 } else if (col == 5 && value != null) {
                     // Color-code phương thức
@@ -219,6 +261,26 @@ public class KetQuaXetTuyenPanel extends JPanel {
         card.setOpaque(false);
         card.setBorder(BorderFactory.createEmptyBorder(12, 16, 12, 16));
 
+        cboStatsSearch = new JComboBox<>();
+        cboStatsSearch.setFont(UIConstants.FONT_REGULAR);
+        cboStatsSearch.setPreferredSize(new Dimension(300, 34));
+        try {
+            cboStatsSearch.addItem("--- Tất cả ngành ---");
+            List<Nganh> list = nganhDAO.findAll();
+            for (Nganh n : list) {
+                cboStatsSearch.addItem(n.getManganh() + " - " + n.getTennganh());
+            }
+        } catch (Exception e) {
+            cboStatsSearch.addItem("(Lỗi tải ngành)");
+        }
+        cboStatsSearch.addActionListener(e -> doSearchStats());
+
+        JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        topPanel.setOpaque(false);
+        topPanel.add(new JLabel("Tìm kiếm ngành:"));
+        topPanel.add(cboStatsSearch);
+        card.add(topPanel, BorderLayout.NORTH);
+
         statsTable = new PaginatedTable(STATS_COLUMNS);
 
         statsTable.getTable().setDefaultRenderer(Object.class, new javax.swing.table.DefaultTableCellRenderer() {
@@ -260,6 +322,32 @@ public class KetQuaXetTuyenPanel extends JPanel {
         return thiSinhMap.get(cccd);
     }
 
+    private String getNganhName(String maNganh) {
+        if (nganhNameMap == null) {
+            try {
+                nganhNameMap = nganhDAO.findAll().stream()
+                        .collect(Collectors.toMap(Nganh::getManganh, Nganh::getTennganh, (a, b) -> a));
+            } catch (Exception e) {
+                nganhNameMap = Collections.emptyMap();
+            }
+        }
+        return nganhNameMap.getOrDefault(maNganh, maNganh);
+    }
+
+    private void doSearchStats() {
+        if (cboStatsSearch == null) return;
+        String item = (String) cboStatsSearch.getSelectedItem();
+        if (item == null || item.startsWith("---") || item.startsWith("(")) {
+            statsTable.setData(allStatsRows);
+            return;
+        }
+        String maNganh = item.split(" - ")[0].trim();
+        List<Object[]> filtered = allStatsRows.stream()
+                .filter(row -> String.valueOf(row[1]).equals(maNganh))
+                .collect(Collectors.toList());
+        statsTable.setData(filtered);
+    }
+
     private String normalizePT(String pt) {
         if (pt == null) return "THPT";
         String upper = pt.toUpperCase().trim();
@@ -272,49 +360,47 @@ public class KetQuaXetTuyenPanel extends JPanel {
     private void loadResults() {
         String item = (String) cboNganh.getSelectedItem();
         if (item == null) return;
+        
+        String ketQuaFilter = "Tất cả";
+        if (radPassed != null && radPassed.isSelected()) ketQuaFilter = "Trúng tuyển";
+        else if (radFailed != null && radFailed.isSelected()) ketQuaFilter = "Rớt";
 
         try {
             thiSinhMap = null; // refresh cache
-            List<NguyenVongXetTuyen> nvList;
+            nganhNameMap = null; // refresh cache
+            List<NguyenVongXetTuyen> allNvForStats;
 
             if (item.startsWith("---")) {
-                // Tất cả ngành - chỉ hiển thị trúng tuyển
-                nvList = nvDAO.findAll().stream()
-                        .filter(n -> "yes".equals(n.getNvKetqua()))
-                        .sorted(Comparator.comparing(NguyenVongXetTuyen::getNvManganh)
-                                .thenComparing(n -> n.getDiemXettuyen() != null ? n.getDiemXettuyen() : BigDecimal.ZERO,
-                                        Comparator.reverseOrder()))
-                        .collect(Collectors.toList());
-
-                lblTongNV.setText(String.valueOf(nvDAO.findAll().size()));
-                lblTrungTuyen.setText(String.valueOf(nvList.size()));
-                lblDiemChuan.setText("---");
+                allNvForStats = nvDAO.findAll();
             } else {
                 String maNganh = item.split(" - ")[0].trim();
-                Nganh nganh = nganhDAO.findByMaNganh(maNganh);
-                nvList = nvDAO.findByMaNganh(maNganh);
-
-                // Stats
-                lblTongNV.setText(String.valueOf(nvList.size()));
-                long trung = nvList.stream().filter(n -> "yes".equals(n.getNvKetqua())).count();
-                lblTrungTuyen.setText(String.valueOf(trung));
-                if (nganh != null && nganh.getnDiemtrungtuyen() != null) {
-                    lblDiemChuan.setText(nganh.getnDiemtrungtuyen().toPlainString());
-                } else {
-                    lblDiemChuan.setText("Chưa xét");
-                }
+                allNvForStats = nvDAO.findByMaNganh(maNganh);
             }
+
+            final String finalKetQuaFilter = ketQuaFilter;
+            List<NguyenVongXetTuyen> nvList = allNvForStats.stream().filter(n -> {
+                if ("Trúng tuyển".equals(finalKetQuaFilter)) return "yes".equals(n.getNvKetqua());
+                if ("Rớt".equals(finalKetQuaFilter)) return "duoisan".equals(n.getNvKetqua());
+                return true;
+            }).sorted(Comparator.comparing(NguyenVongXetTuyen::getNvManganh)
+                    .thenComparing(n -> n.getDiemXettuyen() != null ? n.getDiemXettuyen() : BigDecimal.ZERO, Comparator.reverseOrder()))
+            .collect(Collectors.toList());
+
+            // Stats
+            long trung = allNvForStats.stream().filter(n -> "yes".equals(n.getNvKetqua())).count();
+            lblTongNV.setText(String.valueOf(allNvForStats.size()));
+            lblTrungTuyen.setText(String.valueOf(trung));
+            lblDiemChuan.setText(String.valueOf(allNvForStats.size() - trung));
 
             // Table
             List<Object[]> rows = new ArrayList<>();
             int stt = 1;
             for (NguyenVongXetTuyen nv : nvList) {
                 ThiSinh ts = getThiSinh(nv.getNnCccd());
-                String ho = ts != null ? ts.getHo() : "";
                 String ten = ts != null ? ts.getTen() : "";
                 String thm = nv.getTtThm() != null ? nv.getTtThm() : "";
                 rows.add(new Object[]{
-                    stt++, nv.getNnCccd(), ho, ten, nv.getNvTt(),
+                    stt++, nv.getNnCccd(), ten, getNganhName(nv.getNvManganh()), nv.getNvTt(),
                     nv.getTtPhuongthuc(), thm,
                     nv.getDiemThxt(), nv.getDiemCong(), nv.getDiemUtqd(),
                     nv.getDiemXettuyen(), nv.getNvKetqua()
@@ -370,13 +456,14 @@ public class KetQuaXetTuyenPanel extends JPanel {
                 });
             }
 
+            allStatsRows = rows;
             statsTable.setData(rows);
 
             // Update summary stats
             long totalTrungTuyen = allNV.stream().filter(n -> "yes".equals(n.getNvKetqua())).count();
             lblTrungTuyen.setText(String.valueOf(totalTrungTuyen));
             lblTongNV.setText(String.valueOf(allNV.size()));
-            lblDiemChuan.setText("Xem bảng");
+            lblDiemChuan.setText(String.valueOf(allNV.size() - totalTrungTuyen));
 
             // Switch to stats tab
             tabbedPane.setSelectedIndex(1);

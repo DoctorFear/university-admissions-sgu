@@ -30,7 +30,7 @@ public class RoundedButton extends JButton {
             int extIdx = text.indexOf(".png");
             String iconName = text.substring(0, extIdx + 4).trim();
             parsedText = text.substring(extIdx + 4).trim();
-            setIcon(UIConstants.getIcon(iconName, 18, 18));
+            setIcon(UIConstants.getWhiteIcon(iconName, 18, 18));
             setIconTextGap(8);
         }
         setText(parsedText);
