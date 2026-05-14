@@ -35,6 +35,9 @@ public class NguyenVongPanel extends JPanel {
     private AdmissionService admissionService;
     private List<NguyenVongXetTuyen> loadedEntities = new ArrayList<>();
 
+    // YÊU CẦU 4: Tìm kiếm nâng cao (Unified Search)
+    private JComboBox<String> cboSearchCriteria;
+
     private static final String[] COLUMNS = {
             "STT", "CCCD", "Tên", "Mã ngành", "Tên ngành", "NV Thứ", "PT", "THM",
             "Điểm THXT", "Điểm Cộng", "Điểm ƯT", "Điểm XT", "Kết quả"
@@ -57,16 +60,42 @@ public class NguyenVongPanel extends JPanel {
         toolbar.setLayout(new BoxLayout(toolbar, BoxLayout.Y_AXIS));
         toolbar.setOpaque(false);
 
-        // ── Row 1: Search + Load ──
+        // ── Row 1: Unified Search ──
         JPanel row1 = new JPanel(new FlowLayout(FlowLayout.LEFT, 6, 4));
         row1.setOpaque(false);
-        searchBar = new SearchBar("Tìm theo CCCD...", e -> doSearch());
+        
+        cboSearchCriteria = new JComboBox<>(new String[]{"CCCD", "Mã ngành", "Phương thức", "Tổ hợp"});
+        cboSearchCriteria.setFont(UIConstants.FONT_REGULAR);
+        cboSearchCriteria.setPreferredSize(new Dimension(140, 36));
+        cboSearchCriteria.addActionListener(e -> {
+            String sel = (String) cboSearchCriteria.getSelectedItem();
+            if ("CCCD".equals(sel)) searchBar.setPlaceholder("Nhập CCCD...");
+            else if ("Mã ngành".equals(sel)) searchBar.setPlaceholder("Nhập Mã ngành...");
+            else if ("Phương thức".equals(sel)) searchBar.setPlaceholder("Nhập PT (VD: PT2, THPT, DGNL)...");
+            else if ("Tổ hợp".equals(sel)) searchBar.setPlaceholder("Nhập Tổ hợp (VD: A00)...");
+            searchBar.clear();
+            loadData();
+        });
+
+        searchBar = new SearchBar("Nhập CCCD...", e -> doUnifiedSearch());
+        
         RoundedButton btnSearch = new RoundedButton(UIConstants.ICON_SEARCH + " Tìm", UIConstants.PRIMARY_LIGHT);
-        btnSearch.addActionListener(e -> doSearch());
+        btnSearch.addActionListener(e -> doUnifiedSearch());
+        
+        RoundedButton btnReset = new RoundedButton("🔄 Làm mới", new Color(0x607D8B));
+        btnReset.addActionListener(e -> {
+            searchBar.clear();
+            cboSearchCriteria.setSelectedIndex(0);
+            loadData();
+        });
+        
         RoundedButton btnLoad = new RoundedButton(UIConstants.ICON_DOWNLOAD + " Tải DS", UIConstants.PRIMARY);
         btnLoad.addActionListener(e -> doExport());
+        
+        row1.add(cboSearchCriteria);
         row1.add(searchBar);
         row1.add(btnSearch);
+        row1.add(btnReset);
         row1.add(btnLoad);
         toolbar.add(row1);
 
@@ -263,14 +292,48 @@ public class NguyenVongPanel extends JPanel {
         };
     }
 
-    private void doSearch() {
-        String kw = searchBar.getText();
+    private void doUnifiedSearch() {
+        String kw = searchBar.getText().trim().toUpperCase();
         if (kw.isEmpty()) {
             loadData();
             return;
         }
+        
         try {
-            loadedEntities = dao.findByCccd(kw);
+            String sel = (String) cboSearchCriteria.getSelectedItem();
+            List<NguyenVongXetTuyen> allNV = dao.findAllOrdered();
+            List<NguyenVongXetTuyen> filtered = new ArrayList<>();
+            
+            for (NguyenVongXetTuyen nv : allNV) {
+                if ("CCCD".equals(sel)) {
+                    if (nv.getNnCccd() != null && nv.getNnCccd().toUpperCase().contains(kw)) {
+                        filtered.add(nv);
+                    }
+                } else if ("Mã ngành".equals(sel)) {
+                    if (nv.getNvManganh() != null && nv.getNvManganh().toUpperCase().contains(kw)) {
+                        filtered.add(nv);
+                    }
+                } else if ("Phương thức".equals(sel)) {
+                    String pt = nv.getTtPhuongthuc() != null ? nv.getTtPhuongthuc().toUpperCase() : "";
+                    if (pt.contains(kw)) {
+                        filtered.add(nv);
+                    } else if (("THPT".contains(kw) || "1".equals(kw) || "2".equals(kw)) && pt.contains("PT2")) {
+                        filtered.add(nv);
+                    } else if (("VSAT".contains(kw) || "5".equals(kw)) && pt.contains("PT3")) {
+                        filtered.add(nv);
+                    } else if (("DGNL".contains(kw) || "4".equals(kw)) && pt.contains("PT4")) {
+                        filtered.add(nv);
+                    }
+                } else if ("Tổ hợp".equals(sel)) {
+                    if (nv.getTtThm() != null && nv.getTtThm().toUpperCase().contains(kw)) {
+                        filtered.add(nv);
+                    }
+                }
+            }
+            
+            loadedEntities = filtered;
+            nganhNameMap = null;
+            thiSinhMap = null;
             List<Object[]> rows = new ArrayList<>();
             int stt = 1;
             for (NguyenVongXetTuyen nv : loadedEntities)
@@ -303,6 +366,12 @@ public class NguyenVongPanel extends JPanel {
         NguyenVongXetTuyen nv = loadedEntities.get(realIdx);
         if ("Đã hủy".equals(nv.getNvKetqua())) {
             MessageHelper.showWarning(this, "Nguyện vọng này đã được hủy trước đó.");
+            return;
+        }
+        // YÊU CẦU 2: Không cho hủy nếu đã xét tuyển (yes hoặc duoisan)
+        String ketQua = nv.getNvKetqua();
+        if (ketQua != null && !ketQua.trim().isEmpty()) {
+            MessageHelper.showWarning(this, "Không thể hủy nguyện vọng đã được xét tuyển.\nKết quả hiện tại: " + ketQua);
             return;
         }
 
@@ -426,13 +495,11 @@ public class NguyenVongPanel extends JPanel {
 
                     double dthxt = 0.0;
                     String bestThm = nv.getTtThm();
-                    if (pt.equalsIgnoreCase("PT2") || pt.equalsIgnoreCase("THPT") || pt.equals("1")) {
-                        dthxt = admissionService.tinhDiemTHPT(nv.getNnCccd(), nv.getNvManganh(), null);
-                        bestThm = admissionService.findBestTohopTHPT(nv.getNnCccd(), nv.getNvManganh());
-                    } else if (pt.equalsIgnoreCase("PT3") || pt.equalsIgnoreCase("VSAT") || pt.equals("5")) {
+                    String ptUpper = pt.toUpperCase();
+                    if (ptUpper.contains("PT3") || ptUpper.contains("VSAT") || pt.equals("5") || ptUpper.contains("PT5")) {
                         dthxt = admissionService.tinhDiemVSAT(nv.getNnCccd(), nv.getNvManganh(), null);
                         bestThm = admissionService.findBestTohopVSAT(nv.getNnCccd(), nv.getNvManganh());
-                    } else if (pt.equalsIgnoreCase("PT4") || pt.equalsIgnoreCase("DGNL") || pt.equals("4")) {
+                    } else if (ptUpper.contains("PT4") || ptUpper.contains("DGNL") || pt.equals("4")) {
                         dthxt = admissionService.tinhDiemDGNL(nv.getNnCccd(), nv.getNvManganh());
                         bestThm = admissionService.findBestTohopDGNL(nv.getNvManganh());
                     } else {

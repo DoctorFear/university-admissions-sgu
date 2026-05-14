@@ -90,6 +90,63 @@ public class WebpageController {
                     response.setDanToc(ts.getDanToc());
                     response.setNoiSinh(ts.getNoiSinh());
 
+                    // ===== YÊU CẦU 1: Lấy TẤT CẢ điểm thi theo mọi phương thức =====
+                    List<DiemThiXetTuyen> allDiemThiRecords = diemThiDAO.findAllByCccd(ts.getCccd());
+                    Map<String, Map<String, Double>> allDiemThiMap = new LinkedHashMap<>();
+                    Map<String, String> allDiemThiLabels = new LinkedHashMap<>();
+                    for (DiemThiXetTuyen dt : allDiemThiRecords) {
+                        String ptKey = dt.getdPhuongthuc() != null ? dt.getdPhuongthuc() : "UNKNOWN";
+                        // Label hiển thị
+                        String ptLabel;
+                        if ("4".equals(ptKey) || ptKey.toUpperCase().contains("DGNL")) {
+                            ptLabel = "ĐGNL (Thang 1200)";
+                        } else if ("5".equals(ptKey) || ptKey.toUpperCase().contains("VSAT")) {
+                            ptLabel = "V-SAT";
+                        } else {
+                            ptLabel = "THPT";
+                        }
+                        allDiemThiLabels.put(ptKey, ptLabel);
+                        Map<String, Double> monMap = new LinkedHashMap<>();
+                        addIfNotNull(monMap, "Toán", dt.getTo());
+                        addIfNotNull(monMap, "Ngữ văn", dt.getVa());
+                        addIfNotNull(monMap, "Vật lý", dt.getLi());
+                        addIfNotNull(monMap, "Hóa học", dt.getHo());
+                        addIfNotNull(monMap, "Sinh học", dt.getSi());
+                        addIfNotNull(monMap, "Lịch sử", dt.getSu());
+                        addIfNotNull(monMap, "Địa lí", dt.getDi());
+                        addIfNotNull(monMap, "GDCD", dt.getGdcd());
+                        addIfNotNull(monMap, "Tiếng Anh (thi)", dt.getN1Thi());
+                        addIfNotNull(monMap, "Tiếng Anh (CC)", dt.getN1Cc());
+                        addIfNotNull(monMap, "ĐGNL", dt.getNl1());
+                        addIfNotNull(monMap, "Tin học", dt.getTi());
+                        addIfNotNull(monMap, "KTPL", dt.getKtpl());
+                        addIfNotNull(monMap, "CN Chăn nuôi", dt.getCncn());
+                        addIfNotNull(monMap, "CN Nông nghiệp", dt.getCnnn());
+                        addIfNotNull(monMap, "Năng khiếu 1", dt.getNk1());
+                        addIfNotNull(monMap, "Năng khiếu 2", dt.getNk2());
+                        addIfNotNull(monMap, "Năng khiếu 3", dt.getNk3());
+                        addIfNotNull(monMap, "Năng khiếu 4", dt.getNk4());
+                        addIfNotNull(monMap, "Năng khiếu 5", dt.getNk5());
+                        addIfNotNull(monMap, "Năng khiếu 6", dt.getNk6());
+                        if (!monMap.isEmpty()) {
+                            allDiemThiMap.put(ptKey, monMap);
+                        }
+                    }
+                    response.setAllDiemThi(allDiemThiMap);
+                    response.setAllDiemThiLabels(allDiemThiLabels);
+
+                    // Map mã môn -> tên hiển thị (dùng cho chi tiết tính điểm)
+                    Map<String, String> monCodeToName = new LinkedHashMap<>();
+                    monCodeToName.put("TO", "Toán"); monCodeToName.put("VA", "Ngữ văn");
+                    monCodeToName.put("LI", "Vật lý"); monCodeToName.put("HO", "Hóa học");
+                    monCodeToName.put("SI", "Sinh học"); monCodeToName.put("SU", "Lịch sử");
+                    monCodeToName.put("DI", "Địa lí"); monCodeToName.put("N1", "Tiếng Anh");
+                    monCodeToName.put("TI", "Tin học"); monCodeToName.put("KTPL", "KTPL");
+                    monCodeToName.put("CNCN", "CN Chăn nuôi"); monCodeToName.put("CNNN", "CN Nông nghiệp");
+                    monCodeToName.put("NK1", "Năng khiếu 1"); monCodeToName.put("NK2", "Năng khiếu 2");
+                    monCodeToName.put("NK3", "Năng khiếu 3"); monCodeToName.put("NK4", "Năng khiếu 4");
+                    monCodeToName.put("NK5", "Năng khiếu 5"); monCodeToName.put("NK6", "Năng khiếu 6");
+
                     List<TraCuuResponse.NguyenVongDTO> dtoList = new ArrayList<>();
                     boolean isPending = false;
                     boolean isAdmitted = false;
@@ -128,12 +185,17 @@ public class WebpageController {
 
                         // Tên phương thức hiển thị
                         String pt = nv.getTtPhuongthuc();
+                        boolean isDGNL = false;
+                        boolean isVSAT = false;
                         if (pt != null) {
-                            if ("4".equals(pt) || pt.toUpperCase().contains("DGNL")) {
+                            String ptUpper = pt.toUpperCase();
+                            if ("4".equals(pt) || ptUpper.contains("DGNL") || ptUpper.contains("PT4")) {
                                 dto.setPhuongThucDisplay("ĐGNL (Thang 1200)");
-                            } else if ("5".equals(pt) || pt.toUpperCase().contains("VSAT")) {
+                                isDGNL = true;
+                            } else if ("5".equals(pt) || ptUpper.contains("VSAT") || ptUpper.contains("PT3") || ptUpper.contains("PT5")) {
                                 dto.setPhuongThucDisplay("V-SAT / THPT");
-                            } else if ("1".equals(pt) || "2".equals(pt) || pt.toUpperCase().contains("PT") || pt.toUpperCase().contains("THPT")) {
+                                isVSAT = true;
+                            } else if ("1".equals(pt) || "2".equals(pt) || ptUpper.contains("THPT") || ptUpper.contains("PT2") || ptUpper.contains("PT1")) {
                                 dto.setPhuongThucDisplay("Xét điểm THPT");
                             } else {
                                 dto.setPhuongThucDisplay(pt);
@@ -175,6 +237,63 @@ public class WebpageController {
                                     dto.setDiemThiChiTiet(chiTiet);
                                 }
                             }
+                        }
+
+                        // ===== YÊU CẦU 6: Chi tiết công thức tính điểm =====
+                        try {
+                            if (isDGNL) {
+                                dto.setCongThucTinh("ĐTHXT = Điểm ĐGNL quy đổi về thang 30");
+                                double dthxtVal = nv.getDiemThxt() != null ? nv.getDiemThxt().doubleValue() : 0.0;
+                                dto.setCongThucTheSo(String.format("= %.2f", dthxtVal));
+                            } else {
+                                String thm = nv.getTtThm();
+                                if (thm != null && !thm.trim().isEmpty() && nganh != null) {
+                                    NganhTohop tohop = nganhTohopDAO.findByTbKeys(nv.getNvManganh() + "_" + thm);
+                                    if (tohop != null) {
+                                        dto.setMon1Code(tohop.getThMon1());
+                                        dto.setMon2Code(tohop.getThMon2());
+                                        dto.setMon3Code(tohop.getThMon3());
+                                        int hs1 = tohop.getHsmon1() != null ? tohop.getHsmon1().intValue() : 1;
+                                        int hs2 = tohop.getHsmon2() != null ? tohop.getHsmon2().intValue() : 1;
+                                        int hs3 = tohop.getHsmon3() != null ? tohop.getHsmon3().intValue() : 1;
+                                        dto.setHeSo1(hs1);
+                                        dto.setHeSo2(hs2);
+                                        dto.setHeSo3(hs3);
+                                        double dlech = tohop.getDolech() != null ? tohop.getDolech().doubleValue() : 0.0;
+                                        dto.setDoLech(dlech);
+
+                                        // Lấy điểm từng môn từ điểm thi
+                                        if (ptCode != null) {
+                                            DiemThiXetTuyen dtForCalc = diemThiDAO.findByCccdAndPhuongThuc(ts.getCccd(), ptCode);
+                                            if (dtForCalc == null) dtForCalc = diemThiDAO.findByCccd(ts.getCccd());
+                                            if (dtForCalc != null) {
+                                                dto.setDiemMon1(getScoreByMonCode(dtForCalc, tohop.getThMon1()));
+                                                dto.setDiemMon2(getScoreByMonCode(dtForCalc, tohop.getThMon2()));
+                                                dto.setDiemMon3(getScoreByMonCode(dtForCalc, tohop.getThMon3()));
+                                            }
+                                        }
+
+                                        // Tạo chuỗi công thức
+                                        String m1Name = monCodeToName.getOrDefault(tohop.getThMon1(), tohop.getThMon1());
+                                        String m2Name = monCodeToName.getOrDefault(tohop.getThMon2(), tohop.getThMon2());
+                                        String m3Name = monCodeToName.getOrDefault(tohop.getThMon3(), tohop.getThMon3());
+                                        int hsSum = hs1 + hs2 + hs3;
+                                        dto.setCongThucTinh(
+                                            "ĐTHXT = (" + m1Name + "×" + hs1 + " + " + m2Name + "×" + hs2 + " + " + m3Name + "×" + hs3 + ") / " + hsSum + " × 3"
+                                        );
+
+                                        // Thế số cụ thể
+                                        Double d1 = dto.getDiemMon1() != null ? dto.getDiemMon1() : 0.0;
+                                        Double d2 = dto.getDiemMon2() != null ? dto.getDiemMon2() : 0.0;
+                                        Double d3 = dto.getDiemMon3() != null ? dto.getDiemMon3() : 0.0;
+                                        dto.setCongThucTheSo(
+                                            String.format("= (%.2f×%d + %.2f×%d + %.2f×%d) / %d × 3", d1, hs1, d2, hs2, d3, hs3, hsSum)
+                                        );
+                                    }
+                                }
+                            }
+                        } catch (Exception ex) {
+                            // Non-critical, skip
                         }
 
                         dtoList.add(dto);
@@ -960,5 +1079,35 @@ public class WebpageController {
         if (value != null && value.doubleValue() > 0) {
             map.put(key, value.doubleValue());
         }
+    }
+
+    /**
+     * Lấy điểm môn theo mã môn từ entity DiemThiXetTuyen.
+     */
+    private Double getScoreByMonCode(DiemThiXetTuyen dt, String monCode) {
+        if (dt == null || monCode == null) return null;
+        BigDecimal val = switch (monCode.toUpperCase()) {
+            case "TO" -> dt.getTo();
+            case "VA" -> dt.getVa();
+            case "LI" -> dt.getLi();
+            case "HO" -> dt.getHo();
+            case "SI" -> dt.getSi();
+            case "SU" -> dt.getSu();
+            case "DI" -> dt.getDi();
+            case "N1" -> dt.getN1Thi() != null ? dt.getN1Thi() : dt.getN1Cc();
+            case "TI" -> dt.getTi();
+            case "KTPL" -> dt.getKtpl();
+            case "CNCN" -> dt.getCncn();
+            case "CNNN" -> dt.getCnnn();
+            case "NK1" -> dt.getNk1();
+            case "NK2" -> dt.getNk2();
+            case "NK3" -> dt.getNk3();
+            case "NK4" -> dt.getNk4();
+            case "NK5" -> dt.getNk5();
+            case "NK6" -> dt.getNk6();
+            case "NL1" -> dt.getNl1();
+            default -> null;
+        };
+        return val != null ? val.doubleValue() : null;
     }
 }

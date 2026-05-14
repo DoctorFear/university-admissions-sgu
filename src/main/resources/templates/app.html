@@ -158,37 +158,50 @@
                             </div>
                         </div>
 
-                        <!-- ĐIỂM THI CỦA THÍ SINH -->
-                        <div th:if="${result.nguyenVongs != null and !#lists.isEmpty(result.nguyenVongs)}"
+                        <!-- ĐIỂM THI CỦA THÍ SINH - TẤT CẢ PHƯƠNG THỨC -->
+                        <div th:if="${result.allDiemThi != null and !result.allDiemThi.isEmpty()}"
                             style="background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); border: 1px solid #93c5fd; border-radius: 12px; padding: 1.2rem 1.5rem; margin-bottom: 1.5rem;">
                             <div
                                 style="font-size: 1rem; font-weight: 700; color: #1e40af; margin-bottom: 12px; border-bottom: 2px solid #3b82f6; padding-bottom: 6px;">
                                 <svg style="width:18px;height:18px;display:inline-block;vertical-align:middle;margin-right:6px;"
                                     fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
+                                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4">
+                                    </path>
                                 </svg>
-                                Bảng điểm thi của thí sinh
+                                Bảng điểm thi của thí sinh (tất cả phương thức)
                             </div>
 
-                            <!-- Hiển thị điểm thi chỉ 1 lần (từ NV đầu tiên có dữ liệu) -->
-                            <th:block th:each="nv, nvStat : ${result.nguyenVongs}">
-                                <div th:if="${nvStat.index == 0 and nv.diemThiChiTiet != null and !nv.diemThiChiTiet.isEmpty()}">
-                                    <div
-                                        style="display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 8px;">
-                                        <div th:each="entry : ${nv.diemThiChiTiet}"
+                            <th:block th:each="entry : ${result.allDiemThi}">
+                                <div style="margin-bottom: 12px;">
+                                    <div style="font-weight: 600; font-size: 0.88rem; color: #312e81; margin-bottom: 6px; padding: 4px 10px; background: #e0e7ff; border-radius: 6px; display: inline-block;">
+                                        <span th:text="${result.allDiemThiLabels != null and result.allDiemThiLabels.containsKey(entry.key) ? result.allDiemThiLabels[entry.key] : entry.key}"></span>
+                                    </div>
+                                    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 8px;">
+                                        <div th:each="mon : ${entry.value}"
                                             style="display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; background: #fff; border-radius: 8px; border: 1px solid #bfdbfe; font-size: 0.85rem; box-shadow: 0 1px 2px rgba(0,0,0,0.04);">
-                                            <span style="color: #475569;" th:text="${entry.key}"></span>
+                                            <span style="color: #475569;" th:text="${mon.key}"></span>
                                             <strong style="color: #1e3a8a; font-size: 0.95rem;"
-                                                th:text="${#numbers.formatDecimal(entry.value, 1, 2)}"></strong>
+                                                th:text="${#numbers.formatDecimal(mon.value, 1, 2)}"></strong>
                                         </div>
                                     </div>
                                 </div>
                             </th:block>
+                        </div>
 
-                            <!-- Không có dữ liệu điểm thi -->
-                            <div th:if="${result.nguyenVongs[0].diemThiChiTiet == null or result.nguyenVongs[0].diemThiChiTiet.isEmpty()}"
-                                style="font-size: 0.85rem; color: #64748b; font-style: italic; padding: 8px 0;">
+                        <!-- Fallback: không có dữ liệu điểm thi nào -->
+                        <div th:if="${result.allDiemThi == null or result.allDiemThi.isEmpty()}"
+                            style="background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); border: 1px solid #93c5fd; border-radius: 12px; padding: 1.2rem 1.5rem; margin-bottom: 1.5rem;">
+                            <div style="font-size: 1rem; font-weight: 700; color: #1e40af; margin-bottom: 12px; border-bottom: 2px solid #3b82f6; padding-bottom: 6px;">
+                                <svg style="width:18px;height:18px;display:inline-block;vertical-align:middle;margin-right:6px;"
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4">
+                                    </path>
+                                </svg>
+                                Bảng điểm thi của thí sinh
+                            </div>
+                            <div style="font-size: 0.85rem; color: #64748b; font-style: italic; padding: 8px 0;">
                                 Chưa có dữ liệu điểm thi cho thí sinh này.
                             </div>
                         </div>
@@ -295,13 +308,7 @@
                                             </span>
                                         </td>
 
-                                        <td style="padding:12px 8px;" th:text="${
-                                                nv.phuongThuc == null ? '—' :
-                                                (#strings.containsIgnoreCase(nv.phuongThuc, 'DGNL') or nv.phuongThuc == '4') ? 'ĐGNL (Thang 1200)' :
-                                                (#strings.containsIgnoreCase(nv.phuongThuc, 'VSAT') or nv.phuongThuc == '5') ? 'VSAT/THPT' :
-                                                (#strings.containsIgnoreCase(nv.phuongThuc, 'PT') or nv.phuongThuc == '1' or nv.phuongThuc == '2') ? 'Xét điểm THPT' :
-                                                nv.phuongThuc
-                                            }">
+                                        <td style="padding:12px 8px;" th:text="${nv.phuongThucDisplay != null ? nv.phuongThucDisplay : (nv.phuongThuc == null ? '—' : nv.phuongThuc)}">
                                         </td>
 
                                         <td style="text-align:center;padding:12px 8px;" th:text="${nv.toHop}">
@@ -378,11 +385,13 @@
                                             style="background:#6366f1;color:#fff;padding:2px 10px;border-radius:4px;font-size:0.75rem;"
                                             th:text="${nv.phuongThucDisplay}"></span>
                                         <!-- Kết quả badge trong summary -->
-                                        <span th:if="${nv.ketQua != null and (#strings.toLowerCase(nv.ketQua) == 'yes' or #strings.toLowerCase(nv.ketQua) == 'đậu' or #strings.toLowerCase(nv.ketQua) == 'trúng tuyển')}"
+                                        <span
+                                            th:if="${nv.ketQua != null and (#strings.toLowerCase(nv.ketQua) == 'yes' or #strings.toLowerCase(nv.ketQua) == 'đậu' or #strings.toLowerCase(nv.ketQua) == 'trúng tuyển')}"
                                             style="background:#22c55e;color:#fff;padding:2px 10px;border-radius:999px;font-size:0.72rem;font-weight:700;">
                                             Trúng tuyển
                                         </span>
-                                        <span th:if="${nv.ketQua != null and (#strings.toLowerCase(nv.ketQua) == 'duoisan' or #strings.toLowerCase(nv.ketQua) == 'rớt' or #strings.toLowerCase(nv.ketQua) == 'không trúng' or #strings.toLowerCase(nv.ketQua) == 'no')}"
+                                        <span
+                                            th:if="${nv.ketQua != null and (#strings.toLowerCase(nv.ketQua) == 'duoisan' or #strings.toLowerCase(nv.ketQua) == 'rớt' or #strings.toLowerCase(nv.ketQua) == 'không trúng' or #strings.toLowerCase(nv.ketQua) == 'no')}"
                                             style="background:#f43f5e;color:#fff;padding:2px 10px;border-radius:999px;font-size:0.72rem;font-weight:700;">
                                             Không đạt
                                         </span>
@@ -395,71 +404,158 @@
                                     <div style="padding: 20px; background: #fff;">
 
                                         <!-- Phần 1: Tổng quan điểm -->
-                                        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 16px;">
+                                        <div
+                                            style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 16px;">
                                             <!-- Điểm xét tuyển -->
-                                            <div style="background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); border-radius: 10px; padding: 14px; text-align: center; border: 1px solid #93c5fd;">
-                                                <div style="font-size: 0.78rem; color: #64748b; margin-bottom: 4px; font-weight: 500;">Điểm xét tuyển</div>
+                                            <div
+                                                style="background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); border-radius: 10px; padding: 14px; text-align: center; border: 1px solid #93c5fd;">
+                                                <div
+                                                    style="font-size: 0.78rem; color: #64748b; margin-bottom: 4px; font-weight: 500;">
+                                                    Điểm xét tuyển</div>
                                                 <div style="font-size: 1.5rem; font-weight: 800; color: #1e3a8a;"
-                                                    th:text="${nv.diemXetTuyen != null ? #numbers.formatDecimal(nv.diemXetTuyen, 1, 2) : '—'}"></div>
+                                                    th:text="${nv.diemXetTuyen != null ? #numbers.formatDecimal(nv.diemXetTuyen, 1, 2) : '—'}">
+                                                </div>
                                             </div>
                                             <!-- Điểm sàn -->
-                                            <div style="background: linear-gradient(135deg, #fefce8 0%, #fef9c3 100%); border-radius: 10px; padding: 14px; text-align: center; border: 1px solid #fde047;">
-                                                <div style="font-size: 0.78rem; color: #64748b; margin-bottom: 4px; font-weight: 500;">Điểm sàn</div>
+                                            <div
+                                                style="background: linear-gradient(135deg, #fefce8 0%, #fef9c3 100%); border-radius: 10px; padding: 14px; text-align: center; border: 1px solid #fde047;">
+                                                <div
+                                                    style="font-size: 0.78rem; color: #64748b; margin-bottom: 4px; font-weight: 500;">
+                                                    Điểm sàn</div>
                                                 <div style="font-size: 1.5rem; font-weight: 800; color: #a16207;"
-                                                    th:text="${nv.diemSan != null ? #numbers.formatDecimal(nv.diemSan, 1, 2) : '—'}"></div>
+                                                    th:text="${nv.diemSan != null ? #numbers.formatDecimal(nv.diemSan, 1, 2) : '—'}">
+                                                </div>
                                             </div>
                                             <!-- Điểm chuẩn -->
-                                            <div style="background: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 100%); border-radius: 10px; padding: 14px; text-align: center; border: 1px solid #f9a8d4;">
-                                                <div style="font-size: 0.78rem; color: #64748b; margin-bottom: 4px; font-weight: 500;">Điểm chuẩn</div>
+                                            <div
+                                                style="background: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 100%); border-radius: 10px; padding: 14px; text-align: center; border: 1px solid #f9a8d4;">
+                                                <div
+                                                    style="font-size: 0.78rem; color: #64748b; margin-bottom: 4px; font-weight: 500;">
+                                                    Điểm chuẩn</div>
                                                 <div style="font-size: 1.5rem; font-weight: 800; color: #be185d;"
-                                                    th:text="${nv.diemChuan != null ? #numbers.formatDecimal(nv.diemChuan, 1, 2) : '—'}"></div>
+                                                    th:text="${nv.diemChuan != null ? #numbers.formatDecimal(nv.diemChuan, 1, 2) : '—'}">
+                                                </div>
                                             </div>
                                         </div>
 
                                         <!-- Phần 2: Bảng thành phần điểm chi tiết -->
                                         <div style="margin-bottom: 16px;">
-                                            <div style="font-weight: 700; font-size: 0.9rem; color: #334155; margin-bottom: 8px; padding-bottom: 4px; border-bottom: 1px solid #e2e8f0;">
+                                            <div
+                                                style="font-weight: 700; font-size: 0.9rem; color: #334155; margin-bottom: 8px; padding-bottom: 4px; border-bottom: 1px solid #e2e8f0;">
                                                 📊 Cấu trúc điểm xét tuyển
                                             </div>
                                             <table style="width:100%; border-collapse:collapse; font-size:0.88rem;">
                                                 <tbody>
                                                     <tr style="background: #f8fafc;">
-                                                        <td style="padding:10px 14px; border-bottom:1px solid #e2e8f0; color: #475569;">
+                                                        <td
+                                                            style="padding:10px 14px; border-bottom:1px solid #e2e8f0; color: #475569;">
                                                             Phương thức xét tuyển</td>
                                                         <td style="padding:10px 14px; border-bottom:1px solid #e2e8f0; text-align:right; font-weight:600; color: #334155;"
                                                             th:text="${nv.phuongThucDisplay != null ? nv.phuongThucDisplay : '—'}">
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td style="padding:10px 14px; border-bottom:1px solid #f1f5f9; color: #475569;">
+                                                        <td
+                                                            style="padding:10px 14px; border-bottom:1px solid #f1f5f9; color: #475569;">
                                                             Tổ hợp xét tuyển được chọn</td>
-                                                        <td style="padding:10px 14px; border-bottom:1px solid #f1f5f9; text-align:right;">
-                                                            <span style="background: #4f46e5; color: #fff; padding: 2px 10px; border-radius: 4px; font-size: 0.82rem; font-weight: 600;"
+                                                        <td
+                                                            style="padding:10px 14px; border-bottom:1px solid #f1f5f9; text-align:right;">
+                                                            <span
+                                                                style="background: #4f46e5; color: #fff; padding: 2px 10px; border-radius: 4px; font-size: 0.82rem; font-weight: 600;"
                                                                 th:text="${nv.toHopXetTuyen != null ? nv.toHopXetTuyen : (nv.toHop != null ? nv.toHop : '—')}"></span>
                                                         </td>
                                                     </tr>
+
+                                                    <!-- YÊU CẦU 6: Công thức tính điểm -->
+                                                    <tr th:if="${nv.congThucTinh != null}" style="background: #fefce8;">
+                                                        <td style="padding:10px 14px; border-bottom:1px solid #fde68a; color: #92400e; font-weight: 600;">
+                                                            🔢 Công thức tính</td>
+                                                        <td style="padding:10px 14px; border-bottom:1px solid #fde68a; text-align:right; font-family: monospace; font-size: 0.82rem; color: #78350f;"
+                                                            th:text="${nv.congThucTinh}">
+                                                        </td>
+                                                    </tr>
+
+                                                    <!-- Điểm từng môn với hệ số -->
+                                                    <th:block th:if="${nv.mon1Code != null}">
+                                                        <tr>
+                                                            <td style="padding:8px 14px; border-bottom:1px solid #f1f5f9; color: #475569; padding-left: 28px;">
+                                                                Môn 1: <strong th:text="${nv.mon1Code}"></strong>
+                                                                <span style="color:#6366f1; font-size:0.78rem;">(HS: <span th:text="${nv.heSo1}"></span>)</span>
+                                                            </td>
+                                                            <td style="padding:8px 14px; border-bottom:1px solid #f1f5f9; text-align:right; font-weight:600; color: #1e3a8a;"
+                                                                th:text="${nv.diemMon1 != null ? #numbers.formatDecimal(nv.diemMon1, 1, 2) : '—'}">
+                                                            </td>
+                                                        </tr>
+                                                        <tr style="background: #f8fafc;">
+                                                            <td style="padding:8px 14px; border-bottom:1px solid #e2e8f0; color: #475569; padding-left: 28px;">
+                                                                Môn 2: <strong th:text="${nv.mon2Code}"></strong>
+                                                                <span style="color:#6366f1; font-size:0.78rem;">(HS: <span th:text="${nv.heSo2}"></span>)</span>
+                                                            </td>
+                                                            <td style="padding:8px 14px; border-bottom:1px solid #e2e8f0; text-align:right; font-weight:600; color: #1e3a8a;"
+                                                                th:text="${nv.diemMon2 != null ? #numbers.formatDecimal(nv.diemMon2, 1, 2) : '—'}">
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="padding:8px 14px; border-bottom:1px solid #f1f5f9; color: #475569; padding-left: 28px;">
+                                                                Môn 3: <strong th:text="${nv.mon3Code}"></strong>
+                                                                <span style="color:#6366f1; font-size:0.78rem;">(HS: <span th:text="${nv.heSo3}"></span>)</span>
+                                                            </td>
+                                                            <td style="padding:8px 14px; border-bottom:1px solid #f1f5f9; text-align:right; font-weight:600; color: #1e3a8a;"
+                                                                th:text="${nv.diemMon3 != null ? #numbers.formatDecimal(nv.diemMon3, 1, 2) : '—'}">
+                                                            </td>
+                                                        </tr>
+                                                    </th:block>
+
+                                                    <!-- Thế số cụ thể -->
+                                                    <tr th:if="${nv.congThucTheSo != null}" style="background: #fefce8;">
+                                                        <td style="padding:10px 14px; border-bottom:1px solid #fde68a; color: #92400e; font-weight: 600;">
+                                                            📐 Thế số</td>
+                                                        <td style="padding:10px 14px; border-bottom:1px solid #fde68a; text-align:right; font-family: monospace; font-size: 0.82rem; color: #78350f;"
+                                                            th:text="${nv.congThucTheSo}">
+                                                        </td>
+                                                    </tr>
+
                                                     <tr style="background: #f8fafc;" th:if="${nv.diemThxt != null}">
-                                                        <td style="padding:10px 14px; border-bottom:1px solid #e2e8f0; color: #475569;">
+                                                        <td
+                                                            style="padding:10px 14px; border-bottom:1px solid #e2e8f0; color: #475569;">
                                                             Điểm tổ hợp xét tuyển (ĐTHXT)</td>
                                                         <td style="padding:10px 14px; border-bottom:1px solid #e2e8f0; text-align:right; font-weight:700; color:#1e3a8a; font-size: 1rem;"
                                                             th:text="${#numbers.formatDecimal(nv.diemThxt, 1, 2)}"></td>
                                                     </tr>
-                                                    <tr th:if="${nv.diemCongDetail != null}">
+
+                                                    <!-- Độ lệch quy đổi -->
+                                                    <tr th:if="${nv.doLech != null and nv.doLech != 0}">
                                                         <td style="padding:10px 14px; border-bottom:1px solid #f1f5f9; color: #475569;">
+                                                            Độ lệch quy đổi</td>
+                                                        <td style="padding:10px 14px; border-bottom:1px solid #f1f5f9; text-align:right; font-weight:600;"
+                                                            th:classappend="${nv.doLech > 0 ? 'color:#dc2626;' : 'color:#059669;'}">
+                                                            <span th:if="${nv.doLech > 0}" style="color:#dc2626;">-</span>
+                                                            <span th:if="${nv.doLech < 0}" style="color:#059669;">+</span>
+                                                            <span th:text="${#numbers.formatDecimal(T(java.lang.Math).abs(nv.doLech), 1, 2)}"></span>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr th:if="${nv.diemCongDetail != null}">
+                                                        <td
+                                                            style="padding:10px 14px; border-bottom:1px solid #f1f5f9; color: #475569;">
                                                             Điểm cộng (ĐC)</td>
                                                         <td style="padding:10px 14px; border-bottom:1px solid #f1f5f9; text-align:right; font-weight:600; color: #059669;"
                                                             th:text="${'+' + #numbers.formatDecimal(nv.diemCongDetail, 1, 2)}">
                                                         </td>
                                                     </tr>
                                                     <tr style="background: #f8fafc;" th:if="${nv.diemUtqd != null}">
-                                                        <td style="padding:10px 14px; border-bottom:1px solid #e2e8f0; color: #475569;">
+                                                        <td
+                                                            style="padding:10px 14px; border-bottom:1px solid #e2e8f0; color: #475569;">
                                                             Điểm ưu tiên quy đổi (ĐUT)</td>
                                                         <td style="padding:10px 14px; border-bottom:1px solid #e2e8f0; text-align:right; font-weight:600; color: #059669;"
-                                                            th:text="${'+' + #numbers.formatDecimal(nv.diemUtqd, 1, 2)}"></td>
+                                                            th:text="${'+' + #numbers.formatDecimal(nv.diemUtqd, 1, 2)}">
+                                                        </td>
                                                     </tr>
                                                     <!-- Dòng tổng kết -->
-                                                    <tr style="background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);">
-                                                        <td style="padding:12px 14px; font-weight:800; font-size: 0.95rem; color: #1e3a8a; border-top:2px solid #3b82f6;">
+                                                    <tr
+                                                        style="background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);">
+                                                        <td
+                                                            style="padding:12px 14px; font-weight:800; font-size: 0.95rem; color: #1e3a8a; border-top:2px solid #3b82f6;">
                                                             ⇒ Điểm xét tuyển (ĐXT)</td>
                                                         <td style="padding:12px 14px; text-align:right; font-weight:800; font-size:1.15rem; color:#1e3a8a; border-top:2px solid #3b82f6;"
                                                             th:text="${nv.diemXetTuyen != null ? #numbers.formatDecimal(nv.diemXetTuyen, 1, 2) : '—'}">
@@ -467,7 +563,8 @@
                                                     </tr>
                                                     <!-- So sánh điểm sàn -->
                                                     <tr>
-                                                        <td style="padding:10px 14px; border-bottom:1px solid #f1f5f9; color: #475569;">
+                                                        <td
+                                                            style="padding:10px 14px; border-bottom:1px solid #f1f5f9; color: #475569;">
                                                             Điểm sàn ngành</td>
                                                         <td style="padding:10px 14px; border-bottom:1px solid #f1f5f9; text-align:right; font-weight:600;"
                                                             th:text="${nv.diemSan != null ? #numbers.formatDecimal(nv.diemSan, 1, 2) : '—'}">
@@ -475,7 +572,8 @@
                                                     </tr>
                                                     <!-- So sánh điểm chuẩn -->
                                                     <tr style="background: #f8fafc;">
-                                                        <td style="padding:10px 14px; border-bottom:1px solid #e2e8f0; color: #475569;">
+                                                        <td
+                                                            style="padding:10px 14px; border-bottom:1px solid #e2e8f0; color: #475569;">
                                                             Điểm chuẩn trúng tuyển</td>
                                                         <td style="padding:10px 14px; border-bottom:1px solid #e2e8f0; text-align:right; font-weight:600;"
                                                             th:text="${nv.diemChuan != null ? #numbers.formatDecimal(nv.diemChuan, 1, 2) : '—'}">
@@ -486,11 +584,13 @@
                                                         <td style="padding:10px 14px; color: #475569; font-weight:600;">
                                                             Kết quả xét tuyển</td>
                                                         <td style="padding:10px 14px; text-align:right;">
-                                                            <span th:if="${nv.ketQua != null and (#strings.toLowerCase(nv.ketQua) == 'yes' or #strings.toLowerCase(nv.ketQua) == 'đậu' or #strings.toLowerCase(nv.ketQua) == 'trúng tuyển')}"
+                                                            <span
+                                                                th:if="${nv.ketQua != null and (#strings.toLowerCase(nv.ketQua) == 'yes' or #strings.toLowerCase(nv.ketQua) == 'đậu' or #strings.toLowerCase(nv.ketQua) == 'trúng tuyển')}"
                                                                 style="background:#dcfce7;color:#15803d;padding:4px 14px;border-radius:999px;font-size:0.82rem;font-weight:700;border:1px solid #86efac;">
                                                                 Trúng tuyển
                                                             </span>
-                                                            <span th:if="${nv.ketQua != null and (#strings.toLowerCase(nv.ketQua) == 'duoisan' or #strings.toLowerCase(nv.ketQua) == 'rớt' or #strings.toLowerCase(nv.ketQua) == 'không trúng' or #strings.toLowerCase(nv.ketQua) == 'no')}"
+                                                            <span
+                                                                th:if="${nv.ketQua != null and (#strings.toLowerCase(nv.ketQua) == 'duoisan' or #strings.toLowerCase(nv.ketQua) == 'rớt' or #strings.toLowerCase(nv.ketQua) == 'không trúng' or #strings.toLowerCase(nv.ketQua) == 'no')}"
                                                                 style="background:#ffe4e6;color:#be123c;padding:4px 14px;border-radius:999px;font-size:0.82rem;font-weight:700;border:1px solid #fda4af;">
                                                                 Không đạt
                                                             </span>
@@ -506,7 +606,8 @@
 
                                         <!-- Phần 3: Điểm thi chi tiết từng môn -->
                                         <div th:if="${nv.diemThiChiTiet != null and !nv.diemThiChiTiet.isEmpty()}">
-                                            <div style="font-weight:700; font-size:0.9rem; color:#334155; margin-bottom:8px; padding-bottom:4px; border-bottom:1px solid #e2e8f0;">
+                                            <div
+                                                style="font-weight:700; font-size:0.9rem; color:#334155; margin-bottom:8px; padding-bottom:4px; border-bottom:1px solid #e2e8f0;">
                                                 📝 Điểm thi chi tiết từng môn
                                             </div>
                                             <div
@@ -592,7 +693,7 @@
                                 max="1200" min="0" step="1">
                         </div>
                         <div class="form-group">
-                            <label>Điểm cộng (<=3.0):</label>
+                            <label>Điểm cộng (<=3.0):< /label>
                                     <input type="number" id="dgnl-diemcong" name="diemCong"
                                         th:value="${dgnlResult != null ? dgnlResult.diemCong : 0}" value="0" step="0.1"
                                         max="3" min="0">
@@ -638,7 +739,7 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label>Điểm cộng (<=3.0):</label>
+                                <label>Điểm cộng (<=3.0):< /label>
                                         <input type="number" id="vsat-diemcong" name="diemCong" value="0" step="0.1"
                                             max="3" min="0">
                             </div>
@@ -728,7 +829,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label>Điểm cộng (<=3.0):</label>
+                            <label>Điểm cộng (<=3.0):< /label>
 
                                     <input type="number" name="diemCong" value="0" step="0.1" max="3" min="0">
                         </div>

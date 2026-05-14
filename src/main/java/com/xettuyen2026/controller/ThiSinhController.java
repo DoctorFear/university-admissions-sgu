@@ -131,11 +131,12 @@ public class ThiSinhController {
                 // Tên phương thức
                 String pt = nv.getTtPhuongthuc();
                 if (pt != null) {
-                    if ("4".equals(pt) || pt.toUpperCase().contains("DGNL")) {
+                    String ptUpper = pt.toUpperCase().trim();
+                    if (ptUpper.equals("4") || ptUpper.contains("DGNL") || ptUpper.contains("PT4")) {
                         dto.setPhuongThucDisplay("ĐGNL (Thang 1200)");
-                    } else if ("5".equals(pt) || pt.toUpperCase().contains("VSAT")) {
+                    } else if (ptUpper.equals("5") || ptUpper.contains("VSAT") || ptUpper.contains("PT5") || ptUpper.contains("PT3")) {
                         dto.setPhuongThucDisplay("V-SAT / THPT");
-                    } else if ("1".equals(pt) || "2".equals(pt) || pt.toUpperCase().contains("PT") || pt.toUpperCase().contains("THPT")) {
+                    } else if (ptUpper.equals("1") || ptUpper.equals("2") || ptUpper.contains("PT1") || ptUpper.contains("PT2") || ptUpper.contains("THPT")) {
                         dto.setPhuongThucDisplay("Xét điểm THPT");
                     } else {
                         dto.setPhuongThucDisplay(pt);
@@ -249,7 +250,7 @@ public class ThiSinhController {
                             if (qd.getdDiema() == null || qd.getdDiemb() == null) continue;
                             double a = qd.getdDiema().doubleValue();
                             double b = qd.getdDiemb().doubleValue();
-                            if (diemThi >= a && diemThi < b) {
+                            if (diemThi >= a && diemThi <= b) {
                                 matched = qd;
                                 double c = qd.getdDiemc() != null ? qd.getdDiemc().doubleValue() : 0;
                                 double d = qd.getdDiemd() != null ? qd.getdDiemd().doubleValue() : c;

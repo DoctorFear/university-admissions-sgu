@@ -168,21 +168,13 @@ public class AdmissionService {
     private String mapPhuongThucToCode(String ttPhuongthuc) {
         if (ttPhuongthuc == null)
             return "1";
-        switch (ttPhuongthuc.toUpperCase().trim()) {
-            case "4":
-            case "PT4":
-            case "DGNL":
-                return "4";
-            case "5":
-            case "PT5":
-            case "VSAT":
-                return "5";
-            case "1":
-            case "PT1":
-            case "PT2":
-            case "THPT":
-            default:
-                return "1";
+        String ptUpper = ttPhuongthuc.toUpperCase().trim();
+        if (ptUpper.equals("4") || ptUpper.contains("PT4") || ptUpper.contains("DGNL")) {
+            return "4";
+        } else if (ptUpper.equals("5") || ptUpper.contains("PT5") || ptUpper.contains("PT3") || ptUpper.contains("VSAT")) {
+            return "5";
+        } else {
+            return "1";
         }
     }
 
@@ -215,11 +207,11 @@ public class AdmissionService {
         for (NganhTohop nt : tohopList) {
             BigDecimal rawScore;
 
-            if ("DGNL".equalsIgnoreCase(phuongthuc) || "PT4".equalsIgnoreCase(phuongthuc) || "4".equals(phuongthuc)) {
+            if ("DGNL".equalsIgnoreCase(phuongthuc) || "PT4".equalsIgnoreCase(phuongthuc) || "4".equals(phuongthuc) || (phuongthuc != null && (phuongthuc.toUpperCase().contains("PT4") || phuongthuc.toUpperCase().contains("DGNL")))) {
                 // ĐGNL: quy đổi NL1 → thang 30 bằng bảng quy đổi theo tổ hợp
                 rawScore = convertDGNLScore(diemThi.getNl1(), nt.getMatohop());
             } else if ("VSAT".equalsIgnoreCase(phuongthuc) || "PT5".equalsIgnoreCase(phuongthuc)
-                    || "5".equals(phuongthuc)) {
+                    || "5".equals(phuongthuc) || (phuongthuc != null && (phuongthuc.toUpperCase().contains("PT3") || phuongthuc.toUpperCase().contains("PT5") || phuongthuc.toUpperCase().contains("VSAT")))) {
                 // V-SAT — quy đổi từng môn sang thang THPT, rồi tính tổ hợp
                 rawScore = calculateVSATScore(diemThi, nt);
             } else {
@@ -231,7 +223,7 @@ public class AdmissionService {
             BigDecimal dolech = nt.getDolech() != null ? nt.getDolech() : BigDecimal.ZERO;
 
             BigDecimal adjustedScore;
-            if ("DGNL".equalsIgnoreCase(phuongthuc) || "PT4".equalsIgnoreCase(phuongthuc) || "4".equals(phuongthuc)) {
+            if ("DGNL".equalsIgnoreCase(phuongthuc) || "PT4".equalsIgnoreCase(phuongthuc) || "4".equals(phuongthuc) || (phuongthuc != null && (phuongthuc.toUpperCase().contains("PT4") || phuongthuc.toUpperCase().contains("DGNL")))) {
                 adjustedScore = rawScore; // ĐGNL không quy đổi trừ độ lệch
             } else {
                 adjustedScore = rawScore.subtract(dolech);
@@ -394,7 +386,7 @@ public class AdmissionService {
             if (qd.getdDiema() == null || qd.getdDiemb() == null)
                 continue;
             // Nằm lọt trong phổ nội suy (mở tại cận trên để không gộp lặp)
-            if (x.compareTo(qd.getdDiema()) >= 0 && x.compareTo(qd.getdDiemb()) < 0) {
+            if (x.compareTo(qd.getdDiema()) >= 0 && x.compareTo(qd.getdDiemb()) <= 0) {
                 BigDecimal diemc = qd.getdDiemc() != null ? qd.getdDiemc() : BigDecimal.ZERO;
                 BigDecimal diemd = qd.getdDiemd() != null ? qd.getdDiemd() : diemc;
                 BigDecimal rangeInput = qd.getdDiemb().subtract(qd.getdDiema());
@@ -539,16 +531,16 @@ public class AdmissionService {
             String pt = nv.getTtPhuongthuc();
             if (pt == null)
                 pt = "PT2";
+            else
+                pt = pt.trim();
 
             double dthxt = 0.0;
             String bestThm = nv.getTtThm(); // giữ nguyên nếu đã có
-            if (pt.equalsIgnoreCase("PT2") || pt.equalsIgnoreCase("THPT") || pt.equals("1")) {
-                dthxt = tinhDiemTHPT(nv.getNnCccd(), nv.getNvManganh(), null);
-                bestThm = findBestTohopTHPT(nv.getNnCccd(), nv.getNvManganh());
-            } else if (pt.equalsIgnoreCase("PT3") || pt.equalsIgnoreCase("VSAT") || pt.equals("5")) {
+            String ptUpper = pt.toUpperCase();
+            if (ptUpper.contains("PT3") || ptUpper.contains("VSAT") || pt.equals("5") || ptUpper.contains("PT5")) {
                 dthxt = tinhDiemVSAT(nv.getNnCccd(), nv.getNvManganh(), null);
                 bestThm = findBestTohopVSAT(nv.getNnCccd(), nv.getNvManganh());
-            } else if (pt.equalsIgnoreCase("PT4") || pt.equalsIgnoreCase("DGNL") || pt.equals("4")) {
+            } else if (ptUpper.contains("PT4") || ptUpper.contains("DGNL") || pt.equals("4")) {
                 dthxt = tinhDiemDGNL(nv.getNnCccd(), nv.getNvManganh());
                 bestThm = findBestTohopDGNL(nv.getNvManganh());
             } else {
