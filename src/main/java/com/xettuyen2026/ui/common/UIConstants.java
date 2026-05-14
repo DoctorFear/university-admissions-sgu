@@ -78,6 +78,21 @@ public final class UIConstants {
         return null;
     }
 
+    public static javax.swing.Icon getWhiteIcon(String fileName, int width, int height) {
+        javax.swing.Icon baseIcon = getIcon(fileName, width, height);
+        if (baseIcon == null) return null;
+        
+        java.awt.image.BufferedImage img = new java.awt.image.BufferedImage(width, height, java.awt.image.BufferedImage.TYPE_INT_ARGB);
+        java.awt.Graphics2D g2 = img.createGraphics();
+        baseIcon.paintIcon(null, g2, 0, 0);
+        g2.setComposite(java.awt.AlphaComposite.SrcAtop);
+        g2.setColor(Color.WHITE);
+        g2.fillRect(0, 0, width, height);
+        g2.dispose();
+        
+        return new javax.swing.ImageIcon(img);
+    }
+
     // ── Emoji Icons for Menu  ─────────────────────────────────
     // ── Icons for Menu  ─────────────────────────────────
     public static final String ICON_DASHBOARD  = "house.png";
@@ -99,4 +114,6 @@ public final class UIConstants {
     public static final String ICON_DOWNLOAD   = "cloud-download.png";
     public static final String ICON_CALCULATE  = "calculator.png";
     public static final String ICON_EXECUTE    = "play.png";
+    public static final String ICON_RESULT     = "certificate.png";
+    public static final String ICON_STATISTIC  = "statistic.png";
 }

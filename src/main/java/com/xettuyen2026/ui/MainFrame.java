@@ -102,7 +102,7 @@ public class MainFrame extends JFrame {
         brandPanel.setMaximumSize(new Dimension(UIConstants.SIDEBAR_WIDTH, 80));
 
         JLabel lblBrand = new JLabel("SGU Tuyển sinh");
-        javax.swing.Icon brandIcon = UIConstants.getIcon(UIConstants.ICON_STUDENT, 20, 20);
+        javax.swing.Icon brandIcon = UIConstants.getWhiteIcon(UIConstants.ICON_STUDENT, 20, 20);
         if (brandIcon != null) {
             lblBrand.setIcon(brandIcon);
             lblBrand.setIconTextGap(8);
@@ -135,7 +135,7 @@ public class MainFrame extends JFrame {
         addMenuItem(sidebar, "diemthi",      UIConstants.ICON_SCORE,       "Điểm thi");
         addMenuItem(sidebar, "diemcong",     UIConstants.ICON_BONUS,       "Điểm cộng");
         addMenuItem(sidebar, "nguyenvong",   UIConstants.ICON_WISH,        "Nguyện vọng & XT");
-        addMenuItem(sidebar, "ketqua",       UIConstants.ICON_DASHBOARD,   "Kết quả xét tuyển");
+        addMenuItem(sidebar, "ketqua",       UIConstants.ICON_RESULT,      "Kết quả xét tuyển");
         addMenuItem(sidebar, "bangquydoi",   UIConstants.ICON_CONVERT,     "Bảng quy đổi");
 
         sidebar.add(Box.createVerticalGlue());
@@ -187,7 +187,7 @@ public class MainFrame extends JFrame {
 
         JLabel lbl = new JLabel(text);
         if (icon != null && !icon.isEmpty()) {
-            lbl.setIcon(UIConstants.getIcon(icon, 20, 20));
+            lbl.setIcon(UIConstants.getWhiteIcon(icon, 20, 20));
             lbl.setIconTextGap(12);
         }
         lbl.setFont(UIConstants.FONT_MENU);

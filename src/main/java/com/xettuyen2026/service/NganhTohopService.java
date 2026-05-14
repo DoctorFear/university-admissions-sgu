@@ -2,6 +2,7 @@ package com.xettuyen2026.service;
 
 import com.xettuyen2026.dao.NganhDAO;
 import com.xettuyen2026.dao.NganhTohopDAO;
+import com.xettuyen2026.dao.TohopMonthiDAO;
 import com.xettuyen2026.entity.Nganh;
 import com.xettuyen2026.entity.NganhTohop;
 
@@ -15,10 +16,14 @@ import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.regex.*;
 
+/**
+ * Service cho quản lý ngành-tổ hợp xét tuyển.
+ */
 public class NganhTohopService {
 
     private final NganhTohopDAO dao = new NganhTohopDAO();
     private final NganhDAO nganhDAO = new NganhDAO();
+    private final TohopMonthiDAO tohopDAO = new TohopMonthiDAO();
 
     public List<NganhTohop> findAll() {
         return dao.findAll();
@@ -36,37 +41,82 @@ public class NganhTohopService {
         return dao.findByTbKeys(tbKeys);
     }
 
+    /**
+     * Thêm mới ngành-tổ hợp.
+     */
     public void save(NganhTohop nt) {
-        nt.setTbKeys(nt.getManganh() + "_" + nt.getMatohop());
+        if (nt == null) {
+            throw new IllegalArgumentException("Dữ liệu ngành-tổ hợp không được null");
+        }
+
+        String maNganh = nt.getManganh() != null ? nt.getManganh().trim().toUpperCase() : "";
+        String maTohop = nt.getMatohop() != null ? nt.getMatohop().trim().toUpperCase() : "";
+        String mon1 = nt.getThMon1() != null ? nt.getThMon1().trim().toUpperCase() : "";
+        String mon2 = nt.getThMon2() != null ? nt.getThMon2().trim().toUpperCase() : "";
+        String mon3 = nt.getThMon3() != null ? nt.getThMon3().trim().toUpperCase() : "";
+
+        if (maNganh.isEmpty()) throw new IllegalArgumentException("Mã ngành không được trống");
+        if (maTohop.isEmpty()) throw new IllegalArgumentException("Mã tổ hợp không được trống");
+        if (mon1.isEmpty() || mon2.isEmpty() || mon3.isEmpty()) {
+            throw new IllegalArgumentException("3 môn không được trống");
+        }
+
+        if (!nganhDAO.existsByMaNganh(maNganh)) {
+            throw new IllegalArgumentException("Mã ngành " + maNganh + " không tồn tại!");
+        }
+        if (!tohopDAO.existsByMaTohop(maTohop)) {
+            throw new IllegalArgumentException("Mã tổ hợp " + maTohop + " không tồn tại!");
+        }
+
+        String tbKeys = maNganh + "_" + maTohop;
+        if (dao.existsByTbKeys(tbKeys)) {
+            throw new IllegalArgumentException("Ngành-tổ hợp " + tbKeys + " đã tồn tại!");
+        }
+
+        nt.setManganh(maNganh);
+        nt.setMatohop(maTohop);
+        nt.setThMon1(mon1);
+        nt.setThMon2(mon2);
+        nt.setThMon3(mon3);
+        nt.setTbKeys(tbKeys);
         setSubjectFlags(nt);
         dao.save(nt);
     }
 
+    /**
+     * Cập nhật ngành-tổ hợp — chỉ cập nhật hệ số và độ lệch,
+     * không cần validate môn vì các trường này read-only trên form.
+     */
     public void update(NganhTohop nt) {
-        nt.setTbKeys(nt.getManganh() + "_" + nt.getMatohop());
-        setSubjectFlags(nt);
+        if (nt == null || nt.getId() == null) {
+            throw new IllegalArgumentException("Dữ liệu ngành-tổ hợp không hợp lệ");
+        }
+        if (nt.getManganh() == null || nt.getManganh().trim().isEmpty()
+                || nt.getMatohop() == null || nt.getMatohop().trim().isEmpty()) {
+            throw new IllegalArgumentException("Mã ngành và mã tổ hợp không được trống");
+        }
         dao.update(nt);
     }
 
+    /**
+     * Xóa ngành-tổ hợp — không kiểm tra ràng buộc, xóa trực tiếp.
+     */
     public void delete(NganhTohop nt) {
+        if (nt == null || nt.getId() == null) {
+            throw new IllegalArgumentException("Dữ liệu ngành-tổ hợp không hợp lệ");
+        }
         dao.delete(nt);
     }
 
     /**
      * Import ngành-tổ hợp từ file tohopmon.txt.
-     * Mỗi dòng: STT MANGANH TEN_NGANHCHUAN MA_TO_HOP(MON1-HS1,MON2-HS2,MON3-HS3) tb_keys TEN_TO_HOP Gốc Độ_lệch
-     * Trả về số bản ghi đã import.
      */
     public int importFromTohopMonFile(File file) throws IOException {
         List<NganhTohop> toImport = new ArrayList<>();
         Map<String, String> nganhNames = new LinkedHashMap<>();
-        // Regex to extract maNganh (7 digits, optionally CLC)
         Pattern maNganhPattern = Pattern.compile("\\b(\\d{7}(?:CLC)?)\\b");
-        // Regex to extract TEN_NGANHCHUAN (text between maNganh and MA_TO_HOP)
         Pattern tenNganhPattern = Pattern.compile("\\d{7}(?:CLC)?\\s+(.+?)\\s+\\w+\\(");
-        // Regex to extract MA_TO_HOP with subjects: A00(TO-3,LI-3,HO-1)
         Pattern maToHopPattern = Pattern.compile("(\\w+)\\((\\w+)-(\\d+),(\\w+)-(\\d+),(\\w+)-(\\d+)\\)");
-        // Regex to extract doLech (last decimal number in line)
         Pattern doLechPattern = Pattern.compile("(-?\\d+\\.\\d+)\\s*$");
 
         try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8))) {
@@ -76,26 +126,19 @@ public class NganhTohopService {
                 line = line.trim();
                 if (line.isEmpty() || line.startsWith("---")) continue;
                 if (!headerSkipped) {
-                    if (line.contains("STT") && line.contains("MANGANH")) {
-                        headerSkipped = true;
-                    }
+                    if (line.contains("STT") && line.contains("MANGANH")) headerSkipped = true;
                     continue;
                 }
 
-                // Extract maNganh
                 Matcher maNganhMatcher = maNganhPattern.matcher(line);
                 if (!maNganhMatcher.find()) continue;
                 String maNganh = maNganhMatcher.group(1);
 
-                // Extract tenNganh
                 if (!nganhNames.containsKey(maNganh)) {
                     Matcher tenMatcher = tenNganhPattern.matcher(line);
-                    if (tenMatcher.find()) {
-                        nganhNames.put(maNganh, tenMatcher.group(1).trim());
-                    }
+                    if (tenMatcher.find()) nganhNames.put(maNganh, tenMatcher.group(1).trim());
                 }
 
-                // Extract MA_TO_HOP with subjects and coefficients
                 Matcher maToHopMatcher = maToHopPattern.matcher(line);
                 if (!maToHopMatcher.find()) continue;
 
@@ -107,24 +150,18 @@ public class NganhTohopService {
                 String mon3 = maToHopMatcher.group(6);
                 byte hs3 = Byte.parseByte(maToHopMatcher.group(7));
 
-                // Extract doLech (last decimal number in line)
                 BigDecimal doLech = BigDecimal.ZERO;
                 Matcher doLechMatcher = doLechPattern.matcher(line);
-                if (doLechMatcher.find()) {
-                    doLech = new BigDecimal(doLechMatcher.group(1));
-                }
+                if (doLechMatcher.find()) doLech = new BigDecimal(doLechMatcher.group(1));
 
                 String key = maNganh + "_" + maTohop;
 
                 NganhTohop nt = new NganhTohop();
                 nt.setManganh(maNganh);
                 nt.setMatohop(maTohop);
-                nt.setThMon1(mon1);
-                nt.setHsmon1(hs1);
-                nt.setThMon2(mon2);
-                nt.setHsmon2(hs2);
-                nt.setThMon3(mon3);
-                nt.setHsmon3(hs3);
+                nt.setThMon1(mon1); nt.setHsmon1(hs1);
+                nt.setThMon2(mon2); nt.setHsmon2(hs2);
+                nt.setThMon3(mon3); nt.setHsmon3(hs3);
                 nt.setTbKeys(key);
                 nt.setDolech(doLech);
                 setSubjectFlags(nt);
@@ -132,28 +169,18 @@ public class NganhTohopService {
             }
         }
 
-        // Auto-create ngành nếu chưa tồn tại
         autoCreateNganh(nganhNames);
 
-        // Filter out existing records
         List<NganhTohop> newRecords = new ArrayList<>();
         for (NganhTohop nt : toImport) {
-            NganhTohop existing = dao.findByTbKeys(nt.getTbKeys());
-            if (existing == null) {
-                newRecords.add(nt);
-            }
+            if (dao.findByTbKeys(nt.getTbKeys()) == null) newRecords.add(nt);
         }
-
-        if (!newRecords.isEmpty()) {
-            dao.saveAll(newRecords);
-        }
+        if (!newRecords.isEmpty()) dao.saveAll(newRecords);
         return newRecords.size();
     }
 
     /**
-     * Import ngành-tổ hợp từ file Excel (.xlsx/.xls) — file tohopmon.xlsx.
-     * Cột trong file: STT(0), MANGANH(1), TEN_NGANHCHUAN(2), MA_TO_HOP(3), tb_keys(4), TEN_TO_HOP(5), Gốc(6), Độ lệch(7)
-     * Trích xuất mã ngành, tổ hợp, môn + hệ số từ cột MA_TO_HOP dạng "A00(TO-3,LI-3,HO-1)".
+     * Import ngành-tổ hợp từ file Excel.
      */
     public int importFromExcel(File file) throws IOException {
         List<NganhTohop> toImport = new ArrayList<>();
@@ -168,22 +195,16 @@ public class NganhTohopService {
             boolean headerSkipped = false;
 
             for (Row row : sheet) {
-                if (!headerSkipped) {
-                    headerSkipped = true;
-                    continue; // skip header row
-                }
+                if (!headerSkipped) { headerSkipped = true; continue; }
 
-                // Cột 1: MANGANH
                 String maNganh = getCellString(row, 1);
                 if (maNganh.isEmpty()) continue;
 
-                // Cột 2: TEN_NGANHCHUAN — thu thập tên ngành
                 String tenNganh = getCellString(row, 2);
                 if (!tenNganh.isEmpty() && !nganhNames.containsKey(maNganh)) {
                     nganhNames.put(maNganh, tenNganh);
                 }
 
-                // Cột 3: MA_TO_HOP dạng "B03(TO-3,VA-3,SI-1)"
                 String maToHopRaw = getCellString(row, 3);
                 if (maToHopRaw.isEmpty()) continue;
 
@@ -191,66 +212,43 @@ public class NganhTohopService {
                 if (!matcher.find()) continue;
 
                 String maTohop = matcher.group(1);
-                String mon1 = matcher.group(2);
-                byte hs1 = Byte.parseByte(matcher.group(3));
-                String mon2 = matcher.group(4);
-                byte hs2 = Byte.parseByte(matcher.group(5));
-                String mon3 = matcher.group(6);
-                byte hs3 = Byte.parseByte(matcher.group(7));
+                String mon1 = matcher.group(2); byte hs1 = Byte.parseByte(matcher.group(3));
+                String mon2 = matcher.group(4); byte hs2 = Byte.parseByte(matcher.group(5));
+                String mon3 = matcher.group(6); byte hs3 = Byte.parseByte(matcher.group(7));
 
-                // Cột 7: Độ lệch
                 BigDecimal doLech = BigDecimal.ZERO;
                 double doLechVal = getCellNumeric(row, 7);
-                if (doLechVal != 0) {
-                    doLech = BigDecimal.valueOf(doLechVal);
-                }
+                if (doLechVal != 0) doLech = BigDecimal.valueOf(doLechVal);
 
                 String key = maNganh + "_" + maTohop;
 
                 NganhTohop nt = new NganhTohop();
-                nt.setManganh(maNganh);
-                nt.setMatohop(maTohop);
-                nt.setThMon1(mon1.toUpperCase());
-                nt.setHsmon1(hs1);
-                nt.setThMon2(mon2.toUpperCase());
-                nt.setHsmon2(hs2);
-                nt.setThMon3(mon3.toUpperCase());
-                nt.setHsmon3(hs3);
-                nt.setTbKeys(key);
-                nt.setDolech(doLech);
+                nt.setManganh(maNganh); nt.setMatohop(maTohop);
+                nt.setThMon1(mon1.toUpperCase()); nt.setHsmon1(hs1);
+                nt.setThMon2(mon2.toUpperCase()); nt.setHsmon2(hs2);
+                nt.setThMon3(mon3.toUpperCase()); nt.setHsmon3(hs3);
+                nt.setTbKeys(key); nt.setDolech(doLech);
                 setSubjectFlags(nt);
                 toImport.add(nt);
             }
         }
 
-        // Auto-create ngành nếu chưa tồn tại
         autoCreateNganh(nganhNames);
 
         List<NganhTohop> newRecords = new ArrayList<>();
         for (NganhTohop nt : toImport) {
-            NganhTohop existing = dao.findByTbKeys(nt.getTbKeys());
-            if (existing == null) {
-                newRecords.add(nt);
-            }
+            if (dao.findByTbKeys(nt.getTbKeys()) == null) newRecords.add(nt);
         }
-
-        if (!newRecords.isEmpty()) {
-            dao.saveAll(newRecords);
-        }
+        if (!newRecords.isEmpty()) dao.saveAll(newRecords);
         return newRecords.size();
     }
 
-    /**
-     * Tự động tạo ngành trong bảng xt_nganh nếu chưa tồn tại.
-     */
     private void autoCreateNganh(Map<String, String> nganhNames) {
         for (Map.Entry<String, String> entry : nganhNames.entrySet()) {
-            String maNganh = entry.getKey();
-            String tenNganh = entry.getValue();
-            if (!nganhDAO.existsByMaNganh(maNganh)) {
+            if (!nganhDAO.existsByMaNganh(entry.getKey())) {
                 Nganh nganh = new Nganh();
-                nganh.setManganh(maNganh);
-                nganh.setTennganh(tenNganh);
+                nganh.setManganh(entry.getKey());
+                nganh.setTennganh(entry.getValue());
                 nganh.setnChitieu(0);
                 nganhDAO.save(nganh);
             }
@@ -264,8 +262,7 @@ public class NganhTohopService {
             case STRING -> cell.getStringCellValue().trim();
             case NUMERIC -> {
                 double val = cell.getNumericCellValue();
-                if (val == Math.floor(val)) yield String.valueOf((long) val);
-                else yield String.valueOf(val);
+                yield val == Math.floor(val) ? String.valueOf((long) val) : String.valueOf(val);
             }
             default -> "";
         };
@@ -276,18 +273,12 @@ public class NganhTohopService {
         if (cell == null) return 0;
         return switch (cell.getCellType()) {
             case NUMERIC -> cell.getNumericCellValue();
-            case STRING -> {
-                try { yield Double.parseDouble(cell.getStringCellValue().trim()); }
-                catch (NumberFormatException e) { yield 0.0; }
-            }
+            case STRING -> { try { yield Double.parseDouble(cell.getStringCellValue().trim()); }
+                            catch (NumberFormatException e) { yield 0.0; } }
             default -> 0.0;
         };
     }
 
-    /**
-     * Set các cờ môn học (N1, TO, LI, HO, SI, VA, SU, DI, TI, KHAC, KTPL)
-     * dựa trên th_mon1, th_mon2, th_mon3.
-     */
     private void setSubjectFlags(NganhTohop nt) {
         Set<String> subjects = new HashSet<>();
         if (nt.getThMon1() != null) subjects.add(nt.getThMon1().toUpperCase());
@@ -305,12 +296,9 @@ public class NganhTohopService {
         nt.setTi(subjects.contains("TI"));
         nt.setKtpl(subjects.contains("KTPL"));
 
-        // KHAC = any subject that isn't one of the standard ones
-        Set<String> standard = Set.of("N1", "TO", "LI", "HO", "SI", "VA", "SU", "DI", "TI", "KTPL");
+        Set<String> standard = Set.of("N1","TO","LI","HO","SI","VA","SU","DI","TI","KTPL");
         boolean hasOther = false;
-        for (String s : subjects) {
-            if (!standard.contains(s)) { hasOther = true; break; }
-        }
+        for (String s : subjects) { if (!standard.contains(s)) { hasOther = true; break; } }
         nt.setKhac(hasOther);
     }
 }

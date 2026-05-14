@@ -1,114 +1,89 @@
 package com.xettuyen2026.dao;
 
 import com.xettuyen2026.config.HibernateConfig;
+import com.xettuyen2026.dao.base.BaseDAO;
 import com.xettuyen2026.entity.NguyenVongXetTuyen;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public class NguyenVongDAO {
+public class NguyenVongDAO extends BaseDAO<NguyenVongXetTuyen> {
 
-    public List<NguyenVongXetTuyen> findAll() {
-        try (Session session = HibernateConfig.getSessionFactory().openSession()) {
-            return session.createQuery("from NguyenVongXetTuyen", NguyenVongXetTuyen.class).list();
-        }
-    }
-
-    public NguyenVongXetTuyen findById(int id) {
-        try (Session session = HibernateConfig.getSessionFactory().openSession()) {
-            return session.get(NguyenVongXetTuyen.class, id);
-        }
+    public NguyenVongDAO() {
+        super(NguyenVongXetTuyen.class);
     }
 
     public List<NguyenVongXetTuyen> findByCccd(String cccd) {
-        try (Session session = HibernateConfig.getSessionFactory().openSession()) {
-            return session.createQuery("from NguyenVongXetTuyen nv where nv.nnCccd = :cccd order by nv.nvTt", NguyenVongXetTuyen.class)
-                    .setParameter("cccd", cccd)
-                    .list();
-        }
+        return query(
+            "FROM NguyenVongXetTuyen nv WHERE nv.nnCccd = :cccd ORDER BY nv.nvTt",
+            q -> q.setParameter("cccd", cccd)
+        );
     }
 
     public List<NguyenVongXetTuyen> findByMaNganh(String maNganh) {
-        try (Session session = HibernateConfig.getSessionFactory().openSession()) {
-            return session.createQuery("from NguyenVongXetTuyen nv where nv.nvManganh = :ma order by nv.diemXettuyen desc",
-                    NguyenVongXetTuyen.class)
-                    .setParameter("ma", maNganh)
-                    .list();
-        }
+        return query(
+            "FROM NguyenVongXetTuyen nv WHERE nv.nvManganh = :ma ORDER BY nv.diemXettuyen DESC",
+            q -> q.setParameter("ma", maNganh)
+        );
     }
 
     public NguyenVongXetTuyen findByNvKeys(String keys) {
-        try (Session session = HibernateConfig.getSessionFactory().openSession()) {
-            List<NguyenVongXetTuyen> list = session.createQuery("from NguyenVongXetTuyen nv where nv.nvKeys = :keys", NguyenVongXetTuyen.class)
-                    .setParameter("keys", keys)
-                    .list();
-            return list.isEmpty() ? null : list.get(0);
-        }
+        List<NguyenVongXetTuyen> list = query(
+            "FROM NguyenVongXetTuyen nv WHERE nv.nvKeys = :keys",
+            q -> q.setParameter("keys", keys)
+        );
+        return list.isEmpty() ? null : list.get(0);
     }
 
     public List<NguyenVongXetTuyen> findAllOrdered() {
-        try (Session session = HibernateConfig.getSessionFactory().openSession()) {
-            return session.createQuery("from NguyenVongXetTuyen order by nnCccd, nvTt", NguyenVongXetTuyen.class).list();
-        }
+        return query(
+            "FROM NguyenVongXetTuyen ORDER BY nnCccd, nvTt",
+            null
+        );
     }
 
-    public void save(NguyenVongXetTuyen nv) {
-        Transaction tx = null;
-        Session session = HibernateConfig.getSessionFactory().openSession();
-        try {
-            tx = session.beginTransaction();
-            session.persist(nv);
-            tx.commit();
-        } catch (Exception e) {
-            if (tx != null) tx.rollback();
-            throw new RuntimeException("Lỗi khi lưu nguyện vọng: " + e.getMessage(), e);
-        } finally {
-            if (session != null && session.isOpen()) {
-                session.close();
+    /**
+     * Đếm số lượng nguyện vọng theo từng ngành và phương thức.
+     * Trả về Map: key = "maNganh|ttPhuongthuc", value = số lượng
+     */
+    public Map<String, Integer> countByNganhAndPhuongThuc() {
+        String hql = "SELECT nv.nvManganh, nv.ttPhuongthuc, COUNT(nv) " +
+                     "FROM NguyenVongXetTuyen nv " +
+                     "WHERE nv.ttPhuongthuc IS NOT NULL " +
+                     "GROUP BY nv.nvManganh, nv.ttPhuongthuc";
+
+        try (Session session = openSession()) {
+            List<Object[]> rows = session.createQuery(hql, Object[].class).list();
+            Map<String, Integer> result = new HashMap<>();
+            for (Object[] row : rows) {
+                String maNganh     = (String) row[0];
+                String phuongThuc  = (String) row[1];
+                Long   count       = (Long)   row[2];
+                if (maNganh == null || phuongThuc == null) continue;
+                // Chuẩn hóa khóa đếm nguyện vọng theo ngành và phương thức
+                result.merge(maNganh.trim().toUpperCase() + "|" + normalizePhuongThuc(phuongThuc),
+                        count.intValue(), Integer::sum);
             }
+            return result;
         }
     }
 
-    public void update(NguyenVongXetTuyen nv) {
-        Transaction tx = null;
-        Session session = HibernateConfig.getSessionFactory().openSession();
-        try {
-            tx = session.beginTransaction();
-            session.merge(nv);
-            tx.commit();
-        } catch (Exception e) {
-            if (tx != null) tx.rollback();
-            throw new RuntimeException("Lỗi khi cập nhật nguyện vọng: " + e.getMessage(), e);
-        } finally {
-            if (session != null && session.isOpen()) {
-                session.close();
-            }
-        }
+    // Chuẩn hóa mã phương thức xét tuyển khi đếm nguyện vọng
+    private String normalizePhuongThuc(String phuongThuc) {
+        String pt = phuongThuc != null ? phuongThuc.trim().toUpperCase() : "";
+        if (pt.startsWith("PT2") || pt.contains("THPT")) return "PT2";
+        if (pt.startsWith("PT4") || pt.contains("DGNL") || pt.contains("ĐGNL")) return "PT4";
+        if (pt.startsWith("PT5") || pt.startsWith("PT3") || pt.contains("VSAT") || pt.contains("V-SAT")) return "PT5";
+        return pt;
     }
 
-    public void delete(NguyenVongXetTuyen nv) {
-        Transaction tx = null;
-        Session session = HibernateConfig.getSessionFactory().openSession();
-        try {
-            tx = session.beginTransaction();
-            NguyenVongXetTuyen managed = session.merge(nv);
-            session.remove(managed);
-            tx.commit();
-        } catch (Exception e) {
-            if (tx != null) tx.rollback();
-            throw new RuntimeException("Lỗi khi xóa nguyện vọng: " + e.getMessage(), e);
-        } finally {
-            if (session != null && session.isOpen()) {
-                session.close();
-            }
-        }
-    }
-
-    /** Batch update danh sách nguyện vọng (dùng sau xét tuyển). */
+    /** Giữ lại batchUpdate vì các service khác còn dùng */
     public void batchUpdate(List<NguyenVongXetTuyen> list) {
         Transaction tx = null;
-        Session session = HibernateConfig.getSessionFactory().openSession();
-        try {
+        try (Session session = openSession()) {
             tx = session.beginTransaction();
             int count = 0;
             for (NguyenVongXetTuyen nv : list) {
@@ -122,10 +97,6 @@ public class NguyenVongDAO {
         } catch (Exception e) {
             if (tx != null) tx.rollback();
             throw new RuntimeException("Lỗi khi batch update nguyện vọng: " + e.getMessage(), e);
-        } finally {
-            if (session != null && session.isOpen()) {
-                session.close();
-            }
         }
     }
 }

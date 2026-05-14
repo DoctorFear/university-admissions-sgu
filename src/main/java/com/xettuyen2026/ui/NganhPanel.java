@@ -14,15 +14,20 @@ import javax.swing.BorderFactory;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableColumnModel;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FontMetrics;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.Rectangle;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,11 +46,12 @@ public class NganhPanel extends JPanel {
 
     private static final String[] COLUMNS = {
             "STT", "Mã ngành", "Tên ngành", "Tổ hợp gốc",
-            "Chỉ tiêu", "Điểm sàn", "Điểm T.Tuyển"
+            "Chỉ tiêu", "Điểm sàn", "Điểm T.Tuyển",
+            "T.Thẳng", "ĐGNL", "THPT", "V-SAT"
     };
 
     private static final int[] COLUMN_WIDTHS = {
-            60, 120, 360, 130, 110, 120, 140
+    		60, 110, 260, 100, 90, 95, 110, 90, 90, 90, 90
     };
 
     public NganhPanel() {
@@ -123,6 +129,7 @@ public class NganhPanel extends JPanel {
         card.setBorder(BorderFactory.createEmptyBorder(12, 16, 12, 16));
 
         styledTable = new PaginatedTable(COLUMNS);
+        installNganhGroupHeader();
         javax.swing.table.TableColumnModel columnModel = styledTable.getTable().getColumnModel();
         for (int i = 0; i < Math.min(COLUMN_WIDTHS.length, columnModel.getColumnCount()); i++) {
             columnModel.getColumn(i).setPreferredWidth(COLUMN_WIDTHS[i]);
@@ -133,10 +140,22 @@ public class NganhPanel extends JPanel {
         return card;
     }
 
+    // Gắn tiêu đề gộp số lượng nguyện vọng vào bảng ngành
+    private void installNganhGroupHeader() {
+        NganhGroupHeader header = new NganhGroupHeader(styledTable.getTable().getColumnModel());
+        styledTable.getTable().setTableHeader(header);
+
+        JScrollPane scrollPane = (JScrollPane) SwingUtilities.getAncestorOfClass(
+                JScrollPane.class, styledTable.getTable());
+        if (scrollPane != null) {
+            scrollPane.setColumnHeaderView(header);
+        }
+    }
+
     // Tải lại toàn bộ dữ liệu ngành từ service
     private void loadData() {
         try {
-            allEntities = service.findAll();
+            allEntities = service.findAllWithSlNguyenVong(); 
             loadedEntities = new ArrayList<>(allEntities);
             displayEntities(loadedEntities);
         } catch (Exception e) {
@@ -157,16 +176,52 @@ public class NganhPanel extends JPanel {
                     n.getnTohopgoc() != null ? n.getnTohopgoc() : "",
                     n.getnChitieu() != null ? n.getnChitieu() : "",
                     n.getnDiemsan() != null ? n.getnDiemsan() : "",
-                    n.getnDiemtrungtuyen() != null ? n.getnDiemtrungtuyen() : ""
+                    n.getnDiemtrungtuyen() != null ? n.getnDiemtrungtuyen() : "",
+                    // Thống kê động: hiển thị số nếu > 0, ngược lại "-"
+                    slTheoPhuongThuc(n.getnTuyenthang(), n.getSlXtt()),
+                    slTheoPhuongThuc(n.getnDgnl(), n.getSlDgnl()),
+                    slTheoPhuongThuc(n.getnThpt(), n.getSlThpt()),
+                    slTheoPhuongThuc(n.getnVsat(), n.getSlVsat())
             });
         }
         styledTable.setData(rows);
     }
 
-    // Hiển thị số lượng chỉ tiêu của từng phương thức xét tuyển
-    private String slText(boolean coXetTuyen, String sl) {
-        if (!coXetTuyen) return "-";
-        return (sl != null && !sl.isEmpty()) ? sl : "-";
+    // Hiển thị x nếu ngành không xét phương thức, ngược lại hiển thị số nguyện vọng
+    private String slTheoPhuongThuc(String flag, Integer sl) {
+        if (!isMethodEnabled(flag)) return "x";
+        return String.valueOf(sl != null ? sl : 0);
+    }
+
+    // Hiển thị x nếu ngành không xét phương thức, ngược lại hiển thị số nguyện vọng dạng chuỗi
+    private String slTheoPhuongThuc(String flag, String sl) {
+        if (!isMethodEnabled(flag)) return "x";
+        if (sl == null || sl.trim().isEmpty()) return "0";
+        try {
+            return String.valueOf(Integer.parseInt(sl.trim()));
+        } catch (NumberFormatException e) {
+            return "0";
+        }
+    }
+
+    // Kiểm tra phương thức còn được xét tuyển hay không
+    private boolean isMethodEnabled(String flag) {
+        return flag == null || !"-".equals(flag.trim());
+    }
+
+    // Hiển thị số lượng nguyện vọng động: "-" nếu 0, số thực nếu có
+    private String slDong(Integer sl) {
+        return (sl != null && sl > 0) ? String.valueOf(sl) : "-";
+    }
+
+    // Overload cho slThpt vì kiểu String
+    private String slDong(String sl) {
+        if (sl == null || sl.isEmpty()) return "-";
+        try {
+            return Integer.parseInt(sl) > 0 ? sl : "-";
+        } catch (NumberFormatException e) {
+            return "-";
+        }
     }
 
     // Tìm kiếm ngành theo mã hoặc tên
@@ -312,5 +367,86 @@ public class NganhPanel extends JPanel {
     // Chuyển số nguyên sang chuỗi để hiển thị trên bảng
     private String toStr(Integer v) {
         return v != null ? String.valueOf(v) : "";
+    }
+
+    // Vẽ tiêu đề bảng có ô gộp cho nhóm số lượng nguyện vọng
+    private static class NganhGroupHeader extends JTableHeader {
+        private static final int GROUP_START_COLUMN = 7;
+        private static final int GROUP_HEADER_HEIGHT = 24;
+        private static final int DETAIL_HEADER_HEIGHT = 24;
+
+        public NganhGroupHeader(TableColumnModel columnModel) {
+            super(columnModel);
+            setBackground(UIConstants.TABLE_HEADER);
+            setForeground(Color.WHITE);
+            setFont(UIConstants.FONT_BOLD);
+            setReorderingAllowed(false);
+            setPreferredSize(new Dimension(getPreferredSize().width, GROUP_HEADER_HEIGHT + DETAIL_HEADER_HEIGHT));
+        }
+
+        // Vẽ nền, đường kẻ và chữ tiêu đề theo đúng bố cục bảng ngành
+        @Override
+        protected void paintComponent(Graphics g) {
+            Graphics2D g2 = (Graphics2D) g.create();
+            g2.setColor(UIConstants.TABLE_HEADER);
+            g2.fillRect(0, 0, getWidth(), getHeight());
+            g2.setFont(getFont());
+
+            int x = 0;
+            int groupX = 0;
+            int groupWidth = 0;
+            for (int i = 0; i < getColumnModel().getColumnCount(); i++) {
+                int width = getColumnModel().getColumn(i).getWidth();
+                if (i < GROUP_START_COLUMN) {
+                    drawHeaderCell(g2, getHeaderText(i), x, 0, width, getHeight());
+                } else {
+                    if (i == GROUP_START_COLUMN) {
+                        groupX = x;
+                    }
+                    groupWidth += width;
+                    drawHeaderCell(g2, getHeaderText(i), x, GROUP_HEADER_HEIGHT, width, DETAIL_HEADER_HEIGHT);
+                }
+                x += width;
+            }
+
+            drawHeaderCell(g2, "Số lượng nguyện vọng", groupX, 0, groupWidth, GROUP_HEADER_HEIGHT);
+            g2.dispose();
+        }
+
+        // Vẽ một ô tiêu đề căn giữa và giữ màu bảng hiện có
+        private void drawHeaderCell(Graphics2D g2, String text, int x, int y, int width, int height) {
+            g2.setColor(UIConstants.TABLE_HEADER);
+            g2.fillRect(x, y, width, height);
+            g2.setColor(new Color(255, 255, 255, 70));
+            g2.drawRect(x, y, width, height);
+            g2.setColor(Color.WHITE);
+
+            FontMetrics metrics = g2.getFontMetrics();
+            String visibleText = fitText(metrics, text, width - 8);
+            Rectangle rect = new Rectangle(x, y, width, height);
+            int textX = rect.x + (rect.width - metrics.stringWidth(visibleText)) / 2;
+            int textY = rect.y + ((rect.height - metrics.getHeight()) / 2) + metrics.getAscent();
+            g2.drawString(visibleText, textX, textY);
+        }
+
+        // Rút gọn chữ nếu cột quá hẹp để không tràn khỏi ô tiêu đề
+        private String fitText(FontMetrics metrics, String text, int maxWidth) {
+            if (text == null || metrics.stringWidth(text) <= maxWidth) {
+                return text;
+            }
+
+            String ellipsis = "...";
+            int end = text.length();
+            while (end > 0 && metrics.stringWidth(text.substring(0, end) + ellipsis) > maxWidth) {
+                end--;
+            }
+            return end > 0 ? text.substring(0, end) + ellipsis : ellipsis;
+        }
+
+        // Lấy tên cột từ model để vẽ lại tiêu đề bảng
+        private String getHeaderText(int column) {
+            Object value = getColumnModel().getColumn(column).getHeaderValue();
+            return value != null ? value.toString() : "";
+        }
     }
 }

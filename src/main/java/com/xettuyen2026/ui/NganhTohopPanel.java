@@ -26,6 +26,7 @@ public class NganhTohopPanel extends JPanel {
     private NganhTohopService service;
     private NganhDAO nganhDAO;
     private List<NganhTohop> loadedEntities = new ArrayList<>();
+    private List<NganhTohop> displayedEntities = new ArrayList<>();
     private Map<String, String> nganhNameMap = new LinkedHashMap<>();
 
     private static final String[] COLUMNS = {
@@ -153,6 +154,7 @@ public class NganhTohopPanel extends JPanel {
     }
 
     private void displayEntities(List<NganhTohop> list) {
+        displayedEntities = new ArrayList<>(list);
         List<Object[]> rows = new ArrayList<>();
         int stt = 1;
         for (NganhTohop nt : list) {
@@ -261,7 +263,10 @@ public class NganhTohopPanel extends JPanel {
                 service.save(dlg.getEntity());
                 MessageHelper.showSuccess(this, "Thêm ngành-tổ hợp thành công!");
                 loadData();
+            } catch (IllegalArgumentException e) {
+                MessageHelper.showWarning(this, e.getMessage());
             } catch (Exception e) {
+                e.printStackTrace();
                 MessageHelper.showError(this, "Lỗi: " + e.getMessage());
             }
         }
@@ -274,13 +279,9 @@ public class NganhTohopPanel extends JPanel {
             return;
         }
         int realIdx = styledTable.getRealIndex(row);
+        if (realIdx >= displayedEntities.size()) return;
 
-        // Find the entity by tbKeys from displayed data
-        List<Object[]> allData = styledTable.getAllData();
-        String tbKeys = (String) allData.get(realIdx)[COL_TB_KEYS];
-        NganhTohop entity = loadedEntities.stream()
-                .filter(nt -> tbKeys.equals(nt.getTbKeys()))
-                .findFirst().orElse(null);
+        NganhTohop entity = displayedEntities.get(realIdx);
         if (entity == null) return;
 
         NganhTohopDialog dlg = new NganhTohopDialog(SwingUtilities.getWindowAncestor(this), entity, nganhNameMap);
@@ -292,7 +293,10 @@ public class NganhTohopPanel extends JPanel {
                 service.update(updated);
                 MessageHelper.showSuccess(this, "Cập nhật thành công!");
                 loadData();
+            } catch (IllegalArgumentException e) {
+                MessageHelper.showWarning(this, e.getMessage());
             } catch (Exception e) {
+                e.printStackTrace();
                 MessageHelper.showError(this, "Lỗi: " + e.getMessage());
             }
         }
@@ -305,21 +309,30 @@ public class NganhTohopPanel extends JPanel {
             return;
         }
         int realIdx = styledTable.getRealIndex(row);
-        List<Object[]> allData = styledTable.getAllData();
-        String tbKeys = (String) allData.get(realIdx)[COL_TB_KEYS];
-        NganhTohop entity = loadedEntities.stream()
-                .filter(nt -> tbKeys.equals(nt.getTbKeys()))
-                .findFirst().orElse(null);
+        if (realIdx >= displayedEntities.size()) return;
+
+        NganhTohop entity = displayedEntities.get(realIdx);
         if (entity == null) return;
 
-        if (ConfirmDialog.show(this, "Bạn có chắc muốn xóa ngành-tổ hợp \"" + tbKeys + "\"?")) {
-            try {
-                service.delete(entity);
-                MessageHelper.showSuccess(this, "Đã xóa ngành-tổ hợp.");
-                loadData();
-            } catch (Exception e) {
-                MessageHelper.showError(this, "Lỗi: " + e.getMessage());
-            }
+        String displayInfo = entity.getManganh() + " - " + entity.getMatohop();
+        int confirm = JOptionPane.showConfirmDialog(this,
+            "Bạn có chắc muốn xóa ngành-tổ hợp \"" + displayInfo + "\" không?",
+            "Xác nhận xóa",
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.QUESTION_MESSAGE);
+        if (confirm != JOptionPane.YES_OPTION) {
+            return;
+        }
+
+        try {
+            service.delete(entity);
+            MessageHelper.showSuccess(this, "Đã xóa ngành-tổ hợp \"" + displayInfo + "\".");
+            loadData();
+        } catch (IllegalArgumentException e) {
+            MessageHelper.showError(this, e.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
+            MessageHelper.showError(this, "Lỗi: " + e.getMessage());
         }
     }
 }

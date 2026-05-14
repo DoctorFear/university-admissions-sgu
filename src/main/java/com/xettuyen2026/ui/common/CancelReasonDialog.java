@@ -11,20 +11,17 @@ import java.awt.event.*;
 public class CancelReasonDialog extends JDialog {
 
     private boolean confirmed = false;
-    private String reason = "";
-    private JTextArea txtReason;
-    private JCheckBox chkConfirm;
     private RoundedButton btnSubmit;
 
-    public CancelReasonDialog(Window owner) {
-        super(owner, "Hủy nguyện vọng", ModalityType.APPLICATION_MODAL);
-        setSize(480, 320);
+    public CancelReasonDialog(Window owner, String ten, String cccd, String maNganh) {
+        super(owner, "Xác nhận xóa thí sinh", ModalityType.APPLICATION_MODAL);
+        setSize(480, 220);
         setLocationRelativeTo(owner);
         setResizable(false);
-        initUI();
+        initUI(ten, cccd, maNganh);
     }
 
-    private void initUI() {
+    private void initUI(String ten, String cccd, String maNganh) {
         JPanel main = new JPanel(new BorderLayout(12, 12));
         main.setBorder(BorderFactory.createEmptyBorder(20, 24, 16, 24));
         main.setBackground(Color.WHITE);
@@ -38,51 +35,15 @@ public class CancelReasonDialog extends JDialog {
         iconLabel.setVerticalAlignment(SwingConstants.TOP);
         headerPanel.add(iconLabel, BorderLayout.WEST);
 
-        JLabel titleLabel = new JLabel("<html><b>Xác nhận hủy nguyện vọng</b><br>"
-                + "<span style='color:#666'>Vui lòng nhập lý do hủy bên dưới:</span></html>");
+        JLabel titleLabel = new JLabel("<html><b>Xác nhận xóa thí sinh</b><br>"
+                + "<span style='color:#666'>Tên thí sinh: " + (ten != null ? ten : "") + "</span><br>"
+                + "<span style='color:#666'>CCCD: " + cccd + "</span><br>"
+                + "<span style='color:#666'>Mã ngành: " + maNganh + "</span></html>");
         titleLabel.setFont(UIConstants.FONT_REGULAR);
         titleLabel.setForeground(UIConstants.TEXT_PRIMARY);
         headerPanel.add(titleLabel, BorderLayout.CENTER);
 
-        main.add(headerPanel, BorderLayout.NORTH);
-
-        // ── Center: reason text area + checkbox ──
-        JPanel centerPanel = new JPanel(new BorderLayout(0, 10));
-        centerPanel.setOpaque(false);
-
-        txtReason = new JTextArea(4, 30);
-        txtReason.setFont(UIConstants.FONT_REGULAR);
-        txtReason.setLineWrap(true);
-        txtReason.setWrapStyleWord(true);
-        txtReason.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(UIConstants.BORDER_LIGHT, 1),
-                BorderFactory.createEmptyBorder(8, 10, 8, 10)));
-        txtReason.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
-            public void insertUpdate(javax.swing.event.DocumentEvent e) {
-                updateSubmitState();
-            }
-
-            public void removeUpdate(javax.swing.event.DocumentEvent e) {
-                updateSubmitState();
-            }
-
-            public void changedUpdate(javax.swing.event.DocumentEvent e) {
-                updateSubmitState();
-            }
-        });
-
-        JScrollPane scrollPane = new JScrollPane(txtReason);
-        scrollPane.setBorder(null);
-        centerPanel.add(scrollPane, BorderLayout.CENTER);
-
-        chkConfirm = new JCheckBox("Đã chắc chắn với lý do trên");
-        chkConfirm.setFont(UIConstants.FONT_REGULAR);
-        chkConfirm.setOpaque(false);
-        chkConfirm.setForeground(UIConstants.TEXT_PRIMARY);
-        chkConfirm.addActionListener(e -> updateSubmitState());
-        centerPanel.add(chkConfirm, BorderLayout.SOUTH);
-
-        main.add(centerPanel, BorderLayout.CENTER);
+        main.add(headerPanel, BorderLayout.CENTER);
 
         // ── Buttons ──
         JPanel btnPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 8, 0));
@@ -91,11 +52,9 @@ public class CancelReasonDialog extends JDialog {
         RoundedButton btnCancel = new RoundedButton("Đóng", new Color(0x757575));
         btnCancel.addActionListener(e -> dispose());
 
-        btnSubmit = new RoundedButton(UIConstants.ICON_DELETE + " Xác nhận hủy", UIConstants.DANGER);
-        btnSubmit.setEnabled(false);
+        btnSubmit = new RoundedButton(UIConstants.ICON_DELETE + " Xác nhận xóa", UIConstants.DANGER);
         btnSubmit.addActionListener(e -> {
             confirmed = true;
-            reason = txtReason.getText().trim();
             dispose();
         });
 
@@ -106,28 +65,14 @@ public class CancelReasonDialog extends JDialog {
         setContentPane(main);
     }
 
-    private void updateSubmitState() {
-        boolean hasReason = txtReason.getText() != null && !txtReason.getText().trim().isEmpty();
-        boolean isChecked = chkConfirm.isSelected();
-        btnSubmit.setEnabled(hasReason && isChecked);
-    }
-
     public boolean isConfirmed() {
         return confirmed;
     }
 
-    public String getReason() {
-        return reason;
-    }
-
-    /**
-     * Tiện ích: hiển thị dialog và trả về lý do nếu user xác nhận, hoặc null nếu
-     * hủy.
-     */
-    public static String showAndGetReason(Component parent) {
+    public static boolean showConfirm(Component parent, String ten, String cccd, String maNganh) {
         Window owner = SwingUtilities.getWindowAncestor(parent);
-        CancelReasonDialog dlg = new CancelReasonDialog(owner);
+        CancelReasonDialog dlg = new CancelReasonDialog(owner, ten, cccd, maNganh);
         dlg.setVisible(true);
-        return dlg.isConfirmed() ? dlg.getReason() : null;
+        return dlg.isConfirmed();
     }
 }

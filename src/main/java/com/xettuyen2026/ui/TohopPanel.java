@@ -19,6 +19,7 @@ public class TohopPanel extends JPanel {
     private SearchBar searchBar;
     private TohopService service;
     private List<TohopMonthi> loadedEntities = new ArrayList<>();
+    private List<TohopMonthi> displayedEntities = new ArrayList<>();
 
     private static final String[] COLUMNS = {
         "STT", "Mã tổ hợp", "Môn 1", "Môn 2", "Môn 3", "Tên tổ hợp"
@@ -110,6 +111,7 @@ public class TohopPanel extends JPanel {
     }
 
     private void displayEntities(List<TohopMonthi> list) {
+        displayedEntities = new ArrayList<>(list);
         List<Object[]> rows = new ArrayList<>();
         int stt = 1;
         for (TohopMonthi th : list) {
@@ -170,7 +172,10 @@ public class TohopPanel extends JPanel {
                 service.save(dlg.getEntity());
                 MessageHelper.showSuccess(this, "Thêm tổ hợp thành công!");
                 loadData();
+            } catch (IllegalArgumentException e) {
+                MessageHelper.showWarning(this, e.getMessage());
             } catch (Exception e) {
+                e.printStackTrace();
                 MessageHelper.showError(this, "Lỗi: " + e.getMessage());
             }
         }
@@ -183,9 +188,23 @@ public class TohopPanel extends JPanel {
             return;
         }
         int realIdx = styledTable.getRealIndex(row);
-        if (realIdx >= loadedEntities.size()) return;
+        if (realIdx >= displayedEntities.size()) return;
 
-        TohopMonthi entity = loadedEntities.get(realIdx);
+        TohopMonthi entity = displayedEntities.get(realIdx);
+        if (entity == null) return;
+
+        // Kiểm tra xem tổ hợp có được sử dụng không
+        if (service.isUsedInNganhTohop(entity.getMatohop())) {
+            int result = JOptionPane.showConfirmDialog(this,
+                "Tổ hợp \"" + entity.getMatohop() + "\" đang được sử dụng bởi dữ liệu ngành-tổ hợp.\n\nBạn có chắc muốn tiếp tục sửa?",
+                "Cảnh báo",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE);
+            if (result != JOptionPane.YES_OPTION) {
+                return;
+            }
+        }
+
         TohopDialog dlg = new TohopDialog(SwingUtilities.getWindowAncestor(this), entity);
         dlg.setVisible(true);
         if (dlg.isSaved()) {
@@ -195,7 +214,10 @@ public class TohopPanel extends JPanel {
                 service.update(updated);
                 MessageHelper.showSuccess(this, "Cập nhật tổ hợp thành công!");
                 loadData();
+            } catch (IllegalArgumentException e) {
+                MessageHelper.showWarning(this, e.getMessage());
             } catch (Exception e) {
+                e.printStackTrace();
                 MessageHelper.showError(this, "Lỗi: " + e.getMessage());
             }
         }
@@ -208,16 +230,35 @@ public class TohopPanel extends JPanel {
             return;
         }
         int realIdx = styledTable.getRealIndex(row);
-        if (realIdx >= loadedEntities.size()) return;
+        if (realIdx >= displayedEntities.size()) return;
 
-        if (ConfirmDialog.show(this, "Bạn có chắc muốn xóa tổ hợp này?")) {
-            try {
-                service.delete(loadedEntities.get(realIdx));
-                MessageHelper.showSuccess(this, "Đã xóa tổ hợp.");
-                loadData();
-            } catch (Exception e) {
-                MessageHelper.showError(this, "Lỗi: " + e.getMessage());
-            }
+        TohopMonthi entity = displayedEntities.get(realIdx);
+        if (entity == null) return;
+
+        // Kiểm tra xem tổ hợp có được sử dụng không
+        if (service.isUsedInNganhTohop(entity.getMatohop())) {
+            MessageHelper.showError(this,
+                "Không thể xóa vì tổ hợp \"" + entity.getMatohop() + "\" đang được sử dụng bởi dữ liệu ngành-tổ hợp.\n" +
+                "Hãy xóa dữ liệu liên quan trước!");
+            return;
+        }
+
+        int confirm = JOptionPane.showConfirmDialog(this,
+            "Bạn có chắc muốn xóa tổ hợp \"" + entity.getMatohop() + "\" không?",
+            "Xác nhận xóa",
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.QUESTION_MESSAGE);
+        if (confirm != JOptionPane.YES_OPTION) {
+            return;
+        }
+
+        try {
+            service.delete(entity);
+            MessageHelper.showSuccess(this, "Đã xóa tổ hợp \"" + entity.getMatohop() + "\".");
+            loadData();
+        } catch (Exception e) {
+            e.printStackTrace();
+            MessageHelper.showError(this, "Lỗi: " + e.getMessage());
         }
     }
 }

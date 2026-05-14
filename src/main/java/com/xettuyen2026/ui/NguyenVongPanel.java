@@ -36,7 +36,7 @@ public class NguyenVongPanel extends JPanel {
     private List<NguyenVongXetTuyen> loadedEntities = new ArrayList<>();
 
     private static final String[] COLUMNS = {
-            "STT", "CCCD", "Họ", "Tên", "Mã ngành", "Tên ngành", "NV Thứ", "PT", "THM",
+            "STT", "CCCD", "Tên", "Mã ngành", "Tên ngành", "NV Thứ", "PT", "THM",
             "Điểm THXT", "Điểm Cộng", "Điểm ƯT", "Điểm XT", "Kết quả"
     };
 
@@ -136,8 +136,8 @@ public class NguyenVongPanel extends JPanel {
                     c.setBackground(row % 2 == 0 ? UIConstants.ROW_ODD : UIConstants.ROW_EVEN);
                 c.setBorder(BorderFactory.createEmptyBorder(0, 6, 0, 6));
 
-                // Color-code kết quả (col 13)
-                if (col == 13 && value != null) {
+                // Color-code kết quả (col 12)
+                if (col == 12 && value != null) {
                     String val = value.toString();
                     if ("yes".equals(val)) {
                         c.setForeground(UIConstants.SUCCESS);
@@ -154,7 +154,7 @@ public class NguyenVongPanel extends JPanel {
                     } else {
                         c.setForeground(UIConstants.TEXT_SECONDARY);
                     }
-                } else if (col == 7 && value != null) {
+                } else if (col == 6 && value != null) {
                     // Badge màu Phương thức
                     String val = value.toString().toUpperCase();
                     if ("PT2".equals(val) || "THPT".equals(val) || "1".equals(val)) {
@@ -180,7 +180,7 @@ public class NguyenVongPanel extends JPanel {
                     c.setToolTipText(null);
                 }
 
-                if (col == 0 || col == 6 || (col >= 9 && col <= 12))
+                if (col == 0 || col == 5 || (col >= 8 && col <= 11))
                     setHorizontalAlignment(SwingConstants.CENTER);
                 else
                     setHorizontalAlignment(SwingConstants.LEFT);
@@ -244,13 +244,11 @@ public class NguyenVongPanel extends JPanel {
 
     private Object[] mapToRow(NguyenVongXetTuyen nv, int stt) {
         ThiSinh ts = getThiSinh(nv.getNnCccd());
-        String ho = ts != null ? ts.getHo() : "";
         String ten = ts != null ? ts.getTen() : "";
         String thm = nv.getTtThm() != null ? nv.getTtThm() : "";
         return new Object[] {
                 stt,
                 nv.getNnCccd(),
-                ho,
                 ten,
                 nv.getNvManganh(),
                 getNganhName(nv.getNvManganh()),
@@ -308,15 +306,15 @@ public class NguyenVongPanel extends JPanel {
             return;
         }
 
-        String reason = CancelReasonDialog.showAndGetReason(this);
-        if (reason != null) {
+        String ten = getThiSinh(nv.getNnCccd()) != null ? getThiSinh(nv.getNnCccd()).getTen() : "";
+        boolean confirmed = CancelReasonDialog.showConfirm(this, ten, nv.getNnCccd(), nv.getNvManganh());
+        if (confirmed) {
             try {
                 nv.setNvKetqua("Đã hủy");
                 dao.update(nv);
                 System.out.println("[HỦY NV] CCCD=" + nv.getNnCccd()
-                        + ", Ngành=" + nv.getNvManganh()
-                        + ", Lý do: " + reason);
-                MessageHelper.showSuccess(this, "Đã hủy nguyện vọng.\nLý do: " + reason);
+                        + ", Ngành=" + nv.getNvManganh());
+                MessageHelper.showSuccess(this, "Đã xóa nguyện vọng.");
                 loadData();
             } catch (Exception e) {
                 MessageHelper.showError(this, "Lỗi hủy: " + e.getMessage());
