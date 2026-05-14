@@ -8,6 +8,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.Window;
+import java.util.regex.Pattern;
 
 import javax.swing.BorderFactory;
 import javax.swing.JCheckBox;
@@ -33,6 +34,8 @@ public class UserDialog extends JDialog {
     private JPasswordField txtPassword;
     private JComboBox<String> cboRole;
     private JCheckBox chkEnabled;
+
+    private static final Pattern EMAIL_PATTERN = Pattern.compile("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$");
 
     public UserDialog(Window owner, User existing) {
         super(owner, existing == null ? "Thêm User" : "Sửa User", ModalityType.APPLICATION_MODAL);
@@ -133,19 +136,24 @@ public class UserDialog extends JDialog {
             return;
         }
 
+        if (email.isEmpty() || !EMAIL_PATTERN.matcher(email).matches()) {
+            JOptionPane.showMessageDialog(this, "Email không hợp lệ");
+            return;
+        }
+
         if (entity == null && password.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Password required");
             return;
         }
 
-    User u = new User();
+        User u = new User();
         u.setUsername(username);
         u.setEmail(email);
         u.setRole((String) cboRole.getSelectedItem());
         u.setEnabled(chkEnabled.isSelected());
 
         if (!password.isEmpty()) {
-            u.setPassword(password); // raw, will hash in service
+            u.setPassword(password);
         }
 
         if (entity != null) u.setId(entity.getId());

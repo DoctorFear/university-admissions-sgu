@@ -15,11 +15,16 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.xettuyen2026.dao.DiemCongDAO;
+import com.xettuyen2026.dao.NganhTohopDAO;
+import com.xettuyen2026.dao.ThiSinhDAO;
 import com.xettuyen2026.entity.DiemCongXetTuyen;
 import com.xettuyen2026.entity.NganhTohop;
 
 public class DiemCongService {
     private final DiemCongDAO dao = new DiemCongDAO();
+    private final ThiSinhDAO thiSinhDAO = new ThiSinhDAO();
+    private final NganhTohopDAO nganhTohopDAO = new NganhTohopDAO();
+
     private static final String TYPE_THI_SINH = "THI_SINH";
     private static final String TYPE_TIENG_ANH = "TIENG_ANH";
     private static final String TYPE_UU_TIEN = "UU_TIEN";
@@ -219,10 +224,6 @@ public class DiemCongService {
         return s == null ? "" : s.trim();
     }
 
-    private String buildKey(DiemCongXetTuyen d) {
-        return d.getTsCccd() + "_" + d.getManganh() + "_" + d.getMatohop();
-    }
-
     private DiemCongXetTuyen getOrCreate(Map<String, DiemCongXetTuyen> map, String cccd, String manganh, String matohop) {
         String key = cccd + "_" + manganh + "_" + matohop;
 
@@ -322,6 +323,52 @@ public class DiemCongService {
             d.setGhichu(type);
         } else if (!d.getGhichu().contains(type)) {
             d.setGhichu(d.getGhichu() + "," + type);
+        }
+    }
+
+    public void validate(DiemCongXetTuyen d) {
+
+        String cccd = safe(d.getTsCccd());
+        String manganh = safe(d.getManganh());
+        String matohop = safe(d.getMatohop());
+
+        if (cccd.isBlank()) {
+            throw new RuntimeException("CCCD bắt buộc");
+        }
+
+        boolean thiSinhExists = thiSinhDAO.existsByCccd(cccd);
+
+        if (!thiSinhExists) {
+            throw new RuntimeException(
+                    "CCCD không tồn tại trong danh sách thí sinh"
+            );
+        }
+
+        if (manganh.isBlank()) {
+            throw new RuntimeException("Mã ngành bắt buộc");
+        }
+
+        if (matohop.isBlank()) {
+            throw new RuntimeException("Mã tổ hợp bắt buộc");
+        }
+
+        boolean exists = nganhTohopDAO.queryOne(
+                """
+                FROM NganhTohop n
+                WHERE n.manganh = :manganh
+                AND n.matohop = :matohop
+                """,
+                q -> {
+                    q.setParameter("manganh", manganh);
+                    q.setParameter("matohop", matohop);
+                }
+        ) != null;
+
+        if (!exists) {
+            throw new RuntimeException(
+                    "Không tồn tại tổ hợp " + matohop +
+                    " cho ngành " + manganh
+            );
         }
     }
 }
