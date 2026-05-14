@@ -171,14 +171,14 @@ public class ThiSinhService {
                 readByHeader(row, headerMap, formatter, "gioi tinh", "gioitinh"),
                 readByIndex(row, formatter, 4)
         )), 10));
-        ts.setDienThoai(limit(firstNonBlank(
-                readByHeader(row, headerMap, formatter, "dien thoai", "sdt", "so dien thoai"),
-                readByIndex(row, formatter, 7)
-        ), 20));
-        ts.setEmail(limit(firstNonBlank(
-                readByHeader(row, headerMap, formatter, "email"),
-                readByIndex(row, formatter, 8)
-        ), 100));
+        // ts.setDienThoai(limit(firstNonBlank(
+        //         readByHeader(row, headerMap, formatter, "dien thoai", "sdt", "so dien thoai"),
+        //         readByIndex(row, formatter, 7)
+        // ), 20));
+        // ts.setEmail(limit(firstNonBlank(
+        //         readByHeader(row, headerMap, formatter, "email"),
+        //         readByIndex(row, formatter, 8)
+        // ), 100));
         ts.setKhuVuc(limit(firstNonBlank(
                 normalizeKhuVuc(readByHeader(row, headerMap, formatter, "khu vuc", "kvut", "kv ut", "kv uu tien", "kv", "khuvuc")),
                 normalizeKhuVuc(readByIndex(row, formatter, 6))
