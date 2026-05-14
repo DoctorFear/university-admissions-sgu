@@ -7,10 +7,12 @@ import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BorderFactory;
+import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
@@ -28,6 +30,7 @@ public class UserPanel extends JPanel {
     final UserDAO service;
     private PaginatedTable styledTable;
     private SearchBar searchBar;
+    private JComboBox<String> cboSearchColumn;
     private List<User> users = new ArrayList<>();
 
     private static final String[] COLUMNS = {
@@ -56,19 +59,30 @@ public class UserPanel extends JPanel {
 
         searchBar = new SearchBar("Tìm kiếm người dùng", e -> doSearch());
 
+        String[] searchColumns = {
+            "Tất cả",
+            "ID",
+            "Username",
+            "Email",
+            "Vai trò",
+            "Trạng thái",
+            "Ngày tạo"
+        };
+
+        cboSearchColumn = new JComboBox<>(searchColumns);
+        cboSearchColumn.setPreferredSize(new Dimension(140, 36));
+
         RoundedButton btnSearch = new RoundedButton(UIConstants.ICON_SEARCH + " Tìm kiếm", UIConstants.PRIMARY_LIGHT);
         btnSearch.addActionListener(e -> doSearch());
 
         leftPanel.add(searchBar);
+        leftPanel.add(cboSearchColumn);
         leftPanel.add(btnSearch);
         toolbar.add(leftPanel, BorderLayout.WEST);
 
         // Right: Action buttons
         JPanel rightPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 6, 6));
         rightPanel.setOpaque(false);
-
-        RoundedButton btnImport = new RoundedButton(UIConstants.ICON_IMPORT + " Import Excel", new Color(0x00796B));
-        btnImport.addActionListener(e -> doImport());
 
         RoundedButton btnAdd = new RoundedButton(UIConstants.ICON_ADD + " Thêm mới", UIConstants.SUCCESS);
         btnAdd.addActionListener(e -> doAdd());
@@ -79,7 +93,6 @@ public class UserPanel extends JPanel {
         RoundedButton btnDelete = new RoundedButton(UIConstants.ICON_DELETE + " Xóa", UIConstants.DANGER);
         btnDelete.addActionListener(e -> doDelete());
 
-        rightPanel.add(btnImport);
         rightPanel.add(btnAdd);
         rightPanel.add(btnEdit);
         rightPanel.add(btnDelete);
@@ -117,6 +130,8 @@ public class UserPanel extends JPanel {
         try {
             users = service.findAll();
             List<Object[]> rows = new ArrayList<>();
+            
+            DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy - HH:mm:ss");
 
             for (User u : users) {
                 rows.add(new Object[]{
@@ -124,7 +139,8 @@ public class UserPanel extends JPanel {
                     u.getUsername(),
                     u.getEmail(),
                     u.getRole(),
-                    u.isEnabled() ? "Yes" : "No"
+                    u.isEnabled() ? "Đang hoạt động" : "Ngưng hoạt động",
+                    u.getCreatedAt() != null ? u.getCreatedAt().format(fmt) : ""
                 });
             }
             styledTable.setData(rows);
@@ -174,10 +190,90 @@ public class UserPanel extends JPanel {
     }
 
     private void doSearch() {
-    
+        String keyword = searchBar.getText().trim().toLowerCase();
+        String column = (String) cboSearchColumn.getSelectedItem();
+
+        if (keyword.isEmpty()) {
+            loadData();
+            return;
+        }
+
+        List<Object[]> rows = new ArrayList<>();
+
+        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy - HH:mm:ss");
+
+        for (User u : users) {
+
+            String id = String.valueOf(u.getId()).toLowerCase();
+            String username = safe(u.getUsername());
+            String email = safe(u.getEmail());
+            String role = safe(u.getRole());
+            String status = (u.isEnabled()
+                    ? "đang hoạt động"
+                    : "ngưng hoạt động").toLowerCase();
+
+            String createdAt = u.getCreatedAt() != null
+                    ? u.getCreatedAt().format(fmt).toLowerCase()
+                    : "";
+
+            boolean match = false;
+
+            switch (column) {
+
+                case "ID":
+                    match = id.contains(keyword);
+                    break;
+
+                case "Username":
+                    match = username.contains(keyword);
+                    break;
+
+                case "Email":
+                    match = email.contains(keyword);
+                    break;
+
+                case "Vai trò":
+                    match = role.contains(keyword);
+                    break;
+
+                case "Trạng thái":
+                    match = status.contains(keyword);
+                    break;
+
+                case "Ngày tạo":
+                    match = createdAt.contains(keyword);
+                    break;
+
+                default:
+                    match =
+                            id.contains(keyword)
+                            || username.contains(keyword)
+                            || email.contains(keyword)
+                            || role.contains(keyword)
+                            || status.contains(keyword)
+                            || createdAt.contains(keyword);
+            }
+
+            if (match) {
+                rows.add(new Object[]{
+                        u.getId(),
+                        u.getUsername(),
+                        u.getEmail(),
+                        u.getRole(),
+                        u.isEnabled()
+                                ? "Đang hoạt động"
+                                : "Ngưng hoạt động",
+                        u.getCreatedAt() != null
+                                ? u.getCreatedAt().format(fmt)
+                                : ""
+                });
+            }
+        }
+
+        styledTable.setData(rows);
     }
     
-    private void doImport() {
-    
+    private String safe(String s) {
+        return s == null ? "" : s.toLowerCase();
     }
 }

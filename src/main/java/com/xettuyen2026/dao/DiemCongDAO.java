@@ -43,17 +43,6 @@ public class DiemCongDAO extends BaseDAO<DiemCongXetTuyen> {
         }
     }
 
-    // public List<ThiSinhToHop> findToHopByCccd(String cccd) {
-    //     try (Session session = HibernateConfig.getSessionFactory().openSession()) {
-    //         return session.createQuery(
-    //             "select t from ThiSinhToHop t " +
-    //             "join fetch t.nganhTohop n " +
-    //             "where t.thiSinh.cccd = :cccd",
-    //             ThiSinhToHop.class
-    //         ).setParameter("cccd", cccd).getResultList();
-    //     }
-    // }
-
     public List<Object[]> findNguyenVongAndToHopByCccd(String cccd) {
         try (Session session = HibernateConfig.getSessionFactory().openSession()) {
             return session.createQuery(
@@ -67,4 +56,6 @@ public class DiemCongDAO extends BaseDAO<DiemCongXetTuyen> {
             .getResultList();
         }
     }
+
+    
 }

@@ -155,6 +155,26 @@ public class DiemCongPanel extends JPanel{
             service.save(e);
             loadData();
         }
+
+        // if (dlg.isSaved()) {
+        //     try {
+
+        //         DiemCongXetTuyen e = dlg.getEntity();
+
+        //         logic.validate(e);
+        //         logic.prepare(e);
+
+        //         service.save(e);
+
+        //         loadData();
+
+        //         MessageHelper.showSuccess(this, "Thêm thành công");
+
+        //     } catch (Exception ex) {
+
+        //         MessageHelper.showError(this, ex.getMessage());
+        //     }
+        // }
     }
 
     private void doEdit() {
@@ -173,6 +193,27 @@ public class DiemCongPanel extends JPanel{
             service.update(e);
             loadData();
         }
+        
+        // if (dlg.isSaved()) {
+
+        //     try {
+
+        //         DiemCongXetTuyen e = dlg.getEntity();
+
+        //         logic.validate(e);
+        //         logic.prepare(e);
+
+        //         service.update(e);
+
+        //         loadData();
+
+        //         MessageHelper.showSuccess(this, "Cập nhật thành công");
+
+        //     } catch (Exception ex) {
+
+        //         MessageHelper.showError(this, ex.getMessage());
+        //     }
+        // }
     }
 
     private void doDelete() {
@@ -233,7 +274,8 @@ public class DiemCongPanel extends JPanel{
                     d.getPhuongthuc(),
                     d.getGhichu(),
                     d.getDiemCC(),
-                    d.getDiemUtxt()
+                    d.getDiemUtxt(),
+                    d.getDcKeys()
                 });
             }
         }

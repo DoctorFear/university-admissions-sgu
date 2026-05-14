@@ -121,29 +121,45 @@ document.addEventListener('DOMContentLoaded', () => {
     // SUBJECT CHECKBOX LIMIT
     const subjectChecks = document.querySelectorAll('.subject-check');
 
+    const nangKhieu = [
+        'nk1-score',
+        'nk2-score',
+        'nk3-score',
+        'nk4-score',
+        'nk5-score',
+        'nk6-score'
+    ];
+
     subjectChecks.forEach(check => {
 
         check.addEventListener('change', (e) => {
 
-            const checkedCount =
-                document.querySelectorAll('.subject-check:checked').length;
+            const checkedCount = document.querySelectorAll('.subject-check:checked');
+
+            let normalSubjectCount = 0;
 
             const targetId = e.target.dataset.target;
 
-            const input =
-                document.getElementById(targetId);
+            const input = document.getElementById(targetId);
 
-            // limit max 4
-            if (checkedCount > 4) {
+            checkedCount.forEach(item => {
+
+                const id = item.dataset.target;
+
+                if (!nangKhieu.includes(id)) {
+                    normalSubjectCount++;
+                }
+            });
+
+            if (!nangKhieu.includes(targetId) && normalSubjectCount > 4) {
 
                 e.target.checked = false;
 
-                alert('Chỉ được chọn tối đa 4 môn.');
+                alert('Chỉ được chọn tối đa 4 môn thường.');
 
                 return;
             }
 
-            // enable / disable input
             if (e.target.checked) {
 
                 input.disabled = false;
@@ -151,7 +167,8 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
 
                 input.disabled = true;
-                
+                input.value = 0;
+
             }
         });
     });
