@@ -271,6 +271,10 @@ public class NguyenVongPanel extends JPanel {
         }
     }
 
+    public void refreshData() {
+        loadData();
+    }
+
     private Object[] mapToRow(NguyenVongXetTuyen nv, int stt) {
         ThiSinh ts = getThiSinh(nv.getNnCccd());
         String ten = ts != null ? ts.getTen() : "";

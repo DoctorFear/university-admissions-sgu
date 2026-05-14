@@ -162,6 +162,10 @@ public class DiemCongPanel extends JPanel{
         }
     }
 
+    public void refreshData() {
+        loadData();
+    }
+
     private void doAdd() {
         DiemCongDialog dlg = new DiemCongDialog(SwingUtilities.getWindowAncestor(this), null);
         dlg.setVisible(true);

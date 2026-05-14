@@ -89,6 +89,31 @@ public class ThiSinhDAO extends BaseDAO<ThiSinh> {
         }
     }
 
+    public void deleteWithRelatedData(String cccd) {
+        Transaction tx = null;
+        try (Session session = HibernateConfig.getSessionFactory().openSession()) {
+            tx = session.beginTransaction();
+
+            session.createMutationQuery("DELETE FROM NguyenVongXetTuyen nv WHERE nv.nnCccd = :cccd")
+                    .setParameter("cccd", cccd)
+                    .executeUpdate();
+            session.createMutationQuery("DELETE FROM DiemCongXetTuyen dc WHERE dc.tsCccd = :cccd")
+                    .setParameter("cccd", cccd)
+                    .executeUpdate();
+            session.createMutationQuery("DELETE FROM DiemThiXetTuyen dt WHERE dt.cccd = :cccd")
+                    .setParameter("cccd", cccd)
+                    .executeUpdate();
+            session.createMutationQuery("DELETE FROM ThiSinh ts WHERE ts.cccd = :cccd")
+                    .setParameter("cccd", cccd)
+                    .executeUpdate();
+
+            tx.commit();
+        } catch (Exception e) {
+            if (tx != null) tx.rollback();
+            throw new RuntimeException("Lỗi xóa thí sinh và dữ liệu liên quan: " + e.getMessage(), e);
+        }
+    }
+
     /**
      * Batch insert/update — dùng sau khi import Excel.
      * Flush mỗi 50 bản ghi để tránh out-of-memory.
