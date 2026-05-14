@@ -119,4 +119,18 @@ public class NganhTohopDAO extends BaseDAO<NganhTohop> {
                 "FROM NganhTohop n WHERE UPPER(n.manganh) LIKE :kw OR UPPER(n.matohop) LIKE :kw OR UPPER(n.tbKeys) LIKE :kw",
                 q -> q.setParameter("kw", kw));
     }
+
+    public boolean validate(String manganh, String matohop) {
+        return queryOne(
+                """
+                FROM NganhTohop n
+                WHERE n.manganh = :manganh
+                AND n.matohop = :matohop
+                """,
+                q -> {
+                    q.setParameter("manganh", manganh);
+                    q.setParameter("matohop", matohop);
+                }
+        ) != null;
+    }
 }

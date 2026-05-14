@@ -352,17 +352,7 @@ public class DiemCongService {
             throw new RuntimeException("Mã tổ hợp bắt buộc");
         }
 
-        boolean exists = nganhTohopDAO.queryOne(
-                """
-                FROM NganhTohop n
-                WHERE n.manganh = :manganh
-                AND n.matohop = :matohop
-                """,
-                q -> {
-                    q.setParameter("manganh", manganh);
-                    q.setParameter("matohop", matohop);
-                }
-        ) != null;
+        boolean exists = nganhTohopDAO.validate(manganh, matohop);
 
         if (!exists) {
             throw new RuntimeException(

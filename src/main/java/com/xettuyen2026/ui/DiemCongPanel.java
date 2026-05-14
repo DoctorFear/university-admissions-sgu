@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BorderFactory;
+import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
@@ -31,6 +32,19 @@ public class DiemCongPanel extends JPanel{
     final DiemCongService logic;
     private PaginatedTable styledTable;
     protected SearchBar searchBar;
+    private JComboBox<String> filterCombo;
+    private static final String[] FILTER_COLUMNS = {
+        "Tất cả",
+        "CCCD",
+        "Mã ngành",
+        "Mã tổ hợp",
+        "Phương thức",
+        "Ghi chú",
+        "Điểm cc",
+        "Điểm ưu tiên",
+        "Điểm tổng",
+        "Điểm cộng key"
+    };
     private List<DiemCongXetTuyen> diemcongList = new ArrayList<>();
 
     private static final String[] COLUMNS = {
@@ -59,14 +73,17 @@ public class DiemCongPanel extends JPanel{
         leftPanel.setOpaque(false);
 
         searchBar = new SearchBar("Tìm kiếm điểm cộng...", e -> doSearch());
+        filterCombo = new JComboBox<>(FILTER_COLUMNS);
+        filterCombo.setPreferredSize(new Dimension(120, 36));
 
         RoundedButton btnSearch = new RoundedButton(UIConstants.ICON_SEARCH + " Tìm kiếm", UIConstants.PRIMARY_LIGHT);
         btnSearch.addActionListener(e -> doSearch());
-        RoundedButton btnReset = new RoundedButton(UIConstants.ICON_SEARCH + " Reset", UIConstants.PRIMARY_LIGHT);
-        btnReset.addActionListener(e -> doReset());
+        // RoundedButton btnReset = new RoundedButton(UIConstants.ICON_SEARCH + " Reset", UIConstants.PRIMARY_LIGHT);
+        // btnReset.addActionListener(e -> doReset());
 
         leftPanel.add(searchBar);
-        leftPanel.add(btnReset);
+        leftPanel.add(filterCombo);
+        // leftPanel.add(btnReset);
         leftPanel.add(btnSearch);
         toolbar.add(leftPanel, BorderLayout.WEST);
 
@@ -252,7 +269,9 @@ public class DiemCongPanel extends JPanel{
     }
 
     private void doSearch() {
+
         String keyword = searchBar.getText();
+
         if (keyword == null || keyword.isBlank()) {
             loadData();
             return;
@@ -260,12 +279,58 @@ public class DiemCongPanel extends JPanel{
 
         keyword = keyword.toLowerCase().trim();
 
+        String selected = (String) filterCombo.getSelectedItem();
+
         List<Object[]> rows = new ArrayList<>();
 
         for (DiemCongXetTuyen d : diemcongList) {
-            String searchable = buildSearchableText(d);
 
-            if (searchable.contains(keyword)) {
+            boolean matched = false;
+
+            switch (selected) {
+
+                case "CCCD":
+                    matched = safe(d.getTsCccd()).toLowerCase().contains(keyword);
+                    break;
+
+                case "Mã ngành":
+                    matched = safe(d.getManganh()).toLowerCase().contains(keyword);
+                    break;
+
+                case "Mã tổ hợp":
+                    matched = safe(d.getMatohop()).toLowerCase().contains(keyword);
+                    break;
+
+                case "Phương thức":
+                    matched = safe(d.getPhuongthuc()).toLowerCase().contains(keyword);
+                    break;
+
+                case "Ghi chú":
+                    matched = safe(d.getGhichu()).toLowerCase().contains(keyword);
+                    break;
+
+                case "Điểm cc":
+                    matched = safe(d.getDiemCC()).toLowerCase().contains(keyword);
+                    break;
+
+                case "Điểm ưu tiên":
+                    matched = safe(d.getDiemUtxt()).toLowerCase().contains(keyword);
+                    break;
+
+                case "Điểm tổng":
+                    matched = safe(d.getDiemTong()).toLowerCase().contains(keyword);
+                    break;
+
+                case "Điểm cộng key":
+                    matched = safe(d.getDcKeys()).toLowerCase().contains(keyword);
+                    break;
+
+                default:
+                    matched = buildSearchableText(d).contains(keyword);
+                    break;
+            }
+
+            if (matched) {
                 rows.add(new Object[]{
                     d.getTsCccd(),
                     d.getDiemTong(),
