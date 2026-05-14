@@ -255,20 +255,34 @@ public class NguyenVongPanel extends JPanel {
     }
 
     private void loadData() {
-        try {
-            nganhNameMap = null; // refresh
-            thiSinhMap = null; // refresh
-            loadedEntities = dao.findAllOrdered();
-            List<Object[]> rows = new ArrayList<>();
-            int stt = 1;
-            for (NguyenVongXetTuyen nv : loadedEntities) {
-                rows.add(mapToRow(nv, stt++));
+        SwingWorker<List<Object[]>, Void> worker = new SwingWorker<>() {
+            private List<NguyenVongXetTuyen> tempEntities;
+            @Override
+            protected List<Object[]> doInBackground() throws Exception {
+                nganhNameMap = null; // refresh
+                thiSinhMap = null; // refresh
+                tempEntities = dao.findAllOrdered();
+                List<Object[]> rows = new ArrayList<>();
+                int stt = 1;
+                for (NguyenVongXetTuyen nv : tempEntities) {
+                    rows.add(mapToRow(nv, stt++));
+                }
+                return rows;
             }
-            styledTable.setData(rows);
-        } catch (Exception e) {
-            e.printStackTrace();
-            MessageHelper.showError(this, "Không thể tải danh sách nguyện vọng:\n" + e.getMessage());
-        }
+
+            @Override
+            protected void done() {
+                try {
+                    List<Object[]> rows = get();
+                    loadedEntities = tempEntities;
+                    styledTable.setData(rows);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    MessageHelper.showError(NguyenVongPanel.this, "Không thể tải danh sách nguyện vọng:\n" + e.getMessage());
+                }
+            }
+        };
+        worker.execute();
     }
 
     public void refreshData() {
@@ -303,49 +317,64 @@ public class NguyenVongPanel extends JPanel {
             return;
         }
         
-        try {
-            String sel = (String) cboSearchCriteria.getSelectedItem();
-            List<NguyenVongXetTuyen> allNV = dao.findAllOrdered();
-            List<NguyenVongXetTuyen> filtered = new ArrayList<>();
-            
-            for (NguyenVongXetTuyen nv : allNV) {
-                if ("CCCD".equals(sel)) {
-                    if (nv.getNnCccd() != null && nv.getNnCccd().toUpperCase().contains(kw)) {
-                        filtered.add(nv);
-                    }
-                } else if ("Mã ngành".equals(sel)) {
-                    if (nv.getNvManganh() != null && nv.getNvManganh().toUpperCase().contains(kw)) {
-                        filtered.add(nv);
-                    }
-                } else if ("Phương thức".equals(sel)) {
-                    String pt = nv.getTtPhuongthuc() != null ? nv.getTtPhuongthuc().toUpperCase() : "";
-                    if (pt.contains(kw)) {
-                        filtered.add(nv);
-                    } else if (("THPT".contains(kw) || "1".equals(kw) || "2".equals(kw)) && pt.contains("PT2")) {
-                        filtered.add(nv);
-                    } else if (("VSAT".contains(kw) || "5".equals(kw)) && pt.contains("PT3")) {
-                        filtered.add(nv);
-                    } else if (("DGNL".contains(kw) || "4".equals(kw)) && pt.contains("PT4")) {
-                        filtered.add(nv);
-                    }
-                } else if ("Tổ hợp".equals(sel)) {
-                    if (nv.getTtThm() != null && nv.getTtThm().toUpperCase().contains(kw)) {
-                        filtered.add(nv);
+        SwingWorker<List<Object[]>, Void> worker = new SwingWorker<>() {
+            private List<NguyenVongXetTuyen> tempEntities;
+            @Override
+            protected List<Object[]> doInBackground() throws Exception {
+                String sel = (String) cboSearchCriteria.getSelectedItem();
+                List<NguyenVongXetTuyen> allNV = dao.findAllOrdered();
+                List<NguyenVongXetTuyen> filtered = new ArrayList<>();
+                
+                for (NguyenVongXetTuyen nv : allNV) {
+                    if ("CCCD".equals(sel)) {
+                        if (nv.getNnCccd() != null && nv.getNnCccd().toUpperCase().contains(kw)) {
+                            filtered.add(nv);
+                        }
+                    } else if ("Mã ngành".equals(sel)) {
+                        if (nv.getNvManganh() != null && nv.getNvManganh().toUpperCase().contains(kw)) {
+                            filtered.add(nv);
+                        }
+                    } else if ("Phương thức".equals(sel)) {
+                        String pt = nv.getTtPhuongthuc() != null ? nv.getTtPhuongthuc().toUpperCase() : "";
+                        if (pt.contains(kw)) {
+                            filtered.add(nv);
+                        } else if (("THPT".contains(kw) || "1".equals(kw) || "2".equals(kw)) && pt.contains("PT2")) {
+                            filtered.add(nv);
+                        } else if (("VSAT".contains(kw) || "5".equals(kw)) && pt.contains("PT3")) {
+                            filtered.add(nv);
+                        } else if (("DGNL".contains(kw) || "4".equals(kw)) && pt.contains("PT4")) {
+                            filtered.add(nv);
+                        }
+                    } else if ("Tổ hợp".equals(sel)) {
+                        if (nv.getTtThm() != null && nv.getTtThm().toUpperCase().contains(kw)) {
+                            filtered.add(nv);
+                        }
                     }
                 }
+                
+                tempEntities = filtered;
+                nganhNameMap = null;
+                thiSinhMap = null;
+                List<Object[]> rows = new ArrayList<>();
+                int stt = 1;
+                for (NguyenVongXetTuyen nv : tempEntities)
+                    rows.add(mapToRow(nv, stt++));
+                return rows;
             }
-            
-            loadedEntities = filtered;
-            nganhNameMap = null;
-            thiSinhMap = null;
-            List<Object[]> rows = new ArrayList<>();
-            int stt = 1;
-            for (NguyenVongXetTuyen nv : loadedEntities)
-                rows.add(mapToRow(nv, stt++));
-            styledTable.setData(rows);
-        } catch (Exception e) {
-            MessageHelper.showError(this, "Lỗi tìm kiếm: " + e.getMessage());
-        }
+
+            @Override
+            protected void done() {
+                try {
+                    List<Object[]> rows = get();
+                    loadedEntities = tempEntities;
+                    styledTable.setData(rows);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    MessageHelper.showError(NguyenVongPanel.this, "Lỗi tìm kiếm: " + e.getMessage());
+                }
+            }
+        };
+        worker.execute();
     }
 
     // ── CRUD ──
