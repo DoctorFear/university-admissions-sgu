@@ -46,7 +46,7 @@ public class KetQuaXetTuyenPanel extends JPanel {
 
     private static final String[] STATS_COLUMNS = {
         "STT", "Mã ngành", "Tên ngành", "Chỉ tiêu",
-        "SL Trúng tuyển (THPT)", "SL Trúng tuyển (ĐGNL)", "SL Trúng tuyển (VSAT)",
+        "SL Trúng tuyển (Tuyển thẳng)", "SL Trúng tuyển (THPT)", "SL Trúng tuyển (ĐGNL)", "SL Trúng tuyển (VSAT)",
         "Tổng trúng tuyển", "Điểm chuẩn"
     };
 
@@ -219,18 +219,22 @@ public class KetQuaXetTuyenPanel extends JPanel {
                 } else if (col == 5 && value != null) {
                     // Color-code phương thức
                     String val = value.toString().toUpperCase();
-                    if ("PT2".equals(val) || "THPT".equals(val) || "1".equals(val)) {
+                    if (val.startsWith("PT2") || val.contains("THPT")) {
                         c.setForeground(new Color(0x1976D2));
                         ((JLabel) c).setFont(UIConstants.FONT_BOLD);
                         ((JLabel) c).setText("THPT");
-                    } else if ("PT3".equals(val) || "VSAT".equals(val) || "5".equals(val)) {
+                    } else if (val.startsWith("PT3") || val.contains("VSAT")) {
                         c.setForeground(new Color(0x7B1FA2));
                         ((JLabel) c).setFont(UIConstants.FONT_BOLD);
                         ((JLabel) c).setText("VSAT");
-                    } else if ("PT4".equals(val) || "DGNL".equals(val) || "4".equals(val)) {
+                    } else if (val.startsWith("PT4") || val.contains("DGNL")) {
                         c.setForeground(new Color(0xF57C00));
                         ((JLabel) c).setFont(UIConstants.FONT_BOLD);
                         ((JLabel) c).setText("ĐGNL");
+                    } else if (val.startsWith("PT1") || val.contains("TUYỂN")) {
+                        c.setForeground(new Color(0xD32F2F));
+                        ((JLabel) c).setFont(UIConstants.FONT_BOLD);
+                        ((JLabel) c).setText("Tuyển thẳng");
                     } else {
                         c.setForeground(UIConstants.TEXT_PRIMARY);
                     }
@@ -296,7 +300,7 @@ public class KetQuaXetTuyenPanel extends JPanel {
                     setHorizontalAlignment(SwingConstants.LEFT);
                 }
                 // Bold total column
-                if (col == 7 && value != null) {
+                if (col == 8 && value != null) {
                     ((JLabel) c).setFont(UIConstants.FONT_BOLD);
                     c.setForeground(UIConstants.SUCCESS);
                 }
@@ -351,9 +355,10 @@ public class KetQuaXetTuyenPanel extends JPanel {
     private String normalizePT(String pt) {
         if (pt == null) return "THPT";
         String upper = pt.toUpperCase().trim();
-        if ("PT2".equals(upper) || "THPT".equals(upper) || "1".equals(upper) || "2".equals(upper)) return "THPT";
-        if ("PT4".equals(upper) || "DGNL".equals(upper) || "4".equals(upper)) return "DGNL";
-        if ("PT3".equals(upper) || "PT5".equals(upper) || "VSAT".equals(upper) || "5".equals(upper)) return "VSAT";
+        if (upper.startsWith("PT1") || upper.contains("TUYỂN") || "TT".equals(upper)) return "TT";
+        if (upper.startsWith("PT2") || upper.contains("THPT") || "1".equals(upper) || "2".equals(upper)) return "THPT";
+        if (upper.startsWith("PT4") || upper.contains("DGNL") || "4".equals(upper)) return "DGNL";
+        if (upper.startsWith("PT3") || upper.startsWith("PT5") || upper.contains("VSAT") || "5".equals(upper)) return "VSAT";
         return "THPT";
     }
 
@@ -444,6 +449,7 @@ public class KetQuaXetTuyenPanel extends JPanel {
             for (Nganh n : nganhList) {
                 String ma = n.getManganh();
                 Map<String, Long> ptMap = statsByNganh.getOrDefault(ma, Collections.emptyMap());
+                long slTT = ptMap.getOrDefault("TT", 0L);
                 long slTHPT = ptMap.getOrDefault("THPT", 0L);
                 long slDGNL = ptMap.getOrDefault("DGNL", 0L);
                 long slVSAT = ptMap.getOrDefault("VSAT", 0L);
@@ -452,7 +458,7 @@ public class KetQuaXetTuyenPanel extends JPanel {
 
                 rows.add(new Object[]{
                     stt++, ma, n.getTennganh(), n.getnChitieu(),
-                    slTHPT, slDGNL, slVSAT, total, diemChuan
+                    slTT, slTHPT, slDGNL, slVSAT, total, diemChuan
                 });
             }
 

@@ -74,6 +74,7 @@ public class NguyenVongDAO extends BaseDAO<NguyenVongXetTuyen> {
     // Chuẩn hóa mã phương thức xét tuyển khi đếm nguyện vọng
     private String normalizePhuongThuc(String phuongThuc) {
         String pt = phuongThuc != null ? phuongThuc.trim().toUpperCase() : "";
+        if (pt.startsWith("PT1") || pt.contains("TUYỂN THẲNG") || pt.contains("TUYEN THANG") || pt.equals("TT")) return "PT1";
         if (pt.startsWith("PT2") || pt.contains("THPT")) return "PT2";
         if (pt.startsWith("PT4") || pt.contains("DGNL") || pt.contains("ĐGNL")) return "PT4";
         if (pt.startsWith("PT5") || pt.startsWith("PT3") || pt.contains("VSAT") || pt.contains("V-SAT")) return "PT5";

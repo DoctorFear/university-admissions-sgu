@@ -55,7 +55,7 @@ public class NguyenVongImportService {
             Sheet targetSheet = null;
             Row headerRow = null;
             int headerRowIndex = -1;
-            int colCccd = -1, colMaNganh = -1, colNvTt = -1, colPt = -1, colThm = -1;
+            int colCccd = -1, colMaNganh = -1, colNvTt = -1, colPt = -1, colThm = -1, colTuyenThang = -1;
 
             for (int s = 0; s < workbook.getNumberOfSheets(); s++) {
                 Sheet sheet = workbook.getSheetAt(s);
@@ -64,7 +64,7 @@ public class NguyenVongImportService {
                     Row row = sheet.getRow(r);
                     if (row == null) continue;
 
-                    int tCccd = -1, tMaNganh = -1, tNvTt = -1, tPt = -1, tThm = -1;
+                    int tCccd = -1, tMaNganh = -1, tNvTt = -1, tPt = -1, tThm = -1, tTuyenThang = -1;
 
                     for (int c = 0; c < row.getLastCellNum(); c++) {
                         String header = getCellString(row, c);
@@ -82,6 +82,8 @@ public class NguyenVongImportService {
                             tPt = c;
                         } else if (h.contains("tohop") || h.contains("tổhợp") || h.contains("thm") || h.contains("ttthm")) {
                             tThm = c;
+                        } else if (h.contains("tuyểnthẳng") || h.contains("tuyenthang") || h.contains("điều8") || h.contains("dieu8")) {
+                            tTuyenThang = c;
                         }
                     }
 
@@ -95,6 +97,7 @@ public class NguyenVongImportService {
                         colNvTt = tNvTt;
                         colPt = tPt;
                         colThm = tThm;
+                        colTuyenThang = tTuyenThang;
                         break;
                     }
                 }
@@ -148,10 +151,18 @@ public class NguyenVongImportService {
                     }
 
                     // Phương thức
-                    String phuongthuc = "PT2";
+                    String phuongthuc = "PT2 - THPT";
                     if (colPt >= 0) {
                         String pt = getCellString(row, colPt);
                         if (pt != null && !pt.isEmpty()) phuongthuc = pt;
+                    }
+
+                    // Ưu tiên kiểm tra cột tuyển thẳng
+                    if (colTuyenThang >= 0) {
+                        String tuyenThangVal = getCellString(row, colTuyenThang);
+                        if (tuyenThangVal != null && (tuyenThangVal.equalsIgnoreCase("x") || tuyenThangVal.equalsIgnoreCase("có") || tuyenThangVal.equalsIgnoreCase("co") || tuyenThangVal.equalsIgnoreCase("true") || tuyenThangVal.equals("1"))) {
+                            phuongthuc = "PT1 - Tuyển thẳng";
+                        }
                     }
 
                     // Tổ hợp
