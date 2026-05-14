@@ -48,8 +48,8 @@ public class NganhService {
 
         for (Nganh n : danhSach) {
             String ma = n.getManganh();
-            // ttPhuongthuc: TT=TuyenThang, PT4=DGNL, PT2=THPT, PT5=VSAT
-            n.setSlXtt (getCount(slMap, ma, "TT"));
+            // ttPhuongthuc: PT1/TT=TuyenThang, PT4=DGNL, PT2=THPT, PT5=VSAT
+            n.setSlXtt (getCount(slMap, ma, "PT1", "TT"));
             n.setSlDgnl(getCount(slMap, ma, "PT4", "DGNL"));
             n.setSlThpt(String.valueOf(getCount(slMap, ma, "PT2", "THPT")));
             n.setSlVsat(getCount(slMap, ma, "PT5", "PT3", "VSAT", "V-SAT"));
@@ -101,7 +101,7 @@ public class NganhService {
         String ma = nganh.getManganh();
 
         boolean coNguyenVong =
-                getCount(slMap, ma, "TT") > 0 ||
+                getCount(slMap, ma, "PT1", "TT") > 0 ||
                 getCount(slMap, ma, "PT4", "DGNL") > 0 ||
                 getCount(slMap, ma, "PT2", "THPT") > 0 ||
                 getCount(slMap, ma, "PT5", "PT3", "VSAT", "V-SAT") > 0;
@@ -513,7 +513,7 @@ public class NganhService {
         Map<String, Integer> slMap = nguyenVongDAO.countByNganhAndPhuongThuc();
         String ma = nganh.getManganh();
 
-        if (!isMethodEnabled(nganh.getnTuyenthang()) && getCount(slMap, ma, "TT") > 0) {
+        if (!isMethodEnabled(nganh.getnTuyenthang()) && getCount(slMap, ma, "PT1", "TT") > 0) {
             throw new RuntimeException("Không thể bỏ phương thức Tuyển thẳng vì đã có nguyện vọng đăng ký!");
         }
         if (!isMethodEnabled(nganh.getnDgnl()) && getCount(slMap, ma, "PT4", "DGNL") > 0) {

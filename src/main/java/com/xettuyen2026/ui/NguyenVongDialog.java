@@ -121,7 +121,7 @@ public class NguyenVongDialog extends JDialog {
         form.add(createLabel("Phương thức"), gbc);
         gbc.gridx = 1;
         gbc.weightx = 1;
-        cboPhuongthuc = new JComboBox<>(new String[] { "PT2", "PT3", "PT4" });
+        cboPhuongthuc = new JComboBox<>(new String[] { "PT1 - Tuyển thẳng", "PT2 - THPT", "PT3 - V-SAT", "PT4 - ĐGNL" });
         cboPhuongthuc.setFont(UIConstants.FONT_REGULAR);
         cboPhuongthuc.setPreferredSize(new Dimension(0, 34));
         cboPhuongthuc.addActionListener(e -> updateMethodFields());
@@ -213,6 +213,11 @@ public class NguyenVongDialog extends JDialog {
             lblNl1.setVisible(true);
             txtNl1.setVisible(true);
             loadDiemDGNL();
+        } else if (pt.startsWith("PT1") || pt.contains("Tuyển")) {
+            lblTohop.setVisible(false);
+            cboTohop.setVisible(false);
+            lblNl1.setVisible(false);
+            txtNl1.setVisible(false);
         } else {
             lblTohop.setVisible(true);
             cboTohop.setVisible(true);
@@ -257,13 +262,15 @@ public class NguyenVongDialog extends JDialog {
         updateTohopList();
 
         if (nv.getTtPhuongthuc() != null) {
-            String pt = nv.getTtPhuongthuc();
-            if (pt.equalsIgnoreCase("PT4") || pt.equalsIgnoreCase("DGNL"))
-                cboPhuongthuc.setSelectedItem("PT4");
-            else if (pt.equalsIgnoreCase("PT3") || pt.equalsIgnoreCase("VSAT"))
-                cboPhuongthuc.setSelectedItem("PT3");
+            String pt = nv.getTtPhuongthuc().toUpperCase();
+            if (pt.startsWith("PT4") || pt.contains("DGNL"))
+                cboPhuongthuc.setSelectedItem("PT4 - ĐGNL");
+            else if (pt.startsWith("PT3") || pt.contains("VSAT"))
+                cboPhuongthuc.setSelectedItem("PT3 - V-SAT");
+            else if (pt.startsWith("PT1") || pt.contains("TUYỂN") || pt.equals("TT"))
+                cboPhuongthuc.setSelectedItem("PT1 - Tuyển thẳng");
             else
-                cboPhuongthuc.setSelectedItem("PT2");
+                cboPhuongthuc.setSelectedItem("PT2 - THPT");
         }
 
         updateMethodFields();
@@ -294,9 +301,10 @@ public class NguyenVongDialog extends JDialog {
         }
 
         String phuongthuc = (String) cboPhuongthuc.getSelectedItem();
+        if (phuongthuc == null) phuongthuc = "PT2 - THPT";
 
         // Validation check for PT3 and PT4 presence in DB
-        if ("PT3".equals(phuongthuc)) {
+        if (phuongthuc.startsWith("PT3")) {
             DiemThiXetTuyen diem = diemThiDAO.findByCccdAndPhuongThuc(cccd, "PT3");
             if (diem == null)
                 diem = diemThiDAO.findByCccdAndPhuongThuc(cccd, "5");
@@ -305,7 +313,7 @@ public class NguyenVongDialog extends JDialog {
                         "Không hợp lệ", JOptionPane.WARNING_MESSAGE);
                 return;
             }
-        } else if ("PT4".equals(phuongthuc)) {
+        } else if (phuongthuc.startsWith("PT4")) {
             DiemThiXetTuyen diem = diemThiDAO.findByCccdAndPhuongThuc(cccd, "PT4");
             if (diem == null)
                 diem = diemThiDAO.findByCccdAndPhuongThuc(cccd, "4");
