@@ -13,6 +13,16 @@ public class DiemThiDAO extends BaseDAO<DiemThiXetTuyen> {
         super(DiemThiXetTuyen.class);
     }
 
+    /**
+     * Lấy TẤT CẢ bản ghi điểm thi theo CCCD (tất cả phương thức).
+     */
+    public List<DiemThiXetTuyen> findAllByCccd(String cccd) {
+        return query(
+            "FROM DiemThiXetTuyen d WHERE d.cccd = :cccd ORDER BY d.dPhuongthuc",
+            q -> q.setParameter("cccd", cccd)
+        );
+    }
+
     public DiemThiXetTuyen findByCccd(String cccd) {
         List<DiemThiXetTuyen> list = query(
             "FROM DiemThiXetTuyen d " +

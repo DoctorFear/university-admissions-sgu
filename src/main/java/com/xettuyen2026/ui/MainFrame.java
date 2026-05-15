@@ -44,6 +44,10 @@ public class MainFrame extends JFrame {
 
     // Panel references
     private JPanel dashboardPanel;
+    private ThiSinhPanel thiSinhPanel;
+    private DiemThiPanel diemThiPanel;
+    private DiemCongPanel diemCongPanel;
+    private NguyenVongPanel nguyenVongPanel;
 
     public MainFrame(String username) {
         this.currentUser = username;
@@ -220,6 +224,12 @@ public class MainFrame extends JFrame {
         cardLayout.show(contentPanel, key);
         if ("dashboard".equals(key) && dashboardPanel instanceof DashboardPanel) {
             ((DashboardPanel) dashboardPanel).refreshData();
+        } else if ("diemthi".equals(key) && diemThiPanel != null) {
+            diemThiPanel.refreshData();
+        } else if ("diemcong".equals(key) && diemCongPanel != null) {
+            diemCongPanel.refreshData();
+        } else if ("nguyenvong".equals(key) && nguyenVongPanel != null) {
+            nguyenVongPanel.refreshData();
         }
 
         // Update header
@@ -301,16 +311,36 @@ public class MainFrame extends JFrame {
         contentPanel.add(dashboardPanel, "dashboard");
 
         // Module panels - lazy init with placeholder for unfinished ones
-        contentPanel.add(new ThiSinhPanel(), "thisinh");
-        contentPanel.add(new DiemThiPanel(), "diemthi");
-        contentPanel.add(new NguyenVongPanel(), "nguyenvong");
+        thiSinhPanel = new ThiSinhPanel();
+        diemThiPanel = new DiemThiPanel();
+        nguyenVongPanel = new NguyenVongPanel();
+        diemCongPanel = new DiemCongPanel();
+
+        contentPanel.add(thiSinhPanel, "thisinh");
+        contentPanel.add(diemThiPanel, "diemthi");
+        contentPanel.add(nguyenVongPanel, "nguyenvong");
         contentPanel.add(new NganhPanel(), "nganh");
         contentPanel.add(new UserPanel(), "user");
         contentPanel.add(new TohopPanel(), "tohop");
         contentPanel.add(new NganhTohopPanel(), "nganh_tohop");
-        contentPanel.add(new DiemCongPanel(), "diemcong");
+        contentPanel.add(diemCongPanel, "diemcong");
         contentPanel.add(new BangQuydoiPanel(), "bangquydoi");
         contentPanel.add(new KetQuaXetTuyenPanel(), "ketqua");
+    }
+
+    public void refreshCandidateRelatedPanels() {
+        if (diemThiPanel != null) {
+            diemThiPanel.refreshData();
+        }
+        if (diemCongPanel != null) {
+            diemCongPanel.refreshData();
+        }
+        if (nguyenVongPanel != null) {
+            nguyenVongPanel.refreshData();
+        }
+        if (dashboardPanel instanceof DashboardPanel) {
+            ((DashboardPanel) dashboardPanel).refreshData();
+        }
     }
 
     private JPanel createPlaceholderPanel(String title, String icon) {

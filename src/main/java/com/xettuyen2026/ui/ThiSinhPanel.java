@@ -9,6 +9,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.RenderingHints;
+import java.awt.Window;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -320,17 +321,25 @@ public class ThiSinhPanel extends JPanel {
         ThiSinh selectedRow = getSelectedThiSinh("Vui lòng chọn một thí sinh để xóa.");
         if (selectedRow == null) return;
 
-        if (ConfirmDialog.show(this, "Bạn có chắc muốn xóa thí sinh này?")) {
+        if (ConfirmDialog.show(this, "Sẽ xóa luôn điểm thi, điểm cộng, nguyện vọng của thí sinh đó.<br>Bấm Xóa lần nữa để xác nhận.")) {
             try {
                 ThiSinh selected = service.findByCccd(selectedRow.getCccd());
                 if (selected != null) {
                     service.delete(selected);
-                    MessageHelper.showSuccess(this, "Đã xóa thí sinh.");
+                    MessageHelper.showSuccess(this, "Đã xóa thí sinh và dữ liệu liên quan.");
                     loadData();
+                    refreshCandidateRelatedPanels();
                 }
             } catch (Exception e) {
                 MessageHelper.showError(this, "Lỗi xóa: " + e.getMessage());
             }
+        }
+    }
+
+    private void refreshCandidateRelatedPanels() {
+        Window owner = SwingUtilities.getWindowAncestor(this);
+        if (owner instanceof MainFrame) {
+            ((MainFrame) owner).refreshCandidateRelatedPanels();
         }
     }
 

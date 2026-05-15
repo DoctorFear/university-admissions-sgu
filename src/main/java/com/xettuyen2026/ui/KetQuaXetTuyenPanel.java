@@ -162,10 +162,6 @@ public class KetQuaXetTuyenPanel extends JPanel {
         btnView.addActionListener(e -> loadResults());
         row1.add(btnView);
 
-        RoundedButton btnStats = new RoundedButton(UIConstants.ICON_STATISTIC + " Tải thống kê tất cả", new Color(0x00796B));
-        btnStats.addActionListener(e -> loadAllStats());
-        row1.add(btnStats);
-
         // Row 2: Radio buttons
         JPanel row2 = new JPanel(new FlowLayout(FlowLayout.LEFT));
         row2.setOpaque(false);
@@ -283,6 +279,12 @@ public class KetQuaXetTuyenPanel extends JPanel {
         topPanel.setOpaque(false);
         topPanel.add(new JLabel("Tìm kiếm ngành:"));
         topPanel.add(cboStatsSearch);
+
+        // YÊU CẦU 5: Nút Tải thống kê tất cả chuyển sang tab này
+        RoundedButton btnStatsExport = new RoundedButton(UIConstants.ICON_STATISTIC + " Tải thống kê tất cả", new Color(0x00796B));
+        btnStatsExport.addActionListener(e -> loadAllStats());
+        topPanel.add(btnStatsExport);
+
         card.add(topPanel, BorderLayout.NORTH);
 
         statsTable = new PaginatedTable(STATS_COLUMNS);

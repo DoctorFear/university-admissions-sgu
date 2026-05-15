@@ -55,7 +55,10 @@ public class ThiSinhService {
     }
 
     public void delete(ThiSinh entity) {
-        thiSinhDAO.delete(entity);
+        if (entity == null || entity.getCccd() == null || entity.getCccd().trim().isEmpty()) {
+            throw new RuntimeException("CCCD không được để trống!");
+        }
+        thiSinhDAO.deleteWithRelatedData(entity.getCccd().trim());
     }
 
     public int importFromExcel(File file) throws Exception {

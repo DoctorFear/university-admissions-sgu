@@ -68,6 +68,7 @@ public class DiemThiPanel extends JPanel {
 
     private final DiemThiService service = new DiemThiService();
     private final Map<String, List<DiemThiXetTuyen>> allDataMap = new HashMap<>();
+    private final List<Runnable> reloadActions = new ArrayList<>();
 
     public DiemThiPanel() {
         setLayout(new BorderLayout());
@@ -108,8 +109,16 @@ public class DiemThiPanel extends JPanel {
         content.add(buildStatsPanel(lblTB, lblCao, lblThap), BorderLayout.EAST);
         panel.add(content, BorderLayout.CENTER);
 
-        SwingUtilities.invokeLater(() -> loadData(table, phuongThuc, lblTB, lblCao, lblThap));
+        Runnable reloadAction = () -> loadData(table, phuongThuc, lblTB, lblCao, lblThap);
+        reloadActions.add(reloadAction);
+        SwingUtilities.invokeLater(reloadAction);
         return panel;
+    }
+
+    public void refreshData() {
+        for (Runnable reloadAction : reloadActions) {
+            reloadAction.run();
+        }
     }
 
     // Tạo thanh công cụ: ô tìm kiếm + các nút thao tác

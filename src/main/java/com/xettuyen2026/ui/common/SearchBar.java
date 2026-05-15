@@ -95,6 +95,11 @@ public class SearchBar extends JPanel {
     public String getText() { return textField.getText().trim(); }
     public void clear() { textField.setText(""); }
     public JTextField getTextField() { return textField; }
+    
+    public void setPlaceholder(String placeholder) {
+        this.placeholder = placeholder;
+        textField.repaint();
+    }
 
     public void setText(String string) {
         textField.setText(string); 
