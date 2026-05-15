@@ -40,7 +40,7 @@ public class DiemCongPanel extends JPanel{
         "Mã tổ hợp",
         "Phương thức",
         "Ghi chú",
-        "Điểm cc",
+        "Điểm chứng chỉ",
         "Điểm ưu tiên",
         "Điểm tổng",
         "Điểm cộng key"
@@ -358,7 +358,8 @@ public class DiemCongPanel extends JPanel{
 
             java.io.File file = chooser.getSelectedFile();
 
-            String[] options = {"Chứng chỉ (Tiếng Anh)", "Thí sinh", "Ưu tiên"};
+            // String[] options = {"Chứng chỉ (Tiếng Anh)", "Thí sinh", "Ưu tiên"};
+            String[] options = {"Chứng chỉ (Tiếng Anh)", "Ưu tiên"};
             int type = javax.swing.JOptionPane.showOptionDialog(
                 this,
                 "Chọn loại dữ liệu import",
@@ -374,7 +375,7 @@ public class DiemCongPanel extends JPanel{
 
             switch (type) {
                 case 0 -> serv.importTiengAnh(file.getAbsolutePath());
-                case 1 -> serv.importThiSinh(file.getAbsolutePath());
+                // case 1 -> serv.importThiSinh(file.getAbsolutePath());
                 case 2 -> serv.importUuTien(file.getAbsolutePath());
                 default -> { return; }
             }

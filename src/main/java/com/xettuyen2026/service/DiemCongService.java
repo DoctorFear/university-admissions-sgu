@@ -112,7 +112,7 @@ public class DiemCongService {
                         n.getMatohop()
                     );
 
-                    d.setDiemCC(d.getDiemCC().add(diem));
+                    d.setDiemUtxt(d.getDiemCC().add(diem));
                     appendNote(d, TYPE_UU_TIEN);
                 }
             }
