@@ -40,7 +40,7 @@ public class NguyenVongPanel extends JPanel {
 
     private static final String[] COLUMNS = {
             "STT", "CCCD", "Tên", "Mã ngành", "Tên ngành", "NV Thứ", "PT", "THM",
-            "Điểm THXT", "Điểm Cộng", "Điểm ƯT", "Điểm XT", "Kết quả"
+            "Điểm THGXT", "Điểm Cộng", "Điểm ƯT", "Điểm XT", "Kết quả"
     };
 
     public NguyenVongPanel() {
@@ -289,10 +289,29 @@ public class NguyenVongPanel extends JPanel {
         loadData();
     }
 
+    // Kiểm tra nguyện vọng tuyển thẳng để hiển thị và xét riêng.
+    private boolean isTuyenThang(String phuongThuc) {
+        if (phuongThuc == null) {
+            return false;
+        }
+        String pt = phuongThuc.toUpperCase().trim();
+        return pt.startsWith("PT1") || pt.contains("TUYỂN") || pt.contains("TUYEN") || pt.equals("TT");
+    }
+
+    // Xóa điểm hiển thị của nguyện vọng tuyển thẳng.
+    private void clearTuyenThangScores(NguyenVongXetTuyen nv) {
+        nv.setTtThm(null);
+        nv.setDiemThxt(null);
+        nv.setDiemCong(null);
+        nv.setDiemUtqd(null);
+        nv.setDiemXettuyen(null);
+    }
+
     private Object[] mapToRow(NguyenVongXetTuyen nv, int stt) {
         ThiSinh ts = getThiSinh(nv.getNnCccd());
         String ten = ts != null ? ts.getTen() : "";
         String thm = nv.getTtThm() != null ? nv.getTtThm() : "";
+        boolean tuyenThang = isTuyenThang(nv.getTtPhuongthuc());
         return new Object[] {
                 stt,
                 nv.getNnCccd(),
@@ -301,11 +320,11 @@ public class NguyenVongPanel extends JPanel {
                 getNganhName(nv.getNvManganh()),
                 nv.getNvTt(),
                 nv.getTtPhuongthuc(),
-                thm,
-                nv.getDiemThxt(),
-                nv.getDiemCong(),
-                nv.getDiemUtqd(),
-                nv.getDiemXettuyen(),
+                tuyenThang ? "-" : thm,
+                tuyenThang ? "-" : nv.getDiemThxt(),
+                tuyenThang ? "-" : nv.getDiemCong(),
+                tuyenThang ? "-" : nv.getDiemUtqd(),
+                tuyenThang ? "-" : nv.getDiemXettuyen(),
                 nv.getNvKetqua()
         };
     }
@@ -526,6 +545,18 @@ public class NguyenVongPanel extends JPanel {
                     if (pt == null)
                         pt = "PT2";
 
+                    if (isTuyenThang(pt)) {
+                        clearTuyenThangScores(nv);
+                        if (alreadyPassed) {
+                            nv.setNvKetqua("duoisan");
+                        } else {
+                            nv.setNvKetqua("yes");
+                            alreadyPassed = true;
+                        }
+                        dao.update(nv);
+                        continue;
+                    }
+
                     double dthxt = 0.0;
                     String bestThm = nv.getTtThm();
                     String ptUpper = pt.toUpperCase();
@@ -544,7 +575,7 @@ public class NguyenVongPanel extends JPanel {
                         nv.setTtThm(bestThm);
                     }
 
-                    boolean containsN1 = (nv.getTtThm() != null && nv.getTtThm().contains("N1"));
+                    boolean containsN1 = admissionService.hasNgoaiNguInTohop(nv.getNvManganh(), nv.getTtThm());
                     double dc = admissionService.getDiemCongDouble(nv.getNnCccd(), nv.getNvManganh(), nv.getTtThm(),
                             containsN1);
                     double mdut = admissionService.calculateMdutDouble(nv.getNnCccd());

@@ -45,6 +45,7 @@ public class MainFrame extends JFrame {
     // Panel references
     private JPanel dashboardPanel;
     private ThiSinhPanel thiSinhPanel;
+    private NganhPanel nganhPanel;
     private DiemThiPanel diemThiPanel;
     private DiemCongPanel diemCongPanel;
     private NguyenVongPanel nguyenVongPanel;
@@ -230,6 +231,9 @@ public class MainFrame extends JFrame {
             diemCongPanel.refreshData();
         } else if ("nguyenvong".equals(key) && nguyenVongPanel != null) {
             nguyenVongPanel.refreshData();
+        } else if ("nganh".equals(key) && nganhPanel != null) {
+            // Tải lại dữ liệu ngành sau khi xét tuyển cập nhật điểm trúng tuyển
+            nganhPanel.refreshData();
         }
 
         // Update header
@@ -312,6 +316,7 @@ public class MainFrame extends JFrame {
 
         // Module panels - lazy init with placeholder for unfinished ones
         thiSinhPanel = new ThiSinhPanel();
+        nganhPanel = new NganhPanel();
         diemThiPanel = new DiemThiPanel();
         nguyenVongPanel = new NguyenVongPanel();
         diemCongPanel = new DiemCongPanel();
@@ -319,7 +324,7 @@ public class MainFrame extends JFrame {
         contentPanel.add(thiSinhPanel, "thisinh");
         contentPanel.add(diemThiPanel, "diemthi");
         contentPanel.add(nguyenVongPanel, "nguyenvong");
-        contentPanel.add(new NganhPanel(), "nganh");
+        contentPanel.add(nganhPanel, "nganh");
         contentPanel.add(new UserPanel(), "user");
         contentPanel.add(new TohopPanel(), "tohop");
         contentPanel.add(new NganhTohopPanel(), "nganh_tohop");

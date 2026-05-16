@@ -87,6 +87,14 @@ public class AdmissionService {
             return;
 
         // Chuyển tt_phuongthuc (e.g. "PT2","DGNL","VSAT") sang mã d_phuongthuc trong DB
+        if (isTuyenThang(nv.getTtPhuongthuc())) {
+            clearTuyenThangScores(nv);
+            if (nv.getNvKeys() == null || nv.getNvKeys().isEmpty()) {
+                nv.setNvKeys(nv.getNnCccd() + "_" + nv.getNvManganh() + "_" + nv.getTtPhuongthuc());
+            }
+            return;
+        }
+
         String phuongthucCode = mapPhuongThucToCode(nv.getTtPhuongthuc());
 
         DiemThiXetTuyen diemThi = diemThiDAO.findByCccdAndPhuongThuc(nv.getNnCccd(), phuongthucCode);
@@ -165,6 +173,24 @@ public class AdmissionService {
      * VSAT, PT5, 5 → "5"
      * Mặc định → "1"
      */
+    // Kiểm tra nguyện vọng tuyển thẳng để không tính điểm như THPT.
+    private boolean isTuyenThang(String ttPhuongthuc) {
+        if (ttPhuongthuc == null) {
+            return false;
+        }
+        String pt = ttPhuongthuc.toUpperCase().trim();
+        return pt.startsWith("PT1") || pt.contains("TUYỂN") || pt.contains("TUYEN") || pt.equals("TT");
+    }
+
+    // Xóa điểm xét tuyển của nguyện vọng tuyển thẳng.
+    private void clearTuyenThangScores(NguyenVongXetTuyen nv) {
+        nv.setTtThm(null);
+        nv.setDiemThxt(null);
+        nv.setDiemCong(null);
+        nv.setDiemUtqd(null);
+        nv.setDiemXettuyen(null);
+    }
+
     private String mapPhuongThucToCode(String ttPhuongthuc) {
         if (ttPhuongthuc == null)
             return "1";
@@ -521,6 +547,7 @@ public class AdmissionService {
 
         // 1. Fetch data
         List<NguyenVongXetTuyen> allAspirations = nguyenVongDAO.findAllOrdered();
+        List<NguyenVongXetTuyen> directAccepted = new ArrayList<>();
 
         // 1.5 Điểm rà soát & cập nhật tự động (Tính điểm cho tất cả NV)
         System.out.println("Đang tính toán lại điểm cho tất cả nguyện vọng...");
@@ -533,6 +560,11 @@ public class AdmissionService {
                 pt = "PT2";
             else
                 pt = pt.trim();
+
+            if (isTuyenThang(pt)) {
+                clearTuyenThangScores(nv);
+                continue;
+            }
 
             double dthxt = 0.0;
             String bestThm = nv.getTtThm(); // giữ nguyên nếu đã có
@@ -552,7 +584,7 @@ public class AdmissionService {
                 nv.setTtThm(bestThm);
             }
 
-            boolean containsN1 = (nv.getTtThm() != null && nv.getTtThm().contains("N1"));
+            boolean containsN1 = hasNgoaiNguInTohop(nv.getNvManganh(), nv.getTtThm());
             double dc = getDiemCongDouble(nv.getNnCccd(), nv.getNvManganh(), nv.getTtThm(), containsN1);
             double mdut = calculateMdutDouble(nv.getNnCccd());
 
@@ -618,6 +650,16 @@ public class AdmissionService {
             NguyenVongXetTuyen currentNv = aps.get(idx);
             String maNganh = currentNv.getNvManganh();
             Nganh nganh = nganhMap.get(maNganh);
+
+            if (isTuyenThang(currentNv.getTtPhuongthuc())) {
+                if (nganh != null) {
+                    directAccepted.add(currentNv);
+                } else {
+                    currentIndex.put(cccd, idx + 1);
+                    candidatesToProcess.add(cccd);
+                }
+                continue;
+            }
 
             // Skip nếu ngành không tồn tại hoặc không có điểm XT
             if (nganh == null || currentNv.getDiemXettuyen() == null) {
@@ -726,6 +768,10 @@ public class AdmissionService {
         }
 
         // 7. Batch update nguyện vọng
+        for (NguyenVongXetTuyen nv : directAccepted) {
+            nv.setNvKetqua("yes");
+        }
+
         nguyenVongDAO.batchUpdate(allAspirations);
 
         // 8. Lưu điểm trúng tuyển vào bảng ngành
@@ -976,6 +1022,26 @@ public class AdmissionService {
         if (dxt > 30.0)
             dxt = 30.0;
         return dxt;
+    }
+
+    // Kiểm tra tổ hợp có môn ngoại ngữ để tránh cộng trùng điểm chứng chỉ.
+    public boolean hasNgoaiNguInTohop(String manganh, String matohop) {
+        if (manganh == null || matohop == null) {
+            return false;
+        }
+        List<NganhTohop> tohopList = nganhTohopDAO.findByMaNganh(manganh);
+        if (tohopList == null) {
+            return false;
+        }
+        for (NganhTohop nt : tohopList) {
+            if (matohop.equalsIgnoreCase(nt.getMatohop())) {
+                return Boolean.TRUE.equals(nt.getN1())
+                        || "N1".equalsIgnoreCase(nt.getThMon1())
+                        || "N1".equalsIgnoreCase(nt.getThMon2())
+                        || "N1".equalsIgnoreCase(nt.getThMon3());
+            }
+        }
+        return false;
     }
 
     // Helper method wrapper

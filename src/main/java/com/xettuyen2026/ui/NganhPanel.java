@@ -165,6 +165,12 @@ public class NganhPanel extends JPanel {
     }
 
     // Đổ danh sách ngành ra bảng hiển thị
+    // Tải lại dữ liệu ngành mới nhất từ database khi người dùng mở lại trang ngành
+    public void refreshData() {
+        loadData();
+    }
+
+    // Đổ danh sách ngành ra bảng hiển thị
     private void displayEntities(List<Nganh> list) {
         List<Object[]> rows = new ArrayList<>();
         int stt = 1;
