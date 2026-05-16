@@ -380,7 +380,7 @@ public class DiemCongPanel extends JPanel{
             switch (type) {
                 case 0 -> serv.importTiengAnh(file.getAbsolutePath());
                 // case 1 -> serv.importThiSinh(file.getAbsolutePath());
-                case 2 -> serv.importUuTien(file.getAbsolutePath());
+                case 1 -> serv.importUuTien(file.getAbsolutePath());
                 default -> { return; }
             }
 

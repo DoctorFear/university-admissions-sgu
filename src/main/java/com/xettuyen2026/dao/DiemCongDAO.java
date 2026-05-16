@@ -1,5 +1,6 @@
 package com.xettuyen2026.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -7,6 +8,8 @@ import org.hibernate.Session;
 import com.xettuyen2026.config.HibernateConfig;
 import com.xettuyen2026.dao.base.BaseDAO;
 import com.xettuyen2026.entity.DiemCongXetTuyen;
+import com.xettuyen2026.entity.NganhTohop;
+import com.xettuyen2026.entity.NguyenVongXetTuyen;
 
 public class DiemCongDAO extends BaseDAO<DiemCongXetTuyen> {
     
@@ -45,15 +48,27 @@ public class DiemCongDAO extends BaseDAO<DiemCongXetTuyen> {
 
     public List<Object[]> findNguyenVongAndToHopByCccd(String cccd) {
         try (Session session = HibernateConfig.getSessionFactory().openSession()) {
-            return session.createQuery(
-                "select nv, nt " +
-                "from NguyenVongXetTuyen nv, NganhTohop nt " +
-                "where nv.nnCccd = :cccd " +
-                "and nv.nvManganh = nt.manganh",
-                Object[].class
-            )
-            .setParameter("cccd", cccd)
-            .getResultList();
+            // Tách truy vấn để tránh lỗi collation khi so sánh mã ngành giữa hai bảng.
+            List<NguyenVongXetTuyen> nguyenVongs = session.createQuery(
+                    "from NguyenVongXetTuyen nv where nv.nnCccd = :cccd",
+                    NguyenVongXetTuyen.class)
+                    .setParameter("cccd", cccd)
+                    .getResultList();
+            List<Object[]> result = new ArrayList<>();
+
+            for (NguyenVongXetTuyen nv : nguyenVongs) {
+                List<NganhTohop> toHops = session.createQuery(
+                        "from NganhTohop nt where nt.manganh = :manganh",
+                        NganhTohop.class)
+                        .setParameter("manganh", nv.getNvManganh())
+                        .getResultList();
+
+                for (NganhTohop nt : toHops) {
+                    result.add(new Object[] { nv, nt });
+                }
+            }
+
+            return result;
         }
     }
 
