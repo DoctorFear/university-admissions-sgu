@@ -6,8 +6,10 @@ import com.xettuyen2026.entity.NguyenVongXetTuyen;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import java.text.Normalizer;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class NguyenVongDAO extends BaseDAO<NguyenVongXetTuyen> {
@@ -73,12 +75,23 @@ public class NguyenVongDAO extends BaseDAO<NguyenVongXetTuyen> {
 
     // Chuẩn hóa mã phương thức xét tuyển khi đếm nguyện vọng
     private String normalizePhuongThuc(String phuongThuc) {
-        String pt = phuongThuc != null ? phuongThuc.trim().toUpperCase() : "";
-        if (pt.startsWith("PT1") || pt.contains("TUYỂN THẲNG") || pt.contains("TUYEN THANG") || pt.equals("TT")) return "PT1";
+        String pt = normalizeText(phuongThuc);
+        if (pt.startsWith("PT1") || pt.contains("TUYEN THANG") || pt.equals("TT")) return "PT1";
         if (pt.startsWith("PT2") || pt.contains("THPT")) return "PT2";
-        if (pt.startsWith("PT4") || pt.contains("DGNL") || pt.contains("ĐGNL")) return "PT4";
+        if (pt.startsWith("PT4") || pt.contains("DGNL")) return "PT4";
         if (pt.startsWith("PT5") || pt.startsWith("PT3") || pt.contains("VSAT") || pt.contains("V-SAT")) return "PT5";
         return pt;
+    }
+
+    // Chuẩn hóa chuỗi phương thức để so sánh không phụ thuộc dấu tiếng Việt
+    private String normalizeText(String value) {
+        if (value == null) return "";
+        return Normalizer.normalize(value.trim(), Normalizer.Form.NFD)
+                .replaceAll("\\p{M}+", "")
+                .replace('đ', 'd')
+                .replace('Đ', 'D')
+                .toUpperCase(Locale.ROOT)
+                .replaceAll("\\s+", " ");
     }
 
     /** Giữ lại batchUpdate vì các service khác còn dùng */

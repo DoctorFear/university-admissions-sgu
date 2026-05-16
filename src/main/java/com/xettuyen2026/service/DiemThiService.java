@@ -188,7 +188,7 @@ public class DiemThiService {
     private ImportResult importThpt(File file, String phuongThucCode) throws Exception {
         ImportResult result = new ImportResult();
 
-        List<DiemThiXetTuyen> list = ImportUtil.readExcel(file, row -> {
+        List<DiemThiXetTuyen> list = readThptRows(file, row -> {
             // Cột B (index 1) = CCCD
             String cccd = ImportUtil.getString(row, 1);
             if (cccd.isEmpty()) return null;
@@ -249,6 +249,7 @@ public class DiemThiService {
                 DiemThiXetTuyen existing = diemThiDAO.findByCccdAndPhuongThuc(d.getCccd(), d.getdPhuongthuc());
                 if (existing != null) {
                     d.setIddiemthi(existing.getIddiemthi());
+                    d.setN1Cc(existing.getN1Cc());
                     diemThiDAO.update(d);
                     result.updateCount++;
                 } else {
@@ -260,6 +261,8 @@ public class DiemThiService {
                 result.errors.add("CCCD " + d.getCccd() + ": " + e.getMessage());
             }
         }
+
+        importThptCertificateSheet(file, phuongThucCode, result);
 
         return result;
     }
@@ -592,6 +595,59 @@ public class DiemThiService {
     // Thêm mapping alias môn học → tên field entity
     private static void addMonMapping(String alias, String... fieldNames) {
         MON_FIELD_MAP.put(alias, Arrays.asList(fieldNames));
+    }
+
+    // Đọc sheet THPT, nếu file cũ chưa đặt tên sheet thì dùng sheet đầu tiên.
+    private List<DiemThiXetTuyen> readThptRows(File file, ImportUtil.RowMapper<DiemThiXetTuyen> mapper) throws Exception {
+        try {
+            return ImportUtil.readExcel(file, "THPT", mapper);
+        } catch (RuntimeException e) {
+            if (e.getMessage() != null && e.getMessage().contains("sheet: THPT")) {
+                return ImportUtil.readExcel(file, mapper);
+            }
+            throw e;
+        }
+    }
+
+    // Đọc sheet CC để cập nhật điểm quy đổi chứng chỉ tiếng Anh theo CCCD.
+    private void importThptCertificateSheet(File file, String phuongThucCode, ImportResult result) throws Exception {
+        List<DiemThiXetTuyen> ccList;
+        try {
+            ccList = ImportUtil.readExcel(file, "CC", row -> {
+                String cccd = ImportUtil.getString(row, 1);
+                BigDecimal diemQuyDoi = ImportUtil.getDecimal(row, 4);
+                if (cccd.isEmpty() || diemQuyDoi == null) return null;
+
+                DiemThiXetTuyen d = new DiemThiXetTuyen();
+                d.setCccd(cccd);
+                d.setdPhuongthuc(phuongThucCode);
+                d.setN1Cc(diemQuyDoi);
+                return d;
+            });
+        } catch (RuntimeException e) {
+            if (e.getMessage() != null && e.getMessage().contains("sheet: CC")) {
+                return;
+            }
+            throw e;
+        }
+
+        for (DiemThiXetTuyen d : ccList) {
+            try {
+                DiemThiXetTuyen existing = diemThiDAO.findByCccdAndPhuongThuc(d.getCccd(), d.getdPhuongthuc());
+                if (existing == null) {
+                    result.skipCount++;
+                    continue;
+                }
+
+                existing.setN1Cc(d.getN1Cc());
+                prepareForSave(existing);
+                diemThiDAO.update(existing);
+                result.updateCount++;
+            } catch (Exception e) {
+                result.errorCount++;
+                result.errors.add("CCCD " + d.getCccd() + " (CC): " + e.getMessage());
+            }
+        }
     }
 
     // Chuẩn hóa từ khóa tìm kiếm: bỏ dấu, lowercase, trim

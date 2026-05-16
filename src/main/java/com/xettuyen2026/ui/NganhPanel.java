@@ -189,17 +189,24 @@ public class NganhPanel extends JPanel {
 
     // Hiển thị x nếu ngành không xét phương thức, ngược lại hiển thị số nguyện vọng
     private String slTheoPhuongThuc(String flag, Integer sl) {
+        if (sl != null && sl > 0) return String.valueOf(sl);
         if (!isMethodEnabled(flag)) return "x";
         return String.valueOf(sl != null ? sl : 0);
     }
 
     // Hiển thị x nếu ngành không xét phương thức, ngược lại hiển thị số nguyện vọng dạng chuỗi
     private String slTheoPhuongThuc(String flag, String sl) {
-        if (!isMethodEnabled(flag)) return "x";
-        if (sl == null || sl.trim().isEmpty()) return "0";
+        if (sl == null || sl.trim().isEmpty()) {
+            if (!isMethodEnabled(flag)) return "x";
+            return "0";
+        }
         try {
-            return String.valueOf(Integer.parseInt(sl.trim()));
+            int value = Integer.parseInt(sl.trim());
+            if (value > 0) return String.valueOf(value);
+            if (!isMethodEnabled(flag)) return "x";
+            return String.valueOf(value);
         } catch (NumberFormatException e) {
+            if (!isMethodEnabled(flag)) return "x";
             return "0";
         }
     }
