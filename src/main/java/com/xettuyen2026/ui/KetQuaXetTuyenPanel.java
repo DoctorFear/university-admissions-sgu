@@ -237,7 +237,7 @@ public class KetQuaXetTuyenPanel extends JPanel {
                 } else {
                     c.setForeground(UIConstants.TEXT_PRIMARY);
                 }
-                if (col == 0 || col == 4 || (col >= 7 && col <= 10)) setHorizontalAlignment(SwingConstants.CENTER);
+                if (col == 0 || col == 4 || col == 6 || (col >= 7 && col <= 10)) setHorizontalAlignment(SwingConstants.CENTER);
                 else setHorizontalAlignment(SwingConstants.LEFT);
                 return c;
             }
@@ -406,11 +406,16 @@ public class KetQuaXetTuyenPanel extends JPanel {
                 ThiSinh ts = getThiSinh(nv.getNnCccd());
                 String ten = ts != null ? ts.getTen() : "";
                 String thm = nv.getTtThm() != null ? nv.getTtThm() : "";
+                // Kiểm tra nguyện vọng tuyển thẳng để hiển thị dấu gạch ngang ở các cột điểm
+                boolean tuyenThang = "TT".equals(normalizePT(nv.getTtPhuongthuc()));
                 rows.add(new Object[]{
                     stt++, nv.getNnCccd(), ten, getNganhName(nv.getNvManganh()), nv.getNvTt(),
-                    nv.getTtPhuongthuc(), thm,
-                    nv.getDiemThxt(), nv.getDiemCong(), nv.getDiemUtqd(),
-                    nv.getDiemXettuyen(), nv.getNvKetqua()
+                    nv.getTtPhuongthuc(), tuyenThang ? "-" : thm,
+                    tuyenThang ? "-" : nv.getDiemThxt(),
+                    tuyenThang ? "-" : nv.getDiemCong(),
+                    tuyenThang ? "-" : nv.getDiemUtqd(),
+                    tuyenThang ? "-" : nv.getDiemXettuyen(),
+                    nv.getNvKetqua()
                 });
             }
             styledTable.setData(rows);
