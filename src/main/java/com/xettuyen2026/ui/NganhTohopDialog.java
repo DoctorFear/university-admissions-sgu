@@ -8,6 +8,8 @@ import com.xettuyen2026.ui.common.UIConstants;
 import com.xettuyen2026.util.NganhTohopValidator;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.math.BigDecimal;
 import java.util.*;
@@ -102,6 +104,14 @@ public class NganhTohopDialog extends JDialog {
         txtMaTohop = new JTextField();
         txtMaTohop.setFont(UIConstants.FONT_REGULAR);
         txtMaTohop.setPreferredSize(new Dimension(0, ROW_H));
+        txtMaTohop.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) { syncTypedTohop(); }
+            @Override
+            public void removeUpdate(DocumentEvent e) { syncTypedTohop(); }
+            @Override
+            public void changedUpdate(DocumentEvent e) { syncTypedTohop(); }
+        });
         txtMaTohop.addKeyListener(new java.awt.event.KeyAdapter() {
             @Override
             public void keyTyped(java.awt.event.KeyEvent e) {
@@ -331,6 +341,20 @@ public class NganhTohopDialog extends JDialog {
         }
     }
 
+    // Tự động điền môn khi người dùng nhập đúng mã tổ hợp trong textbox
+    private void syncTypedTohop() {
+        String maTohop = txtMaTohop.getText().trim().toUpperCase();
+        if (maTohop.isEmpty()) {
+            txtMon1.setText("");
+            txtMon2.setText("");
+            txtMon3.setText("");
+            return;
+        }
+        if (tohopCache.containsKey(maTohop)) {
+            syncFromTohop(maTohop);
+        }
+    }
+
     private void populateData() {
         if (originalEntity == null) return;
 
@@ -384,6 +408,8 @@ public class NganhTohopDialog extends JDialog {
         try {
             String maNganh = getNganhFromCombo();
             String maTohop = txtMaTohop.getText().trim().toUpperCase();
+            // Đồng bộ môn lần cuối theo mã tổ hợp người dùng nhập trước khi validate
+            syncFromTohop(maTohop);
             String mon1 = txtMon1.getText().trim().toUpperCase();
             String mon2 = txtMon2.getText().trim().toUpperCase();
             String mon3 = txtMon3.getText().trim().toUpperCase();

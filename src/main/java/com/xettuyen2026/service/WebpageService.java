@@ -90,9 +90,16 @@ public class WebpageService {
                                 : null);
 
                         dto.setThuTu(nv.getNvTt());
+                        String pt = nv.getTtPhuongthuc();
+                        String ptUpperForDisplay = pt != null ? pt.trim().toUpperCase() : "";
+                        String ptAsciiForDisplay = java.text.Normalizer.normalize(ptUpperForDisplay, java.text.Normalizer.Form.NFD)
+                                .replaceAll("\\p{M}", "");
+                        // Không hiển thị tổ hợp xét tuyển cho nguyện vọng tuyển thẳng
+                        boolean isTuyenThangDisplay = "1".equals(ptUpperForDisplay) || ptUpperForDisplay.contains("PT1")
+                                || ptAsciiForDisplay.contains("TUYEN THANG");
                         // Ưu tiên tổ hợp thực tế thí sinh đã đăng ký (tt_thm), fallback sang tổ hợp gốc ngành
-                        String toHopDisplay = nv.getTtThm();
-                        if (toHopDisplay == null || toHopDisplay.trim().isEmpty()) {
+                        String toHopDisplay = isTuyenThangDisplay ? "-" : nv.getTtThm();
+                        if (!isTuyenThangDisplay && (toHopDisplay == null || toHopDisplay.trim().isEmpty())) {
                             toHopDisplay = (nganh != null ? nganh.getnTohopgoc() : "Chưa xác định");
                         }
                         dto.setToHop(toHopDisplay);
@@ -106,16 +113,22 @@ public class WebpageService {
                         if (nv.getDiemThxt() != null) dto.setDiemThxt(nv.getDiemThxt().doubleValue());
                         if (nv.getDiemUtqd() != null) dto.setDiemUtqd(nv.getDiemUtqd().doubleValue());
                         if (nv.getDiemCong() != null) dto.setDiemCongDetail(nv.getDiemCong().doubleValue());
-                        dto.setToHopXetTuyen(nv.getTtThm());
+                        dto.setToHopXetTuyen(isTuyenThangDisplay ? "-" : nv.getTtThm());
 
                         // Tên phương thức hiển thị
-                        String pt = nv.getTtPhuongthuc();
                         if (pt != null) {
-                            if ("4".equals(pt) || pt.toUpperCase().contains("DGNL")) {
+                            // Phân loại đúng phương thức xét tuyển trên trang tra cứu
+                            String ptUpper = pt.trim().toUpperCase();
+                            String ptAscii = java.text.Normalizer.normalize(ptUpper, java.text.Normalizer.Form.NFD)
+                                    .replaceAll("\\p{M}", "");
+                            if ("1".equals(ptUpper) || ptUpper.contains("PT1") || ptAscii.contains("TUYEN THANG")) {
+                                dto.setPhuongThucDisplay("Tuyển thẳng");
+                            } else if ("4".equals(ptUpper) || ptUpper.contains("PT4") || ptUpper.contains("DGNL")) {
                                 dto.setPhuongThucDisplay("ĐGNL (Thang 1200)");
-                            } else if ("5".equals(pt) || pt.toUpperCase().contains("VSAT")) {
-                                dto.setPhuongThucDisplay("V-SAT / THPT");
-                            } else if ("1".equals(pt) || "2".equals(pt) || pt.toUpperCase().contains("PT") || pt.toUpperCase().contains("THPT")) {
+                            } else if ("3".equals(ptUpper) || "5".equals(ptUpper) || ptUpper.contains("PT3") || ptUpper.contains("PT5")
+                                    || ptUpper.contains("VSAT") || ptUpper.contains("V-SAT")) {
+                                dto.setPhuongThucDisplay("V-SAT");
+                            } else if ("2".equals(ptUpper) || ptUpper.contains("PT2") || ptUpper.contains("THPT")) {
                                 dto.setPhuongThucDisplay("Xét điểm THPT");
                             } else {
                                 dto.setPhuongThucDisplay(pt);
@@ -328,7 +341,8 @@ public class WebpageService {
                     double dthgxt = dthxt - dolech;
                     double actualDut = mdut;
                     if (dthgxt + diemCong >= 22.5) {
-                        actualDut = ((30.0 - dthxt - diemCong) / 7.5) * mdut;
+                        // Tính điểm ưu tiên theo điểm sau khi trừ độ lệch
+                        actualDut = ((30.0 - dthgxt - diemCong) / 7.5) * mdut;
                         if (actualDut < 0) actualDut = 0.0;
                     }
 

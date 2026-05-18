@@ -191,16 +191,8 @@ public class NguyenVongDialog extends JDialog {
 
     private void updateTohopList() {
         cboTohop.removeAllItems();
-        String nganhItem = (String) cboNganh.getSelectedItem();
-        if (nganhItem != null && !nganhItem.startsWith("(Không")) {
-            String maNganh = nganhItem.split(" - ")[0].trim();
-            List<NganhTohop> tohopList = nganhTohopDAO.findByMaNganh(maNganh);
-            if (tohopList != null) {
-                for (NganhTohop nt : tohopList) {
-                    cboTohop.addItem(nt.getMatohop());
-                }
-            }
-        }
+        cboTohop.addItem("Tự động khi xét tuyển");
+        cboTohop.setEnabled(false);
     }
 
     private void updateMethodFields() {
@@ -276,7 +268,7 @@ public class NguyenVongDialog extends JDialog {
         updateMethodFields();
 
         if (nv.getTtThm() != null && cboTohop.isVisible()) {
-            cboTohop.setSelectedItem(nv.getTtThm());
+            cboTohop.setToolTipText("Tổ hợp đã xét: " + nv.getTtThm());
         }
     }
 
@@ -324,7 +316,8 @@ public class NguyenVongDialog extends JDialog {
             }
         }
 
-        String thm = cboTohop.isVisible() ? (String) cboTohop.getSelectedItem() : null;
+        // Tổ hợp xét tuyển để trống để hệ thống tự chọn tổ hợp cao nhất khi xét tuyển.
+        String thm = null;
 
         try {
             if (nv == null) {

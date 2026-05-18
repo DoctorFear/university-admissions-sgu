@@ -256,6 +256,8 @@ public class NganhTohopPanel extends JPanel {
     }
 
     private void doAdd() {
+        // Cập nhật lại danh sách ngành trước khi mở form thêm ngành-tổ hợp
+        loadNganhMap();
         NganhTohopDialog dlg = new NganhTohopDialog(SwingUtilities.getWindowAncestor(this), null, nganhNameMap);
         dlg.setVisible(true);
         if (dlg.isSaved()) {
@@ -284,6 +286,8 @@ public class NganhTohopPanel extends JPanel {
         NganhTohop entity = displayedEntities.get(realIdx);
         if (entity == null) return;
 
+        // Cập nhật lại danh sách ngành trước khi mở form sửa ngành-tổ hợp
+        loadNganhMap();
         NganhTohopDialog dlg = new NganhTohopDialog(SwingUtilities.getWindowAncestor(this), entity, nganhNameMap);
         dlg.setVisible(true);
         if (dlg.isSaved()) {

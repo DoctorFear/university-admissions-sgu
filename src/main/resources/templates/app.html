@@ -8,6 +8,58 @@
     <meta name="description" content="Tra cứu kết quả xét tuyển và tham khảo cách tính điểm xét tuyển đại học.">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/index.css}">
+    <style>
+        .score-tab-content {
+            margin-top: 14px;
+        }
+
+        .score-tab-content h2 {
+            display: inline-flex;
+            align-items: center;
+            border: 0 !important;
+            border-radius: 999px;
+            padding: 3px 10px;
+            margin: 0 0 10px 0 !important;
+            font-size: 0.82rem;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+
+        #thpt-tab h2,
+        #vsat-tab h2,
+        #dgnl-tab h2 {
+            background: #dbeafe;
+            color: #1d4ed8;
+        }
+
+        .score-item {
+            background: rgba(255, 255, 255, 0.72);
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 12px 14px;
+            min-height: 58px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .score-item span {
+            display: block;
+            color: #334155;
+            font-size: 0.78rem;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .score-item strong {
+            display: block;
+            color: #1565c0;
+            font-size: 1.35rem;
+            font-weight: 800;
+            line-height: 1.1;
+        }
+
+    </style>
 </head>
 
 <body th:data-active-tab="${activeTab}" th:data-active-method="${activeCalcMethod}">
@@ -280,12 +332,12 @@
 
                                     <div th:if="${result.thpt.nk5 != null}" class="score-item">
                                         <span>Năng khiếu 5</span>
-                                        <strong th:text="${#numbers.formatDecimal(result.thpt.gdcd,5,2)}"></strong>
+                                        <strong th:text="${#numbers.formatDecimal(result.thpt.nk5,1,2)}"></strong>
                                     </div>
 
                                     <div th:if="${result.thpt.nk6 != null}" class="score-item">
                                         <span>Năng khiếu 6</span>
-                                        <strong th:text="${#numbers.formatDecimal(result.thpt.gdcd,6,2)}"></strong>
+                                        <strong th:text="${#numbers.formatDecimal(result.thpt.nk6,1,2)}"></strong>
                                     </div>
 
                                     <div th:if="${result.thpt.n1Thi != null}" class="score-item">
@@ -348,10 +400,6 @@
                                         <strong th:text="${#numbers.formatDecimal(result.vsat.n1Thi,1,2)}"></strong>
                                     </div>
 
-                                    <div th:if="${result.vsat.n1Thi == null and result.vsat.n1Cc != null}" class="score-item">
-                                        <span>Tiếng anh</span>
-                                        <strong th:text="${#numbers.formatDecimal(result.vsat.n1Thi,1,2)}"></strong>
-                                    </div>
                                 </div>
                             </div>
 
@@ -718,7 +766,7 @@
                                                     <tr style="background: #f8fafc;" th:if="${nv.diemThxt != null}">
                                                         <td
                                                             style="padding:10px 14px; border-bottom:1px solid #e2e8f0; color: #475569;">
-                                                            Điểm tổ hợp xét tuyển (ĐTHXT)</td>
+                                                            Điểm tổ hợp gốc xét tuyển (ĐTHGXT)</td>
                                                         <td style="padding:10px 14px; border-bottom:1px solid #e2e8f0; text-align:right; font-weight:700; color:#1e3a8a; font-size: 1rem;"
                                                             th:text="${#numbers.formatDecimal(nv.diemThxt, 1, 2)}"></td>
                                                     </tr>
@@ -804,28 +852,6 @@
                                             </table>
                                         </div>
 
-                                        <!-- Phần 3: Điểm thi chi tiết từng môn -->
-                                        <div th:if="${nv.diemThiChiTiet != null and !nv.diemThiChiTiet.isEmpty()}">
-                                            <div
-                                                style="font-weight:700; font-size:0.9rem; color:#334155; margin-bottom:8px; padding-bottom:4px; border-bottom:1px solid #e2e8f0;">
-                                                📝 Điểm thi chi tiết từng môn
-                                            </div>
-                                            <div
-                                                style="display:grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap:8px;">
-                                                <div th:each="entry : ${nv.diemThiChiTiet}"
-                                                    style="display:flex; justify-content:space-between; align-items:center; padding:8px 12px; background:linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); border-radius:8px; border:1px solid #e2e8f0; font-size:0.85rem; box-shadow:0 1px 2px rgba(0,0,0,0.03);">
-                                                    <span style="color:#64748b;" th:text="${entry.key}"></span>
-                                                    <strong style="color:#1e293b; font-size:0.95rem;"
-                                                        th:text="${#numbers.formatDecimal(entry.value, 1, 2)}"></strong>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <!-- Không có dữ liệu điểm thi -->
-                                        <div th:if="${nv.diemThiChiTiet == null or nv.diemThiChiTiet.isEmpty()}"
-                                            style="font-size:0.85rem; color:#94a3b8; font-style:italic; padding: 8px 0;">
-                                            Chưa có dữ liệu điểm thi chi tiết cho nguyện vọng này.
-                                        </div>
                                     </div>
                                 </details>
                             </div>

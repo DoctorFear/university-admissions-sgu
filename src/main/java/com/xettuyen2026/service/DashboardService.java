@@ -7,6 +7,7 @@ import com.xettuyen2026.dto.DashboardData;
 import com.xettuyen2026.entity.Nganh;
 import com.xettuyen2026.entity.NguyenVongXetTuyen;
 
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.LinkedHashMap;
@@ -83,6 +84,7 @@ public class DashboardService {
     // Thống kê số lượng nguyện vọng theo phương thức xét tuyển
     private List<DashboardData.MethodStatItem> getMethodStats(List<NguyenVongXetTuyen> nguyenVongList) {
         Map<String, Long> counts = new LinkedHashMap<>();
+        counts.put("PT1 - Tuyển thẳng", 0L);
         counts.put("THPT - Xét điểm THPT", 0L);
         counts.put("ĐGNL - Đánh giá năng lực", 0L);
         counts.put("VSAT - Đánh giá V-SAT", 0L);
@@ -109,19 +111,33 @@ public class DashboardService {
         if (phuongThuc == null) {
             return null;
         }
-        String value = phuongThuc.trim().toUpperCase(Locale.ROOT);
+        String value = normalizeText(phuongThuc);
         if (value.isEmpty()) {
             return null;
         }
-        if ("PT2".equals(value) || "THPT".equals(value) || "1".equals(value) || "2".equals(value)) {
+        if ("1".equals(value) || value.startsWith("PT1") || value.contains("TUYEN THANG") || "TT".equals(value)) {
+            return "PT1 - Tuyển thẳng";
+        }
+        if ("2".equals(value) || value.startsWith("PT2") || value.contains("THPT")) {
             return "THPT - Xét điểm THPT";
         }
-        if ("PT4".equals(value) || "DGNL".equals(value) || "4".equals(value)) {
+        if ("4".equals(value) || value.startsWith("PT4") || value.contains("DGNL")) {
             return "ĐGNL - Đánh giá năng lực";
         }
-        if ("PT3".equals(value) || "PT5".equals(value) || "VSAT".equals(value) || "5".equals(value)) {
+        if ("3".equals(value) || "5".equals(value) || value.startsWith("PT3") || value.startsWith("PT5")
+                || value.contains("VSAT") || value.contains("V-SAT")) {
             return "VSAT - Đánh giá V-SAT";
         }
         return null;
+    }
+
+    // Chuẩn hóa chuỗi phương thức để thống kê đúng các kiểu lưu PT hiện tại
+    private String normalizeText(String value) {
+        return Normalizer.normalize(value.trim(), Normalizer.Form.NFD)
+                .replaceAll("\\p{M}+", "")
+                .replace('đ', 'd')
+                .replace('Đ', 'D')
+                .toUpperCase(Locale.ROOT)
+                .replaceAll("\\s+", " ");
     }
 }
