@@ -3,6 +3,8 @@ package com.xettuyen2026.dto;
 import java.util.List;
 import java.util.Map;
 
+import com.xettuyen2026.entity.DiemThiXetTuyen;
+
 public class TraCuuResponse {
     private boolean success;
     private String message;
@@ -25,6 +27,10 @@ public class TraCuuResponse {
     private java.util.Map<String, java.util.Map<String, Double>> allDiemThi;
     // Tên hiển thị của các phương thức: ptCode → display name
     private java.util.Map<String, String> allDiemThiLabels;
+
+    private DiemThiXetTuyen thpt; 
+    private DiemThiXetTuyen vsat; 
+    private DiemThiXetTuyen dgnl; 
 
     public static class NguyenVongDTO {
         private String maNganh;
@@ -165,4 +171,11 @@ public class TraCuuResponse {
     public void setAllDiemThi(java.util.Map<String, java.util.Map<String, Double>> allDiemThi) { this.allDiemThi = allDiemThi; }
     public java.util.Map<String, String> getAllDiemThiLabels() { return allDiemThiLabels; }
     public void setAllDiemThiLabels(java.util.Map<String, String> allDiemThiLabels) { this.allDiemThiLabels = allDiemThiLabels; }
+
+    public DiemThiXetTuyen getThpt() { return thpt; }
+    public void setThpt(DiemThiXetTuyen thpt) { this.thpt = thpt; }
+    public DiemThiXetTuyen getVsat() { return vsat; }
+    public void setVsat(DiemThiXetTuyen vsat) { this.vsat = vsat; }
+    public DiemThiXetTuyen getDgnl() { return dgnl; }
+    public void setDgnl(DiemThiXetTuyen dgnl) { this.dgnl = dgnl; }
 }

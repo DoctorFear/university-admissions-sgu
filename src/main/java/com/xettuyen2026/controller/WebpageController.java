@@ -29,7 +29,6 @@ public class WebpageController {
     @PostMapping("/tracuu")
     public String traCuu(TraCuuRequest request, Model model) {
         
-
         model.addAttribute("result", service.tracuu(request));
 
         model.addAttribute(

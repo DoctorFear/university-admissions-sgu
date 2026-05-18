@@ -1,6 +1,12 @@
 package com.xettuyen2026.service;
 
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
 import com.xettuyen2026.dao.BangQuydoiDAO;
 import com.xettuyen2026.dao.DiemThiDAO;
 import com.xettuyen2026.dao.NganhDAO;
@@ -17,12 +23,6 @@ import com.xettuyen2026.entity.Nganh;
 import com.xettuyen2026.entity.NganhTohop;
 import com.xettuyen2026.entity.NguyenVongXetTuyen;
 import com.xettuyen2026.entity.ThiSinh;
-
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
 
 public class WebpageService {
     
@@ -178,6 +178,10 @@ public class WebpageService {
                     response.setPending(isPending);
                     response.setAdmitted(isAdmitted);
                     response.setAdmittedNV(admittedNV);
+
+                    response.setVsat(diemThiDAO.findByCccdAndPhuongThuc(ts.getCccd(), "5"));
+                    response.setDgnl(diemThiDAO.findByCccdAndPhuongThuc(ts.getCccd(), "4"));
+                    response.setThpt(diemThiDAO.findByCccdAndPhuongThuc(ts.getCccd(), "1"));
                 }
             }
 

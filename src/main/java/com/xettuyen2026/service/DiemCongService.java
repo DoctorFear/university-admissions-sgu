@@ -88,7 +88,7 @@ public class DiemCongService {
         try (FileInputStream fis = new FileInputStream(path);
             Workbook wb = new XSSFWorkbook(fis)) {
 
-            Sheet sheet = wb.getSheetAt(0);
+            Sheet sheet = wb.getSheetAt(1);
 
             for (Row row : sheet) {
                 if (row.getRowNum() == 0) continue;

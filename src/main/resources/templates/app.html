@@ -159,38 +159,238 @@
                         </div>
 
                         <!-- ĐIỂM THI CỦA THÍ SINH - TẤT CẢ PHƯƠNG THỨC -->
-                        <div th:if="${result.allDiemThi != null and !result.allDiemThi.isEmpty()}"
-                            style="background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); border: 1px solid #93c5fd; border-radius: 12px; padding: 1.2rem 1.5rem; margin-bottom: 1.5rem;">
-                            <div
-                                style="font-size: 1rem; font-weight: 700; color: #1e40af; margin-bottom: 12px; border-bottom: 2px solid #3b82f6; padding-bottom: 6px;">
+                        <div th:if="${result.dgnl != null or result.thpt != null or result.vsat != null}"
+                            style="background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+                                border: 1px solid #93c5fd;
+                                border-radius: 12px;
+                                padding: 1.2rem 1.5rem;
+                                margin-bottom: 1.5rem;">
+
+                            <!-- HEADER -->
+                            <div style="font-size: 1rem;
+                                        font-weight: 700;
+                                        color: #1e40af;
+                                        margin-bottom: 14px;
+                                        border-bottom: 2px solid #3b82f6;
+                                        padding-bottom: 6px;">
+
                                 <svg style="width:18px;height:18px;display:inline-block;vertical-align:middle;margin-right:6px;"
                                     fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    <path stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2"
                                         d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4">
                                     </path>
                                 </svg>
-                                Bảng điểm thi của thí sinh (tất cả phương thức)
+
+                                Bảng điểm thi của thí sinh
                             </div>
 
-                            <th:block th:each="entry : ${result.allDiemThi}">
-                                <div style="margin-bottom: 12px;">
-                                    <div style="font-weight: 600; font-size: 0.88rem; color: #312e81; margin-bottom: 6px; padding: 4px 10px; background: #e0e7ff; border-radius: 6px; display: inline-block;">
-                                        <span th:text="${result.allDiemThiLabels != null and result.allDiemThiLabels.containsKey(entry.key) ? result.allDiemThiLabels[entry.key] : entry.key}"></span>
+                            <!-- THPT -->
+                            <div id="thpt-tab"
+                                class="score-tab-content active"
+                                th:if="${result.thpt != null}">
+                                <h2 style="border-bottom: 1px black solid;
+                                            margin-top: 4px;
+                                            margin-bottom: 2px;">THPT</h2>
+
+                                <div style="display:grid;
+                                            grid-template-columns:repeat(auto-fill,minmax(170px,1fr));
+                                            gap:8px;">
+
+                                    <div th:if="${result.thpt.to != null}" class="score-item">
+                                        <span>Toán</span>
+                                        <strong th:text="${#numbers.formatDecimal(result.thpt.to,1,2)}"></strong>
                                     </div>
-                                    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 8px;">
-                                        <div th:each="mon : ${entry.value}"
-                                            style="display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; background: #fff; border-radius: 8px; border: 1px solid #bfdbfe; font-size: 0.85rem; box-shadow: 0 1px 2px rgba(0,0,0,0.04);">
-                                            <span style="color: #475569;" th:text="${mon.key}"></span>
-                                            <strong style="color: #1e3a8a; font-size: 0.95rem;"
-                                                th:text="${#numbers.formatDecimal(mon.value, 1, 2)}"></strong>
+
+                                    <div th:if="${result.thpt.va != null}" class="score-item">
+                                        <span>Ngữ văn</span>
+                                        <strong th:text="${#numbers.formatDecimal(result.thpt.va,1,2)}"></strong>
+                                    </div>
+
+                                    <div th:if="${result.thpt.li != null}" class="score-item">
+                                        <span>Vật lý</span>
+                                        <strong th:text="${#numbers.formatDecimal(result.thpt.li,1,2)}"></strong>
+                                    </div>
+
+                                    <div th:if="${result.thpt.ho != null}" class="score-item">
+                                        <span>Hóa học</span>
+                                        <strong th:text="${#numbers.formatDecimal(result.thpt.ho,1,2)}"></strong>
+                                    </div>
+
+                                    <div th:if="${result.thpt.si != null}" class="score-item">
+                                        <span>Sinh học</span>
+                                        <strong th:text="${#numbers.formatDecimal(result.thpt.si,1,2)}"></strong>
+                                    </div>
+
+                                    <div th:if="${result.thpt.su != null}" class="score-item">
+                                        <span>Lịch sử</span>
+                                        <strong th:text="${#numbers.formatDecimal(result.thpt.su,1,2)}"></strong>
+                                    </div>
+
+                                    <div th:if="${result.thpt.di != null}" class="score-item">
+                                        <span>Địa lí</span>
+                                        <strong th:text="${#numbers.formatDecimal(result.thpt.di,1,2)}"></strong>
+                                    </div>
+
+                                    <div th:if="${result.thpt.gdcd != null}" class="score-item">
+                                        <span>GDCD</span>
+                                        <strong th:text="${#numbers.formatDecimal(result.thpt.gdcd,1,2)}"></strong>
+                                    </div>
+
+                                    <div th:if="${result.thpt.cncn != null}" class="score-item">
+                                        <span>Công nghệ chăn nuôi</span>
+                                        <strong th:text="${#numbers.formatDecimal(result.thpt.cncn,1,2)}"></strong>
+                                    </div>
+
+                                    <div th:if="${result.thpt.cnnn != null}" class="score-item">
+                                        <span>Công nghệ nông nghiệp</span>
+                                        <strong th:text="${#numbers.formatDecimal(result.thpt.cnnn,1,2)}"></strong>
+                                    </div>
+
+                                    <div th:if="${result.thpt.ti != null}" class="score-item">
+                                        <span>Tin học</span>
+                                        <strong th:text="${#numbers.formatDecimal(result.thpt.ti,1,2)}"></strong>
+                                    </div>
+
+                                    <div th:if="${result.thpt.ktpl != null}" class="score-item">
+                                        <span>Kinh tế pháp luật</span>
+                                        <strong th:text="${#numbers.formatDecimal(result.thpt.ktpl,1,2)}"></strong>
+                                    </div>
+
+                                    <div th:if="${result.thpt.nk1 != null}" class="score-item">
+                                        <span>Năng khiếu 1</span>
+                                        <strong th:text="${#numbers.formatDecimal(result.thpt.nk1,1,2)}"></strong>
+                                    </div>
+
+                                    <div th:if="${result.thpt.nk2 != null}" class="score-item">
+                                        <span>Năng khiếu 2</span>
+                                        <strong th:text="${#numbers.formatDecimal(result.thpt.nk2,1,2)}"></strong>
+                                    </div>
+
+                                    <div th:if="${result.thpt.nk3 != null}" class="score-item">
+                                        <span>Năng khiếu 3</span>
+                                        <strong th:text="${#numbers.formatDecimal(result.thpt.nk3,1,2)}"></strong>
+                                    </div>
+
+                                    <div th:if="${result.thpt.nk4 != null}" class="score-item">
+                                        <span>Năng khiếu 4</span>
+                                        <strong th:text="${#numbers.formatDecimal(result.thpt.nk4,1,2)}"></strong>
+                                    </div>
+
+                                    <div th:if="${result.thpt.nk5 != null}" class="score-item">
+                                        <span>Năng khiếu 5</span>
+                                        <strong th:text="${#numbers.formatDecimal(result.thpt.gdcd,5,2)}"></strong>
+                                    </div>
+
+                                    <div th:if="${result.thpt.nk6 != null}" class="score-item">
+                                        <span>Năng khiếu 6</span>
+                                        <strong th:text="${#numbers.formatDecimal(result.thpt.gdcd,6,2)}"></strong>
+                                    </div>
+
+                                    <div th:if="${result.thpt.n1Thi != null}" class="score-item">
+                                        <span>Tiếng Anh</span>
+                                        <strong th:text="${#numbers.formatDecimal(result.thpt.n1Thi,1,2)}"></strong>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <!-- VSAT -->
+                            <div id="vsat-tab"
+                                class="score-tab-content"
+                                th:if="${result.vsat != null}">
+                                <h2 style="border-bottom: 1px black solid;
+                                            margin-top: 4px;
+                                            margin-bottom: 2px;">VSAT</h2>
+
+                                <div style="display:grid;
+                                            grid-template-columns:repeat(auto-fill,minmax(170px,1fr));
+                                            gap:8px;">
+
+                                    <div th:if="${result.vsat.to != null}" class="score-item">
+                                        <span>Toán</span>
+                                        <strong th:text="${#numbers.formatDecimal(result.vsat.to,1,2)}"></strong>
+                                    </div>
+
+                                    <div th:if="${result.vsat.va != null}" class="score-item">
+                                        <span>Ngữ văn</span>
+                                        <strong th:text="${#numbers.formatDecimal(result.vsat.va,1,2)}"></strong>
+                                    </div>
+
+                                    <div th:if="${result.vsat.li != null}" class="score-item">
+                                        <span>Vật lý</span>
+                                        <strong th:text="${#numbers.formatDecimal(result.vsat.li,1,2)}"></strong>
+                                    </div>
+
+                                    <div th:if="${result.vsat.ho != null}" class="score-item">
+                                        <span>Hóa học</span>
+                                        <strong th:text="${#numbers.formatDecimal(result.vsat.ho,1,2)}"></strong>
+                                    </div>
+
+                                    <div th:if="${result.vsat.si != null}" class="score-item">
+                                        <span>Sinh học</span>
+                                        <strong th:text="${#numbers.formatDecimal(result.vsat.si,1,2)}"></strong>
+                                    </div>
+
+                                    <div th:if="${result.vsat.su != null}" class="score-item">
+                                        <span>Lịch sử</span>
+                                        <strong th:text="${#numbers.formatDecimal(result.vsat.su,1,2)}"></strong>
+                                    </div>
+
+                                    <div th:if="${result.vsat.di != null}" class="score-item">
+                                        <span>Địa lý</span>
+                                        <strong th:text="${#numbers.formatDecimal(result.vsat.di,1,2)}"></strong>
+                                    </div>
+
+                                    <div th:if="${result.vsat.n1Thi != null}" class="score-item">
+                                        <span>Tiếng anh</span>
+                                        <strong th:text="${#numbers.formatDecimal(result.vsat.n1Thi,1,2)}"></strong>
+                                    </div>
+
+                                    <div th:if="${result.vsat.n1Thi == null and result.vsat.n1Cc != null}" class="score-item">
+                                        <span>Tiếng anh</span>
+                                        <strong th:text="${#numbers.formatDecimal(result.vsat.n1Thi,1,2)}"></strong>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- DGNL -->
+                            <div id="dgnl-tab"
+                                class="score-tab-content"
+                                th:if="${result.dgnl != null}">
+                                <h2 style="border-bottom: 1px black solid;
+                                            margin-top: 4px;
+                                            margin-bottom: 2px;">DGNL</h2>
+
+                                <div style="display:flex;
+                                            padding:10px;">
+
+                                    <div style="background:#fff;
+                                                border:1px solid #bfdbfe;
+                                                border-radius:12px;
+                                                padding:20px;
+                                                min-width:220px;">
+
+                                        <div style="font-size:0.9rem;
+                                                    color:#64748b;
+                                                    margin-bottom:6px;">
+                                            Điểm ĐGNL
+                                        </div>
+
+                                        <div style="font-size:2rem;
+                                                    font-weight:800;
+                                                    color:#1d4ed8;"
+                                            th:text="${#numbers.formatDecimal(result.dgnl.nl1,1,0)}">
                                         </div>
                                     </div>
                                 </div>
-                            </th:block>
+                            </div>
+
                         </div>
 
                         <!-- Fallback: không có dữ liệu điểm thi nào -->
-                        <div th:if="${result.allDiemThi == null or result.allDiemThi.isEmpty()}"
+                        <div th:if="${result.dgnl == null and result.thpt == null and result.vsat == null}"
                             style="background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); border: 1px solid #93c5fd; border-radius: 12px; padding: 1.2rem 1.5rem; margin-bottom: 1.5rem;">
                             <div style="font-size: 1rem; font-weight: 700; color: #1e40af; margin-bottom: 12px; border-bottom: 2px solid #3b82f6; padding-bottom: 6px;">
                                 <svg style="width:18px;height:18px;display:inline-block;vertical-align:middle;margin-right:6px;"
